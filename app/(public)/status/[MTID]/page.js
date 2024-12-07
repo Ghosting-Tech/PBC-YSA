@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocalStorage } from "@/components/common/LocalStorageWrapper";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
@@ -14,6 +15,7 @@ const PaymentStatusPage = () => {
   const { MTID } = useParams();
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useLocalStorage("cart", []);
 
   useEffect(() => {
     const checkStatus = async () => {
@@ -29,6 +31,7 @@ const PaymentStatusPage = () => {
         const data = await response.json();
         if (data.success) {
           setPaymentStatus(true);
+          setCart([]);
         } else {
           setPaymentStatus(false);
           throw new Error();
@@ -52,7 +55,7 @@ const PaymentStatusPage = () => {
   }
 
   return (
-    (<div className="flex justify-center items-center py-48 bg-gray-100">
+    <div className="flex justify-center items-center py-48 bg-gray-100">
       {paymentStatus ? (
         <div className="p-6 bg-white rounded-lg shadow-lg text-center">
           <svg
@@ -119,7 +122,7 @@ const PaymentStatusPage = () => {
           </div>
         </div>
       )}
-    </div>)
+    </div>
   );
 };
 

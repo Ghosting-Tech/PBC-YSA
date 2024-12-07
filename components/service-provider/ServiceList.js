@@ -47,7 +47,7 @@ const ServicesList = ({
   };
 
   return (
-    (<div className="p-4 bg-white rounded-xl shadow-md flex flex-col gap-4 items-center my-6">
+    <div className="p-4 bg-white rounded-xl shadow-md flex flex-col gap-4 items-center my-6">
       <div className="flex items-center md:flex-row flex-col justify-between w-full">
         <h1 className="flex items-center gap-1 text-2xl md:flex-row font-bold text-gray-700">
           <IoSettings size={30} /> Services You Provide
@@ -77,10 +77,7 @@ const ServicesList = ({
               src={service?.icon?.url}
               alt=""
               className="w-10 aspect-square rounded object-cover mr-2"
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
             {service?.name}
             {role != "admin" && (
               <ListItemSuffix>
@@ -98,7 +95,7 @@ const ServicesList = ({
           </ListItem>
         ))}
       </div>
-    </div>)
+    </div>
   );
 };
 

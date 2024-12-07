@@ -95,7 +95,7 @@ const Hero = ({ customizeData }) => {
   };
 
   return (
-    (<motion.div
+    <motion.div
       ref={ref}
       className="overflow-hidden relative"
       variants={containerVariants}
@@ -266,10 +266,7 @@ const Hero = ({ customizeData }) => {
                     width={1000}
                     height={600}
                     className="h-[450px] lg:h-[650px] w-full object-cover"
-                    style={{
-                      maxWidth: "100%",
-                      height: "auto"
-                    }} />
+                  />
                 ))}
               </Carousel>
               <motion.div
@@ -295,7 +292,7 @@ const Hero = ({ customizeData }) => {
           </motion.div>
         </div>
       </div>
-    </motion.div>)
+    </motion.div>
   );
 };
 

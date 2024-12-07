@@ -41,7 +41,7 @@ export default function Page() {
     );
   }
   return (
-    (<div className="p-3">
+    <div className="p-3">
       <Heading
         icon={
           <div className="bg-teal-500 p-1 rounded-full inline-block">
@@ -60,11 +60,7 @@ export default function Page() {
               className="rounded-lg"
               fill
               sizes="100vw"
-              style={{
-                objectFit: "contain",
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
           </div>
 
           {/* Title Section */}
@@ -82,6 +78,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
   );
 }

@@ -118,7 +118,7 @@ export default function NavList() {
   const handleLocationDialog = () => setOpenLocationDialog(!openLocationDialog);
 
   return (
-    (<List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 md:gap-4">
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 md:gap-4">
       <ServicesList />
       <div className="flex gap-2 justify-evenly">
         <Button
@@ -187,7 +187,7 @@ export default function NavList() {
                 ) : searchedData.length <= 0 ? (
                   topServices.map((service, index) => {
                     return (
-                      (<div
+                      <div
                         key={index}
                         className="bg-white rounded-lg py-4 px-4"
                       >
@@ -198,10 +198,7 @@ export default function NavList() {
                             src={service.icon.url}
                             alt={service.name}
                             className="w-10 h-10 md:w-16 md:h-16 rounded-md"
-                            style={{
-                              maxWidth: "100%",
-                              height: "auto"
-                            }} />
+                          />
                           <div className="flex flex-col items-center gap-1 w-full">
                             <h2 className="text-gray-700 font-julius font-semibold text-center">
                               {service.name}
@@ -220,13 +217,13 @@ export default function NavList() {
                             </Link>
                           </div>
                         </div>
-                      </div>)
+                      </div>
                     );
                   })
                 ) : (
                   searchedData.map((service, index) => {
                     return (
-                      (<div
+                      <div
                         key={index}
                         className="bg-white rounded-lg py-4 px-4 h-fit"
                       >
@@ -237,10 +234,7 @@ export default function NavList() {
                             src={service.item.icon.url}
                             alt={service.item.name}
                             className="w-10 h-10 md:w-16 md:h-16 rounded-md"
-                            style={{
-                              maxWidth: "100%",
-                              height: "auto"
-                            }} />
+                          />
                           <div className="flex flex-col items-center gap-1 w-full">
                             <h2 className="text-gray-700 font-julius font-semibold text-center">
                               {service.item.name}
@@ -265,7 +259,7 @@ export default function NavList() {
                             </Link>
                           </div>
                         </div>
-                      </div>)
+                      </div>
                     );
                   })
                 )}
@@ -274,6 +268,6 @@ export default function NavList() {
           </DialogBody>
         </Dialog>
       </div>
-    </List>)
+    </List>
   );
 }

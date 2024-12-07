@@ -4,7 +4,7 @@ import React from "react";
 
 const BookingDetails = ({ booking }) => {
   return (
-    (<div className="bg-white p-6 rounded-lg shadow mb-6">
+    <div className="bg-white p-6 rounded-lg shadow mb-6">
       <h3 className="text-xl font-bold text-gray-800 mb-4">
         Booking Information
       </h3>
@@ -65,13 +65,10 @@ const BookingDetails = ({ booking }) => {
             src={booking.verificationImage?.url || "https://placehold.co/400"}
             alt={booking.otpVerified ? "Verified" : "Not Verified"}
             className="w-32 h-32 rounded-lg object-cover"
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} />
+          />
         </div>
       </div>
-    </div>)
+    </div>
   );
 };
 

@@ -51,7 +51,7 @@ const HowToBook = () => {
   };
 
   return (
-    (<section className="py-6">
+    <section className="py-6">
       <motion.div
         className="container mx-auto px-4"
         variants={containerVariants}
@@ -83,10 +83,7 @@ const HowToBook = () => {
               src="/image/line2.svg"
               alt="Decorative line"
               className="mx-auto"
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
           </motion.div>
         </motion.div>
         <motion.div
@@ -100,7 +97,7 @@ const HowToBook = () => {
           ))}
         </motion.div>
       </motion.div>
-    </section>)
+    </section>
   );
 };
 

@@ -162,7 +162,7 @@ function Shipping() {
         }
 
         // Clear cart after successful booking
-        setCart([]);
+        // setCart([]);
       } else {
         const errorMessage = response.data?.error;
         toast.error(errorMessage);
@@ -197,18 +197,17 @@ function Shipping() {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
     );
-    if (!response.ok) throw new Error("Failed to fetch address");
+    if (!response.ok) toast.error("Failed to fetch address");
 
     const data = await response.json();
     const formattedAddress =
       data.results?.[0]?.formatted_address || "Unknown Address";
 
-    console.log({ formattedAddress });
     setFormData((prev) => ({ ...prev, address: formattedAddress }));
   };
 
   return (
-    (<div>
+    <div>
       <div className="flex flex-col md:flex-row justify-center gap-20 p-8">
         <div className="w-full md:w-1/3">
           <h2 className="font-julius lg:text-4xl md:text-4xl sm:text-3xl text-3xl mb-4 text-gray-700">
@@ -223,12 +222,7 @@ function Shipping() {
                   width={100}
                   height={100}
                   className="w-24 h-24 mr-3 object-cover rounded-lg"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
+                />
                 <div>
                   <h3 className="font-bold">{item.name}</h3>
                   <p className="text-sm">Qty: {item.quantity}</p>
@@ -378,7 +372,7 @@ function Shipping() {
           </form>
         </div>
       </div>
-    </div>)
+    </div>
   );
 }
 

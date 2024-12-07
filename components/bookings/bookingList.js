@@ -12,10 +12,10 @@ const options = {
 
 const BookingList = ({ bookings, forUser }) => {
   return (
-    (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {bookings?.map((service, index) => {
         return (
-          (<div
+          <div
             key={index}
             className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col justify-between"
           >
@@ -59,10 +59,7 @@ const BookingList = ({ bookings, forUser }) => {
                         className="w-16 h-16 rounded-full object-cover"
                         src={item.icon?.url}
                         alt={item.name}
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto"
-                        }} />
+                      />
                     </div>
                     <div className="flex-grow">
                       <p className="text-xs">
@@ -112,10 +109,10 @@ const BookingList = ({ bookings, forUser }) => {
                 <IoMdOpen />
               </Link>
             )}
-          </div>)
+          </div>
         );
       })}
-    </div>)
+    </div>
   );
 };
 

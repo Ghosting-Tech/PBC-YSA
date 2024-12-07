@@ -102,7 +102,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
   };
 
   return (
-    (<div className="w-full max-w-full">
+    <div className="w-full max-w-full">
       {/* <h2 className="text-xl text-gray-700 font-semibold mb-4">
         Upload Verification Image
       </h2> */}
@@ -131,10 +131,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
               width={500}
               height={500}
               className="w-48 aspect-square object-cover rounded-lg"
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
           ) : (
             <div>
               <MdOutlineCloudUpload className="w-16 h-16 text-gray-400" />
@@ -195,7 +192,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
           <span>Service completed - Image upload disabled</span>
         </div>
       )}
-    </div>)
+    </div>
   );
 };
 

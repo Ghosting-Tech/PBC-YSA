@@ -48,7 +48,7 @@ const BlogCard = ({
   };
 
   return (
-    (<motion.div
+    <motion.div
       ref={ref}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
@@ -61,10 +61,7 @@ const BlogCard = ({
             alt="Blog Image"
             fill
             className="rounded-t-xl object-cover z-10 transition-transform duration-300 ease-in-out group-hover:scale-105"
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} />
+          />
         </div>
         <CardBody className="flex flex-col justify-between flex-grow">
           <div>
@@ -136,7 +133,7 @@ const BlogCard = ({
           </Link>
         </CardFooter>
       </Card>
-    </motion.div>)
+    </motion.div>
   );
 };
 

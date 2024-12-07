@@ -138,378 +138,350 @@ const Service = () => {
 
   const [rating, setRating] = useState(0);
 
-  return (<>
-    <div
-      className={`grid place-items-center min-h-screen absolute w-full bg-white transition-all duration-700 top-0 ${
-        loading ? "opacity-100" : "opacity-0"
-      } ${loading ? "z-50" : "-z-50"}`}
-    >
-      <Loading />
-    </div>
-    <div
-      className={`${
-        loading ? "hidden" : "block"
-      } transition-all duration-700`}
-    >
-      <Drawer
-        open={open}
-        onClose={closeDrawer}
-        className="p-4 shadow-lg overflow-auto"
-        dismiss={{ enabled: false }}
-        overlay={false}
-        size={420}
-        placement="right"
+  return (
+    <>
+      <div
+        className={`grid place-items-center min-h-screen absolute w-full bg-white transition-all duration-700 top-0 ${
+          loading ? "opacity-100" : "opacity-0"
+        } ${loading ? "z-50" : "-z-50"}`}
       >
-        <div className="mb-6 flex items-center justify-between">
-          <Typography variant="h5" color="blue-gray">
-            Cart Services
-          </Typography>
-          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-5 w-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </IconButton>
-        </div>
-        <div className="flex flex-col gap-4">
-          {cartItems.map((item) => {
-            return (
-              (<div key={item._id} className="flex items-center gap-2">
-                <Image
-                  width={1000}
-                  height={1000}
-                  // Replace with actual path
-                  src={item.icon?.url}
-                  alt="Service Icon"
-                  className="w-28 h-28 object-cover rounded shadow"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-xl leading-tight text-gray-700 font-bold w-full">
-                    {item.name}
-                  </h2>
-                  <Typography color="teal" variant="h5">
-                    ₹{item.price}
-                  </Typography>
-                  <Button
-                    onClick={() => removingCartItem(item._id)}
-                    color="red"
-                    variant="gradient"
-                    size="sm"
-                    className="rounded w-fit flex items-center gap-1"
-                  >
-                    Remove <IoBagRemove />
-                  </Button>
+        <Loading />
+      </div>
+      <div
+        className={`${
+          loading ? "hidden" : "block"
+        } transition-all duration-700`}
+      >
+        <Drawer
+          open={open}
+          onClose={closeDrawer}
+          className="p-4 shadow-lg overflow-auto"
+          dismiss={{ enabled: false }}
+          overlay={false}
+          size={420}
+          placement="right"
+        >
+          <div className="mb-6 flex items-center justify-between">
+            <Typography variant="h5" color="blue-gray">
+              Cart Services
+            </Typography>
+            <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </IconButton>
+          </div>
+          <div className="flex flex-col gap-4">
+            {cartItems.map((item) => {
+              return (
+                <div key={item._id} className="flex items-center gap-2">
+                  <Image
+                    width={1000}
+                    height={1000}
+                    // Replace with actual path
+                    src={item.icon?.url}
+                    alt="Service Icon"
+                    className="w-28 h-28 object-cover rounded shadow"
+                  />
+                  <div className="flex flex-col gap-1">
+                    <h2 className="text-xl leading-tight text-gray-700 font-bold w-full">
+                      {item.name}
+                    </h2>
+                    <Typography color="teal" variant="h5">
+                      ₹{item.price}
+                    </Typography>
+                    <Button
+                      onClick={() => removingCartItem(item._id)}
+                      color="red"
+                      variant="gradient"
+                      size="sm"
+                      className="rounded w-fit flex items-center gap-1"
+                    >
+                      Remove <IoBagRemove />
+                    </Button>
+                  </div>
                 </div>
-              </div>)
-            );
-          })}
-        </div>
-        <div className="flex gap-2 mt-4">
-          <Button
-            size="lg"
-            variant="outlined"
-            className="rounded flex items-center gap-1"
-            onClick={closeDrawer}
-          >
-            Continue Browsing <VscDebugContinue />
-          </Button>
-          <Link href={"/cart"} legacyBehavior>
+              );
+            })}
+          </div>
+          <div className="flex gap-2 mt-4">
             <Button
               size="lg"
-              color="gray"
-              variant="gradient"
+              variant="outlined"
               className="rounded flex items-center gap-1"
+              onClick={closeDrawer}
             >
-              Next <FaCartShopping />
+              Continue Browsing <VscDebugContinue />
             </Button>
-          </Link>
-        </div>
-      </Drawer>
-      <div className="px-4 md:px-20 my-6 flex flex-col gap-6">
-        <div className="flex flex-col lg:flex-row gap-6 w-full">
-          <div className="w-full lg:w-2/3 p-4 flex flex-col justify-center gap-6 rounded-lg">
-            <div className="flex items-center gap-2">
-              {service.icon?.url ? (
-                <Image
-                  width={100}
-                  height={100}
-                  src={service.icon.url}
-                  alt="Service Icon"
-                  className="w-24 h-24 object-cover rounded-lg"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
-              ) : (
-                <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <span>Icon</span>{" "}
-                  {/* Placeholder if no icon is available */}
-                </div>
-              )}
-
-              <div className="flex flex-col gap-2 justify-center">
-                <h2 className="lg:text-4xl md:text-5xl sm:text-5xl  text-4xl leading-tight text-gray-700 font-bold  ">
-                  {service.name}
-                </h2>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    <div className="flex">
-                      {Array.from({ length: 5 }, (e, index) => {
-                        let stars = rating;
-                        return (
-                          <span key={index} className="text-[#FFB800]">
-                            {stars >= index + 1 ? (
-                              <IoIosStar size={15} />
-                            ) : stars >= index + 0.5 ? (
-                              <IoIosStarHalf size={15} />
-                            ) : (
-                              <IoIosStarOutline size={15} />
-                            )}
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <span className="ml-1">{rating}</span>
+            <Link href={"/cart"} legacyBehavior>
+              <Button
+                size="lg"
+                color="gray"
+                variant="gradient"
+                className="rounded flex items-center gap-1"
+              >
+                Next <FaCartShopping />
+              </Button>
+            </Link>
+          </div>
+        </Drawer>
+        <div className="px-4 md:px-20 my-6 flex flex-col gap-6">
+          <div className="flex flex-col lg:flex-row gap-6 w-full">
+            <div className="w-full lg:w-2/3 p-4 flex flex-col justify-center gap-6 rounded-lg">
+              <div className="flex items-center gap-2">
+                {service.icon?.url ? (
+                  <Image
+                    width={100}
+                    height={100}
+                    src={service.icon.url}
+                    alt="Service Icon"
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <span>Icon</span>{" "}
+                    {/* Placeholder if no icon is available */}
                   </div>
-                  <span className="ml-2 text-gray-700">
-                    | {service?.reviews?.length} reviews
+                )}
+
+                <div className="flex flex-col gap-2 justify-center">
+                  <h2 className="lg:text-4xl md:text-5xl sm:text-5xl  text-4xl leading-tight text-gray-700 font-bold  ">
+                    {service.name}
+                  </h2>
+                  <div className="flex items-center">
+                    <div className="flex items-center">
+                      <div className="flex">
+                        {Array.from({ length: 5 }, (e, index) => {
+                          let stars = rating;
+                          return (
+                            <span key={index} className="text-[#FFB800]">
+                              {stars >= index + 1 ? (
+                                <IoIosStar size={15} />
+                              ) : stars >= index + 0.5 ? (
+                                <IoIosStarHalf size={15} />
+                              ) : (
+                                <IoIosStarOutline size={15} />
+                              )}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <span className="ml-1">{rating}</span>
+                    </div>
+                    <span className="ml-2 text-gray-700">
+                      | {service?.reviews?.length} reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600  overflow-y-auto no-scrollbar  max-h-24 max-w-[450px]">
+                {service.description}
+              </p>
+              <div className="flex gap-2 items-center  ">
+                <div className="whitespace-nowrap text-sm">
+                  Reviews & Bookings
+                </div>
+                <div className="h-px bg-gray-300 w-full"></div>
+              </div>
+              <div className="flex items-start gap-6 ">
+                <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
+                  <Image
+                    width={100}
+                    height={100}
+                    // Replace with actual path
+                    src="/icons/cargo.png"
+                    alt="Bookings Icon"
+                    className="w-20 object-cover"
+                  />
+                  <span className="text-gray-600 text-xl">
+                    {service?.bookings?.length} Bookings
+                  </span>
+                </div>
+                <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
+                  <Image
+                    width={100}
+                    height={100}
+                    // Replace with actual path
+                    src="/icons/star.png"
+                    alt="Star Icon"
+                    className="w-20 object-cover"
+                  />
+                  <span className="text-gray-600 text-xl">
+                    {rating} | {service?.reviews?.length} reviews
                   </span>
                 </div>
               </div>
             </div>
-            <p className="text-sm text-gray-600  overflow-y-auto no-scrollbar  max-h-24 max-w-[450px]">
-              {service.description}
-            </p>
-            <div className="flex gap-2 items-center  ">
-              <div className="whitespace-nowrap text-sm">
-                Reviews & Bookings
-              </div>
-              <div className="h-px bg-gray-300 w-full"></div>
-            </div>
-            <div className="flex items-start gap-6 ">
-              <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
-                <Image
-                  width={100}
-                  height={100}
-                  // Replace with actual path
-                  src="/icons/cargo.png"
-                  alt="Bookings Icon"
-                  className="w-20 object-cover"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
-                <span className="text-gray-600 text-xl">
-                  {service?.bookings?.length} Bookings
-                </span>
-              </div>
-              <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
-                <Image
-                  width={100}
-                  height={100}
-                  // Replace with actual path
-                  src="/icons/star.png"
-                  alt="Star Icon"
-                  className="w-20 object-cover"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
-                <span className="text-gray-600 text-xl">
-                  {rating} | {service?.reviews?.length} reviews
-                </span>
-              </div>
-            </div>
-          </div>
 
-          <Carousel
-            className="rounded-md w-full max-h-auto overflow-hidden"
-            loop
-            prevArrow={({ handlePrev }) => (
-              <IconButton
-                variant="text"
-                color="white"
-                size="lg"
-                onClick={handlePrev}
-                className="!absolute top-2/4 left-4 -translate-y-2/4"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="h-6 w-6"
+            <Carousel
+              className="rounded-md w-full max-h-auto overflow-hidden"
+              loop
+              prevArrow={({ handlePrev }) => (
+                <IconButton
+                  variant="text"
+                  color="white"
+                  size="lg"
+                  onClick={handlePrev}
+                  className="!absolute top-2/4 left-4 -translate-y-2/4"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-                  />
-                </svg>
-              </IconButton>
-            )}
-            nextArrow={({ handleNext }) => (
-              <IconButton
-                variant="text"
-                color="white"
-                size="lg"
-                onClick={handleNext}
-                className="!absolute top-2/4 !right-4 -translate-y-2/4"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="h-6 w-6"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                    />
+                  </svg>
+                </IconButton>
+              )}
+              nextArrow={({ handleNext }) => (
+                <IconButton
+                  variant="text"
+                  color="white"
+                  size="lg"
+                  onClick={handleNext}
+                  className="!absolute top-2/4 !right-4 -translate-y-2/4"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </IconButton>
-            )}
-          >
-            {service.images?.map((image) => (
-              <Image
-                width={1000}
-                height={1000}
-                key={image.name}
-                src={image.url}
-                alt=""
-                className="h-96 w-full object-cover"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
-            ))}
-          </Carousel>
-        </div>
-        <div className="w-full flex flex-col justify-center items-center py-4 px-4">
-          <h1 className="font-julius lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-gray-700 font-bold">
-            {service.name}
-          </h1>
-        </div>
-        <div className="container mx-auto">
-          {service.subServices?.length <= 4 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center">
-              {service.subServices?.map((subService, index) => (
-                <SubServiceCard
-                  forAdmin={false}
-                  cartItems={cartItems}
-                  removingCartItem={removingCartItem}
-                  handleAddingCart={handleAddingCart}
-                  key={index}
-                  sub={subService}
-                  index={index}
-                  serviceId={id}
-                  subServices={service.subServices}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </IconButton>
+              )}
+            >
+              {service.images?.map((image) => (
+                <Image
+                  width={1000}
+                  height={1000}
+                  key={image.name}
+                  src={image.url}
+                  alt=""
+                  className="h-96 w-full object-cover"
                 />
               ))}
-            </div>
-          ) : (
-            <Slider {...sliderSettings}>
-              {service.subServices?.map((subService, index) => (
-                <div key={index} className="px-3">
-                  <Card className="mb-3">
-                    <CardHeader floated={false}>
-                      <Image
-                        width={100}
-                        height={100}
-                        src={subService.icon.url}
-                        alt="Service Icon"
-                        className="object-cover w-64 h-48 shadow-lg"
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto",
-                          maxWidth: "100%",
-                          height: "auto"
-                        }} />
-                    </CardHeader>
-                    <CardBody>
-                      <div className="mb-1 flex flex-col justify-start gap-2">
-                        <Typography
-                          variant="h6"
-                          color="blue-gray"
-                          className="font-medium"
-                        >
-                          {subService.name}
-                        </Typography>
-                      </div>
-                      <div className="text-2xl font-bold text-teal-500">
-                        ₹{subService.price}
-                      </div>
-                    </CardBody>
-                    <CardFooter className="pt-0 flex flex-col gap-2">
-                      {cartItems.some((sub) => sub._id === subService._id) ? (
-                        <Button
-                          size="lg"
-                          fullWidth
-                          variant="gradient"
-                          color="red"
-                          className="flex gap-2 items-center justify-center"
-                          onClick={() => removingCartItem(subService._id)}
-                        >
-                          <span>Remove Service</span>
-                          <IoBagRemove size={20} />
-                        </Button>
-                      ) : (
-                        <Button
-                          size="lg"
-                          fullWidth
-                          variant="gradient"
-                          color="indigo"
-                          className="flex gap-2 items-center justify-center"
-                          onClick={() => handleAddingCart(subService)}
-                        >
-                          <span>Add to cart</span>
-                          <FaCartArrowDown size={20} />
-                        </Button>
-                      )}
-                    </CardFooter>
-                  </Card>
-                </div>
-              ))}
-            </Slider>
-          )}
+            </Carousel>
+          </div>
+          <div className="w-full flex flex-col justify-center items-center py-4 px-4">
+            <h1 className="font-julius lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-gray-700 font-bold">
+              {service.name}
+            </h1>
+          </div>
+          <div className="container mx-auto">
+            {service.subServices?.length <= 4 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center">
+                {service.subServices?.map((subService, index) => (
+                  <SubServiceCard
+                    forAdmin={false}
+                    cartItems={cartItems}
+                    removingCartItem={removingCartItem}
+                    handleAddingCart={handleAddingCart}
+                    key={index}
+                    sub={subService}
+                    index={index}
+                    serviceId={id}
+                    subServices={service.subServices}
+                  />
+                ))}
+              </div>
+            ) : (
+              <Slider {...sliderSettings}>
+                {service.subServices?.map((subService, index) => (
+                  <div key={index} className="px-3">
+                    <Card className="mb-3">
+                      <CardHeader floated={false}>
+                        <Image
+                          width={100}
+                          height={100}
+                          src={subService.icon.url}
+                          alt="Service Icon"
+                          className="object-cover w-64 h-48 shadow-lg"
+                        />
+                      </CardHeader>
+                      <CardBody>
+                        <div className="mb-1 flex flex-col justify-start gap-2">
+                          <Typography
+                            variant="h6"
+                            color="blue-gray"
+                            className="font-medium"
+                          >
+                            {subService.name}
+                          </Typography>
+                        </div>
+                        <div className="text-2xl font-bold text-teal-500">
+                          ₹{subService.price}
+                        </div>
+                      </CardBody>
+                      <CardFooter className="pt-0 flex flex-col gap-2">
+                        {cartItems.some((sub) => sub._id === subService._id) ? (
+                          <Button
+                            size="lg"
+                            fullWidth
+                            variant="gradient"
+                            color="red"
+                            className="flex gap-2 items-center justify-center"
+                            onClick={() => removingCartItem(subService._id)}
+                          >
+                            <span>Remove Service</span>
+                            <IoBagRemove size={20} />
+                          </Button>
+                        ) : (
+                          <Button
+                            size="lg"
+                            fullWidth
+                            variant="gradient"
+                            color="indigo"
+                            className="flex gap-2 items-center justify-center"
+                            onClick={() => handleAddingCart(subService)}
+                          >
+                            <span>Add to cart</span>
+                            <FaCartArrowDown size={20} />
+                          </Button>
+                        )}
+                      </CardFooter>
+                    </Card>
+                  </div>
+                ))}
+              </Slider>
+            )}
+          </div>
         </div>
+        <Review
+          service={service}
+          serviceId={id}
+          rating={rating}
+          setRating={setRating}
+          setService={setService}
+        />
       </div>
-      <Review
-        service={service}
-        serviceId={id}
-        rating={rating}
-        setRating={setRating}
-        setService={setService}
-      />
-    </div>
-  </>);
+    </>
+  );
 };
 
 export default Service;

@@ -118,7 +118,7 @@ const ServiceDetails = ({ booking }) => {
   };
 
   return (
-    (<div className="bg-white p-6 rounded-lg shadow mb-6">
+    <div className="bg-white p-6 rounded-lg shadow mb-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-gray-800">Service Details</h3>
@@ -140,10 +140,7 @@ const ServiceDetails = ({ booking }) => {
                 src={item.icon.url}
                 alt={item.name}
                 className="w-14 h-14 object-cover rounded-md"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+              />
               <div>
                 <h4 className="text-lg font-semibold text-gray-700">
                   {item.name}
@@ -197,7 +194,7 @@ const ServiceDetails = ({ booking }) => {
           </div>
         </div>
       )}
-    </div>)
+    </div>
   );
 };
 

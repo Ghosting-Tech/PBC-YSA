@@ -27,7 +27,6 @@ const fetchTopServices = async (cityState) => {
       "/api/services/top-booked?limit=100",
       cityState
     );
-    console.log("Top services response:", response.data);
     return response;
   } catch (error) {
     console.error("Error fetching top services:", error);

@@ -47,7 +47,7 @@ const AddServiceDialog = ({
   };
 
   return (
-    (<Dialog
+    <Dialog
       open={open}
       handler={handleOpen}
       size="lg"
@@ -93,10 +93,7 @@ const AddServiceDialog = ({
                 src={service.icon.url}
                 alt=""
                 className="w-10 aspect-square object-cover mr-2 rounded"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+              />
               <Typography
                 color="blue-gray"
                 className="font-medium whitespace-nowrap"
@@ -120,7 +117,7 @@ const AddServiceDialog = ({
           Update
         </Button>
       </DialogFooter>
-    </Dialog>)
+    </Dialog>
   );
 };
 

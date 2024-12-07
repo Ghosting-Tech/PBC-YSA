@@ -61,7 +61,7 @@ const Cart = () => {
   };
 
   return (
-    (<div>
+    <div>
       <Head>
         <title>Shopping Cart</title>
       </Head>
@@ -114,12 +114,7 @@ const Cart = () => {
                       height={100}
                       alt={product.name}
                       className="w-20 h-20 object-cover rounded"
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                        maxWidth: "100%",
-                        height: "auto"
-                      }} />
+                    />
                     <div className="ml-4">
                       <div className="font-semibold">{product.name}</div>
                       <div className="text-gray-500 text-sm">
@@ -247,7 +242,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
   );
 };
 

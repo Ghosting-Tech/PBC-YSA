@@ -156,7 +156,7 @@ const ServiceProviderDetailsPage = () => {
     );
   }
   return (
-    (<div className="p-6 w-full mx-auto">
+    <div className="p-6 w-full mx-auto">
       <div className="flex justify-between items-center py-6">
         <div className="flex gap-3 items-center">
           <BackButton />
@@ -210,12 +210,7 @@ const ServiceProviderDetailsPage = () => {
               width={500}
               height={500}
               className=" max-w-28 aspect-square h-full rounded-md object-cover drop-shadow-lg"
-              style={{
-                maxWidth: "100%",
-                height: "auto",
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
           ) : (
             <div className="w-32 h-32 text-6xl text-black rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
               {serviceProvider?.name &&
@@ -291,12 +286,7 @@ const ServiceProviderDetailsPage = () => {
                     height={500}
                     src={serviceProvider.id1.image.url}
                     className="h-full w-full object-cover"
-                    style={{
-                      maxWidth: "100%",
-                      height: "auto",
-                      maxWidth: "100%",
-                      height: "auto"
-                    }} />
+                  />
                 ) : (
                   ""
                 )}
@@ -323,12 +313,7 @@ const ServiceProviderDetailsPage = () => {
                     height={500}
                     src={serviceProvider.id2.image.url}
                     className="h-full w-full object-cover"
-                    style={{
-                      maxWidth: "100%",
-                      height: "auto",
-                      maxWidth: "100%",
-                      height: "auto"
-                    }} />
+                  />
                 ) : (
                   ""
                 )}
@@ -355,12 +340,7 @@ const ServiceProviderDetailsPage = () => {
                   src={selectedImage}
                   alt="Full size preview"
                   className="h-full w-full object-contain rounded-lg"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
+                />
               ) : (
                 ""
               )}
@@ -400,7 +380,7 @@ const ServiceProviderDetailsPage = () => {
           />
         </div>
       </div>
-    </div>)
+    </div>
   );
 };
 

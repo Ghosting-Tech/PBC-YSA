@@ -117,7 +117,7 @@ const CreateBlog = ({ open, setOpen, setBlogs }) => {
   };
 
   return (
-    (<Dialog
+    <Dialog
       open={open}
       size="md"
       animate={{
@@ -199,10 +199,7 @@ const CreateBlog = ({ open, setOpen, setBlogs }) => {
                   width={300}
                   alt="Image"
                   className="w-full h-full object-contain"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
+                />
               ) : (
                 <div className="flex-grow pl-2">
                   <p className="text-gray-500">Upload Image</p>
@@ -247,7 +244,7 @@ const CreateBlog = ({ open, setOpen, setBlogs }) => {
         formData={formData}
         setFormData={setFormData}
       />
-    </Dialog>)
+    </Dialog>
   );
 };
 

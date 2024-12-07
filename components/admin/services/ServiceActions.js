@@ -284,7 +284,7 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
     toast.success(data.message);
   };
   return (
-    (<div className="flex gap-2">
+    <div className="flex gap-2">
       <ButtonGroup
         ripple={true}
         color="brown"
@@ -522,10 +522,7 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
                 src={updateService.icon?.url}
                 alt=""
                 className="w-24 h-24 object-cover rounded drop-shadow-lg"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+              />
               <div className="flex flex-col justify-between py-1 gap-1">
                 <label
                   htmlFor={"icon"}
@@ -566,7 +563,7 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
               {updateService.images &&
                 updateService.images.map((image, index) => {
                   return (
-                    (<div
+                    <div
                       className="flex justify-between items-center p-4 shadow-lg h-fit bg-white text-white rounded-md"
                       key={index}
                     >
@@ -576,10 +573,7 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
                         src={image.url}
                         alt=""
                         className="w-24 h-24 object-cover rounded shadow-md"
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto"
-                        }} />
+                      />
                       <div className="flex flex-col justify-between py-1 gap-1">
                         <label
                           htmlFor={index}
@@ -602,14 +596,14 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
                           Delete <MdDelete />
                         </button>
                       </div>
-                    </div>)
+                    </div>
                   );
                 })}
             </div>
           </div>
         </div>
       </Dialog>
-    </div>)
+    </div>
   );
 };
 

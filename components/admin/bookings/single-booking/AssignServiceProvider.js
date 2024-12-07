@@ -67,7 +67,7 @@ const AssignServiceProvider = ({ bookingId, setBooking }) => {
   };
 
   return (
-    (<div className="flex flex-col gap-4 py-1">
+    <div className="flex flex-col gap-4 py-1">
       <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
         No service provider assigned
       </h3>
@@ -124,7 +124,7 @@ const AssignServiceProvider = ({ bookingId, setBooking }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             {serviceProviders.map((provider) => {
               return (
-                (<div
+                <div
                   key={provider._id}
                   className="flex gap-4 items-center justify-between px-4 py-2 rounded-lg transition-all border hover:bg-gray-100 w-full"
                 >
@@ -139,10 +139,7 @@ const AssignServiceProvider = ({ bookingId, setBooking }) => {
                         width={200}
                         height={200}
                         className="w-12 h-12 rounded-full"
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto"
-                        }} />
+                      />
                       <div className="flex flex-col justify-center">
                         <span
                           className={`border w-fit ${
@@ -165,13 +162,13 @@ const AssignServiceProvider = ({ bookingId, setBooking }) => {
                   >
                     Assign
                   </Button>
-                </div>)
+                </div>
               );
             })}
           </div>
         )}
       </Dialog>
-    </div>)
+    </div>
   );
 };
 

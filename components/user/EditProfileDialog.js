@@ -125,7 +125,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
   };
 
   return (
-    (<AnimatePresence>
+    <AnimatePresence>
       <Dialog
         size="lg"
         open={open}
@@ -156,10 +156,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                 width={150}
                 height={150}
                 className="rounded-full w-28 aspect-square object-cover border-4 border-blue-500"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+              />
               <label
                 htmlFor="profile-image"
                 className="absolute bottom-2 right-2 cursor-pointer bg-blue-500 p-2 rounded-full shadow-md text-white hover:bg-blue-600 transition-colors"
@@ -298,7 +295,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
           </Button>
         </DialogFooter>
       </Dialog>
-    </AnimatePresence>)
+    </AnimatePresence>
   );
 };
 

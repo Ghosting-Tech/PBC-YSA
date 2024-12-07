@@ -159,7 +159,7 @@ export default function MediaUploadWithHeadings() {
   };
 
   return (
-    (<div className="w-full mx-auto p-6">
+    <div className="w-full mx-auto p-6">
       <Card className="bg-white p-6 rounded-lg shadow-md">
         <Typography variant="h4" color="blue" className="mb-4 mx-auto">
           Customize Content
@@ -200,12 +200,7 @@ export default function MediaUploadWithHeadings() {
                         src={formData.images[index].preview}
                         alt={`Upload ${index + 1}`}
                         className="w-full h-full object-cover rounded-lg"
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto",
-                          maxWidth: "100%",
-                          height: "auto"
-                        }} />
+                      />
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -297,6 +292,6 @@ export default function MediaUploadWithHeadings() {
           </Button>
         </form>
       </Card>
-    </div>)
+    </div>
   );
 }

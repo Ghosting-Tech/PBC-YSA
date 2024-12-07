@@ -44,7 +44,7 @@ const UserList = ({
     setOpenDialogId(null);
   };
   return (
-    (<div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 px-10 mt-8">
+    <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 px-10 mt-8">
       {allUsers.map((user) => (
         <div
           className="border p-4 bg-white shadow flex flex-col gap-4 rounded-lg"
@@ -58,10 +58,7 @@ const UserList = ({
                 width={100}
                 height={100}
                 className="w-16 h-16 object-cover rounded-full"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
+              />
             ) : (
               <div className="w-16 h-16 text-2xl rounded-full flex justify-center text-black font-junge items-center bg-gray-400 cursor-pointer">
                 {user.name && Array.from(user.name)[0].toUpperCase()}
@@ -179,10 +176,7 @@ const UserList = ({
                           width={500}
                           height={500}
                           className=" max-w-28 aspect-square h-full rounded-md object-cover drop-shadow-lg"
-                          style={{
-                            maxWidth: "100%",
-                            height: "auto"
-                          }} />
+                        />
                       ) : (
                         <div className="w-32 h-32 text-6xl text-black rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
                           {user.name && Array.from(user.name)[0].toUpperCase()}
@@ -269,7 +263,7 @@ const UserList = ({
           </div>
         </div>
       ))}
-    </div>)
+    </div>
   );
 };
 

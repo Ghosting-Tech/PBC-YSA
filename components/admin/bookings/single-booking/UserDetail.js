@@ -7,7 +7,7 @@ import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 
 const UserDetail = ({ profileImage, name, phoneNumber, email }) => {
   return (
-    (<div className="flex items-start sm:items-center gap-2">
+    <div className="flex items-start sm:items-center gap-2">
       {/* Profile Image */}
       {profileImage?.url ? (
         <Image
@@ -16,10 +16,7 @@ const UserDetail = ({ profileImage, name, phoneNumber, email }) => {
           src={profileImage.url}
           alt={name}
           className="w-16 h-16 rounded-full object-cover cursor-pointer"
-          style={{
-            maxWidth: "100%",
-            height: "auto"
-          }} />
+        />
       ) : (
         <div className="w-16 h-16 rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
           {name && Array.from(name)[0].toUpperCase()}
@@ -72,7 +69,7 @@ const UserDetail = ({ profileImage, name, phoneNumber, email }) => {
           </Tooltip>
         </div>
       </div>
-    </div>)
+    </div>
   );
 };
 

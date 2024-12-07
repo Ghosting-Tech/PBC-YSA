@@ -131,7 +131,7 @@ const EditBlog = ({ open, setOpen, blog, setBlogs }) => {
   };
 
   return (
-    (<Dialog
+    <Dialog
       open={open}
       size="md"
       handler={handleOpen}
@@ -216,10 +216,7 @@ const EditBlog = ({ open, setOpen, blog, setBlogs }) => {
                   height={224}
                   alt="Image"
                   className="w-full h-full object-contain"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
+                />
               ) : (
                 <div className="flex-grow pl-2">
                   <p className="text-gray-500">Upload Image</p>
@@ -263,7 +260,7 @@ const EditBlog = ({ open, setOpen, blog, setBlogs }) => {
         formData={formData}
         setFormData={setFormData}
       />
-    </Dialog>)
+    </Dialog>
   );
 };
 

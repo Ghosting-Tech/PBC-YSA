@@ -50,7 +50,7 @@ const Footer = () => {
   const topBookedServices = useSelector((state) => state.topServices.services);
 
   return (
-    (<motion.footer
+    <motion.footer
       ref={ref}
       variants={containerVariants}
       initial="hidden"
@@ -236,15 +236,12 @@ const Footer = () => {
               height={24}
               alt="Ghosting Tech"
               className="mr-2"
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+            />
             <span className="text-blue-500 font-semibold">Ghosting Tech</span>
           </Link>
         </motion.div>
       </div>
-    </motion.footer>)
+    </motion.footer>
   );
 };
 
