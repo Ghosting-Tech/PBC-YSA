@@ -16,20 +16,18 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { MdChevronLeft, MdChevronRight, MdDelete } from "react-icons/md";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { FaCartArrowDown } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import Link from "next/link";
 import { VscDebugContinue } from "react-icons/vsc";
 import { IoBagRemove } from "react-icons/io5";
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from "react-icons/io";
-import axios from "axios";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-import GiveReview from "@/components/services/review/GiveReview";
 import Review from "@/components/services/review/Review";
 import Loading from "@/components/Loading";
 import SubServiceCard from "@/components/admin/services/SubServiceCard";
+import { toast } from "sonner";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -91,7 +89,17 @@ const Service = () => {
 
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
+  const [addingDifferentService, setAddingDifferentService] = useState(false);
   const handleAddingCart = (subService) => {
+    const differentServices = cartItems.filter(
+      (item) => item.serviceId !== subService.serviceId
+    );
+    if (differentServices.length > 0) {
+      toast.error("Remove other services to add this service!");
+      openDrawer();
+      setAddingDifferentService(true);
+      return;
+    }
     const existingItem = cartItems.find((item) => item._id === subService._id);
     if (existingItem) {
       setCartItems(
@@ -138,6 +146,10 @@ const Service = () => {
 
   const [rating, setRating] = useState(0);
 
+  useEffect(() => {
+    console.log({ cartItems });
+  }, [cartItems]);
+
   return (
     <>
       <div
@@ -182,6 +194,26 @@ const Service = () => {
               </svg>
             </IconButton>
           </div>
+          {addingDifferentService && (
+            <div className="flex flex-col mb-4">
+              <h1 className="text-red-500 text-xl font-bold">
+                Remove other services to add this service!
+              </h1>
+              <Button
+                onClick={() => {
+                  setCartItems([]);
+                  localStorage.removeItem("cart");
+                  setAddingDifferentService(false);
+                  closeDrawer();
+                }}
+                color="red"
+                variant="outlined"
+                size="lg"
+              >
+                Remove all
+              </Button>
+            </div>
+          )}
           <div className="flex flex-col gap-4">
             {cartItems.map((item) => {
               return (
