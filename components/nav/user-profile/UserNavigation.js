@@ -44,158 +44,120 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
     dispatch(setUser(null));
   };
 
-  return (
-    <>
-      {userLoading ? (
-        <div className="animate-pulse">
-          <Avatar
-            as="div"
-            variant="circular"
-            size="md"
-            alt="Profile"
-            color="blue-gray"
-            className=" p-0.5 cursor-progress"
-            src={"/profile.svg"}
-          />
-        </div>
-      ) : user?.role ? (
-        <Menu allowHover={true} placement="bottom-start">
-          <MenuHandler>
-            {user?.image?.url ? (
-              <Image
-                width={200}
-                height={200}
-                src={user.image.url}
-                alt={user.name}
-                className="w-12 h-12 rounded-full object-cover cursor-pointer"
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
-                {user.name && Array.from(user.name)[0].toUpperCase()}
-              </div>
-            )}
-          </MenuHandler>
-          {user.role === "user" ? (
-            <MenuList>
-              <Link href={`/user`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Profile <FaUser size={12} />
-                </MenuItem>
-              </Link>
-              <Link href={`/user/bookings?page=1`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Booking <FaCalendarCheck />
-                </MenuItem>
-              </Link>
-              <MenuItem
-                className="text-red-400 justify-center flex items-center gap-1"
-                onClick={handleLogout}
-              >
-                Logout <IoLogOut />
-              </MenuItem>
-            </MenuList>
-          ) : user.role === "service-provider" ? (
-            <MenuList
-              animate={{
-                mount: { y: 0 },
-                unmount: { y: 25 },
-              }}
-            >
-              <Link href={`/service-provider`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Profile <FaUser size={12} />
-                </MenuItem>
-              </Link>
-              <Link
-                href={`/service-provider/booking?page=1`}
-                className="outline-none"
-              >
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Booking <FaCalendarCheck />
-                </MenuItem>
-              </Link>
-              <Link
-                href={`/service-provider/payment?page=1`}
-                className="outline-none"
-              >
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Payment History <MdOutlinePayment />
-                </MenuItem>
-              </Link>
-              <MenuItem
-                className="text-red-400 justify-center flex items-center gap-1"
-                onClick={handleLogout}
-              >
-                Logout <IoLogOut />
-              </MenuItem>
-            </MenuList>
-          ) : (
-            <MenuList>
-              <Link href={`/admin`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Dashboard <MdDashboardCustomize />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/services`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Services <MdOutlineManageHistory />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/bookings?page=1`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Bookings <FaBoxesStacked />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/users?page=1`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Users <MdManageAccounts />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/service-providers`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Service Provider <FaUsersGear />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/payments`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Payments <MdOutlinePayment />
-                </MenuItem>
-              </Link>
-              <Link
-                href={`/admin/tickets?page=1&status=all&sortBy=newest`}
-                className="outline-none"
-              >
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Tickets
-                  <TicketIcon className="h-4 w-4" />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/blogs`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Blogs <FaMicroblog />
-                </MenuItem>
-              </Link>
-              <MenuItem
-                className="text-red-400 justify-center flex items-center gap-1"
-                onClick={handleLogout}
-              >
-                Logout <IoLogOut />
-              </MenuItem>
-            </MenuList>
-          )}
-        </Menu>
-      ) : (
-        <Button
-          variant="gradient"
+  return (<>
+    {userLoading ? (
+      <div className="animate-pulse">
+        <Avatar
+          as="div"
+          variant="circular"
           size="md"
-          className="h-full"
-          onClick={handleOpenLoginDialog}
-        >
-          Login
-        </Button>
-      )}
-    </>
-  );
+          alt="Profile"
+          color="blue-gray"
+          className=" p-0.5 cursor-progress"
+          src={"/profile.svg"}
+        />
+      </div>
+    ) : user?.role ? (
+      <Menu allowHover={true} placement="bottom-start">
+        <MenuHandler>
+          {user?.image?.url ? (
+            <Image
+              width={200}
+              height={200}
+              src={user.image.url}
+              alt={user.name}
+              className="w-12 h-12 rounded-full object-cover cursor-pointer"
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
+          ) : (
+            <div className="w-12 h-12 rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
+              {user.name && Array.from(user.name)[0].toUpperCase()}
+            </div>
+          )}
+        </MenuHandler>
+        {user.role === "user" ? (
+          <MenuList>
+            <Link href={`/user`} className="outline-none">
+              <MenuItem className="justify-center flex items-center gap-1">
+                Profile <FaUser size={12} />
+              </MenuItem>
+            </Link>
+            <Link href={`/user/bookings?page=1`} className="outline-none">
+              <MenuItem className="justify-center flex items-center gap-1">
+                Booking <FaCalendarCheck />
+              </MenuItem>
+            </Link>
+            <MenuItem
+              className="text-red-400 justify-center flex items-center gap-1"
+              onClick={handleLogout}
+            >
+              Logout <IoLogOut />
+            </MenuItem>
+          </MenuList>
+        ) : user.role === "service-provider" ? (
+          <MenuList
+            animate={{
+              mount: { y: 0 },
+              unmount: { y: 25 },
+            }}
+          >
+            <Link href={`/service-provider`} className="outline-none">
+              <MenuItem className="justify-center flex items-center gap-1">
+                Profile <FaUser size={12} />
+              </MenuItem>
+            </Link>
+            <Link
+              href={`/service-provider/booking?page=1`}
+              className="outline-none"
+            >
+              <MenuItem className="justify-center flex items-center gap-1">
+                Booking <FaCalendarCheck />
+              </MenuItem>
+            </Link>
+            <Link
+              href={`/service-provider/payment?page=1`}
+              className="outline-none"
+            >
+              <MenuItem className="justify-center flex items-center gap-1">
+                Payment History <MdOutlinePayment />
+              </MenuItem>
+            </Link>
+            <MenuItem
+              className="text-red-400 justify-center flex items-center gap-1"
+              onClick={handleLogout}
+            >
+              Logout <IoLogOut />
+            </MenuItem>
+          </MenuList>
+        ) : (
+          <MenuList>
+            <Link href={`/admin`} className="outline-none">
+              <MenuItem className="justify-center flex items-center gap-1">
+                Admin <MdDashboardCustomize />
+              </MenuItem>
+            </Link>
+            <MenuItem
+              className="text-red-400 justify-center flex items-center gap-1"
+              onClick={handleLogout}
+            >
+              Logout <IoLogOut />
+            </MenuItem>
+          </MenuList>
+        )}
+      </Menu>
+    ) : (
+      <Button
+        variant="gradient"
+        size="md"
+        className="h-full"
+        onClick={handleOpenLoginDialog}
+      >
+        Login
+      </Button>
+    )}
+  </>);
 };
 
 export default UserNavigation;

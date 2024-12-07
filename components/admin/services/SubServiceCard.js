@@ -141,21 +141,23 @@ export default function SubServiceCard({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      key={index}
-      className="group hover:scale-110 transition-all relative bg-white dark:bg-gray-800 rounded-2xl w-72 shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
-    >
+    (<motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        key={index}
+        className="group hover:scale-110 transition-all relative bg-white dark:bg-gray-800 rounded-2xl w-72 shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
+      >
       <div className="relative h-48 overflow-hidden bg-white">
         <Image
           src={subService.icon.url}
           alt={subService.name}
-          layout="fill"
-          objectFit="cover"
           className="transition-all duration-300 group-hover:opacity-90 group-hover:scale-110 group-hover:rotate-2"
-        />
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover"
+          }} />
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -168,7 +170,6 @@ export default function SubServiceCard({
           {subService.status}
         </motion.div>
       </div>
-
       <div className="p-6 space-y-1">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 truncate">
           {subService.name}
@@ -244,7 +245,6 @@ export default function SubServiceCard({
           </div>
         )}
       </div>
-
       <AnimatePresence>
         {viewDialogOpen && (
           <Dialog
@@ -277,10 +277,12 @@ export default function SubServiceCard({
                     <Image
                       src={subService.icon.url}
                       alt={subService.name}
-                      layout="fill"
-                      objectFit="cover"
                       className="transition-transform duration-300 hover:scale-110"
-                    />
+                      fill
+                      sizes="100vw"
+                      style={{
+                        objectFit: "cover"
+                      }} />
                   </div>
                   {forAdmin && (
                     <div className="mt-4 flex justify-center">
@@ -375,7 +377,6 @@ export default function SubServiceCard({
           </Dialog>
         )}
       </AnimatePresence>
-
       <AnimatePresence>
         {editDialogOpen && (
           <Dialog
@@ -455,6 +456,6 @@ export default function SubServiceCard({
           </Dialog>
         )}
       </AnimatePresence>
-    </motion.div>
+    </motion.div>)
   );
 }

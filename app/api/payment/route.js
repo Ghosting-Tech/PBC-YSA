@@ -133,19 +133,43 @@ export async function PUT(request) {
   try {
     const data = await request.json();
 
-    // Connect to MongoDB if not already connected
+    // Connect to MongoDB
     await connectMongoDB();
 
-    // Create a new payment record
-    const payment = await Payment.findByIdAndUpdate(data._id, data, {
-      new: true,
+    // Find the existing payment record by ID
+    const payment = await Payment.findById(data._id);
+
+    if (!payment) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Payment not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    // Update the main fields for the current status
+    payment.paid = data.paid;
+    payment.reason = data.reason;
+    payment.screenshot = data.screenshot;
+
+    // Append to statusUpdates array
+    payment.statusUpdates.push({
+      paid: data.paid,
+      reason: data.reason,
+      screenshot: data.screenshot,
+      timestamp: new Date(),
     });
 
-    // Return the created payment with a 201 status
+    // Save the updated payment record
+    await payment.save();
+
+    // Return the updated payment with a 201 status
     return NextResponse.json(
       {
         success: true,
-        message: "Successfully Updated the payment!",
+        message: "Successfully updated the payment!",
         payment,
       },
       { status: 201 }
@@ -155,7 +179,7 @@ export async function PUT(request) {
     return NextResponse.json(
       {
         success: false,
-        message: "Error on updating service provider payment",
+        message: "Error updating payment",
         error: error.message,
       },
       { status: 500 }

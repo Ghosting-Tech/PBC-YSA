@@ -30,13 +30,13 @@ const UserCompletedBooking = ({
     minute: "2-digit",
   };
   return (
-    <div className="px-10 my-10">
+    (<div className="px-10 my-10">
       <h2 className="text-2xl text-teal-500 font-semibold">Service History!</h2>
       <div className="h-px bg-gray-300 w-full my-4"></div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {userCompletedBookings.map((service, index) => {
           return (
-            <div
+            (<div
               key={index}
               className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col justify-between"
             >
@@ -57,7 +57,10 @@ const UserCompletedBooking = ({
                           className="w-16 h-16 rounded-full object-cover"
                           src={item.icon?.url}
                           alt={item.name}
-                        />
+                          style={{
+                            maxWidth: "100%",
+                            height: "auto"
+                          }} />
                       </div>
                       <div className="flex-grow">
                         <p className="text-xs">
@@ -96,7 +99,7 @@ const UserCompletedBooking = ({
               >
                 View <IoMdOpen />
               </button>
-            </div>
+            </div>)
           );
         })}
         <Dialog
@@ -128,14 +131,17 @@ const UserCompletedBooking = ({
               <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                 {selectedUserCompletedBooking?.cartItems?.map((item) => {
                   return (
-                    <div className="flex items-center gap-3" key={item._id}>
+                    (<div className="flex items-center gap-3" key={item._id}>
                       <Image
                         width={100}
                         height={100}
                         src={item.icon?.url}
                         className="rounded-md w-28 h-28 object-cover"
                         alt="Booking"
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                       <div className="flex flex-col gap-1">
                         <h3 className="md:text-2xl sm:text-2xl text-xl text-gray-700 ">
                           {item.name}
@@ -153,7 +159,7 @@ const UserCompletedBooking = ({
                           </strong>
                         </p>
                       </div>
-                    </div>
+                    </div>)
                   );
                 })}
               </div>
@@ -206,7 +212,10 @@ const UserCompletedBooking = ({
                         alt="Booking"
                         width={96}
                         height={96}
-                      />
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto"
+                        }} />
                     ) : (
                       <div className="w-12 h-12 text-xl text-black rounded-full flex justify-center items-center font-junge bg-gray-400">
                         {selectedUserCompletedBooking?.assignedServiceProviders
@@ -462,7 +471,7 @@ const UserCompletedBooking = ({
           </div>
         </Dialog>
       </div>
-    </div>
+    </div>)
   );
 };
 

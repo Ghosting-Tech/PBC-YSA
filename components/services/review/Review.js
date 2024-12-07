@@ -17,7 +17,10 @@ const ReviewCard = ({ name, review, rating, image }) => (
           src={image?.url}
           alt={name}
           className="rounded-full w-full h-full object-cover"
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
       ) : (
         <div className="w-full h-full text-xl text-black bg-gray-400 rounded-full flex justify-center items-center">
           {name && name[0].toUpperCase()}

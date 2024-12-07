@@ -30,6 +30,7 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 import { PiBook } from "react-icons/pi";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/firebase";
+import BackButton from "@/components/admin/BackButton";
 
 const ServiceProviderDetailsPage = () => {
   const { id } = useParams();
@@ -147,7 +148,7 @@ const ServiceProviderDetailsPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex justify-center items-center h-full w-full">
         <div className="text-lg font-semibold animate-spin my-56">
           <VscLoading size={50} />
         </div>
@@ -155,11 +156,14 @@ const ServiceProviderDetailsPage = () => {
     );
   }
   return (
-    <div className="p-6">
+    (<div className="p-6 w-full mx-auto">
       <div className="flex justify-between items-center py-6">
-        <h1 className="text-2xl font-bold text-indigo-500 font-lato text-center">
-          Service Provider Details
-        </h1>
+        <div className="flex gap-3 items-center">
+          <BackButton />
+          <h1 className="text-2xl font-bold text-indigo-500 font-lato text-center">
+            Service Provider Details
+          </h1>
+        </div>
         <Menu placement="bottom-end">
           <MenuHandler>
             <Button color="indigo">Action</Button>
@@ -167,17 +171,15 @@ const ServiceProviderDetailsPage = () => {
           <MenuList>
             <MenuItem>
               <Link
-                href={`/admin/bookings?search=${serviceProvider?.name}`}
+                href={`/admin/bookings?search=${serviceProvider?.name}&id=${serviceProvider?._id}`}
                 className="flex gap-3"
-                target="_blank"
               >
                 View Bookings
               </Link>
             </MenuItem>
             <MenuItem>
               <Link
-                target="_blank"
-                href={`/admin/payments?search=${serviceProvider?.name}`}
+                href={`/admin/payments?search=${serviceProvider?.name}&id=${serviceProvider?._id}`}
                 className="flex gap-3"
               >
                 View Payout
@@ -208,7 +210,12 @@ const ServiceProviderDetailsPage = () => {
               width={500}
               height={500}
               className=" max-w-28 aspect-square h-full rounded-md object-cover drop-shadow-lg"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           ) : (
             <div className="w-32 h-32 text-6xl text-black rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
               {serviceProvider?.name &&
@@ -284,7 +291,12 @@ const ServiceProviderDetailsPage = () => {
                     height={500}
                     src={serviceProvider.id1.image.url}
                     className="h-full w-full object-cover"
-                  />
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                      maxWidth: "100%",
+                      height: "auto"
+                    }} />
                 ) : (
                   ""
                 )}
@@ -311,7 +323,12 @@ const ServiceProviderDetailsPage = () => {
                     height={500}
                     src={serviceProvider.id2.image.url}
                     className="h-full w-full object-cover"
-                  />
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                      maxWidth: "100%",
+                      height: "auto"
+                    }} />
                 ) : (
                   ""
                 )}
@@ -338,7 +355,12 @@ const ServiceProviderDetailsPage = () => {
                   src={selectedImage}
                   alt="Full size preview"
                   className="h-full w-full object-contain rounded-lg"
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               ) : (
                 ""
               )}
@@ -366,7 +388,7 @@ const ServiceProviderDetailsPage = () => {
           </Dialog>
         </div>
       </div>
-      <div className="flex min-h-full flex-col justify-center items-center">
+      <div className="flex min-h-full flex-col">
         <div className="min-w-full mb-4">
           <ServicesList
             fetchedServicesFromId={fetchedServicesFromId}
@@ -378,7 +400,7 @@ const ServiceProviderDetailsPage = () => {
           />
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

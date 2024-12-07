@@ -39,75 +39,76 @@ const DeleteBlog = ({ open, setOpen, deleteBlog, setBlogs }) => {
     }
   };
 
-  return (
-    <>
-      <Dialog
-        open={open}
-        handler={handleOpen}
-        animate={{
-          mount: { scale: 1 },
-          unmount: { scale: 0 },
-        }}
-        className="p-6 flex flex-col gap-4"
-      >
-        <Heading
-          icon={
-            <div className="bg-teal-500 p-1 rounded-full inline-block">
-              <MdDeleteOutline size={20} color="white" />
-            </div>
-          }
-          title={"Blog details"}
-          buttons={[
-            <IconButton key={1} variant="text" onClick={handleOpen}>
-              <RxCross1 size={20} color="teal" />
-            </IconButton>,
-          ]}
-        />
-        <div className="w-full h-full flex border p-4  bg-white rounded-xl">
-          <Image
-            src={deleteBlog.image?.url}
-            alt="Image"
-            width={150}
-            height={250}
-            className="w-40 h-40 rounded-md object-cover"
-          />
-          <div className="p-4 w-full flex flex-col">
-            <div className="flex justify-between items-center w-full">
-              <h2 className="text-x lg:text-3xl font-bold text-pink-500">
-                {deleteBlog.title}
-              </h2>
-            </div>
+  return (<>
+    <Dialog
+      open={open}
+      handler={handleOpen}
+      animate={{
+        mount: { scale: 1 },
+        unmount: { scale: 0 },
+      }}
+      className="p-6 flex flex-col gap-4"
+    >
+      <Heading
+        icon={
+          <div className="bg-teal-500 p-1 rounded-full inline-block">
+            <MdDeleteOutline size={20} color="white" />
+          </div>
+        }
+        title={"Blog details"}
+        buttons={[
+          <IconButton key={1} variant="text" onClick={handleOpen}>
+            <RxCross1 size={20} color="teal" />
+          </IconButton>,
+        ]}
+      />
+      <div className="w-full h-full flex border p-4  bg-white rounded-xl">
+        <Image
+          src={deleteBlog.image?.url}
+          alt="Image"
+          width={150}
+          height={250}
+          className="w-40 h-40 rounded-md object-cover"
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
+        <div className="p-4 w-full flex flex-col">
+          <div className="flex justify-between items-center w-full">
+            <h2 className="text-x lg:text-3xl font-bold text-pink-500">
+              {deleteBlog.title}
+            </h2>
           </div>
         </div>
-        <div className="flex items-center gap-1 bg-red-50 text-red-700 px-4 py-1 rounded-md">
-          <MdOutlineError />
-          <div>Are you sure you want to delete this Blog?</div>
-        </div>
-        <div className="flex justify-end items-center gap-4">
-          <Button
-            variant="outlined"
-            size="sm"
-            className="rounded"
-            color="red"
-            onClick={handleOpen}
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="gradient"
-            size="sm"
-            className="rounded"
-            color="red"
-            type="submit"
-            onClick={handledeleteBlog}
-          >
-            Delete
-          </Button>
-        </div>
-      </Dialog>
-    </>
-  );
+      </div>
+      <div className="flex items-center gap-1 bg-red-50 text-red-700 px-4 py-1 rounded-md">
+        <MdOutlineError />
+        <div>Are you sure you want to delete this Blog?</div>
+      </div>
+      <div className="flex justify-end items-center gap-4">
+        <Button
+          variant="outlined"
+          size="sm"
+          className="rounded"
+          color="red"
+          onClick={handleOpen}
+          type="button"
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="gradient"
+          size="sm"
+          className="rounded"
+          color="red"
+          type="submit"
+          onClick={handledeleteBlog}
+        >
+          Delete
+        </Button>
+      </div>
+    </Dialog>
+  </>);
 };
 
 export default DeleteBlog;

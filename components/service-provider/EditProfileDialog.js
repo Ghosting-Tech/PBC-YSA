@@ -105,7 +105,7 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
   };
 
   return (
-    <Dialog
+    (<Dialog
       open={open}
       handler={handleOpen}
       size="lg"
@@ -127,7 +127,10 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
                 className="h-full w-full rounded-full object-cover object-center"
                 src={updateUser?.image?.url || user?.image?.url}
                 alt="Profile image"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             ) : (
               <div className="bg-gray-700 h-full w-full font-junge text-white font-bold text-7xl flex justify-center items-center rounded-xl">
                 {user?.name && Array.from(user?.name)[0].toUpperCase()}
@@ -263,7 +266,10 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
               className="h-full w-full rounded-xl object-cover object-center"
               src={updateUser.image.url}
               alt="Profile image"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           ) : (
             <div className="bg-gray-700 h-full w-full font-junge text-white font-bold text-7xl flex justify-center items-center rounded-xl">
               {updateUser?.name && Array.from(updateUser.name)[0].toUpperCase()}
@@ -306,7 +312,7 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
           <span>Update</span>
         </Button>
       </DialogFooter>
-    </Dialog>
+    </Dialog>)
   );
 };
 

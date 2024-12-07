@@ -294,7 +294,7 @@ const CreateServiceProvider = () => {
   }, [inputData]);
 
   return (
-    <div className="min-h-screen">
+    (<div className="min-h-screen">
       <VerifyOtp
         open={openVerifyOtpDialog}
         setOpen={setOpenVerifyOtpDialog}
@@ -308,7 +308,6 @@ const CreateServiceProvider = () => {
         setTimer={setTimer}
         handleOpenResponseDialog={handleOpen}
       />
-
       <Dialog
         open={open}
         handler={handleOpen}
@@ -374,7 +373,6 @@ const CreateServiceProvider = () => {
           </div>
         )}
       </Dialog>
-
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <Card className="w-full max-w-4xl">
           <CardBody className="flex flex-col gap-8">
@@ -629,7 +627,7 @@ const CreateServiceProvider = () => {
           </CardBody>
         </Card>
       </div>
-    </div>
+    </div>)
   );
 };
 

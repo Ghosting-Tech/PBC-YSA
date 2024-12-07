@@ -124,7 +124,6 @@ export default function ServiceContainer({
                     onChange={(e) => setSelectedState(e.target.value)}
                     required
                     variants={selectVariants}
-                    whileHover="hover"
                   >
                     <option value="" disabled>
                       Select State
@@ -152,7 +151,6 @@ export default function ServiceContainer({
                     onChange={(e) => setSelectedCity(e.target.value)}
                     required
                     variants={selectVariants}
-                    whileHover="hover"
                   >
                     <option value="" disabled>
                       Select City
@@ -173,32 +171,17 @@ export default function ServiceContainer({
                 </motion.div>
               </div>
 
-              <motion.div
-                variants={itemVariants}
-                whileHover="hover"
-                whileTap="tap"
+              <Button
+                variant="gradient"
+                fullWidth
+                size="md"
+                onClick={handleLocationChange}
+                disabled={!selectedState || !selectedCity}
+                className="flex items-center justify-center gap-2"
               >
-                <Button
-                  variant="gradient"
-                  fullWidth
-                  size="md"
-                  onClick={handleLocationChange}
-                  disabled={!selectedState || !selectedCity}
-                  className="flex items-center justify-center gap-2"
-                >
-                  <motion.div
-                    animate={{ rotate: [0, 360] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  >
-                    <MapPinIcon className="h-5 w-5" />
-                  </motion.div>
-                  Confirm Location
-                </Button>
-              </motion.div>
+                <MapPinIcon className="h-5 w-5" />
+                Confirm Location
+              </Button>
             </motion.div>
           </Card>
         </motion.div>

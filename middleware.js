@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose"; // Import jwtVerify from jose
+import { jwtVerify } from "jose";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
@@ -42,7 +42,7 @@ export async function middleware(request) {
       }
     } else if (role === "user") {
       if (!protectedRoutes.user.some((path) => currentPath.startsWith(path))) {
-        return NextResponse.redirect(new URL("/user", request.url));
+        return NextResponse.redirect(new URL("/", request.url));
       }
     } else {
       // If the role doesn't match any case, deny access

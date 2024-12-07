@@ -44,7 +44,7 @@ const ServiceCard = ({ service }) => {
   }, [ratingArray]);
 
   return (
-    <div className="max-w-sm mx-auto bg-white p-6 mb-4 shadow-md rounded-xl overflow-hidden h-96 flex flex-col justify-between">
+    (<div className="max-w-sm mx-auto bg-white p-6 mb-4 shadow-md rounded-xl overflow-hidden h-96 flex flex-col justify-between">
       <div>
         <div className="flex items-center mb-4">
           <Image
@@ -53,7 +53,10 @@ const ServiceCard = ({ service }) => {
             src={service?.icon?.url}
             alt={service?.name}
             className="w-16 h-16 rounded mr-4 object-cover drop-shadow-lg"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <div className="flex flex-col justify-center">
             <h2 className="text-xl font-semibold text-gray-800">
               {service?.name}
@@ -92,7 +95,7 @@ const ServiceCard = ({ service }) => {
           <div className="flex flex-col   max-h-44 overflow-auto no-scrollbar gap-4">
             {service?.subServices?.map((sub, i) => {
               return (
-                <Link
+                (<Link
                   href={`/services/${service?._id}`}
                   key={i}
                   className="no-underline"
@@ -104,12 +107,15 @@ const ServiceCard = ({ service }) => {
                       src={sub.icon?.url}
                       alt={sub.name}
                       className="w-16 h-16 rounded mr-4 drop-shadow-lg object-cover"
-                    />
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto"
+                      }} />
                     <span className="text-gray-800 font-medium">
                       {sub.name}
                     </span>
                   </div>
-                </Link>
+                </Link>)
               );
             })}
           </div>
@@ -126,7 +132,7 @@ const ServiceCard = ({ service }) => {
           <IoMdOpen />
         </Button>
       </Link>
-    </div>
+    </div>)
   );
 };
 

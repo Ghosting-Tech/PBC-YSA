@@ -6,7 +6,7 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 
 const About = () => {
   return (
-    <div>
+    (<div>
       <div className="min-h-screen container mx-auto px-4 py-8 flex flex-col items-center justify-center bg-gray-100">
         <div className="max-w-full w-full bg-white shadow-md rounded-lg p-8 flex flex-col md:flex-row">
           <div className="md:w-1/2 md:pr-8">
@@ -47,26 +47,34 @@ const About = () => {
               <Image
                 src="/image/slider5.webp"
                 alt="A person working"
-                layout="fill"
-                objectFit="cover"
                 className="rounded-lg"
-              />
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: "cover",
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
             <div className="absolute top-24 left-8 w-64 h-64 hidden sm:w-80 sm:h-80 md:w-80 md:h-96 shadow-lg z-20">
               <Image
                 src="/image/slider6.webp"
                 alt="A person working"
-                layout="fill"
-                objectFit="cover"
                 className="rounded-lg"
-              />
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: "cover",
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
           </div>
         </div>
       </div>
       <HowToBook />
       <WhyChooseUs />
-    </div>
+    </div>)
   );
 };
 

@@ -14,7 +14,11 @@ const UserInvoiceDialog = ({
   const handleRejectInvoice = async () => {
     const postData = {
       ...booking,
-      invoices: { ...booking.invoices, status: "Invoice Rejected" },
+      invoices: {
+        ...booking.invoices,
+        status: "Invoice Rejected",
+        responded: true,
+      },
     };
     try {
       const res = await axios.put(`/api/bookings/${booking._id}`, postData);
@@ -36,15 +40,16 @@ const UserInvoiceDialog = ({
       toast.error("Failed to reject the invoice!");
     }
   };
-  
+
   const handleAcceptInvoice = async () => {
     try {
       const postData = {
         ...booking,
-        status: "Service Invoice Accepted, service will start soon !",
+        status: "Invoice Accepted!",
         invoices: {
           ...booking.invoices,
           status: "Invoice Accepted",
+          responded: true,
         },
       };
       const res = await axios.put(`/api/bookings/${booking._id}`, postData);
@@ -108,10 +113,18 @@ const UserInvoiceDialog = ({
         </div>
         <div className="w-full sm:bg-white rounded-lg border overflow-auto">
           <div className="text-white bg-gray-600 flex flex-col sm:flex-row sm:rounded-none mb-2 sm:mb-0">
-            <div className="p-3 text-center font-semibold md:w-1/4 ">Description</div>
-            <div className="p-3 text-center font-semibold md:w-1/4 ">Quantity</div>
-            <div className="p-3 text-center font-semibold md:w-1/4 ">Unit Price</div>
-            <div className="p-3 text-center font-semibold md:w-1/4 ">Amount</div>
+            <div className="p-3 text-center font-semibold md:w-1/4 ">
+              Description
+            </div>
+            <div className="p-3 text-center font-semibold md:w-1/4 ">
+              Quantity
+            </div>
+            <div className="p-3 text-center font-semibold md:w-1/4 ">
+              Unit Price
+            </div>
+            <div className="p-3 text-center font-semibold md:w-1/4 ">
+              Amount
+            </div>
           </div>
           <div className="flex flex-col sm:flex-none">
             {booking.invoices?.items?.map((item, index) => (
@@ -136,7 +149,39 @@ const UserInvoiceDialog = ({
           </div>
         </div>
 
-        {booking.invoices?.status === "Invoice Rejected" ? (
+        {!booking.invoices.paid &&
+          (!booking.invoices.responded ? (
+            <div className="flex gap-2 items-center mt-4 justify-end">
+              <Button
+                color="red"
+                variant="gradient"
+                onClick={handleRejectInvoice}
+              >
+                Reject
+              </Button>
+              <Button
+                onClick={handleAcceptInvoice}
+                color="teal"
+                variant="gradient"
+              >
+                Accept
+              </Button>
+            </div>
+          ) : (
+            <div className="flex gap-2 items-center mt-4 justify-end">
+              <Button
+                variant="gradient"
+                color="teal"
+                className="rounded"
+                loading={redirectingLoading}
+                onClick={handleInvoicePayment}
+              >
+                Pay ₹{booking.invoices.total}
+              </Button>
+            </div>
+          ))}
+
+        {/* {booking.invoices?.status === "Invoice Rejected" ? (
           <p className="text-red-500 text-sm text-center mt-4">
             Invoice rejected
           </p>
@@ -172,7 +217,7 @@ const UserInvoiceDialog = ({
               Accept
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     </Dialog>
   );

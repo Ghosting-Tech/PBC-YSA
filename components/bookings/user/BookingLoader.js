@@ -15,7 +15,7 @@ const BookingLoader = ({
   handleCancellationReasonDialog,
 }) => {
   return (
-    <div className="p-6">
+    (<div className="p-6">
       <div
         title="Copy booking id"
         className="flex items-center gap-2 cursor-pointer transition-colors duration-200"
@@ -64,7 +64,10 @@ const BookingLoader = ({
                       className="w-16 h-16 rounded-full object-cover"
                       src={item.icon?.url}
                       alt={item.name}
-                    />
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto"
+                      }} />
                   </div>
                   <div className="flex-grow">
                     <h2 className="text-lg text-gray-800">{item.name}</h2>
@@ -115,7 +118,7 @@ const BookingLoader = ({
           />
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

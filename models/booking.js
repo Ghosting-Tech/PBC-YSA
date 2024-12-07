@@ -78,6 +78,11 @@ const bookingSchema = new Schema(
         paymentMethod: { type: String },
         transactionId: { type: String },
         paid: { type: Boolean },
+        responded: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
         status: { type: String, default: "Not Accepted Yet!", required: true },
         items: [
           {
@@ -87,7 +92,7 @@ const bookingSchema = new Schema(
             amount: String,
           },
         ],
-        total: String,
+        total: { type: Number, required: true, default: 0 },
       },
     },
     assignedServiceProviders: {

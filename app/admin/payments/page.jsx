@@ -17,8 +17,10 @@ const PaymentsPageContent = () => {
 
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
+  const id = searchParams.get("id");
   const page = searchParams.get("page") || 1;
   const [searchQuery, setSearchQuery] = useState(search || "");
+  const [searchId, setSearchId] = useState(id || "");
 
   const fetchingData = useCallback(async () => {
     try {
@@ -84,6 +86,7 @@ const PaymentsPageContent = () => {
         searchQuery={searchQuery}
         setStatus={setStatus}
         fetchingData={fetchingData}
+        searchId={searchId}
       />
       <PaymentTable payments={payments} updatePayment={updatePayment} />
       <PaginationBtn totalPages={meta.totalPages} />

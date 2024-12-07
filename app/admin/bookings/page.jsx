@@ -17,9 +17,10 @@ function BookingsPageContent() {
 
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
+  const id = searchParams.get("id");
   const page = searchParams.get("page") || 1;
   const [searchQuery, setSearchQuery] = useState(search || "");
-
+  const [searchId, setSearchId] = useState(id || "");
   const fetchBookings = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -59,6 +60,7 @@ function BookingsPageContent() {
         setStatus={setStatus}
         fetchBookings={fetchBookings}
         searchQuery={searchQuery}
+        searchId={searchId}
       />
       <BookingsTable bookings={bookings} />
       <PaginationBtn totalPages={meta.totalPages} />

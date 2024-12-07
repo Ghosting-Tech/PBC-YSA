@@ -50,7 +50,7 @@ const Footer = () => {
   const topBookedServices = useSelector((state) => state.topServices.services);
 
   return (
-    <motion.footer
+    (<motion.footer
       ref={ref}
       variants={containerVariants}
       initial="hidden"
@@ -114,11 +114,22 @@ const Footer = () => {
                   name: "Support",
                   link: "/support",
                 },
+                {
+                  name: "Privacy Policy",
+                  link: "/privacy-policy",
+                },
+                {
+                  name: "Terms & Conditions",
+                  link: "/terms-and-condition",
+                },
+                {
+                  name: "Refund Policy",
+                  link: "/refund-policy",
+                },
               ].map((item, index) => (
                 <motion.li
                   key={index}
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="cursor-pointer hover:translate-x-5 transition-all duration-300"
                 >
                   <Link
                     href={item.link}
@@ -139,12 +150,11 @@ const Footer = () => {
               Our Services
             </Typography>
             <ul className="space-y-2">
-              {topBookedServices.length > 0 ? (
-                topBookedServices.map((item, index) => (
+              {topBookedServices?.length > 0 ? (
+                topBookedServices?.slice(0, 8).map((item, index) => (
                   <motion.li
                     key={index}
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="cursor-pointer hover:translate-x-5 transition-all duration-300"
                   >
                     <Link
                       href={`/services/${item?._id}`}
@@ -226,12 +236,15 @@ const Footer = () => {
               height={24}
               alt="Ghosting Tech"
               className="mr-2"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
             <span className="text-blue-500 font-semibold">Ghosting Tech</span>
           </Link>
         </motion.div>
       </div>
-    </motion.footer>
+    </motion.footer>)
   );
 };
 

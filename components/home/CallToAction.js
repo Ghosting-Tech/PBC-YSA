@@ -7,11 +7,7 @@ const CallToAction = () => {
   return (
     <div className="w-full pt-4">
       <div className="flex flex-col items-center justify-center gap-6 mx-auto max-w-3xl">
-        <Link
-          href={"/services"}
-          className="no-underline w-full"
-          // className="px-6 py-3 w-full outline transition-all duration-700 flex justify-center items-center rounded-md gap-1 hover:bg-gradient-to-r hover:from-transparent hover:to-transparent hover:text-blue-600 outline-none hover:outline-blue-600 hover:outline-2 bg-gradient-to-tr from-blue-400 to-blue-600 font-semibold text-white"
-        >
+        <Link href={"/services"} className="no-underline w-full">
           <Button
             variant="gradient"
             color="blue"
@@ -35,7 +31,7 @@ const CallToAction = () => {
             fullWidth
             size="lg"
           >
-            Become a service provider{" "}
+            Become a service provider
             <span className="ml-2">
               <FaUserPlus />
             </span>

@@ -5,9 +5,12 @@ import { useState, useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { VscLoading } from "react-icons/vsc";
 
-const LoginHistory = dynamic(() => import("@/components/admin/service-provider/LoginHistory"), {
-  suspense: true,
-});
+const LoginHistory = dynamic(
+  () => import("@/components/admin/service-provider/LoginHistory"),
+  {
+    suspense: true,
+  }
+);
 
 const Page = () => {
   const { id } = useParams();
@@ -18,7 +21,9 @@ const Page = () => {
   useEffect(() => {
     const fetchLoginHistory = async () => {
       try {
-        const response = await axios.get(`/api/admin/service-providers/history/${id}`);
+        const response = await axios.get(
+          `/api/admin/service-providers/history/${id}`
+        );
         const data = await response.data;
         const middleIndex = Math.ceil(data.history.length / 2);
         const first = data.history.slice(0, middleIndex) || [];
@@ -37,7 +42,7 @@ const Page = () => {
 
   if (loading) {
     return (
-        <div className="flex justify-center items-center h-full">
+      <div className="flex justify-center items-center h-full w-full">
         <div className="text-lg font-semibold animate-spin my-56">
           <VscLoading size={50} />
         </div>
@@ -48,7 +53,9 @@ const Page = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full mb-10">
       <div className="w-4/5 flex flex-col gap-6 items-center">
-        <h1 className="text-3xl font-semibold text-blue-800">Login & Logout History</h1>
+        <h1 className="text-3xl font-semibold text-blue-800">
+          Login & Logout History
+        </h1>
         <div className="flex gap-4 w-full">
           <Suspense fallback={<div>Loading history...</div>}>
             <LoginHistory history={firstHalf} />

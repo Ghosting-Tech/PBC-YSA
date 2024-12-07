@@ -6,8 +6,6 @@ import { GoAlertFill } from "react-icons/go";
 import { jsPDF } from "jspdf";
 
 const ServiceDetails = ({ booking }) => {
-
-
   const handleDownloadPdf = () => {
     const doc = new jsPDF();
 
@@ -120,7 +118,7 @@ const ServiceDetails = ({ booking }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow mb-6">
+    (<div className="bg-white p-6 rounded-lg shadow mb-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-gray-800">Service Details</h3>
@@ -130,7 +128,7 @@ const ServiceDetails = ({ booking }) => {
       </div>
       {/* Cart Items */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {booking.cartItems.map((item) => (
+        {booking.cartItems?.map((item) => (
           <div
             key={item._id}
             className="flex justify-between items-center py-4 border-b"
@@ -142,7 +140,10 @@ const ServiceDetails = ({ booking }) => {
                 src={item.icon.url}
                 alt={item.name}
                 className="w-14 h-14 object-cover rounded-md"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
               <div>
                 <h4 className="text-lg font-semibold text-gray-700">
                   {item.name}
@@ -156,10 +157,8 @@ const ServiceDetails = ({ booking }) => {
           </div>
         ))}
       </div>
-
       {/* Pricing Info */}
       <ShowPricing cartItems={booking.cartItems} />
-
       {/* Payment Info */}
       {booking.transactionId == undefined ? (
         <div className="mt-6 bg-red-50 text-red-500 text-sm p-4 rounded-lg flex gap-2 items-center">
@@ -198,7 +197,7 @@ const ServiceDetails = ({ booking }) => {
           </div>
         </div>
       )}
-    </div>
+    </div>)
   );
 };
 

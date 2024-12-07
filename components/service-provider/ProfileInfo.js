@@ -22,7 +22,7 @@ const ProfileInfo = ({ user }) => {
   };
 
   return (
-    <div className="flex flex-col shadow-md gap-6 w-full h-full bg-white rounded-xl px-6 py-4">
+    (<div className="flex flex-col shadow-md gap-6 w-full h-full bg-white rounded-xl px-6 py-4">
       <div className="flex justify-between w-full">
         <div>Phone Number</div>
         <div>{user?.phoneNumber}</div>
@@ -65,7 +65,10 @@ const ProfileInfo = ({ user }) => {
               alt="profile"
               src={user?.id1?.image?.url}
               className="h-full w-full object-cover"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           </CardHeader>
           <CardBody>
             <Typography variant="p" color="blue-gray">
@@ -85,7 +88,10 @@ const ProfileInfo = ({ user }) => {
               alt="service provider Id-2"
               src={user?.id2?.image?.url}
               className="h-full w-full object-cover"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           </CardHeader>
           <CardBody>
             <Typography variant="p" color="blue-gray">
@@ -94,7 +100,6 @@ const ProfileInfo = ({ user }) => {
           </CardBody>
         </Card>
       </div>
-
       <Dialog
         size="xl"
         open={open}
@@ -108,7 +113,10 @@ const ProfileInfo = ({ user }) => {
             src={selectedImage}
             alt="Full size preview"
             className="h-full w-full object-contain rounded-lg"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <button
             onClick={() => setOpen(false)}
             className="absolute top-2 right-2 p-2 rounded-full bg-white/80 hover:bg-white text-gray-800"
@@ -130,7 +138,7 @@ const ProfileInfo = ({ user }) => {
           </button>
         </div>
       </Dialog>
-    </div>
+    </div>)
   );
 };
 

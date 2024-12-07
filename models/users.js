@@ -85,7 +85,7 @@ const userSchema = new Schema(
       required: true,
     },
     services: {
-      type: Array,
+      type: [{ type: Schema.Types.ObjectId, ref: "Service" }],
       default: [],
     },
     reviews: {

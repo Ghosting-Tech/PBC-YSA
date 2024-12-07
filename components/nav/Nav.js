@@ -16,7 +16,7 @@ import Logo from "../Logo";
 import { setUser, setUserLoading } from "@/redux/slice/userSlice";
 import useFcmToken from "@/hook/useFcmToken";
 
-const MotionIconButton = motion(IconButton);
+const MotionIconButton = motion.create(IconButton);
 
 export default function EnhancedNav() {
   const [openNav, setOpenNav] = useState(false);
@@ -184,8 +184,6 @@ export default function EnhancedNav() {
             color="blue-gray"
             className="lg:hidden"
             onClick={() => setOpenNav(!openNav)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
             animate={openNav ? "open" : "closed"}
             variants={menuIconVariants}
             transition={{ duration: 0.6 }}

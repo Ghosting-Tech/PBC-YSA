@@ -23,6 +23,8 @@ import InvoiceDetail from "@/components/admin/bookings/single-booking/InvoiceDet
 import { toast } from "sonner";
 import { AiOutlineLoading } from "react-icons/ai";
 import Invoice from "./Invoice";
+import BookingActions from "./BookingActions";
+import VerificationImageUpload from "./VerificationImageUpload";
 
 const BookingDetail = ({ booking, setBooking }) => {
   const user = useSelector((state) => state.user.user);
@@ -236,185 +238,128 @@ const BookingDetail = ({ booking, setBooking }) => {
     }
   };
   return (
-    <div className="px-8 py-2">
-      <div className="mb-4">
-        <BookingHeader booking={booking} />
-        <ServiceDetails booking={booking} />
-        <InvoiceDetail booking={booking} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
-              Booking Information
-            </h3>
-            <div className="flex justify-between mb-3">
-              <div>
-                <p className="text-sm text-gray-500">Booking Date</p>
-                <p className="text-lg font-semibold text-gray-700">
-                  {booking?.date}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Booking Time</p>
-                <p className="text-lg font-semibold text-gray-700">
-                  {booking?.time}
-                </p>
-              </div>
-            </div>
-          </div>
-          {booking?.acceptedByServiceProvider && (
-            <div className="bg-white p-6 rounded-lg shadow w-full">
-              <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
-                Customer Details
+    <div className="py-2">
+      <div className="mx-8">
+        <div className="mb-4">
+          <BookingHeader booking={booking} />
+          <ServiceDetails booking={booking} />
+          <InvoiceDetail booking={booking} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="text-xl font-bold text-gray-800 mb-4">
+                Booking Information
               </h3>
-              <UserDetail
-                name={booking?.fullname}
-                profileImage={booking?.profileImage}
-                email={booking?.email}
-                phoneNumber={booking?.phoneNumber}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-      <LocationDetails booking={booking} />
-      {booking?.acceptedByServiceProvider && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-          {otpVerified ? (
-            <div className="bg-white rounded-lg shadow-md w-full min-h-44 p-4 flex items-center flex-col justify-center">
-              <div className="text-2xl font-julius text-teal-500 font-bold flex flex-col items-center gap-1">
-                <RiVerifiedBadgeFill size={75} /> OTP Verified
+              <div className="flex justify-between mb-3">
+                <div>
+                  <p className="text-sm text-gray-500">Booking Date</p>
+                  <p className="text-lg font-semibold text-gray-700">
+                    {booking?.date}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Booking Time</p>
+                  <p className="text-lg font-semibold text-gray-700">
+                    {booking?.time}
+                  </p>
+                </div>
               </div>
             </div>
-          ) : (
-            <div className="bg-white rounded-lg shadow-md w-full min-h-44 p-4 flex items-center flex-col justify-center">
-              <h2 className="md:text-xl sm:text-xl text-lg text-gray-500 font-normal">
-                Enter reached verification OTP
-              </h2>
-
-              <div className="w-full px-6 flex items-center flex-col md:flex-row justify-center gap-4 mt-4">
-                <div className="flex items-center justify-center gap-4">
-                  {otp.map((data, index) => {
-                    return (
-                      <input
-                        key={index}
-                        type="text"
-                        name="otp"
-                        maxLength="1"
-                        className="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
-                        value={data}
-                        onChange={(e) => handleChangeOtp(e.target, index)}
-                        onFocus={(e) => e.target.select()}
-                        onKeyDown={(e) => handleKeyDownOtp(e, index)}
-                      />
-                    );
-                  })}
-                </div>
-                <button
-                  variant="gradient"
-                  color="teal"
-                  className="rounded px-4 py-2 flex items-center gap-1 bg-blue-500 text-white hover:shadow-lg hover:shadow-blue-100 transition-all font-semibold"
-                  onClick={handleVerifyOtp}
-                >
-                  Verify <FaCheckCircle />
-                </button>
-              </div>
-            </div>
-          )}
-
-          <div className="bg-white flex justify-center items-center rounded-lg shadow-md w-full min-h-44 p-4">
-            <div className="flex gap-4 flex-col md:flex-row items-center justify-center">
-              {imageUploadLoading ? (
-                <div className="w-32 rounded-lg object-cover aspect-square bg-gray-300 flex justify-center items-center">
-                  <AiOutlineLoading size={32} className="animate-spin" />
-                </div>
-              ) : (
-                <Image
-                  width={500}
-                  height={500}
-                  src={uploadedImage || "https://placehold.co/400"}
-                  alt="Uploaded"
-                  className="w-32 rounded-lg object-cover aspect-square"
+            {booking?.acceptedByServiceProvider && (
+              <div className="bg-white p-6 rounded-lg shadow w-full">
+                <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
+                  Customer Details
+                </h3>
+                <UserDetail
+                  name={booking?.fullname}
+                  profileImage={booking?.profileImage}
+                  email={booking?.email}
+                  phoneNumber={booking?.phoneNumber}
                 />
-              )}
-
-              <div className="flex flex-col items-center md:items-start justify-center gap-2">
-                <h2 className="md:text-xl sm:text-xl text-md text-gray-500 font-normal">
-                  Upload verification image
+              </div>
+            )}
+          </div>
+        </div>
+        <LocationDetails booking={booking} />
+        {booking?.acceptedByServiceProvider && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+            {otpVerified ? (
+              <div className="bg-white rounded-lg shadow-md w-full min-h-44 p-4 flex items-center flex-col justify-center">
+                <div className="text-2xl font-julius text-teal-500 font-bold flex flex-col items-center gap-1">
+                  <RiVerifiedBadgeFill size={75} /> OTP Verified
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-md w-full min-h-44 p-4 flex items-center flex-col justify-center">
+                <h2 className="md:text-xl sm:text-xl text-lg text-gray-500 font-normal">
+                  Enter reached verification OTP
                 </h2>
-                <label
-                  htmlFor="verification-image"
-                  className="flex items-center gap-1 w-fit cursor-pointer text-sm bg-blue-500 text-white px-4 py-2 rounded uppercase font-semibold hover:shadow-lg hover:shadow-blue-100 transition-all"
-                >
-                  Upload Image <MdOutlineCloudUpload />
-                </label>
-                <input
-                  id="verification-image"
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
+                <div className="w-full px-6 flex items-center flex-col md:flex-row justify-center gap-4 mt-4">
+                  <div className="flex items-center justify-center gap-4">
+                    {otp.map((data, index) => {
+                      return (
+                        <input
+                          key={index}
+                          type="text"
+                          name="otp"
+                          maxLength="1"
+                          className="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                          value={data}
+                          onChange={(e) => handleChangeOtp(e.target, index)}
+                          onFocus={(e) => e.target.select()}
+                          onKeyDown={(e) => handleKeyDownOtp(e, index)}
+                        />
+                      );
+                    })}
+                  </div>
+                  <button
+                    variant="gradient"
+                    color="teal"
+                    className="rounded px-4 py-2 flex items-center gap-1 bg-blue-500 text-white hover:shadow-lg hover:shadow-blue-100 transition-all font-semibold"
+                    onClick={handleVerifyOtp}
+                  >
+                    Verify <FaCheckCircle />
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          {booking?.otpVerified && !booking?.completed && (
-            <Invoice
-              selectedBooking={booking}
-              setSelectedBooking={setBooking}
+            )}
+            <VerificationImageUpload
+              booking={booking}
+              setBooking={setBooking}
             />
-          )}
-
-          {booking?.otpVerified && (
-            <UpdateServiceStatus
-              selectedNewBooking={booking}
-              setSelectedNewBooking={setBooking}
-            />
-          )}
-        </div>
-      )}
-
-      <section className="mb-8 mt-4">
-        <h3 className="text-xl font-bold text-red-600">Caution:</h3>
-        <ol className="list-decimal ml-6 mt-2 text-gray-700">
-          <li>Accept the booking as soon as possible.</li>
-          <li>Rejection cannot be undone later.</li>
-          <li>Verify OTP from the customer.</li>
-          <li>Attach an image of doing servicing</li>
-          <li>Update the status of service According to you!</li>
-          <li>
-            Generate an invoice after reviewing the customer problem with the
-            necessary details.
-          </li>
-        </ol>
-      </section>
-      {!booking?.acceptedByServiceProvider && (
-        <div className="my-4 flex justify-end">
-          <div className="flex gap-2 w-full md:w-fit">
-            <Button
-              variant="outlined"
-              color="teal"
-              ripple
-              className="w-full md:w-fit md:px-10 rounded"
-              onClick={() => {
-                handleRejectRequest(booking?._id);
-              }}
-            >
-              Reject
-            </Button>
-            <Button
-              variant="gradient"
-              color="teal"
-              ripple
-              className="w-full md:w-fit md:px-10 rounded"
-              onClick={() => {
-                handleAcceptRequest(booking?._id);
-              }}
-            >
-              Accept
-            </Button>
+            {booking?.otpVerified && !booking?.completed && (
+              <Invoice
+                selectedBooking={booking}
+                setSelectedBooking={setBooking}
+              />
+            )}
+            {booking?.otpVerified && (
+              <UpdateServiceStatus
+                selectedNewBooking={booking}
+                setSelectedNewBooking={setBooking}
+              />
+            )}
           </div>
-        </div>
-      )}
+        )}
+        <section className="mb-8 mt-4">
+          <h3 className="text-xl font-bold text-red-600">Caution:</h3>
+          <ol className="list-decimal ml-6 mt-2 text-gray-700">
+            <li>Accept the booking as soon as possible.</li>
+            <li>Rejection cannot be undone later.</li>
+            <li>Verify OTP from the customer.</li>
+            <li>Attach an image of doing servicing</li>
+            <li>Update the status of service According to you!</li>
+            <li>
+              Generate an invoice after reviewing the customer problem with the
+              necessary details.
+            </li>
+          </ol>
+        </section>
+      </div>
+      <BookingActions
+        booking={booking}
+        handleAcceptRequest={handleAcceptRequest}
+        handleRejectRequest={handleRejectRequest}
+      />
     </div>
   );
 };

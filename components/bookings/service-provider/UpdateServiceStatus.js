@@ -81,12 +81,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
       const updatedStatusBooking = {
         ...selectedNewBooking,
         status: "Service is Completed",
-        invoices: {
-          ...selectedNewBooking.invoices,
-          status: "Service is Completed!",
-        },
         completed: true,
-        invoices: { ...selectedNewBooking.invoices, paid: true },
       };
 
       setSelectedNewBooking(updatedStatusBooking);
@@ -169,7 +164,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
 
   return (
     <>
-      {!selectedNewBooking.completed &&
+      {!selectedNewBooking.completed && (
         <div className="bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4">
           <div className="md:text-xl sm:text-xl text-lg text-gray-500 font-normal flex justify-center gap-2">
             Complete the Service
@@ -212,7 +207,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
             Service Completed
           </Button>
         </div>
-      }
+      )}
     </>
   );
 };
