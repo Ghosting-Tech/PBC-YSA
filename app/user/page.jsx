@@ -219,6 +219,11 @@ const User = () => {
                     </div>
                     <div className="bg-gray-400 h-[1px] w-full"></div>
                     <div className="flex justify-between w-full">
+                      <div>Religion</div>
+                      <div>{user.religion}</div>
+                    </div>
+                    <div className="bg-gray-400 h-[1px] w-full"></div>
+                    <div className="flex justify-between w-full">
                       <div>City</div>
                       <div>{user.city}</div>
                     </div>
@@ -325,9 +330,27 @@ const User = () => {
                               })
                             }
                           >
-                            <Option value="unspecified">Unspecified</Option>
                             <Option value="male">Male</Option>
                             <Option value="female">Female</Option>
+                            <Option value="other">Other</Option>
+                          </Select>
+                          <Select
+                            label="Religion"
+                            value={updateUser.religion}
+                            onChange={(val) =>
+                              setUpdateUser({
+                                ...updateUser,
+                                religion: val,
+                              })
+                            }
+                          >
+                            <Option value="hinduism">Hinduism</Option>
+                            <Option value="islam">Islam</Option>
+                            <Option value="christianity">Christianity</Option>
+                            <Option value="buddhism">Buddhism</Option>
+                            <Option value="sikhism">Sikhism</Option>
+                            <Option value="judaism">Judaism</Option>
+                            <Option value="other">Other</Option>
                           </Select>
                           <Input
                             onChange={(e) =>
