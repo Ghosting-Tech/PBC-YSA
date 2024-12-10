@@ -114,9 +114,9 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
           <h1 className="text-2xl font-bold">All Invoices</h1>
           <Button
             onClick={handleCreateInvoiceDialog}
-            className="rounded"
             color="blue"
             variant="outlined"
+            disabled={selectedBooking.completed}
           >
             Create New Invoice
           </Button>
@@ -287,8 +287,9 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
                 </div>
               </div>
               <div className="flex md:flex-col flex-row justify-center gap-2">
-                {selectedBooking.invoices.status === "Invoice Accepted" ? (
-                  <div className="bg-teal-100 text-teal-800 rounded-full px-3 py-1 text-sm capitalize">
+                {selectedBooking.invoices.status === "Invoice Accepted" ||
+                selectedBooking.invoices.status === "Invoice Paid!" ? (
+                  <div className="bg-teal-100 flex justify-center text-teal-800 rounded-full px-3 py-1 text-sm capitalize">
                     {selectedBooking.invoices.status}
                   </div>
                 ) : (
@@ -309,7 +310,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
             </div>
             <div className="w-full sm:bg-white rounded-lg border overflow-auto">
               {/* Header */}
-              <div className="text-white bg-teal-400 flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
+              <div className="text-white bg-blue-500 flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
                 <div className="p-3 text-left font-semibold flex justify-center md:w-1/4">
                   Description
                 </div>

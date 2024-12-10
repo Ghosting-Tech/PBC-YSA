@@ -32,12 +32,14 @@ const TicketListContent = () => {
   const activeTab = searchParams.get("status") || "all";
   const searchTerm = searchParams.get("search") || "";
   const sortBy = searchParams.get("sortBy") || "newest";
+  const sortByRole = searchParams.get("sortByRole") || "both";
 
   const fetchTicketsData = async () => {
+    console.log(sortByRole);
     try {
       setLoading(true);
       const response = await fetch(
-        `/api/admin/tickets?page=${page}&limit=${ITEMS_PER_PAGE}&search=${searchTerm}&sortBy=${sortBy}&status=${activeTab}`
+        `/api/admin/tickets?page=${page}&limit=${ITEMS_PER_PAGE}&search=${searchTerm}&sortBy=${sortBy}&status=${activeTab}&sortByRole=${sortByRole}`
       );
       const data = await response.json();
       if (data.success) {
@@ -57,8 +59,8 @@ const TicketListContent = () => {
 
   useEffect(() => {
     fetchTicketsData();
-    //eslint-disable-next-line
-  }, [page, searchTerm, sortBy, activeTab]);
+    // eslint-disable-next-line
+  }, [page, searchTerm, sortBy, activeTab, sortByRole]);
 
   const handleViewDetails = (ticket) => {
     setSelectedTicket(ticket);
@@ -97,8 +99,11 @@ const TicketListContent = () => {
   const handleSortChange = (sort) => {
     updateQueryParams({ sortBy: sort, page: 1 });
   };
+  const handleSortByRoleChange = (sort) => {
+    updateQueryParams({ sortByRole: sort, page: 1 });
+  };
 
-  if (loading) return <Loading />;
+  // if (loading) return <Loading />;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -114,6 +119,9 @@ const TicketListContent = () => {
         sortBy={sortBy}
         setSortBy={handleSortChange}
         totalTickets={totalTickets}
+        sortByRole={sortByRole}
+        loading={loading}
+        setSortByRole={handleSortByRoleChange}
       />
       <PaginationBtn totalPages={totalPages} />
       <TicketDetailsModal

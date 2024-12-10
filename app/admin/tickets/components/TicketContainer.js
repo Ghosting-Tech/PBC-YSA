@@ -21,6 +21,13 @@ import {
   AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import TicketCard from "@/components/tickets/TicketCard";
+import { LuLoader } from "react-icons/lu";
+
+const Loading = () => (
+  <div className="flex justify-center items-center min-h-72">
+    <LuLoader className="w-12 h-12 animate-spin text-blue-500" />
+  </div>
+);
 
 const TicketContainer = ({
   tickets,
@@ -33,6 +40,9 @@ const TicketContainer = ({
   sortBy,
   setSortBy,
   totalTickets,
+  sortByRole,
+  setSortByRole,
+  loading,
 }) => {
   const handleTabChange = (value) => {
     if (typeof setActiveTab === "function") {
@@ -83,6 +93,45 @@ const TicketContainer = ({
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+            <Popover placement="bottom-end">
+              <PopoverHandler>
+                <Button variant="text" className="flex items-center gap-2">
+                  <AdjustmentsHorizontalIcon className="h-5 w-5" />{" "}
+                  <div className="hidden md:block">Sort By role</div>
+                </Button>
+              </PopoverHandler>
+              <PopoverContent className="p-2 z-50">
+                <div className="flex flex-col gap-2">
+                  <Button
+                    size="sm"
+                    color={sortByRole === "both" ? "blue" : "gray"}
+                    variant={sortByRole === "both" ? "gradient" : "text"}
+                    onClick={() => setSortByRole("both")}
+                    fullWidth
+                  >
+                    Both
+                  </Button>
+                  <Button
+                    size="sm"
+                    color={sortByRole === "user" ? "blue" : "gray"}
+                    variant={sortByRole === "user" ? "gradient" : "text"}
+                    onClick={() => setSortByRole("user")}
+                    fullWidth
+                  >
+                    Users
+                  </Button>
+                  <Button
+                    size="sm"
+                    color={sortByRole === "provider" ? "blue" : "gray"}
+                    variant={sortByRole === "provider" ? "gradient" : "text"}
+                    onClick={() => setSortByRole("provider")}
+                    fullWidth
+                  >
+                    Providers
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
             <Popover placement="bottom-end">
               <PopoverHandler>
                 <Button variant="text" className="flex items-center gap-2">
@@ -156,7 +205,7 @@ const TicketContainer = ({
             }}
           >
             <TabPanel value="all" className="p-0">
-              {renderTickets()}
+              {loading ? <Loading /> : renderTickets()}
             </TabPanel>
             <TabPanel value="unresolved">{renderTickets()}</TabPanel>
             <TabPanel value="resolved">{renderTickets()}</TabPanel>

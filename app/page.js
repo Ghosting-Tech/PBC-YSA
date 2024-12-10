@@ -2,7 +2,10 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setGeolocationDenied } from "@/redux/slice/locationSlice";
+import {
+  setCityState,
+  setGeolocationDenied,
+} from "@/redux/slice/locationSlice";
 import Testimonial from "@/components/home/testimonial/Testimonial";
 import Blogs from "@/components/BlogSection";
 import { toast } from "sonner";
@@ -16,14 +19,14 @@ import VideoCarousel from "@/components/home/VideoCarousel";
 import CallToAction from "@/components/home/CallToAction";
 import ServiceContainer from "@/components/home/ServiceContainer";
 import HowToBook from "@/components/home/HowToBook";
-
+import Footer from "@/components/Footer";
+import Nav from "@/components/nav/Nav";
 const fetchTopServices = async (cityState) => {
   try {
     const response = await axios.post(
       "/api/services/top-booked?limit=100",
       cityState
     );
-    console.log("Top services response:", response.data);
     return response;
   } catch (error) {
     console.error("Error fetching top services:", error);
@@ -54,9 +57,34 @@ const getAddress = async ({ lat, lng }) => {
   }
 };
 
+const getCustomizeData = async () => {
+  try {
+    const response = await fetch("/api/admin/customize", {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Error fetching customize data");
+    }
+
+    return data.content[0] || null;
+  } catch (error) {
+    console.error("Error fetching customize data:", error);
+    toast.error("Something went wrong. Please try again later.");
+    return null;
+  }
+};
+
 export default function Home() {
   const [selectedState, setSelectedState] = useState("Bihar");
   const [selectedCity, setCity] = useState("patna");
+  const [customizeData, setCustomizeData] = useState(null);
 
   const setSelectedCity = useCallback((city) => {
     setCity(city);
@@ -77,6 +105,7 @@ export default function Home() {
         }
         dispatch(setTopBookedServices(allServices));
         dispatch(setGeolocationDenied(false));
+        dispatch(setCityState(cityState));
       } catch (error) {
         console.error("Error fetching top services:", error);
       } finally {
@@ -104,6 +133,7 @@ export default function Home() {
             setSelectedState(cityState.state);
             setSelectedCity(cityState.city);
             getTopServices(cityState);
+            dispatch(setCityState(cityState));
             localStorage.setItem("cityState", JSON.stringify(cityState));
           } catch (error) {
             console.log("Error getting address:", error);
@@ -127,9 +157,23 @@ export default function Home() {
     //eslint-disable-next-line
   }, [dispatch, getTopServices, setSelectedCity]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const content = await getCustomizeData();
+        setCustomizeData(content);
+      } catch (error) {
+        console.error("Error fetching customize data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleLocationChange = () => {
     if (selectedState && selectedCity) {
       const cityState = { state: selectedState, city: selectedCity };
+      dispatch(setCityState(cityState));
       localStorage.setItem("cityState", JSON.stringify(cityState));
       getTopServices(
         cityState,
@@ -138,13 +182,11 @@ export default function Home() {
     }
   };
 
-  // if (topBookedServices.loading) return <Loading />;
-
   return (
     <main>
       <>
-        {/* <HeroMovingIcons /> */}
-        <Hero />
+        <Nav />
+        <Hero customizeData={customizeData} />
         <ServiceContainer
           selectedState={selectedState}
           setSelectedState={setSelectedState}
@@ -153,12 +195,13 @@ export default function Home() {
           selectedCity={selectedCity}
           forAllService={false}
         />
-        <VideoCarousel />
+        <VideoCarousel videos={customizeData?.videos} />
         <WhyChooseUs />
         <HowToBook />
         <CallToAction />
         <Testimonial />
         <Blogs />
+        <Footer />
       </>
     </main>
   );

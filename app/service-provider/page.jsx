@@ -22,7 +22,7 @@ const ServiceProvider = () => {
 
   useEffect(() => {
     setUser(reduxUser);
-    setUpdatedServices(reduxUser.services || []);
+    setUpdatedServices(reduxUser?.services || []);
   }, [reduxUser]);
 
   const [open, setOpen] = useState(false);

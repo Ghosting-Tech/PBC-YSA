@@ -117,21 +117,16 @@ const WhyChooseUs = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
+              className="hover:scale-105 transition-all duration-300"
             >
               <Card
                 className={`h-full cursor-pointer transition-all duration-300 shadow-lg ring-2 ring-blue-500`}
               >
                 <CardBody className="flex flex-col h-full">
                   <div className="flex items-center gap-4 mb-4">
-                    <motion.div
-                      className="p-3 rounded-full bg-blue-50"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                    >
+                    <div className="p-3 rounded-full bg-blue-50 hover:scale-105 transition-all duration-300">
                       <feature.icon size={24} className="text-blue-500" />
-                    </motion.div>
+                    </div>
                     <Typography variant="h5" color="blue-gray">
                       {feature.title}
                     </Typography>

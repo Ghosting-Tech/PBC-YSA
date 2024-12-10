@@ -1,11 +1,18 @@
-import { Inter } from "next/font/google";
+import { Poppins, Racing_Sans_One } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import Nav from "@/components/nav/Nav";
-import Footer from "@/components/Footer";
 import ReduxProvider from "@/provider/ReduxProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+const racingSansOne = Racing_Sans_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-racing",
+});
 
 export const metadata = {
   title: "Yourserviceapp",
@@ -18,13 +25,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-100`}>
+      <body
+        className={`${poppins.className} ${racingSansOne.variable} bg-gray-100`}
+      >
         <Toaster position="bottom-right" richColors />
-        <ReduxProvider>
-          <Nav />
-          {children}
-          <Footer />
-        </ReduxProvider>
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );

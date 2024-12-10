@@ -497,7 +497,6 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
           </Button>
         </DialogFooter>
       </Dialog>
-
       <Dialog
         size="lg"
         className="bg-gray-200"

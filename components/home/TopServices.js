@@ -12,10 +12,8 @@ import ServiceCard from "./ServiceCard";
 const NextArrow = ({ onClick }) => {
   return (
     <motion.div
-      className="absolute top-1/2 transform -translate-y-1/2 right-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
+      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 right-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
       onClick={onClick}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
     >
       <MdChevronRight className="w-6 h-6" />
     </motion.div>
@@ -25,10 +23,8 @@ const NextArrow = ({ onClick }) => {
 const PrevArrow = ({ onClick }) => {
   return (
     <motion.div
-      className="absolute top-1/2 transform -translate-y-1/2 left-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
+      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 left-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
       onClick={onClick}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
     >
       <MdChevronLeft className="w-6 h-6" />
     </motion.div>
@@ -131,18 +127,17 @@ const TopServices = ({ topServices }) => {
         variants={itemVariants}
         className="relative container mx-auto px-4 md:px-0 gap-2 items-center w-full"
       >
-        {topServices.length <= 3 ? (
+        {topServices?.length <= 3 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <AnimatePresence>
               {topServices.map((service) => (
                 <motion.div
                   key={service._id}
-                  className="px-2"
+                  className="px-2 hover:scale-105 transition-all duration-300"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  whileHover={{ scale: 1.05 }}
                 >
                   <ServiceCard service={service} />
                 </motion.div>
@@ -151,11 +146,10 @@ const TopServices = ({ topServices }) => {
           </div>
         ) : (
           <Slider {...settings}>
-            {topServices.map((service) => (
+            {topServices?.map((service) => (
               <motion.div
                 key={service._id}
-                className="px-2"
-                whileHover={{ scale: 1.05 }}
+                className="px-2 hover:scale-105 transition-all duration-300"
                 transition={{ duration: 0.3 }}
               >
                 <ServiceCard service={service} />

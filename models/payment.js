@@ -23,6 +23,23 @@ const paymentSchema = new Schema(
       type: Number,
       required: true,
     },
+    screenshot: {
+      type: String, // URL for uploaded screenshot
+    },
+    reason: {
+      type: String, // Reason for the current status
+    },
+    statusUpdates: [
+      {
+        paid: Boolean,
+        screenshot: String,
+        reason: String,
+        timestamp: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

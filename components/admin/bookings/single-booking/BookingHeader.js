@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
+import BackButton from "../../BackButton";
 
 const BookingHeader = ({ booking }) => {
   const handleDownload = () => {
@@ -11,7 +12,12 @@ const BookingHeader = ({ booking }) => {
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-      <h2 className="text-xl font-semibold">Booking ID: {booking.bookingId}</h2>
+      <div className="flex gap-3">
+        <BackButton />
+        <h2 className="text-xl font-semibold">
+          Booking ID: {booking.bookingId}
+        </h2>
+      </div>
       <div className="flex items-center gap-2">
         <div
           className={`text-xs px-4 py-2 rounded-full ${

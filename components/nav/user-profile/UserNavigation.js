@@ -133,46 +133,7 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
             <MenuList>
               <Link href={`/admin`} className="outline-none">
                 <MenuItem className="justify-center flex items-center gap-1">
-                  Dashboard <MdDashboardCustomize />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/services`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Services <MdOutlineManageHistory />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/bookings?page=1`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Bookings <FaBoxesStacked />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/users?page=1`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Users <MdManageAccounts />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/service-providers`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Service Provider <FaUsersGear />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/payments`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Manage Payments <MdOutlinePayment />
-                </MenuItem>
-              </Link>
-              <Link
-                href={`/admin/tickets?page=1&status=all&sortBy=newest`}
-                className="outline-none"
-              >
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Tickets
-                  <TicketIcon className="h-4 w-4" />
-                </MenuItem>
-              </Link>
-              <Link href={`/admin/blogs`} className="outline-none">
-                <MenuItem className="justify-center flex items-center gap-1">
-                  Blogs <FaMicroblog />
+                  Admin <MdDashboardCustomize />
                 </MenuItem>
               </Link>
               <MenuItem

@@ -1,13 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 
 const HowToBookCard = ({ title, description, imageUrl }) => {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    (<div
+      className="cursor-pointer hover:scale-105 transition-all duration-300"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -18,10 +16,12 @@ const HowToBookCard = ({ title, description, imageUrl }) => {
             <Image
               src={imageUrl}
               alt={title}
-              layout="fill"
-              objectFit="contain"
               className="rounded-full"
-            />
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "contain"
+              }} />
           </div>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             {title}
@@ -29,7 +29,7 @@ const HowToBookCard = ({ title, description, imageUrl }) => {
           <Typography className="mb-4 text-gray-700">{description}</Typography>
         </CardBody>
       </Card>
-    </motion.div>
+    </div>)
   );
 };
 

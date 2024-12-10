@@ -45,7 +45,6 @@ const BookingList = ({ bookings, forUser }) => {
                   : service.status}
               </div>
             )}
-
             <div className="p-4 flex gap-4 flex-col">
               {service.cartItems.map((item, itemIndex) => (
                 <div className="flex flex-col gap-2" key={item._id}>

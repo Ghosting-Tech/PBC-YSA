@@ -92,8 +92,9 @@ const InvoiceDetail = ({ booking }) => {
             </h3>
 
             <div className="flex gap-2 items-center">
-              {booking.invoices.status === "Invoice Accepted" ? (
-                <div className="bg-teal-100 text-teal-800 rounded-full px-3 py-1 text-xs capitalize">
+              {booking.invoices.status === "Invoice Accepted" ||
+              booking.invoices.status === "Invoice Paid!" ? (
+                <div className="bg-green-100 text-green-800 rounded-full px-3 py-1 text-xs capitalize">
                   {booking.invoices.status}
                 </div>
               ) : (
@@ -154,7 +155,7 @@ const InvoiceDetail = ({ booking }) => {
               </div>
               <div className="flex flex-col justify-center gap-2">
                 {booking.invoices.paid ? (
-                  <div className="bg-teal-100 flex justify-center text-teal-800 rounded-full px-3 py-1 text-sm capitalize">
+                  <div className="bg-green-100 flex justify-center text-green-800 rounded-full px-3 py-1 text-sm capitalize">
                     Paid
                   </div>
                 ) : (

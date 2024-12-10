@@ -118,7 +118,10 @@ const UserList = ({
                 </Link>
               )}
               {serviceProvider ? (
-                <Link href={`/admin/service-providers/details/${user._id}`}>
+                <Link
+                  href={`/admin/service-providers/details/${user._id}`}
+                  className=" no-underline"
+                >
                   <Button
                     size="sm"
                     variant="gradient"

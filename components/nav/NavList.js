@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogBody,
   IconButton,
+  Typography,
 } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
 import { FaSearch } from "react-icons/fa";
@@ -15,6 +16,9 @@ import Fuse from "fuse.js";
 import Image from "next/image";
 import ServicesList from "./ServiceList";
 import { useSelector } from "react-redux";
+import LocationDialog from "./location/LocationDialog";
+import { toast } from "sonner";
+import { useLocalStorage } from "../common/LocalStorageWrapper";
 
 export default function NavList() {
   const [open2, setOpen2] = useState(false);
@@ -26,11 +30,17 @@ export default function NavList() {
   const [searchedData, setSearchedData] = useState([]);
   const [searchError, setSearchError] = useState("");
 
+  const [cityState, setCityState] = useLocalStorage("cityState", {});
+
   const topBookedServices = useSelector((state) => state.topServices);
+  const city =
+    useSelector((state) => state.location.cityState.city) ||
+    cityState?.city ||
+    "Select Location";
+
   const gettingServices = async () => {
     try {
-      const storedLocation = JSON.parse(localStorage.getItem("cityState"));
-      if (!storedLocation.city) {
+      if (!city) {
         toast.error("Please select a location for continue!");
       }
       if (topBookedServices.services.length > 0) {
@@ -39,13 +49,12 @@ export default function NavList() {
       }
       const fetchedData = await fetch("/api/services/top-booked?limit=100", {
         method: "POST",
-        body: JSON.stringify(storedLocation),
+        body: JSON.stringify({ city, state: "" }),
         headers: {
           "Content-Type": "application/json",
         },
       });
       const response = await fetchedData.json();
-      // console.log(response);
       function getTopBookedServices(services, topN) {
         return services
           .sort((a, b) => b.bookings.length - a.bookings.length)
@@ -95,29 +104,37 @@ export default function NavList() {
     }
     setSearchedData(result);
   }
-  const [location, setLocation] = useState("Location");
+  // const [location, setLocation] = useState("Location");
 
-  useEffect(() => {
-    // Access localStorage only on the client side
-    const cityState = JSON.parse(localStorage.getItem("cityState"));
-    if (cityState?.city) {
-      setLocation(cityState.city);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const cityState = JSON.parse(localStorage.getItem("cityState"));
+  //   if (cityState?.city) {
+  //     setLocation(cityState.city);
+  //   }
+  // }, []);
+
+  const [openLocationDialog, setOpenLocationDialog] = useState(false);
+
+  const handleLocationDialog = () => setOpenLocationDialog(!openLocationDialog);
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 md:gap-4">
       <ServicesList />
       <div className="flex gap-2 justify-evenly">
-        <Link href="/location" className="no-underline w-full md:w-fit">
-          <Button
-            variant="gradient"
-            className="flex gap-1 w-full md:w-fit justify-center"
-            color="white"
-          >
-            <FaLocationDot size={18} color="#F44336" />
-            {location}
-          </Button>
-        </Link>
+        <Button
+          variant="gradient"
+          className="flex gap-1 w-full md:w-fit justify-center"
+          color="white"
+          onClick={handleLocationDialog}
+        >
+          <FaLocationDot size={18} color="#F44336" />
+          {city}
+        </Button>
+
+        <LocationDialog
+          open={openLocationDialog}
+          handleOpen={handleLocationDialog}
+        />
 
         <IconButton
           onClick={handleOpen2}

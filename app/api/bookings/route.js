@@ -89,12 +89,15 @@ export async function POST(request) {
       role: "service-provider",
       active: true,
     }).populate("services");
+
+    console.log(serviceProviders);
+
     const uniqueServiceProviders = new Set();
 
     serviceProviders.forEach((sp) => {
       sp.locations.forEach((s) => {
         const distance = getDistance(lat, lng, s.lat, s.lng);
-        if (distance <= 15 && !uniqueServiceProviders.has(sp._id.toString())) {
+        if (distance <= 25 && !uniqueServiceProviders.has(sp._id.toString())) {
           uniqueServiceProviders.add(sp._id.toString());
         }
       });
@@ -103,16 +106,18 @@ export async function POST(request) {
     // Convert Set to array to use .map()
     let nearestServiceProvidersArray = Array.from(uniqueServiceProviders);
 
+    console.log({ nearestServiceProvidersArray });
+
     // If no nearby service providers found
     if (nearestServiceProvidersArray.length === 0) {
       return NextResponse.json(
         { error: "No service providers found within the specified range" },
-        { status: 404 }
+        { status: 303 }
       );
     }
 
-    // Find available service providers for cart items
     const availableServiceProviders = [];
+
     for (const cartItem of cartItems) {
       for (const spId of nearestServiceProvidersArray) {
         // Await the service provider query and population
@@ -121,7 +126,8 @@ export async function POST(request) {
         // Ensure services are populated and defined before iterating
         if (sp?.services) {
           sp.services.forEach((service) => {
-            if (service === cartItem.serviceId) {
+            if (service._id.toString() === cartItem.serviceId) {
+              console.log(service);
               availableServiceProviders.push(spId);
             }
           });
@@ -129,7 +135,6 @@ export async function POST(request) {
       }
     }
 
-    // Create the booking
     const bookingData = {
       ...formData,
       location,
@@ -138,6 +143,8 @@ export async function POST(request) {
       otp,
       noServiceProviderAvailable: availableServiceProviders.length <= 0,
     };
+
+    console.log({ bookingData });
     const booking = await Booking.create(bookingData);
 
     // Update user's booking data in parallel
@@ -253,9 +260,12 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log("Error handling order:", error);
+    console.log("Error handling booking:", error);
     return NextResponse.json(
-      { error: "An error occurred while processing the order" },
+      {
+        success: false,
+        error: "An error occurred while processing the booking",
+      },
       { status: 500 }
     );
   }

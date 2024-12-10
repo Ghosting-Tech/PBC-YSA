@@ -6,8 +6,6 @@ import { GoAlertFill } from "react-icons/go";
 import { jsPDF } from "jspdf";
 
 const ServiceDetails = ({ booking }) => {
-
-
   const handleDownloadPdf = () => {
     const doc = new jsPDF();
 
@@ -130,7 +128,7 @@ const ServiceDetails = ({ booking }) => {
       </div>
       {/* Cart Items */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {booking.cartItems.map((item) => (
+        {booking.cartItems?.map((item) => (
           <div
             key={item._id}
             className="flex justify-between items-center py-4 border-b"
@@ -156,10 +154,8 @@ const ServiceDetails = ({ booking }) => {
           </div>
         ))}
       </div>
-
       {/* Pricing Info */}
       <ShowPricing cartItems={booking.cartItems} />
-
       {/* Payment Info */}
       {booking.transactionId == undefined ? (
         <div className="mt-6 bg-red-50 text-red-500 text-sm p-4 rounded-lg flex gap-2 items-center">

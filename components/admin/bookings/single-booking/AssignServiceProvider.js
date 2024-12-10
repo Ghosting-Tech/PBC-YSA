@@ -71,7 +71,6 @@ const AssignServiceProvider = ({ bookingId, setBooking }) => {
       <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
         No service provider assigned
       </h3>
-
       {/* Button Section */}
       <Button
         size="md"

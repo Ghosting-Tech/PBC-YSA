@@ -102,6 +102,23 @@ const OnGoingBooking = ({
       <BookingHeader booking={booking} />
       <ServiceDetails booking={booking} />
       <BookingDetails booking={booking} />
+      {booking.invoices?.title && (
+        <>
+          <InvoiceDetail booking={booking} forUser={true} />
+          {booking.invoices?.status === "Invoice Accepted" &&
+            !booking.invoices.paid && (
+              <Button
+                variant="gradient"
+                color="teal"
+                className="mb-6 w-full flex justify-center"
+                loading={redirectingLoading}
+                onClick={handleInvoicePayment}
+              >
+                Pay ₹{booking.invoices.total}
+              </Button>
+            )}
+        </>
+      )}
       <UserServiceProviderDetail booking={booking} forUser={true} />
       <LocationDetails booking={booking} />
 

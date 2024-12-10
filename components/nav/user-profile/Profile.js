@@ -321,7 +321,6 @@ const Profile = ({
   return (
     <>
       <UserNavigation handleOpenLoginDialog={handleOpenLoginDialog} />
-
       <Dialog
         open={openLoginDialog}
         handler={handleOpenLoginDialog}
@@ -334,8 +333,8 @@ const Profile = ({
         <CardBody>
           <Tabs value={type} className="">
             <div className="flex justify-between items-center mb-4">
-              <h1 className="text-md text-center flex gap-1 items-center font-julius font-bold text-gray-700">
-                <IoPersonCircleOutline size={24} /> Login | Register
+              <h1 className="text-2xl flex gap-1 items-center font-normal mb-0 text-gray-700">
+                <IoPersonCircleOutline size={28} /> Login | Register
               </h1>
               <IconButton
                 variant="text"

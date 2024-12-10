@@ -173,7 +173,6 @@ export default function Testimonial() {
               index === currentIndex ? "bg-blue-500" : "bg-blue-200"
             }`}
             onClick={() => setCurrentIndex(index)}
-            whileHover={{ scale: 1.2 }}
           />
         ))}
       </motion.div>

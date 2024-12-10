@@ -49,7 +49,7 @@ const Page = () => {
   // }, [booking, user]);
 
   return (
-    <div>
+    (<div>
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <div className="text-lg font-semibold animate-spin my-56">
@@ -76,7 +76,7 @@ const Page = () => {
                 already been accepted by another service provider.
               </Typography>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/service-provider/booking">
+                <Link href="/service-provider/booking" legacyBehavior>
                   <Button size="lg" color="light-blue" ripple={true}>
                     Return to bookings
                   </Button>
@@ -96,7 +96,7 @@ const Page = () => {
       ) : (
         booking && <BookingDetail booking={booking} setBooking={setBooking} />
       )}
-    </div>
+    </div>)
   );
 };
 

@@ -7,16 +7,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const EnhancedVideoCarousel = () => {
-  const videos = [
-    "/video/nur-video1.mp4",
-    "/video/nur-video2.mp4",
-    "/video/nur-video3.mp4",
-    "/video/nur-video1.mp4",
-    "/video/nur-video2.mp4",
-    "/video/nur-video3.mp4",
-  ];
-
+const EnhancedVideoCarousel = ({ videos = [] }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const controls = useAnimation();
@@ -50,7 +41,8 @@ const EnhancedVideoCarousel = () => {
     return result;
   };
 
-  const videoChunks = chunkArray(videos, isMobile ? 1 : 3);
+  const videoChunks =
+    videos && videos.length > 0 ? chunkArray(videos, isMobile ? 1 : 3) : [];
 
   const renderArrowPrev = (onClickHandler, hasPrev, label) =>
     hasPrev && (
@@ -59,8 +51,6 @@ const EnhancedVideoCarousel = () => {
         onClick={onClickHandler}
         title={label}
         className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-800 bg-white/30 rounded-full hover:bg-white/50 z-10 focus:outline-none"
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
       >
         <MdChevronLeft className="w-8 h-8" />
@@ -74,8 +64,6 @@ const EnhancedVideoCarousel = () => {
         onClick={onClickHandler}
         title={label}
         className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 bg-white/30 rounded-full hover:bg-white/50 z-10 focus:outline-none"
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
       >
         <MdChevronRight className="w-8 h-8" />
@@ -200,7 +188,7 @@ const EnhancedVideoCarousel = () => {
                   autoPlay
                   className="video shadow-md border border-gray-200 rounded-lg"
                 >
-                  <source src={video} type="video/mp4" />
+                  <source src={video.url} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>

@@ -60,6 +60,9 @@
   a:where(:not(.no-underline)):not([class^="next-"]):not([class^="nav-"]) {
     @apply text-inherit hover:text-inherit;
   }
+  :root {
+    --radius: 0.5rem;
+  }
 }
 
 .userpage-bg {

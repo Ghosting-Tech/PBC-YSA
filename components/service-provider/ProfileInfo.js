@@ -94,7 +94,6 @@ const ProfileInfo = ({ user }) => {
           </CardBody>
         </Card>
       </div>
-
       <Dialog
         size="xl"
         open={open}

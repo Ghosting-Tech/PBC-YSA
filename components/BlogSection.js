@@ -106,8 +106,7 @@ export default function Blogs() {
             >
               View All
               <motion.span
-                className="inline-block"
-                whileHover={{ x: 5 }}
+                className="inline-block group-hover:translate-x-5 transition-all duration-300"
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 →

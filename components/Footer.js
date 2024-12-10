@@ -114,11 +114,22 @@ const Footer = () => {
                   name: "Support",
                   link: "/support",
                 },
+                {
+                  name: "Privacy Policy",
+                  link: "/privacy-policy",
+                },
+                {
+                  name: "Terms & Conditions",
+                  link: "/terms-and-condition",
+                },
+                {
+                  name: "Refund Policy",
+                  link: "/refund-policy",
+                },
               ].map((item, index) => (
                 <motion.li
                   key={index}
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="cursor-pointer hover:translate-x-5 transition-all duration-300"
                 >
                   <Link
                     href={item.link}
@@ -139,12 +150,11 @@ const Footer = () => {
               Our Services
             </Typography>
             <ul className="space-y-2">
-              {topBookedServices.length > 0 ? (
-                topBookedServices.map((item, index) => (
+              {topBookedServices?.length > 0 ? (
+                topBookedServices?.slice(0, 8).map((item, index) => (
                   <motion.li
                     key={index}
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="cursor-pointer hover:translate-x-5 transition-all duration-300"
                   >
                     <Link
                       href={`/services/${item?._id}`}

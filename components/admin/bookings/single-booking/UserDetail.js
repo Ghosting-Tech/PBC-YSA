@@ -22,7 +22,6 @@ const UserDetail = ({ profileImage, name, phoneNumber, email }) => {
           {name && Array.from(name)[0].toUpperCase()}
         </div>
       )}
-
       {/* User Info */}
       <div className="flex flex-col text-gray-700">
         {/* Full Name */}

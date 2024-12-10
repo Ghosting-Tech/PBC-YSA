@@ -58,6 +58,7 @@ export async function GET(req, { params }) {
           {
             $set: {
               status: "Invoice Paid!",
+              "invoices.status": "Invoice Paid!",
               "invoices.paid": true,
               "invoices.paymentMethod": "Online",
               "invoices.transactionId": MTID,

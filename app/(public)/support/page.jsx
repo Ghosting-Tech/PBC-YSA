@@ -223,6 +223,7 @@ export default function SupportPage() {
               <Link
                 href={`/my-tickets`}
                 className="w-full md:w-auto no-underline"
+                legacyBehavior
               >
                 <Button variant="outlined" color="blue-gray" fullWidth>
                   My tickets
@@ -255,13 +256,13 @@ export default function SupportPage() {
             {contactMethods.map((method, index) => (
               <motion.div
                 key={index}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer hover:scale-105 transition-all duration-300"
               >
                 <Link
                   href={method.link}
                   target="_blank"
                   className="no-underline"
+                  legacyBehavior
                 >
                   <Card className="border-2 border-blue-300 shadow-md shadow-blue-50">
                     <CardBody className="flex flex-col items-center p-4">

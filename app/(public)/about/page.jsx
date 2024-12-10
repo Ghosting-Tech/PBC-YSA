@@ -47,18 +47,18 @@ const About = () => {
               <Image
                 src="/image/slider5.webp"
                 alt="A person working"
-                layout="fill"
-                objectFit="cover"
                 className="rounded-lg"
+                fill
+                sizes="100vw"
               />
             </div>
             <div className="absolute top-24 left-8 w-64 h-64 hidden sm:w-80 sm:h-80 md:w-80 md:h-96 shadow-lg z-20">
               <Image
                 src="/image/slider6.webp"
                 alt="A person working"
-                layout="fill"
-                objectFit="cover"
                 className="rounded-lg"
+                fill
+                sizes="100vw"
               />
             </div>
           </div>

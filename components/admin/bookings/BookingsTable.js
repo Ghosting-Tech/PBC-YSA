@@ -90,7 +90,7 @@ export default function BookingsTable({ bookings }) {
                     .format(
                       booking?.cartItems.reduce(
                         (acc, cur) => acc + cur.price * cur.quantity,
-                        18
+                        18 + Number(booking.invoices?.total || 0)
                       )
                     )
                     .replace("₹", "")

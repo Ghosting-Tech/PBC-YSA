@@ -31,7 +31,6 @@ const CreateSubService = ({ id, setService }) => {
 
   const handleCreateSubService = async () => {
     try {
-      console.log("Service Data: ", serviceData);
       if (serviceData.name === "") {
         toast.error("All fields are required");
         return;
@@ -48,23 +47,19 @@ const CreateSubService = ({ id, setService }) => {
         toast.error("Upload the icon");
         return;
       }
-      console.log("All check passed");
       setImageUploaded(true);
       const iconRef = ref(
         storage,
         `subServiceIcons/${image.lastModified + image.size + image.name}`
       );
-      console.log("icon ref: ", iconRef);
       await uploadBytes(iconRef, image);
       const iconUrl = await getDownloadURL(iconRef); // Get the image URL directly
-      console.log("icon url: ", iconUrl);
       const iconObject = { url: iconUrl, name: iconRef._location.path_ };
       const postData = {
         ...serviceData,
         icon: iconObject,
         serviceId: id,
       };
-      console.log(postData);
 
       const response = await fetch(
         `/api/sub-services`,

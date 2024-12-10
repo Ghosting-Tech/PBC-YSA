@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -18,7 +18,7 @@ import { FaStar, FaUsers } from "react-icons/fa";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-const Hero = () => {
+const Hero = ({ customizeData }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -94,13 +94,6 @@ const Hero = () => {
     },
   };
 
-  const images = [
-    "/home/hero/carpenter.jpg",
-    "/home/hero/nursing.jpg",
-    "/home/hero/cleaning.jpg",
-    "/home/hero/ac-repairing.jpg",
-  ];
-
   return (
     <motion.div
       ref={ref}
@@ -118,14 +111,14 @@ const Hero = () => {
                 color="blue"
                 className="mb-2 font-semibold uppercase tracking-wider"
               >
-                Your One-Stop Solution
+                {customizeData?.heading1}
               </Typography>
               <Typography
                 variant="h1"
                 color="blue-gray"
                 className="mb-4 font-bold"
               >
-                Elevate Your Lifestyle with{" "}
+                {customizeData?.heading2}
                 <motion.span
                   className="text-blue-500 font-cookie font-medium text-7xl inline-block"
                   animate={{
@@ -139,15 +132,14 @@ const Hero = () => {
                     },
                   }}
                 >
-                  Expert Services
+                  {customizeData?.heading3}
                 </motion.span>
               </Typography>
               <Typography
                 variant="lead"
                 className="mb-8 leading-2 text-gray-600"
               >
-                Connect with skilled professionals for all your needs. From home
-                maintenance to personal care, we&apos;ve got you covered.
+                {customizeData?.heading4}
               </Typography>
             </motion.div>
             <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full">
@@ -158,9 +150,7 @@ const Hero = () => {
                     color="blue"
                     variant="gradient"
                     ripple={true}
-                    className="flex items-center justify-center gap-2 w-full"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center justify-center gap-2 w-full hover:scale-105"
                   >
                     <span>Explore Services</span>
                     <RxDoubleArrowRight size={18} />
@@ -174,9 +164,7 @@ const Hero = () => {
                     color="blue"
                     variant="outlined"
                     ripple={true}
-                    className="flex items-center justify-center gap-2 w-full"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center justify-center gap-2 w-full hover:scale-105 transition-all duration-300"
                   >
                     <span>Become a Provider</span>
                     <BsPersonFillAdd size={18} />
@@ -190,11 +178,7 @@ const Hero = () => {
             >
               <Card className="bg-white shadow-none">
                 <CardBody className="flex items-center gap-4">
-                  <motion.div
-                    className="bg-blue-50 p-3 rounded-full"
-                    whileHover={{ scale: 1.1, rotate: 360 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                  >
+                  <motion.div className="bg-blue-50 p-3 rounded-full">
                     <FaUsers className="text-blue-500 w-6 h-6" />
                   </motion.div>
                   <div>
@@ -213,13 +197,9 @@ const Hero = () => {
               </Card>
               <Card className="bg-white shadow-none">
                 <CardBody className="flex items-center gap-4">
-                  <motion.div
-                    className="bg-yellow-50 p-3 rounded-full"
-                    whileHover={{ scale: 1.1, rotate: 360 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                  >
+                  <div className="bg-yellow-50 p-3 rounded-full">
                     <FaStar className="text-yellow-700 w-6 h-6" />
-                  </motion.div>
+                  </div>
                   <div>
                     <Typography variant="h6" color="blue-gray">
                       4.8 / 5
@@ -278,10 +258,10 @@ const Hero = () => {
                   </div>
                 )}
               >
-                {images.map((image, index) => (
+                {customizeData?.images.map((image, index) => (
                   <Image
                     key={index}
-                    src={image}
+                    src={image.url}
                     alt={`Service ${index + 1}`}
                     width={1000}
                     height={600}

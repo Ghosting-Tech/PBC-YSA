@@ -25,7 +25,6 @@ const BookingContainer = () => {
       if (!data.success) {
         toast.error(data.message);
       }
-      console.log(data.booking);
       setBooking(data.booking);
     } catch (error) {
       console.log(error);
