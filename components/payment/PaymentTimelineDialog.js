@@ -35,7 +35,7 @@ export default function PaymentTimelineDialog({ paymentData, open, onClose }) {
   const fetchingData = async () => {
     try {
       const response = await axios.get(`/api/payment/${paymentData._id}`);
-      setPayments(response.data);
+      setPayments(response.data[0]);
     } catch (error) {
       toast.error("Error fetching payments");
       console.error(error);
