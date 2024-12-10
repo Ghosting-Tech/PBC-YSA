@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { FaArrowLeft, FaHistory } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { Button, Badge, Avatar } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";

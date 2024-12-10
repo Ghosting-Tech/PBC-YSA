@@ -90,8 +90,6 @@ export async function POST(request) {
       active: true,
     }).populate("services");
 
-    console.log(serviceProviders);
-
     const uniqueServiceProviders = new Set();
 
     serviceProviders.forEach((sp) => {
@@ -106,12 +104,13 @@ export async function POST(request) {
     // Convert Set to array to use .map()
     let nearestServiceProvidersArray = Array.from(uniqueServiceProviders);
 
-    console.log({ nearestServiceProvidersArray });
-
     // If no nearby service providers found
     if (nearestServiceProvidersArray.length === 0) {
       return NextResponse.json(
-        { error: "No service providers found within the specified range" },
+        {
+          success: false,
+          message: "No service providers found within the specified range",
+        },
         { status: 303 }
       );
     }
@@ -144,7 +143,6 @@ export async function POST(request) {
       noServiceProviderAvailable: availableServiceProviders.length <= 0,
     };
 
-    console.log({ bookingData });
     const booking = await Booking.create(bookingData);
 
     // Update user's booking data in parallel
@@ -264,7 +262,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         success: false,
-        error: "An error occurred while processing the booking",
+        message: "An error occurred while processing the booking",
       },
       { status: 500 }
     );

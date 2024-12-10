@@ -106,6 +106,8 @@ const bookingSchema = new Schema(
     serviceCompletedOtp: { type: String },
     transactionId: { type: String },
     expired: { type: Boolean, default: false },
+    patientCondition: { type: String },
+    prescription: { type: Object },
   },
   {
     timestamps: true,

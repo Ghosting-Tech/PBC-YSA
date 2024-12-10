@@ -123,6 +123,9 @@ const userSchema = new Schema(
     notificationToken: {
       type: String,
     },
+    mobileNotificationToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,
