@@ -58,7 +58,9 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ["male", "female", "Unspecified"], // Example enum values, adjust as needed
+    },
+    religion: {
+      type: String,
     },
     locations: {
       type: [],

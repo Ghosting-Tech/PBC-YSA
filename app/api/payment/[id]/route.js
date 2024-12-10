@@ -10,13 +10,13 @@ export async function GET(request, { params }) {
     await connectMongoDB();
 
     // Fetch the payment details for the given providerId
-    const data = await Payment.findOne({
-      _id: id,
+    const data = await Payment.find({
+      $or: [{ _id: id }, { service_provider: id }],
     });
     if (!data) {
       // If no payments are found for the provider, return 404
       return NextResponse.json(
-        { message: "No payments found for this provider." },
+        { message: "No payments found for this id." },
         { status: 404 }
       );
     }

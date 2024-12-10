@@ -4,6 +4,7 @@ import {
   Button,
   IconButton,
   Dialog,
+  Select,
 } from "@material-tailwind/react";
 import {
   CardBody,
@@ -13,6 +14,7 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Option,
 } from "@material-tailwind/react";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoIosCheckmarkCircle } from "react-icons/io";
@@ -45,6 +47,8 @@ const Profile = ({
     name: "",
     phoneNumber: "",
     email: "",
+    gender: "",
+    religion: "",
     password: "",
   });
   const [loginData, setLoginData] = useState({
@@ -99,6 +103,7 @@ const Profile = ({
   }
 
   // Registration
+
   const [open4, setOpen4] = useState(false);
   const handleOpen4 = () => setOpen4(!open4);
   const [otp, setOtp] = useState("");
@@ -130,6 +135,11 @@ const Profile = ({
       setEmailError("Please enter a valid email");
     } else {
       setEmailError(""); // Clear the error if the email is valid
+    }
+  };
+  const handleSelectChange = (name) => (value) => {
+    if (value) {
+      setRegisterData((prev) => ({ ...prev, [name]: value }));
     }
   };
   const sendingRegisterOtp = async () => {
@@ -181,9 +191,12 @@ const Profile = ({
     if (
       !registerData.name ||
       !registerData.phoneNumber ||
-      !registerData.password
+      !registerData.email ||
+      !registerData.password ||
+      !registerData.gender ||
+      !registerData.religion
     ) {
-      toast.error("Invalid data");
+      toast.error("Please fill all the fields");
       return;
     }
 
@@ -223,6 +236,8 @@ const Profile = ({
           phoneNumber: "",
           email: "",
           password: "",
+          gender: "",
+          religion: "",
         });
       } else {
         toast.error(loginData.message);
@@ -617,6 +632,35 @@ const Profile = ({
                         className: "min-w-0",
                       }}
                     />
+                  </div>
+                  <div className="flex gap-1">
+                    <Select
+                      label="Select Gender"
+                      value={registerData.gender}
+                      onChange={handleSelectChange("gender")}
+                    >
+                      <Option value="male">Male</Option>
+                      <Option value="female">Female</Option>
+                      <Option value="other">Other</Option>
+                    </Select>
+
+                    <Select
+                      label="Select Religion"
+                      value={registerData.religion}
+                      onChange={handleSelectChange("religion")}
+                      className="max-h-20"
+                      menuProps={{
+                        className: "overflow-y-scroll max-h-40",
+                      }}
+                    >
+                      <Option value="hinduism">Hinduism</Option>
+                      <Option value="islam">Islam</Option>
+                      <Option value="christianity">Christianity</Option>
+                      <Option value="buddhism">Buddhism</Option>
+                      <Option value="sikhism">Sikhism</Option>
+                      <Option value="judaism">Judaism</Option>
+                      <Option value="other">Other</Option>
+                    </Select>
                   </div>
                   <div className="w-full relative">
                     <Input
