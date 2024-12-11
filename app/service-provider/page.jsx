@@ -40,7 +40,6 @@ const ServiceProvider = () => {
 
   const getAllService = useCallback(async () => {
     const storedLocation = JSON.parse(localStorage.getItem("cityState"));
-    console.log({ storedLocation });
     if (!storedLocation.city) {
       toast.error("Please select a location for continue!");
     }
@@ -53,7 +52,6 @@ const ServiceProvider = () => {
       storedLocation
     );
 
-    console.log("All services", data);
     dispatch(setTopBookedServices(data));
     //eslint-disable-next-line
   }, []);

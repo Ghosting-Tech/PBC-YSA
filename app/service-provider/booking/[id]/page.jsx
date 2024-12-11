@@ -40,16 +40,16 @@ const Page = () => {
   }, [id]);
 
   const [noLongerHaveAccess, setNoLongerHaveAccess] = useState(false);
-  // useEffect(() => {
-  //   if (booking && booking.assignedServiceProviders && user) {
-  //     if (booking.assignedServiceProviders._id == user._id) {
-  //       setNoLongerHaveAccess(false);
-  //     }
-  //   }
-  // }, [booking, user]);
+  useEffect(() => {
+    if (booking && booking.assignedServiceProviders && user) {
+      if (booking.assignedServiceProviders._id == user._id) {
+        setNoLongerHaveAccess(false);
+      }
+    }
+  }, [booking, user]);
 
   return (
-    (<div>
+    <div>
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <div className="text-lg font-semibold animate-spin my-56">
@@ -96,7 +96,7 @@ const Page = () => {
       ) : (
         booking && <BookingDetail booking={booking} setBooking={setBooking} />
       )}
-    </div>)
+    </div>
   );
 };
 

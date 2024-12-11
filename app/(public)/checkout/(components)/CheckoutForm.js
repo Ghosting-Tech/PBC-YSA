@@ -177,7 +177,6 @@ export function CheckoutForm({
                 >
                   <ListItemPrefix className="mr-3">
                     <Radio
-                      ripple={true}
                       id={date}
                       className="hover:before:opacity-0"
                       containerProps={{

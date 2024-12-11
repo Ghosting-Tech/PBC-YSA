@@ -95,7 +95,7 @@ export default function Checkout() {
       const postData = {
         formData,
         location,
-        cartItems,
+        cartItems: cartItems[0],
         user,
       };
 

@@ -15,11 +15,6 @@ const uploadImage = async (image, pathname) => {
     // Get the download URL
     const imageUrl = await getDownloadURL(imageRef);
 
-    console.log({
-      url: imageUrl,
-      name: snapshot.ref.fullPath, // Use fullPath instead of _location.path_
-    });
-
     // Return an object with the image details
     return {
       url: imageUrl,

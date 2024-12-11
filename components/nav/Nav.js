@@ -8,16 +8,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
-import dynamic from "next/dynamic";
 
-const NavList = dynamic(() => import("./NavList"), { ssr: false });
-const Profile = dynamic(() => import("./user-profile/Profile"), { ssr: false });
-const UserNavigation = dynamic(() => import("./user-profile/UserNavigation"), {
-  ssr: false,
-});
 import Logo from "../Logo";
 import { setUser, setUserLoading } from "@/redux/slice/userSlice";
 import useFcmToken from "@/hook/useFcmToken";
+import NavList from "./NavList";
+import Profile from "./user-profile/Profile";
+import UserNavigation from "./user-profile/UserNavigation";
 
 const MotionIconButton = motion.create(IconButton);
 

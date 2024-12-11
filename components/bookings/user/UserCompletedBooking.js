@@ -140,18 +140,18 @@ const UserCompletedBooking = ({
                         <h3 className="md:text-2xl sm:text-2xl text-xl text-gray-700 ">
                           {item.name}
                         </h3>
-                        <p>
+                        <div>
                           Price:{" "}
                           <strong className="text-teal-500 font-semibold">
                             ₹{item.price}
                           </strong>
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                           Qty:{" "}
                           <strong className="text-gray-600">
                             {item.quantity}
                           </strong>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   );
