@@ -18,7 +18,7 @@ import { FaStar, FaUsers } from "react-icons/fa";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-const Hero = ({ customizeData }) => {
+const Hero = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -94,6 +94,13 @@ const Hero = ({ customizeData }) => {
     },
   };
 
+  const images = [
+    "/home/hero/ac-repairing.jpg",
+    "/home/hero/nursing.jpg",
+    "/home/hero/cleaning.jpg",
+    "/home/hero/carpenter.jpg",
+  ];
+
   return (
     <motion.div
       ref={ref}
@@ -111,14 +118,14 @@ const Hero = ({ customizeData }) => {
                 color="blue"
                 className="mb-2 font-semibold uppercase tracking-wider"
               >
-                {customizeData?.heading1}
+                Your One-Stop Solution
               </Typography>
               <Typography
                 variant="h1"
                 color="blue-gray"
                 className="mb-4 font-bold"
               >
-                {customizeData?.heading2}
+                Elevate Your Lifestyle with
                 <motion.span
                   className="text-blue-500 font-cookie font-medium text-7xl inline-block"
                   animate={{
@@ -132,14 +139,15 @@ const Hero = ({ customizeData }) => {
                     },
                   }}
                 >
-                  {customizeData?.heading3}
+                  Expert Services
                 </motion.span>
               </Typography>
               <Typography
                 variant="lead"
                 className="mb-8 leading-2 text-gray-600"
               >
-                {customizeData?.heading4}
+                Connect with skilled professionals for all your needs. From home
+                maintenance to personal care, we&apos;ve got you covered.
               </Typography>
             </motion.div>
             <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full">
@@ -149,7 +157,7 @@ const Hero = ({ customizeData }) => {
                     size="lg"
                     color="blue"
                     variant="gradient"
-                    ripple={true}
+                    ripple
                     className="flex items-center justify-center gap-2 w-full hover:scale-105"
                   >
                     <span>Explore Services</span>
@@ -163,7 +171,7 @@ const Hero = ({ customizeData }) => {
                     size="lg"
                     color="blue"
                     variant="outlined"
-                    ripple={true}
+                    ripple
                     className="flex items-center justify-center gap-2 w-full hover:scale-105 transition-all duration-300"
                   >
                     <span>Become a Provider</span>
@@ -258,10 +266,10 @@ const Hero = ({ customizeData }) => {
                   </div>
                 )}
               >
-                {customizeData?.images.map((image, index) => (
+                {images.map((image, index) => (
                   <Image
                     key={index}
-                    src={image.url}
+                    src={image}
                     alt={`Service ${index + 1}`}
                     width={1000}
                     height={600}

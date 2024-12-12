@@ -286,7 +286,6 @@ const ServiceActions = ({ id, updateService, setUpdateService }) => {
   return (
     <div className="flex gap-2">
       <ButtonGroup
-        ripple={true}
         color="brown"
         variant="text"
         size="sm"

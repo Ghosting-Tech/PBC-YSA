@@ -101,6 +101,7 @@ const BookingDetail = ({ booking, setBooking }) => {
     if (booking?.otpVerified !== true) {
       setOtpVerified(false);
     }
+    console.log(booking);
   }, [booking]);
 
   const handleRejectRequest = async (id) => {
@@ -190,7 +191,6 @@ const BookingDetail = ({ booking, setBooking }) => {
       console.log(err);
     }
   };
-  const [showPrescription, setShowPrescription] = useState(false);
   return (
     <div className="py-2">
       <div className="mx-8">
@@ -283,19 +283,21 @@ const BookingDetail = ({ booking, setBooking }) => {
                 </div>
               </CardBody>
             </Card>
-            {booking?.acceptedByServiceProvider && (
-              <div className="bg-white p-6 rounded-lg shadow w-full">
-                <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
-                  Customer Details
-                </h3>
-                <UserDetail
-                  name={booking?.fullname}
-                  profileImage={booking?.profileImage}
-                  email={booking?.email}
-                  phoneNumber={booking?.phoneNumber}
-                />
-              </div>
-            )}
+            <div className="bg-white p-6 rounded-lg shadow w-full">
+              <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
+                Customer Details
+              </h3>
+
+              <UserDetail
+                name={booking?.user?.name}
+                gender={booking?.user?.gender}
+                religion={booking?.user?.religion}
+                access={booking?.acceptedByServiceProvider}
+                profileImage={booking?.user?.image}
+                email={booking?.user?.email}
+                phoneNumber={booking?.user?.phoneNumber}
+              />
+            </div>
           </div>
         </div>
         <LocationDetails booking={booking} />

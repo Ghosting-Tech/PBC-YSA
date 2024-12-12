@@ -88,7 +88,19 @@ export async function POST(request) {
     const serviceProviders = await User.find({
       role: "service-provider",
       active: true,
+      available: true,
+      gender: user.gender,
     }).populate("services");
+
+    if (serviceProviders.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "No service providers found",
+        },
+        { status: 303 }
+      );
+    }
 
     const uniqueServiceProviders = new Set();
 
@@ -144,6 +156,7 @@ export async function POST(request) {
       cartItems,
       availableServiceProviders,
       otp,
+      user: user._id,
       noServiceProviderAvailable: availableServiceProviders.length <= 0,
     };
 

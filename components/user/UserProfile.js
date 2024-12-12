@@ -45,7 +45,6 @@ const UserProfile = () => {
         body: JSON.stringify(updatedUser),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         setUser(data);
         setOpen(false);

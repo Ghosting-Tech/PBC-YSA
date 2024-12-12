@@ -9,17 +9,22 @@ const UserServiceProviderDetail = ({
 }) => {
   return (
     <div className="flex flex-col lg:flex-row gap-4 justify-center items-center w-full mb-6">
-      <div className="bg-white p-6 rounded-lg shadow w-full">
-        <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
-          Customer Details
-        </h3>
-        <UserDetail
-          name={booking.fullname}
-          profileImage={booking.profileImage}
-          email={booking.email}
-          phoneNumber={booking.phoneNumber}
-        />
-      </div>
+      {!forUser && (
+        <div className="bg-white p-6 rounded-lg shadow w-full">
+          <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
+            Customer Details
+          </h3>
+          <UserDetail
+            name={booking.user.name}
+            profileImage={booking.user.image}
+            email={booking.user.email}
+            phoneNumber={booking.user.phoneNumber}
+            gender={booking.user.gender}
+            religion={booking.user.religion}
+            access={booking.acceptedByServiceProvider}
+          />
+        </div>
+      )}
       {forUser ? (
         <div className="bg-white p-6 rounded-lg shadow w-full h-full ">
           {booking.assignedServiceProviders ? (
@@ -32,6 +37,9 @@ const UserServiceProviderDetail = ({
                 profileImage={booking.assignedServiceProviders.image}
                 email={booking.assignedServiceProviders.email}
                 phoneNumber={booking.assignedServiceProviders.phoneNumber}
+                gender={booking.assignedServiceProviders.gender}
+                religion={booking.assignedServiceProviders.religion}
+                access={true}
               />
             </>
           ) : (
@@ -39,7 +47,9 @@ const UserServiceProviderDetail = ({
               <h3 className="text-md md:text-xl font-semibold text-gray-800">
                 Assigned Service Provider
               </h3>
-              <div className="text-sm text-gray-500">No service provider assigned yet!</div>
+              <div className="text-sm text-gray-500">
+                No service provider assigned yet!
+              </div>
             </div>
           )}
         </div>
@@ -55,6 +65,9 @@ const UserServiceProviderDetail = ({
                 profileImage={booking.assignedServiceProviders.image}
                 email={booking.assignedServiceProviders.email}
                 phoneNumber={booking.assignedServiceProviders.phoneNumber}
+                gender={booking.assignedServiceProviders.gender}
+                religion={booking.assignedServiceProviders.religion}
+                access={true}
               />
             </>
           ) : (

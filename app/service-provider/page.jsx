@@ -83,17 +83,6 @@ const ServiceProvider = () => {
     //eslint-disable-next-line
   }, [getAllService, fetchingServices]);
 
-  if (loading) {
-    return (
-      <div className="grid place-items-center min-h-screen">
-        <div className="flex flex-col items-center gap-4">
-          <div className="loaction-loader"></div>
-          <div className="text-2xl font-julius">Loading</div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div className="flex min-h-full flex-col justify-center items-center">
@@ -111,7 +100,9 @@ const ServiceProvider = () => {
                 <Badge
                   content={<div className="h-3 w-h-3"></div>}
                   overlap="circular"
-                  className="bg-gradient-to-tr from-green-400 to-green-600 border-2 border-white shadow-lg shadow-black/20"
+                  className={`border-2 border-white shadow-lg shadow-black/20 ${
+                    user?.available ? "bg-green-400" : "bg-red-400"
+                  }`}
                 >
                   <Avatar
                     src={user.image.url}

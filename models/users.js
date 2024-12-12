@@ -128,6 +128,10 @@ const userSchema = new Schema(
     mobileNotificationToken: {
       type: String,
     },
+    available: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

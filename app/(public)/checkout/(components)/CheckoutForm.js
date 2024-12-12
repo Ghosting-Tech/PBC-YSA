@@ -170,7 +170,7 @@ export function CheckoutForm({
           </Typography>
           <List className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {dates.map((date) => (
-              <ListItem className="p-0">
+              <ListItem className="p-0" key={date}>
                 <label
                   htmlFor={date}
                   className="flex w-full cursor-pointer items-center px-3 py-2"

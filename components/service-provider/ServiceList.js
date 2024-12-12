@@ -66,11 +66,7 @@ const ServicesList = ({
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
         {fetchedServicesFromId?.map((service, index) => (
-          <ListItem
-            key={index}
-            ripple={false}
-            className="py-2 text-gray-700 text-xl"
-          >
+          <ListItem key={index} ripple className="py-2 text-gray-700 text-xl">
             <Image
               width={100}
               height={100}

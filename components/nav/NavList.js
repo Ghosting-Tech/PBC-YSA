@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   List,
@@ -29,7 +30,12 @@ export default function NavList() {
   const [searchedData, setSearchedData] = useState([]);
   const [searchError, setSearchError] = useState("");
 
-  const cityState = JSON.parse(localStorage.getItem("cityState")) || {};
+  const [cityState, setCityState] = useState(null);
+
+  useEffect(() => {
+    const storedCityState = JSON.parse(localStorage.getItem("cityState")) || {};
+    setCityState(storedCityState);
+  }, []);
 
   const topBookedServices = useSelector((state) => state.topServices);
   const city =

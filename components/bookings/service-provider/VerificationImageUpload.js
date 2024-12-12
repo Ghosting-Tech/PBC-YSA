@@ -73,7 +73,11 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
     }, 500);
 
     try {
-      const uploadedImage = await uploadImage(file, "verification-image");
+      const uploadedImage = await uploadImage(
+        file,
+        "verification-image",
+        booking.verificationImage?.name
+      );
 
       const { data } = await axios.post(
         "/api/service-providers/upload-verification-image",

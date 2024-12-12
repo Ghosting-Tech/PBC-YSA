@@ -108,6 +108,7 @@ const bookingSchema = new Schema(
     expired: { type: Boolean, default: false },
     patientCondition: { type: String },
     prescription: { type: Object },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,

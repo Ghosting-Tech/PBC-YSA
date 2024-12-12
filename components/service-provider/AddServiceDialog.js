@@ -80,7 +80,7 @@ const AddServiceDialog = ({
                     }
                   }}
                   value={service.name}
-                  ripple={false}
+                  ripple
                   className="hover:before:opacity-0"
                   containerProps={{
                     className: "p-0",
