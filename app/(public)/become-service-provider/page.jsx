@@ -8,6 +8,7 @@ import {
   Input,
   Option,
   Select,
+  Spinner,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
@@ -21,12 +22,14 @@ import VerifyOtp from "@/components/become-service-provider/dialog/VerifyOtp";
 import sendSmsMessage from "@/utils/sendSmsMessage";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { GoAlertFill } from "react-icons/go";
+import TermsCondition from "@/components/become-service-provider/TermsCondition";
 const CreateServiceProvider = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const [isTermsDialogOpen, setIsTermsDialogOpen] = useState(false);
   const [inputData, setInputData] = useState({
     name: "",
     phoneNumber: "",
@@ -50,6 +53,23 @@ const CreateServiceProvider = () => {
       },
     },
     gender: "",
+    profession: "",
+    cv: {
+      name: "",
+      url: "",
+    },
+    degree: {
+      name: "",
+      image: {
+        name: "",
+        url: "",
+      },
+    },
+    enrollno: "",
+    certificate: {
+      name: "",
+      url: "",
+    },
     city: "",
     state: "",
     password: "",
@@ -67,15 +87,23 @@ const CreateServiceProvider = () => {
     }
   }, [selectedState]);
 
-  const handleId1ProofChange = (e) => {
-    const selectedProof = e;
-    setInputData((prevData) => ({
-      ...prevData,
-      id1: {
-        ...prevData.id1,
-        name: selectedProof,
-      },
+  const handleProfessionChange = (value) => {
+    setInputData((prev) => ({
+      ...prev,
+      profession: value,
+      id1:
+        value === "ambulance-driver"
+          ? { name: "drivinglicense", image: null }
+          : { name: "", image: null },
     }));
+  };
+  const handleId1ProofChange = (value) => {
+    if (inputData.profession !== "ambulance-driver") {
+      setInputData((prev) => ({
+        ...prev,
+        id1: { name: value, image: null },
+      }));
+    }
   };
   const handleId2ProofChange = (e) => {
     const selectedProof = e;
@@ -115,6 +143,22 @@ const CreateServiceProvider = () => {
       }));
     }
   };
+  const handleDegreeChange = (e) => {
+    const selectedDegree = e;
+    setInputData((prevData) => ({
+      ...prevData,
+      degree: { ...prevData.degree, name: selectedDegree },
+    }));
+  };
+  const handleDegreeUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setInputData((prevData) => ({
+        ...prevData,
+        degree: { ...prevData.degree, image: { file } },
+      }));
+    }
+  };
   const validateInputs = () => {
     console.log({ data: inputData });
     let isValid = true; // Track the validity of inputs
@@ -125,7 +169,18 @@ const CreateServiceProvider = () => {
       isValid = false;
       return;
     }
-
+    //validate profession
+    if (!inputData.profession) {
+      toast.error("All fields are required");
+      isValid = false;
+      return;
+    }
+    // validate cv
+    if (!inputData.cv.name) {
+      toast.error("please upload the cv");
+      isValid = false;
+      return;
+    }
     // Validate image
     if (!inputData.image) {
       toast.error("please upload the profile image");
@@ -214,6 +269,28 @@ const CreateServiceProvider = () => {
       isValid = false;
       return;
     }
+    if (inputData.profession === "physiotherapist") {
+      if (!inputData.certificate.name) {
+        toast.error("Certificate is required for physiotherapists");
+        isValid = false;
+        return;
+      }
+      if (!inputData.enrollno) {
+        toast.error("Enrollment number is required");
+        isValid = false;
+        return;
+      }
+      if (!inputData.degree.name) {
+        toast.error("Degree details are required for physiotherapists");
+        isValid = false;
+        return;
+      }
+      if (inputData.degree.image.name === "") {
+        toast.error("Degree image is required");
+        isValid = false;
+        return;
+      }
+    }
 
     // Validate password
     if (!inputData.password) {
@@ -244,6 +321,7 @@ const CreateServiceProvider = () => {
 
   const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   function generateOTP() {
     // Generate a random number between 1000 and 9999
@@ -252,49 +330,72 @@ const CreateServiceProvider = () => {
   }
   const [generatedOTP, setGeneratedOtp] = useState();
   const SendingOtp = async () => {
+    try {
+      setIsLoading(true); // Start loading
+
+      // Checking if phone number or email exists
+      const data = await axios.post(`/api/users/checking`, {
+        phoneNumber: inputData.phoneNumber,
+        email: inputData.email,
+      });
+      const user = await data.data;
+
+      if (!user.success) {
+        toast.error(user.message);
+        setIsLoading(false); // Stop loading
+        return;
+      }
+
+      const otp = generateOTP();
+      setGeneratedOtp(otp);
+      console.log({ otp });
+
+      const sms = await sendSmsMessage(
+        inputData.phoneNumber,
+        `Dear user, Your OTP for phone number verification is ${otp}. Please enter this OTP to complete the registration process. Regards, Ghosting Webtech Pvt Ltd`,
+        "1707172906187016975"
+      );
+
+      if (!sms.success) {
+        toast.error("Failed to send verification OTP.");
+        setIsLoading(false); // Stop loading
+        return;
+      }
+
+      setOpenVerifyOtpDialog(true);
+      // Disable the OTP button and start the timer
+      setIsOtpButtonDisabled(true);
+      setTimer(30);
+    } catch (error) {
+      toast.error("An error occurred while sending OTP.");
+    } finally {
+      setIsLoading(false); // Ensure loading stops after completion
+    }
+  };
+  const handleVerifyMobileNumber = () => {
     const isValid = validateInputs(); // Check validation
 
     // Stop execution if validation failed
     if (!isValid) return;
-
-    // Checking if phone number or email exists
-
-    const data = await axios.post(`/api/users/checking`, {
-      phoneNumber: inputData.phoneNumber,
-      email: inputData.email,
-    });
-    const user = await data.data;
-
-    if (!user.success) {
-      toast.error(user.message);
-      return;
-    }
-
-    const otp = generateOTP();
-    setGeneratedOtp(otp);
-
-    const sms = await sendSmsMessage(
-      inputData.phoneNumber,
-      `Dear user, Your OTP for phone number verification is ${otp}. Please enter this OTP to complete the registration process. Regards, Ghosting Webtech Pvt Ltd`,
-      "1707172906187016975"
-    );
-
-    if (!sms.success) {
-      toast.error("Failed to send verification OTP.");
-      return;
-    }
-    setOpenVerifyOtpDialog(true);
-    // Disable the OTP button and start the timer
-    setIsOtpButtonDisabled(true);
-    setTimer(30);
+    setIsTermsDialogOpen(true);
+  };
+  const handleAcceptTerms = () => {
+    setIsTermsDialogOpen(false);
+    SendingOtp();
   };
 
   useEffect(() => {
     console.log(inputData);
   }, [inputData]);
-
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner color="blue" size="lg" />
+      </div>
+    );
+  }
   return (
-    (<div className="min-h-screen">
+    <div className="min-h-screen">
       <VerifyOtp
         open={openVerifyOtpDialog}
         setOpen={setOpenVerifyOtpDialog}
@@ -345,13 +446,13 @@ const CreateServiceProvider = () => {
         ) : (
           <div className="p-6">
             <div className="flex justify-end items-center mb-4">
-              <button
+              {/* <button
                 onClick={handleOpen}
                 title="Close"
                 className="hover:scale-125 transition-all duration-500 ease-in-out "
               >
                 <RxCross2 size={25} />
-              </button>
+              </button> */}
             </div>
             <h1 className="text-2xl font-bold text-teal-500 font-lato text-center">
               You Registered Successfully
@@ -421,6 +522,7 @@ const CreateServiceProvider = () => {
                   <Option value="male">Male</Option>
                   <Option value="female">Female</Option>
                 </Select>
+                {/* state and city section */}
                 <div className="relative w-full">
                   <select
                     className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full"
@@ -469,21 +571,59 @@ const CreateServiceProvider = () => {
                     <ChevronDownIcon className="h-4 w-4" />
                   </div>
                 </div>
+                {/* profession section  */}
+                <div>
+                  <Select
+                    label="Profession"
+                    color="indigo"
+                    value={inputData.profession}
+                    onChange={handleProfessionChange}
+                  >
+                    <Option value="ambulance-driver">Ambulance Driver</Option>
+                    <Option value="physiotherapist">Physiotherapist</Option>
+                    <Option value="others">Others</Option>
+                  </Select>
+                </div>
+                {/* cv section */}
+                <div className="flex gap-2 cursor-pointer items-center">
+                  <label
+                    htmlFor="icon"
+                    className="text-nowrap text-gray-500 text-sm"
+                  >
+                    Upload CV
+                    <span className="text-red-400 ml-1">*</span>
+                  </label>
+                  <input
+                    className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                    type="file"
+                    id="icon"
+                    accept=".jpeg, .jpg, .png, .pdf,"
+                    onChange={(e) =>
+                      setInputData({
+                        ...inputData,
+                        cv: e.target.files[0],
+                      })
+                    }
+                  />
+                </div>
               </div>
 
+              {/* Identification Documents */}
               <div className="space-y-6">
                 <Typography variant="h6" color="blue-gray" className="mb-3">
                   Identification Documents
                 </Typography>
+                {/* first id proof section  */}
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
-                  {/* first id proof section  */}
                   <div className="flex-grow">
                     <Select
                       label="1st Identification Proof"
                       name="firstIdProof"
+                      color="indigo"
                       value={inputData.id1.name}
                       onChange={handleId1ProofChange}
                       required
+                      disabled={inputData.profession === "ambulance-driver"}
                     >
                       <Option value="aadharcard">Aadhar Card</Option>
                       <Option value="pancard">PAN Card</Option>
@@ -516,6 +656,7 @@ const CreateServiceProvider = () => {
                     <Select
                       label="2nd Identification Proof"
                       name="secondIdProof"
+                      color="indigo"
                       value={inputData.id2.name}
                       onChange={handleId2ProofChange}
                       required
@@ -554,11 +695,98 @@ const CreateServiceProvider = () => {
                       type="file"
                       id="icon"
                       onChange={handleid2Upload}
-                      accept=".jpeg, .jpg, .png"
+                      accept=".jpeg, .jpg, .png, .pdf,"
                     />
                   </div>
                 </div>
               </div>
+              {/* physiotherapist degree and certificate section */}
+              {inputData.profession === "physiotherapist" && (
+                <div>
+                  {/* degree section  */}
+                  <div className="space-y-6 mb-5">
+                    <Typography variant="h6" color="blue-gray" className="mb-3">
+                      Degree
+                    </Typography>
+                    <div className="flex flex-col md:flex-row md:items-center gap-4">
+                      <div className="flex-grow">
+                        <Select
+                          label="Degree"
+                          name="degree"
+                          color="indigo"
+                          value={inputData.degree.name}
+                          onChange={handleDegreeChange}
+                          required
+                        >
+                          <Option value="bpt">BPT</Option>
+                          <Option value="mpt">MPT</Option>
+                          <Option value="diploma">Diploma</Option>
+                        </Select>
+                      </div>
+                      <div className="flex gap-2 cursor-pointer items-center">
+                        <label
+                          htmlFor="icon"
+                          className="text-nowrap text-gray-500 text-sm"
+                        >
+                          Upload Degree
+                          <span className="text-red-400 ml-1">*</span>
+                        </label>
+                        <input
+                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                          type="file"
+                          id="icon"
+                          accept=".jpeg, .jpg, .png, .pdf,"
+                          onChange={handleDegreeUpload}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* certificate section */}
+                  <div className="space-y-6">
+                    <Typography variant="h6" color="blue-gray" className="mb-3">
+                      The Indian Association of Physiotherapists (IAP)
+                    </Typography>
+                    <div className="flex flex-col md:flex-row md:items-center gap-4">
+                      {/* enrollment number section  */}
+                      <div className="flex-grow">
+                        <Input
+                          label="Enrollment Number"
+                          color="indigo"
+                          value={inputData.enrollno}
+                          onChange={(e) =>
+                            setInputData({
+                              ...inputData,
+                              enrollno: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      {/* certificate section */}
+                      <div className="flex gap-2 cursor-pointer items-center">
+                        <label
+                          htmlFor="icon"
+                          className="text-nowrap text-gray-500 text-sm"
+                        >
+                          Upload Certificate
+                          <span className="text-red-400 ml-1">*</span>
+                        </label>
+                        <input
+                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                          type="file"
+                          id="icon"
+                          accept=".jpeg, .jpg, .png, .pdf,"
+                          onChange={(e) =>
+                            setInputData({
+                              ...inputData,
+                              certificate: e.target.files[0],
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Typography variant="h6" color="blue-gray" className="mb-3">
@@ -619,15 +847,20 @@ const CreateServiceProvider = () => {
                 size="lg"
                 variant="gradient"
                 color="blue"
-                onClick={SendingOtp}
+                onClick={handleVerifyMobileNumber}
               >
                 Verify Mobile Number
               </Button>
             </form>
           </CardBody>
         </Card>
+        <TermsCondition
+          isOpen={isTermsDialogOpen}
+          onClose={() => setIsTermsDialogOpen(false)}
+          onAccept={handleAcceptTerms}
+        />
       </div>
-    </div>)
+    </div>
   );
 };
 

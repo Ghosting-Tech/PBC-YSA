@@ -48,14 +48,18 @@ const VerifyOtp = ({
     // Upload Profile Image
     const profileImageRef = ref(
       storage,
-      `service-provider/id/${
-        inputData.image.lastModified +
-        inputData.image.size +
-        inputData.image.name
-      }`
+      `service-provider/id/${Date.now() + inputData.image.name}`
     );
     await uploadBytes(profileImageRef, inputData.image);
     const profileImageUrl = await getDownloadURL(profileImageRef);
+
+    // cv section
+    const cvImageRef = ref(
+      storage,
+      `service-provider/cv/${Date.now() + inputData.cv.name}`
+    );
+    await uploadBytes(cvImageRef, inputData.cv);
+    const cvImageUrl = await getDownloadURL(cvImageRef);
 
     // Upload Id1 Image
     const id1ImageRef = ref(
@@ -81,11 +85,59 @@ const VerifyOtp = ({
     await uploadBytes(id2ImageRef, inputData.id2.image.file);
     const id2ImageUrl = await getDownloadURL(id2ImageRef);
 
+    if (inputData.profession === "physiotherapist") {
+      // Ensure certificate and degree files are provided
+      if (!inputData.certificate || !inputData.degree) {
+        throw new Error("Certificate or Degree files are missing.");
+      }
+
+      // Upload certificate image
+      const certificateImageRef = ref(
+        storage,
+        `service-provider/certificate/${Date.now()}_${
+          inputData.certificate.name
+        }`
+      );
+      await uploadBytes(certificateImageRef, inputData.certificate);
+      const certificateImageUrl = await getDownloadURL(certificateImageRef);
+
+      // Upload degree image
+      const degreeImageRef = ref(
+        storage,
+        `service-provider/degree/${Date.now()}_${
+          inputData.degree.image.file.name
+        }`
+      );
+      await uploadBytes(degreeImageRef, inputData.degree.image.file);
+      const degreeImageUrl = await getDownloadURL(degreeImageRef);
+
+      // Add certificate and degree to postData
+      inputData.certificate = {
+        url: certificateImageUrl,
+        name: certificateImageRef._location.path_,
+      };
+      inputData.degree = {
+        name: inputData.degree.name,
+        image: {
+          url: degreeImageUrl,
+          name: degreeImageRef._location.path_,
+        },
+      };
+    }
+
     const postData = {
       ...inputData,
       image: {
         url: profileImageUrl,
         name: profileImageRef._location.path_,
+      },
+      cv: {
+        url: cvImageUrl,
+        name: cvImageRef._location.path_,
+      },
+      certificate: inputData.certificate || {
+        url: "",
+        name: "",
       },
       id1: {
         name: inputData.id1.name,
@@ -99,6 +151,13 @@ const VerifyOtp = ({
         image: {
           url: id2ImageUrl,
           name: id2ImageRef._location.path_,
+        },
+      },
+      degree: inputData.degree || {
+        name: "",
+        image: {
+          url: "",
+          name: "",
         },
       },
     };
@@ -119,6 +178,14 @@ const VerifyOtp = ({
           url: "",
           name: "",
         },
+        cv: {
+          url: "",
+          name: "",
+        },
+        certificate: {
+          url: "",
+          name: "",
+        },
         id1: {
           name: "",
           image: {
@@ -127,6 +194,13 @@ const VerifyOtp = ({
           },
         },
         id2: {
+          name: "",
+          image: {
+            url: "",
+            name: "",
+          },
+        },
+        degree: {
           name: "",
           image: {
             url: "",
