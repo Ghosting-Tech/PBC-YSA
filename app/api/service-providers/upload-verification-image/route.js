@@ -26,8 +26,6 @@ export async function POST(request) {
       { new: true }
     );
 
-    console.log({ uploadedImage });
-    console.log({ booking });
     if (!booking) {
       return NextResponse.json(
         { success: false, message: "booking not found" },

@@ -40,16 +40,16 @@ const Page = () => {
   }, [id]);
 
   const [noLongerHaveAccess, setNoLongerHaveAccess] = useState(false);
-  // useEffect(() => {
-  //   if (booking && booking.assignedServiceProviders && user) {
-  //     if (booking.assignedServiceProviders._id == user._id) {
-  //       setNoLongerHaveAccess(false);
-  //     }
-  //   }
-  // }, [booking, user]);
+  useEffect(() => {
+    if (booking && booking.assignedServiceProviders && user) {
+      if (booking.assignedServiceProviders._id == user._id) {
+        setNoLongerHaveAccess(false);
+      }
+    }
+  }, [booking, user]);
 
   return (
-    (<div>
+    <div>
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <div className="text-lg font-semibold animate-spin my-56">
@@ -77,16 +77,11 @@ const Page = () => {
               </Typography>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/service-provider/booking" legacyBehavior>
-                  <Button size="lg" color="light-blue" ripple={true}>
+                  <Button size="lg" color="light-blue" ripple>
                     Return to bookings
                   </Button>
                 </Link>
-                <Button
-                  size="lg"
-                  color="blue-gray"
-                  variant="outlined"
-                  ripple={true}
-                >
+                <Button size="lg" color="blue-gray" variant="outlined" ripple>
                   <Link href="/support">Contact Support</Link>
                 </Button>
               </div>
@@ -96,7 +91,7 @@ const Page = () => {
       ) : (
         booking && <BookingDetail booking={booking} setBooking={setBooking} />
       )}
-    </div>)
+    </div>
   );
 };
 

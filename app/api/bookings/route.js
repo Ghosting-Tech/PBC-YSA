@@ -88,9 +88,19 @@ export async function POST(request) {
     const serviceProviders = await User.find({
       role: "service-provider",
       active: true,
+      available: true,
+      gender: user.gender,
     }).populate("services");
 
-    console.log(serviceProviders);
+    if (serviceProviders.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "No service providers found",
+        },
+        { status: 303 }
+      );
+    }
 
     const uniqueServiceProviders = new Set();
 
@@ -106,27 +116,32 @@ export async function POST(request) {
     // Convert Set to array to use .map()
     let nearestServiceProvidersArray = Array.from(uniqueServiceProviders);
 
-    console.log({ nearestServiceProvidersArray });
-
     // If no nearby service providers found
     if (nearestServiceProvidersArray.length === 0) {
       return NextResponse.json(
-        { error: "No service providers found within the specified range" },
+        {
+          success: false,
+          message: "No service providers found within the specified range",
+        },
         { status: 303 }
       );
     }
 
     const availableServiceProviders = [];
 
+    console.log({ cartItems });
+
     for (const cartItem of cartItems) {
       for (const spId of nearestServiceProvidersArray) {
         // Await the service provider query and population
+
+        console.log({ cartItem });
         const sp = await User.findById(spId).populate("services");
 
         // Ensure services are populated and defined before iterating
         if (sp?.services) {
           sp.services.forEach((service) => {
-            if (service._id.toString() === cartItem.serviceId) {
+            if (service._id == cartItem.serviceId) {
               console.log(service);
               availableServiceProviders.push(spId);
             }
@@ -141,10 +156,10 @@ export async function POST(request) {
       cartItems,
       availableServiceProviders,
       otp,
+      user: user._id,
       noServiceProviderAvailable: availableServiceProviders.length <= 0,
     };
 
-    console.log({ bookingData });
     const booking = await Booking.create(bookingData);
 
     // Update user's booking data in parallel
@@ -264,7 +279,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         success: false,
-        error: "An error occurred while processing the booking",
+        message: "An error occurred while processing the booking",
       },
       { status: 500 }
     );

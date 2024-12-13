@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   List,
@@ -18,7 +19,6 @@ import ServicesList from "./ServiceList";
 import { useSelector } from "react-redux";
 import LocationDialog from "./location/LocationDialog";
 import { toast } from "sonner";
-import { useLocalStorage } from "../common/LocalStorageWrapper";
 
 export default function NavList() {
   const [open2, setOpen2] = useState(false);
@@ -30,7 +30,12 @@ export default function NavList() {
   const [searchedData, setSearchedData] = useState([]);
   const [searchError, setSearchError] = useState("");
 
-  const [cityState, setCityState] = useLocalStorage("cityState", {});
+  const [cityState, setCityState] = useState(null);
+
+  useEffect(() => {
+    const storedCityState = JSON.parse(localStorage.getItem("cityState")) || {};
+    setCityState(storedCityState);
+  }, []);
 
   const topBookedServices = useSelector((state) => state.topServices);
   const city =
@@ -104,14 +109,6 @@ export default function NavList() {
     }
     setSearchedData(result);
   }
-  // const [location, setLocation] = useState("Location");
-
-  // useEffect(() => {
-  //   const cityState = JSON.parse(localStorage.getItem("cityState"));
-  //   if (cityState?.city) {
-  //     setLocation(cityState.city);
-  //   }
-  // }, []);
 
   const [openLocationDialog, setOpenLocationDialog] = useState(false);
 

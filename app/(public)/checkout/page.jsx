@@ -1,89 +1,74 @@
 "use client";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Input, List, ListItem, Radio } from "@material-tailwind/react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { toast } from "sonner";
-import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/redux/slice/userSlice";
-import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
-import { useLocalStorage } from "@/components/common/LocalStorageWrapper";
 
-function Shipping() {
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckoutSummary } from "./(components)/CheckoutSummary";
+import { CheckoutForm } from "./(components)/CheckoutForm";
+import { CheckoutProgress } from "./(components)/CheckoutProgress";
+import { CheckoutConfirmation } from "./(components)/CheckoutConfirmation";
+import { useLocalStorage } from "@/components/common/LocalStorageWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { setUser } from "@/redux/slice/userSlice";
+
+export default function Checkout() {
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     fullname: "",
     phoneNumber: "",
     address: "",
     date: "",
-    time: 0,
+    time: "",
   });
+  const [location, setLocation] = useState(null);
 
-  const [dates, setDates] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  const cartItems = useLocalStorage("cart", []);
 
-  // Create handler functions
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleNextStep = () => {
+    setStep((prevStep) => prevStep + 1);
   };
 
-  // Function to generate the four days including the current date
-  const getFourDays = () => {
-    const today = new Date();
-    const fourDaysArray = [today];
+  const handlePrevStep = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
 
-    for (let i = 1; i < 4; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
-      fourDaysArray.push(nextDate);
+  const validateForm = () => {
+    if (!formData.fullname || formData.fullname.length < 4) {
+      toast.error("Please enter a valid full name (at least 4 characters)");
+      return false;
     }
-
-    return fourDaysArray.map((date) => {
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    });
+    if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return false;
+    }
+    if (!formData.address) {
+      toast.error("Please enter a valid address");
+      return false;
+    }
+    if (!formData.date) {
+      toast.error("Please select a delivery date");
+      return false;
+    }
+    if (!formData.time) {
+      toast.error("Please select a delivery time");
+      return false;
+    }
+    if (!formData.patientCondition) {
+      toast.error("Please enter the patient's condition");
+      return false;
+    }
+    if (!location) {
+      toast.error("location is required!");
+      return false;
+    }
+    return true;
   };
-
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    return `${parseFloat(hours) + 1}:${parseFloat(minutes)}`;
-  };
-
-  const user = useSelector((state) => state.user.user);
-  const router = useRouter();
-  const [cart, setCart] = useLocalStorage("cart", []);
-  const [location, setLocation] = useLocalStorage("location", {});
-  useEffect(() => {
-    if (cart.length === 0) router.back();
-    // eslint-disable-next-line
-  }, [router, cart.length]);
-
-  useEffect(() => {
-    setCartItems(cart);
-
-    const dates = getFourDays();
-    setDates(dates);
-    getAddress(location);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      fullname: user.name || "Name",
-      profileImage: user.image || { url: "", name: "" },
-      phoneNumber: user.phoneNumber || "Phone Number",
-      email: user.email || "Email",
-      date: dates[0],
-    }));
-  }, [user, cart, location]); // No router dependency here
 
   const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector((state) => state.user.user);
 
   const [redirectingLoading, setRedirectingLoading] = useState(false);
   const [disableRedirectingButton, setDisableRedirectingButton] =
@@ -93,19 +78,8 @@ function Shipping() {
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
 
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, "0");
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const year = today.getFullYear();
-    const formattedToday = `${day}-${month}-${year}`;
-
-    if (formData.date === formattedToday) {
-      if (formData.time <= getCurrentTime()) {
-        toast.warning(
-          "Kindly choose a time that is at least one hour from now."
-        );
-        return;
-      }
+    if (!validateForm()) {
+      return;
     }
 
     if (redirectingButtonClicked > 2) {
@@ -118,11 +92,10 @@ function Shipping() {
     setRedirectingButtonClicked((prev) => prev + 1);
 
     try {
-      // Combine all API logic into a single POST request
       const postData = {
         formData,
         location,
-        cartItems,
+        cartItems: cartItems[0],
         user,
       };
 
@@ -169,211 +142,86 @@ function Shipping() {
       }
     } catch (error) {
       console.log("Error in submitting order:", error);
-      toast.error(error.error || "An error occurred while placing the order.");
+      toast.error(
+        error.response.data.message ||
+          "An error occurred while placing the order."
+      );
     } finally {
       setRedirectingLoading(false);
     }
   };
 
-  const searchBoxRef = useRef(null);
-
-  const onPlacesChanged = () => {
-    const places = searchBoxRef.current.getPlaces();
-    if (places.length === 0) return;
-
-    const place = places[0];
-    const newLocation = {
-      lat: place.geometry.location.lat(),
-      lng: place.geometry.location.lng(),
-    };
-    getAddress(newLocation);
-    setLocation(newLocation);
-  };
-
-  const getAddress = async (location) => {
-    if (!location) return; // Early return to avoid unnecessary calls
-
-    const { lat, lng } = location;
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
-    );
-    if (!response.ok) toast.error("Failed to fetch address");
-
-    const data = await response.json();
-    const formattedAddress =
-      data.results?.[0]?.formatted_address || "Unknown Address";
-
-    setFormData((prev) => ({ ...prev, address: formattedAddress }));
-  };
-
   return (
-    <div>
-      <div className="flex flex-col md:flex-row justify-center gap-20 p-8">
-        <div className="w-full md:w-1/3">
-          <h2 className="font-julius lg:text-4xl md:text-4xl sm:text-3xl text-3xl mb-4 text-gray-700">
-            SUMMARY
-          </h2>
-          <div className="space-y-4">
-            {cartItems.map((item, index) => (
-              <div key={index} className="flex items-center">
-                <Image
-                  src={item.icon?.url}
-                  alt={`service${index}`}
-                  width={100}
-                  height={100}
-                  className="w-24 h-24 mr-3 object-cover rounded-lg"
-                />
-                <div>
-                  <h3 className="font-bold">{item.name}</h3>
-                  <p className="text-sm">Qty: {item.quantity}</p>
-                  <p className="text-sm font-bold text-teal-500">
-                    ₹{(item.price * item.quantity).toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            ))}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="min-h-screen bg-gray-100 py-4 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-7xl mx-auto">
+        <CheckoutProgress currentStep={step} />
+        <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-5">
+          <div className="lg:col-span-3">
+            <AnimatePresence mode="wait">
+              {step === 1 && (
+                <motion.div
+                  key="form"
+                  initial={{ x: "-100%", opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: "100%", opacity: 0 }}
+                  transition={{ type: "tween", duration: 0.5 }}
+                >
+                  <CheckoutForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    onNextStep={handleNextStep}
+                    location={location}
+                    setLocation={setLocation}
+                  />
+                </motion.div>
+              )}
+              {step === 2 && (
+                <motion.div
+                  key="confirmation"
+                  initial={{ x: "100%", opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: "-100%", opacity: 0 }}
+                  transition={{ type: "tween", duration: 0.5 }}
+                >
+                  <CheckoutConfirmation
+                    formData={formData}
+                    onPrevStep={handlePrevStep}
+                    onSubmit={handleSubmitOrder}
+                    redirectingLoading={redirectingLoading}
+                    disableRedirectingButton={disableRedirectingButton}
+                  />
+                </motion.div>
+              )}
+              {step === 3 && (
+                <motion.div
+                  key="success"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                >
+                  <div className="text-center">
+                    <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                      Thank you for your order!
+                    </h2>
+                    <p className="mt-4 text-lg text-gray-600">
+                      Your order has been placed successfully. We'll send you a
+                      confirmation email shortly.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <div className="h-px w-full bg-gray-300 mt-4"></div>
-
-          <div className="flex flex-col gap-4 p-2">
-            <div className="flex justify-between">
-              <span>Subtotal</span>
-              <span>
-                ₹
-                {cartItems
-                  .reduce(
-                    (acc, product) => acc + product.price * product.quantity,
-                    0
-                  )
-                  .toFixed(2)}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span>Convenience Fee</span>
-              <span>₹18.00</span>
-            </div>
-            <div className="flex justify-between font-bold text-xl text-gray-700">
-              <span>Total</span>
-              <span>
-                ₹
-                {(
-                  cartItems.reduce(
-                    (acc, product) => acc + product.price * product.quantity,
-                    0
-                  ) + 18
-                ).toFixed(2)}
-              </span>
-            </div>
+          <div className="lg:col-span-2">
+            <CheckoutSummary cartItems={cartItems[0]} />
           </div>
-        </div>
-        <div className="w-full md:w-1/2 bg-white p-6 rounded-xl shadow-lg">
-          <h2 className="font-julius text-center lg:text-4xl md:text-4xl sm:text-3xl text-3xl mb-4 text-gray-700">
-            Checkout
-          </h2>
-          <form className="space-y-4" onSubmit={handleSubmitOrder}>
-            <Input
-              label="Full name"
-              className="bg-white"
-              name="fullname"
-              value={formData.fullname}
-              onChange={handleChange}
-              required
-              maxLength={30}
-              minLength={4}
-            />
-            <Input
-              label="Phone number"
-              className="bg-white"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onInput={(e) => {
-                e.target.value = e.target.value.replace(/\D/g, ""); // Only allows digits
-              }}
-              onChange={handleChange}
-              required
-              maxLength={10}
-              minLength={10}
-            />
-            <LoadScript
-              googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-              libraries={["places"]}
-            >
-              <StandaloneSearchBox
-                onLoad={(ref) => (searchBoxRef.current = ref)}
-                onPlacesChanged={onPlacesChanged}
-              >
-                <Input
-                  label="Search Address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  name="address"
-                  size="lg"
-                  className="p-2 w-full border rounded"
-                  placeholder="Enter your address"
-                  required
-                />
-              </StandaloneSearchBox>
-            </LoadScript>
-            <h2>Available Dates</h2>
-            <List className="grid grid-cols-2 2xl:grid-cols-4 bg-white rounded-lg">
-              {dates.map((date) => (
-                <ListItem key={date} className="p-0">
-                  <label
-                    htmlFor={date}
-                    className="flex w-full cursor-pointer items-center px-3 py-2"
-                  >
-                    <Radio
-                      id={date}
-                      name="date"
-                      value={date}
-                      checked={formData.date === date}
-                      onChange={handleChange}
-                    />
-                    {date}
-                  </label>
-                </ListItem>
-              ))}
-            </List>
-            <input
-              type="time"
-              name="time"
-              value={formData.time}
-              min="08:00"
-              max="20:00"
-              required
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-            <div className="text-sm text-red-600 flex items-center gap-1">
-              <IoMdInformationCircleOutline size={20} />
-              <p className="text-xs">
-                Please select the time between 8:00A.M to 8:00P.M
-              </p>
-            </div>
-            <div className="text-sm text-gray-600 flex items-center gap-1">
-              <IoMdInformationCircleOutline size={20} />
-              <p className="text-xs">
-                Your privacy is important to us. We will only contact you if
-                there is an issue with your order.
-              </p>
-            </div>
-            <Button
-              className="mt-4 flex justify-center items-center gap-1 w-full"
-              size="lg"
-              color="teal"
-              loading={redirectingLoading}
-              disabled={disableRedirectingButton || redirectingLoading}
-              variant="gradient"
-              type="submit"
-            >
-              {/* Continue to payments */}
-              Book Service
-            </Button>
-          </form>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
-
-export default Shipping;

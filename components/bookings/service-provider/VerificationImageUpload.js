@@ -73,7 +73,11 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
     }, 500);
 
     try {
-      const uploadedImage = await uploadImage(file, "verification-image");
+      const uploadedImage = await uploadImage(
+        file,
+        "verification-image",
+        booking.verificationImage?.name
+      );
 
       const { data } = await axios.post(
         "/api/service-providers/upload-verification-image",
@@ -133,7 +137,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
               className="w-48 aspect-square object-cover rounded-lg"
             />
           ) : (
-            <div>
+            <div className="flex flex-col items-center justify-center">
               <MdOutlineCloudUpload className="w-16 h-16 text-gray-400" />
               <p className="text-gray-600 text-center flex gap-1 flex-col ">
                 Drag and drop your image here, or click to

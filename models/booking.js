@@ -25,7 +25,7 @@ const bookingSchema = new Schema(
     },
     fullname: { type: String, required: true },
     phoneNumber: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String },
     address: {
       type: String,
     },
@@ -106,6 +106,9 @@ const bookingSchema = new Schema(
     serviceCompletedOtp: { type: String },
     transactionId: { type: String },
     expired: { type: Boolean, default: false },
+    patientCondition: { type: String },
+    prescription: { type: Object },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,

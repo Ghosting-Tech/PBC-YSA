@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { FaArrowLeft, FaHistory } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { Button, Badge, Avatar } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +40,6 @@ const ServiceProvider = () => {
 
   const getAllService = useCallback(async () => {
     const storedLocation = JSON.parse(localStorage.getItem("cityState"));
-    console.log({ storedLocation });
     if (!storedLocation.city) {
       toast.error("Please select a location for continue!");
     }
@@ -53,7 +52,6 @@ const ServiceProvider = () => {
       storedLocation
     );
 
-    console.log("All services", data);
     dispatch(setTopBookedServices(data));
     //eslint-disable-next-line
   }, []);
@@ -85,17 +83,6 @@ const ServiceProvider = () => {
     //eslint-disable-next-line
   }, [getAllService, fetchingServices]);
 
-  if (loading) {
-    return (
-      <div className="grid place-items-center min-h-screen">
-        <div className="flex flex-col items-center gap-4">
-          <div className="loaction-loader"></div>
-          <div className="text-2xl font-julius">Loading</div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div className="flex min-h-full flex-col justify-center items-center">
@@ -113,7 +100,9 @@ const ServiceProvider = () => {
                 <Badge
                   content={<div className="h-3 w-h-3"></div>}
                   overlap="circular"
-                  className="bg-gradient-to-tr from-green-400 to-green-600 border-2 border-white shadow-lg shadow-black/20"
+                  className={`border-2 border-white shadow-lg shadow-black/20 ${
+                    user?.available ? "bg-green-400" : "bg-red-400"
+                  }`}
                 >
                   <Avatar
                     src={user.image.url}

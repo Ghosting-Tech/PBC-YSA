@@ -57,34 +57,9 @@ const getAddress = async ({ lat, lng }) => {
   }
 };
 
-const getCustomizeData = async () => {
-  try {
-    const response = await fetch("/api/admin/customize", {
-      method: "GET",
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Error fetching customize data");
-    }
-
-    return data.content[0] || null;
-  } catch (error) {
-    console.error("Error fetching customize data:", error);
-    toast.error("Something went wrong. Please try again later.");
-    return null;
-  }
-};
-
 export default function Home() {
   const [selectedState, setSelectedState] = useState("Bihar");
   const [selectedCity, setCity] = useState("patna");
-  const [customizeData, setCustomizeData] = useState(null);
 
   const setSelectedCity = useCallback((city) => {
     setCity(city);
@@ -157,19 +132,6 @@ export default function Home() {
     //eslint-disable-next-line
   }, [dispatch, getTopServices, setSelectedCity]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const content = await getCustomizeData();
-        setCustomizeData(content);
-      } catch (error) {
-        console.error("Error fetching customize data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const handleLocationChange = () => {
     if (selectedState && selectedCity) {
       const cityState = { state: selectedState, city: selectedCity };
@@ -186,7 +148,7 @@ export default function Home() {
     <main>
       <>
         <Nav />
-        <Hero customizeData={customizeData} />
+        <Hero />
         <ServiceContainer
           selectedState={selectedState}
           setSelectedState={setSelectedState}
@@ -195,7 +157,7 @@ export default function Home() {
           selectedCity={selectedCity}
           forAllService={false}
         />
-        <VideoCarousel videos={customizeData?.videos} />
+        <VideoCarousel />
         <WhyChooseUs />
         <HowToBook />
         <CallToAction />

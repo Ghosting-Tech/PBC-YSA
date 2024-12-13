@@ -1,16 +1,15 @@
-import { storage } from "@/firebase";
-import { Button } from "@material-tailwind/react";
-import axios from "axios";
 import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Chip,
+  Typography,
+} from "@material-tailwind/react";
+import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { MdOutlineCloudUpload } from "react-icons/md";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import UpdateServiceStatus from "./UpdateServiceStatus";
@@ -21,10 +20,19 @@ import BookingHeader from "@/components/admin/bookings/single-booking/BookingHea
 import ServiceDetails from "@/components/admin/bookings/single-booking/ServiceDetails";
 import InvoiceDetail from "@/components/admin/bookings/single-booking/InvoiceDetail";
 import { toast } from "sonner";
-import { AiOutlineLoading } from "react-icons/ai";
 import Invoice from "./Invoice";
 import BookingActions from "./BookingActions";
 import VerificationImageUpload from "./VerificationImageUpload";
+import { motion } from "framer-motion";
+import {
+  CalendarIcon,
+  ClockIcon,
+  UserIcon,
+  DocumentIcon,
+  EyeIcon,
+} from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const BookingDetail = ({ booking, setBooking }) => {
   const user = useSelector((state) => state.user.user);
@@ -86,58 +94,6 @@ const BookingDetail = ({ booking, setBooking }) => {
     }
   };
 
-  const [uploadedImage, setUploadedImage] = useState("");
-  const [imageUploadLoading, setImageUploadLoading] = useState(false);
-  const handleImageUpload = async (e) => {
-    setImageUploadLoading(true);
-    const file = e.target.files[0];
-
-    if (!file) {
-      setImageUploadLoading(false);
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      if (booking?.verificationImage?.name) {
-        formData.append("previousImageName", booking.verificationImage.name);
-      }
-
-      const response = await fetch(
-        "/api/service-providers/upload-verification-image",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
-
-      const data = await response.json();
-
-      const { imageUrl, imageName } = data;
-
-      setUploadedImage(imageUrl);
-
-      const postData = {
-        ...booking,
-        verificationImage: { url: imageUrl, name: imageName },
-      };
-
-      await axios.put(`/api/bookings/${booking._id}`, postData);
-      toast.success("Image uploaded successfully");
-    } catch (err) {
-      toast.error(err.message || "Failed to upload the image");
-      console.log(err);
-    } finally {
-      setImageUploadLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (booking?.otpVerified === true) {
       setOtpVerified(true);
@@ -145,9 +101,7 @@ const BookingDetail = ({ booking, setBooking }) => {
     if (booking?.otpVerified !== true) {
       setOtpVerified(false);
     }
-    if (booking?.verificationImage?.url) {
-      setUploadedImage(booking?.verificationImage?.url);
-    }
+    console.log(booking);
   }, [booking]);
 
   const handleRejectRequest = async (id) => {
@@ -245,38 +199,105 @@ const BookingDetail = ({ booking, setBooking }) => {
           <ServiceDetails booking={booking} />
           <InvoiceDetail booking={booking} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
-                Booking Information
+            <Card className="w-full overflow-hidden p-4">
+              <CardHeader
+                floated={false}
+                shadow={false}
+                color="transparent"
+                className="m-0 rounded-none"
+              >
+                <Typography variant="h5" color="black">
+                  Booking Information
+                </Typography>
+              </CardHeader>
+              <CardBody className="p-0 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex items-center">
+                    <CalendarIcon className="h-6 w-6 mr-3 text-teal-500" />
+                    <div>
+                      <Typography variant="small" color="blue-gray">
+                        Booking Date
+                      </Typography>
+                      <Typography variant="h6" color="blue-gray">
+                        {booking.date}
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <ClockIcon className="h-6 w-6 mr-3 text-teal-500" />
+                    <div>
+                      <Typography variant="small" color="blue-gray">
+                        Booking Time
+                      </Typography>
+                      <Typography variant="h6" color="blue-gray">
+                        {booking.time}
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <UserIcon className="h-6 w-6 mr-3 text-teal-500 mt-1" />
+                    <div>
+                      <Typography variant="small" color="blue-gray">
+                        Patient Condition
+                      </Typography>
+                      <Typography
+                        variant="paragraph"
+                        color="blue-gray"
+                        className="mt-1"
+                      >
+                        {booking.patientCondition}
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <DocumentIcon className="h-6 w-6 mr-3 text-teal-500 mt-1" />
+                    <div className="flex-grow">
+                      <Typography variant="small" color="blue-gray">
+                        Patient Prescription
+                      </Typography>
+                      {booking.prescription?.url ? (
+                        <a
+                          href={booking.prescription.url}
+                          download
+                          className="mt-2"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            size="sm"
+                            color="teal"
+                            variant="outlined"
+                            className="flex items-center gap-2"
+                          >
+                            <ArrowDownTrayIcon className="h-4 w-4" />
+                            view Prescription
+                          </Button>
+                        </a>
+                      ) : (
+                        <Typography color="gray" className="mt-1">
+                          No prescription uploaded
+                        </Typography>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+            <div className="bg-white p-6 rounded-lg shadow w-full">
+              <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
+                Customer Details
               </h3>
-              <div className="flex justify-between mb-3">
-                <div>
-                  <p className="text-sm text-gray-500">Booking Date</p>
-                  <p className="text-lg font-semibold text-gray-700">
-                    {booking?.date}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Booking Time</p>
-                  <p className="text-lg font-semibold text-gray-700">
-                    {booking?.time}
-                  </p>
-                </div>
-              </div>
+
+              <UserDetail
+                name={booking?.user?.name}
+                gender={booking?.user?.gender}
+                religion={booking?.user?.religion}
+                access={booking?.acceptedByServiceProvider}
+                profileImage={booking?.user?.image}
+                email={booking?.user?.email}
+                phoneNumber={booking?.user?.phoneNumber}
+              />
             </div>
-            {booking?.acceptedByServiceProvider && (
-              <div className="bg-white p-6 rounded-lg shadow w-full">
-                <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
-                  Customer Details
-                </h3>
-                <UserDetail
-                  name={booking?.fullname}
-                  profileImage={booking?.profileImage}
-                  email={booking?.email}
-                  phoneNumber={booking?.phoneNumber}
-                />
-              </div>
-            )}
           </div>
         </div>
         <LocationDetails booking={booking} />
@@ -322,10 +343,12 @@ const BookingDetail = ({ booking, setBooking }) => {
                 </div>
               </div>
             )}
-            <VerificationImageUpload
-              booking={booking}
-              setBooking={setBooking}
-            />
+            {booking?.otpVerified && (
+              <VerificationImageUpload
+                booking={booking}
+                setBooking={setBooking}
+              />
+            )}
             {booking?.otpVerified && !booking?.completed && (
               <Invoice
                 selectedBooking={booking}

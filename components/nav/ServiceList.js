@@ -11,9 +11,8 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { IoIosHelpCircle, IoIosInformationCircle } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaTools } from "react-icons/fa";
-import { GrSupport } from "react-icons/gr";
 
 const services = [
   {
@@ -40,6 +39,15 @@ const services = [
 export default function ServicesList() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const renderItems = services.map(({ title, icon, link }, key) => (
     <Link href={link} key={key} className="no-underline">

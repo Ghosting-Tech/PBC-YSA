@@ -167,6 +167,13 @@ const userSchema = new Schema(
     notificationToken: {
       type: String,
     },
+    mobileNotificationToken: {
+      type: String,
+    },
+    available: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

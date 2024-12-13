@@ -7,7 +7,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const EnhancedVideoCarousel = ({ videos = [] }) => {
+const VideoCarousel = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const controls = useAnimation();
@@ -40,6 +40,12 @@ const EnhancedVideoCarousel = ({ videos = [] }) => {
     }
     return result;
   };
+
+  const videos = [
+    "/video/nur-video1.mp4",
+    "/video/nur-video2.mp4",
+    "/video/nur-video3.mp4",
+  ];
 
   const videoChunks =
     videos && videos.length > 0 ? chunkArray(videos, isMobile ? 1 : 3) : [];
@@ -188,7 +194,7 @@ const EnhancedVideoCarousel = ({ videos = [] }) => {
                   autoPlay
                   className="video shadow-md border border-gray-200 rounded-lg"
                 >
-                  <source src={video.url} type="video/mp4" />
+                  <source src={video} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
@@ -235,4 +241,4 @@ const EnhancedVideoCarousel = ({ videos = [] }) => {
   );
 };
 
-export default EnhancedVideoCarousel;
+export default VideoCarousel;

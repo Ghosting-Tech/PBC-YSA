@@ -1,75 +1,124 @@
 "use client";
-import { IconButton, Tooltip } from "@material-tailwind/react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { BsWhatsapp } from "react-icons/bs";
-import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaVenusMars, FaPray } from "react-icons/fa";
+import {
+  Card,
+  CardBody,
+  Typography,
+  Button,
+  Tooltip,
+  Avatar,
+} from "@material-tailwind/react";
 
-const UserDetail = ({ profileImage, name, phoneNumber, email }) => {
+const UserDetail = ({
+  profileImage,
+  name,
+  phoneNumber,
+  email,
+  gender,
+  religion,
+  access,
+}) => {
   return (
-    <div className="flex items-start sm:items-center gap-2">
-      {/* Profile Image */}
-      {profileImage?.url ? (
-        <Image
-          width={500}
-          height={500}
-          src={profileImage.url}
-          alt={name}
-          className="w-16 h-16 rounded-full object-cover cursor-pointer"
-        />
-      ) : (
-        <div className="w-16 h-16 rounded-full flex justify-center items-center font-junge bg-gray-400 cursor-pointer">
-          {name && Array.from(name)[0].toUpperCase()}
+    <Card className="w-full max-w-[400px] shadow-none">
+      <CardBody className="p-0">
+        <div className="flex items-center gap-4 mb-4">
+          <Avatar
+            size="lg"
+            alt={name}
+            src={
+              profileImage?.url ||
+              `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${name}`
+            }
+            className="border border-blue-500 ring-4 ring-blue-500/40"
+          />
+          <div>
+            <Typography variant="h5" color="blue-gray" className="mb-1">
+              {name}
+            </Typography>
+            <div className="flex items-center gap-2">
+              <Typography
+                variant="small"
+                color="gray"
+                className="font-normal opacity-75"
+              >
+                <span className="flex items-center gap-1">
+                  <FaVenusMars className="text-blue-500" />
+                  {gender}
+                </span>
+              </Typography>
+              <Typography
+                variant="small"
+                color="gray"
+                className="font-normal opacity-75"
+              >
+                <span className="flex items-center gap-1">
+                  <FaPray className="text-blue-500" />
+                  {religion}
+                </span>
+              </Typography>
+            </div>
+          </div>
         </div>
-      )}
-      {/* User Info */}
-      <div className="flex flex-col text-gray-700">
-        {/* Full Name */}
-        <span className="text-md">{name}</span>
-
-        <div className="flex gap-1 items-center">
-          <Tooltip
-            content={phoneNumber}
-            animate={{
-              mount: { scale: 1, y: 0 },
-              unmount: { scale: 0, y: 25 },
-            }}
-          >
-            <Link href={`tel:+91${phoneNumber}`} target="_blank">
-              <IconButton variant="text">
-                <FaPhoneAlt className="text-teal-500 text-xl cursor-pointer" />
-              </IconButton>
-            </Link>
-          </Tooltip>
-          <Tooltip
-            content={phoneNumber}
-            animate={{
-              mount: { scale: 1, y: 0 },
-              unmount: { scale: 0, y: 25 },
-            }}
-          >
-            <Link href={`https://wa.me/${phoneNumber}`} target="_blank">
-              <IconButton variant="text">
-                <BsWhatsapp color="green" className="text-xl" />
-              </IconButton>
-            </Link>
-          </Tooltip>
-          <Tooltip
-            content={email}
-            animate={{
-              mount: { scale: 1, y: 0 },
-              unmount: { scale: 0, y: 25 },
-            }}
-          >
-            <Link href={`mailto:${email}`} target="_blank">
-              <IconButton variant="text">
-                <FaEnvelope className="text-blue-700 text-xl cursor-pointer" />
-              </IconButton>
-            </Link>
-          </Tooltip>
-        </div>
-      </div>
-    </div>
+        {access && (
+          <div className="flex flex-wrap gap-3 mt-5">
+            <Tooltip content="Call">
+              <Link
+                href={`tel:+91${phoneNumber}`}
+                target="_blank"
+                className="no-underline"
+              >
+                <Button
+                  variant="outlined"
+                  color="blue"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <FaPhoneAlt />
+                  Call
+                </Button>
+              </Link>
+            </Tooltip>
+            <Tooltip content="WhatsApp">
+              <Link
+                href={`https://wa.me/${phoneNumber}`}
+                target="_blank"
+                className="no-underline"
+              >
+                <Button
+                  variant="outlined"
+                  color="green"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <BsWhatsapp />
+                  WhatsApp
+                </Button>
+              </Link>
+            </Tooltip>
+            <Tooltip content="Email">
+              <Link
+                href={`mailto:${email}`}
+                target="_blank"
+                className="no-underline"
+              >
+                <Button
+                  variant="outlined"
+                  color="indigo"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <FaEnvelope />
+                  Email
+                </Button>
+              </Link>
+            </Tooltip>
+          </div>
+        )}
+      </CardBody>
+    </Card>
   );
 };
 

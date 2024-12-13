@@ -7,9 +7,9 @@ export async function GET(request, { params }) {
   const { id } = params;
   //   console.log(id);
   await connectMongoDB();
-  const booking = await Booking.findById(id).populate(
-    "availableServiceProviders"
-  );
+  const booking = await Booking.findById(id)
+    .populate("availableServiceProviders")
+    .populate("user");
   if (!booking) {
     return NextResponse.status(404).json({
       success: false,

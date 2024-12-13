@@ -45,16 +45,16 @@ const fetchServices = async (cityState) => {
 
 const ChangeCity = ({ handleLocationDialog }) => {
   const [cities, setCities] = useState([]);
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [currentCity, setCurrentCity] = useState("");
+  const [selectedState, setSelectedState] = useState("Bihar");
+  const [selectedCity, setSelectedCity] = useState("Patna");
+  const [currentCity, setCurrentCity] = useState("Patna");
   const dispatch = useDispatch();
 
   useEffect(() => {
     const storedCityState = JSON.parse(
       localStorage.getItem("cityState") || "{}"
     );
-    setCurrentCity(storedCityState.city || "Not set");
+    setCurrentCity(storedCityState.city || "Patna");
     setSelectedState(storedCityState.state || "");
     setSelectedCity(storedCityState.city || "");
   }, []);
