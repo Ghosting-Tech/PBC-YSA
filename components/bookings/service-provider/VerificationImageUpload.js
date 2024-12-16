@@ -107,9 +107,6 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
 
   return (
     <div className="w-full max-w-full">
-      {/* <h2 className="text-xl text-gray-700 font-semibold mb-4">
-        Upload Verification Image
-      </h2> */}
       <div
         className={`relative border-2 border-dashed rounded-lg p-6 ${
           dragActive ? "border-blue-400 bg-blue-50" : "border-gray-300"

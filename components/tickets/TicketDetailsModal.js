@@ -11,6 +11,7 @@ import TicketStatusChip from "./TicketStatusChip";
 import HTMLContentRenderer from "./HTMLContentRenderer";
 import { toast } from "sonner";
 import { useState } from "react";
+import Link from "next/link";
 
 const TicketDetailsModal = ({
   isOpen,
@@ -67,6 +68,10 @@ const TicketDetailsModal = ({
       <DialogBody divider className="overflow-y-auto max-h-[calc(100vh-200px)]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div>
+            <div className="flex items-center text-sm text-gray-500">
+              <ClockIcon className="w-4 h-4 mr-1" />
+              Created: {new Date(ticket.createdAt).toLocaleString()}
+            </div>
             <div className="flex items-center gap-1">
               <UserIcon className="h-5 w-5" />
               <Typography variant="h6" color="blue-gray" className="mb-1">
@@ -90,9 +95,21 @@ const TicketDetailsModal = ({
         <Typography variant="paragraph" color="gray" className="mb-4">
           <HTMLContentRenderer content={ticket.issue} limit={10000} />
         </Typography>
-        <div className="flex items-center text-sm text-gray-500">
-          <ClockIcon className="w-4 h-4 mr-1" />
-          Created: {new Date(ticket.createdAt).toLocaleString()}
+        <div className="flex flex-col justify-center text-sm text-gray-500">
+          <Typography variant="h6" color="gray">
+            Attached file
+          </Typography>
+          {ticket?.file?.url ? (
+            <Link href={ticket?.file?.url} target="_blank">
+              <Button color="blue" variant="text" size="sm" className="w-fit">
+                View
+              </Button>
+            </Link>
+          ) : (
+            <Typography variant="small" color="gray">
+              No file attached
+            </Typography>
+          )}
         </div>
       </DialogBody>
       <DialogFooter>

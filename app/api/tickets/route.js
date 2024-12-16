@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
-    const { name, email, issue, from, user } = await request.json();
+    const { name, email, issue, from, user, file, category } =
+      await request.json();
 
     // Validate required fields
     if (!name || !issue || !from || !user) {
@@ -39,6 +40,8 @@ export async function POST(request) {
       issue,
       from,
       user,
+      category,
+      file,
     });
 
     const populatedTicket = await ticket.populate("user");

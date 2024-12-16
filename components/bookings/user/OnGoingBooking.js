@@ -25,6 +25,7 @@ import BookingHeader from "@/components/admin/bookings/single-booking/BookingHea
 import LocationDetails from "@/components/admin/bookings/single-booking/LocationDetails";
 import ContactQuery from "../ContactQuery";
 import Review from "@/components/services/review/Review";
+import BookAgain from "./BookAgain";
 
 const OnGoingBooking = ({
   booking,
@@ -121,9 +122,16 @@ const OnGoingBooking = ({
       )}
       <UserServiceProviderDetail booking={booking} forUser={true} />
       <LocationDetails booking={booking} />
-
-      <ContactQuery booking={booking} />
-
+      <div className="flex items-center justify-between">
+        <ContactQuery booking={booking} />
+        {booking.canceledByCustomer && (
+          <Link href={`/support/refund/${booking._id}`}>
+            <Button variant="outlined" color="red">
+              Get Refund
+            </Button>
+          </Link>
+        )}
+      </div>
       {booking.completed && service._id && (
         <Review
           service={service}
@@ -133,13 +141,13 @@ const OnGoingBooking = ({
           setService={setService}
         />
       )}
-
       {!booking.completed && (
         <section className="w-full mt-4 flex justify-between items-center flex-col lg:flex-row gap-4">
-          <p className="font-medium text-red-600 text-sm">
-            Note: Order can be cancelled up to <strong>2 hours</strong> before
-            the scheduled time.
-          </p>
+          {!booking.canceledByCustomer && (
+            <p className="font-medium text-red-600 text-sm">
+              Note: Your booking has been cancelled by the service provider.
+            </p>
+          )}
           <div className="flex items-center justify-end gap-2 w-fit whitespace-nowrap">
             {!cancelled && !booking.otpVerified && (
               <Button
@@ -151,12 +159,13 @@ const OnGoingBooking = ({
                 Cancel Booking
               </Button>
             )}
+
             <CancelBookingDialog
               booking={booking}
               cancellationReasonDialog={cancellationReasonDialog}
               handleCancellationReasonDialog={handleCancellationReasonDialog}
             />
-            {booking.transactionId == undefined ? (
+            {booking.transactionId == undefined && (
               <Button
                 variant="gradient"
                 color="teal"
@@ -165,16 +174,6 @@ const OnGoingBooking = ({
               >
                 Pay {amount}
               </Button>
-            ) : (
-              !booking.paid && (
-                <Link
-                  href={`/status/${booking.transactionId}?bookingId=${booking._id}&invoice=false`}
-                >
-                  <Button variant="gradient" color="teal" className="rounded">
-                    Check payment status
-                  </Button>
-                </Link>
-              )
             )}
             {booking.invoices?.title && (
               <div className="flex gap-2">
@@ -203,6 +202,8 @@ const OnGoingBooking = ({
           </div>
         </section>
       )}
+      {/* Book again */}
+      <BookAgain booking={booking} />
     </div>
   );
 };

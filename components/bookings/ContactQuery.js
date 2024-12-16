@@ -15,7 +15,7 @@ const ContactQuery = ({ booking }) => {
           }/?text=${encodeURIComponent(
             `Hello, I have created a service on ${process.env.NEXT_PUBLIC_COMPANY_NAME}!,\nThis is my booking ID: ${booking.bookingId}.\nI am facing the issue:`
           )}`}
-          className="flex items-center gap-2 text-xs px-3 py-1.5 bg-[#25D366] text-white rounded-md shadow-md hover:bg-[#20b358] transition-colors duration-200 cursor-pointer"
+          className="no-underline flex items-center gap-2 text-xs px-3 py-1.5 bg-[#25D366] text-white rounded-md shadow-md hover:bg-[#20b358] transition-colors duration-200 cursor-pointer"
         >
           <FaWhatsapp className="text-lg" />
           <span className="font-semibold">WhatsApp</span>
@@ -24,7 +24,7 @@ const ContactQuery = ({ booking }) => {
         <Link
           target="_blank"
           href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL_ID}`}
-          className="flex items-center gap-2 text-xs px-3 py-1.5 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
+          className="no-underline flex items-center gap-2 text-xs px-3 py-1.5 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
         >
           <IoMail className="text-lg" />
           <span className="font-semibold">Mail Us</span>

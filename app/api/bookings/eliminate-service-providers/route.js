@@ -8,7 +8,7 @@ const handleSendNotification = async (token, link) => {
     console.error("No token available for notifications");
     return;
   }
-  console.log(token, link)
+  console.log(token, link);
   const response = await fetch(
     `${process.env.PHONEPE_REDIRECT_URL}/api/send-notification`,
     {
@@ -65,7 +65,7 @@ export async function POST(request) {
         availableServiceProviders: [serviceProvider],
       },
       { new: true }
-    );
+    ).populate("user");
 
     const user = await User.findOne({
       phoneNumber: booking.phoneNumber,

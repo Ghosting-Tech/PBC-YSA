@@ -39,6 +39,30 @@ const ticket = new Schema(
       },
       default: "unresolved",
     },
+    booking: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Booking",
+    },
+    category: {
+      type: String,
+      required: [true, "Category is required"],
+      enum: {
+        values: ["refund", "other"],
+        message: "Category must be either 'refund' or 'other'",
+      },
+    },
+    file: {
+      type: {
+        url: {
+          type: String,
+          required: [true, "File URL is required"],
+        },
+        name: {
+          type: String,
+          required: [true, "File name is required"],
+        },
+      },
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

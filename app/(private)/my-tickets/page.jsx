@@ -61,6 +61,7 @@ const TicketList = () => {
       <TicketContainer
         tickets={tickets}
         handleViewDetails={handleViewDetails}
+        handleRefresh={fetchTickets}
       />
       <TicketDetailsModal
         isOpen={isModalOpen}

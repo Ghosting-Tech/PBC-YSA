@@ -1,7 +1,14 @@
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
-import { ClockIcon, EnvelopeIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  ClockIcon,
+  EnvelopeIcon,
+  FunnelIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import TicketStatusChip from "./TicketStatusChip";
 import HTMLContentRenderer from "./HTMLContentRenderer";
+import { MdCategory } from "react-icons/md";
+import { FireIcon, TagIcon } from "@heroicons/react/24/solid";
 
 const TicketCard = ({ ticket, onViewDetails }) => (
   <Card
@@ -11,6 +18,11 @@ const TicketCard = ({ ticket, onViewDetails }) => (
     <CardBody className="p-4 md:p-6">
       <div className="flex justify-between items-start">
         <div className="mb-2">
+          <div className="flex items-center gap-1 bg-gradient-to-br from-blue-700 to-blue-500 text-white px-2 rounded-md w-fit mb-1">
+            <Typography variant="h6" className="capitalize">
+              {ticket.category}
+            </Typography>
+          </div>
           <div className="flex items-center gap-1">
             <UserIcon className="h-4 w-4" />
             <Typography variant="h6" color="blue-gray" className="mb-1">

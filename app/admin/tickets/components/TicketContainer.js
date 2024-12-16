@@ -13,6 +13,8 @@ import {
   Popover,
   PopoverHandler,
   PopoverContent,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import {
   TicketIcon,
@@ -43,6 +45,8 @@ const TicketContainer = ({
   sortByRole,
   setSortByRole,
   loading,
+  selectedCategory,
+  setSelectedCategory,
 }) => {
   const handleTabChange = (value) => {
     if (typeof setActiveTab === "function") {
@@ -58,6 +62,12 @@ const TicketContainer = ({
         onViewDetails={handleViewDetails}
       />
     ));
+  const categories = [
+    { value: "all", label: "All Categories" },
+    { value: "refund", label: "Refund" },
+    { value: "payouts", label: "Payouts" },
+    { value: "other", label: "Other" },
+  ];
   return (
     <Card className="mt-6">
       <CardHeader
@@ -180,6 +190,23 @@ const TicketContainer = ({
                 </div>
               </PopoverContent>
             </Popover>
+            <div className="w-full md:w-56">
+              <Select
+                label="Filter by Category"
+                value={selectedCategory}
+                onChange={(value) => setSelectedCategory(value)}
+              >
+                {categories.map(({ value, label }) => (
+                  <Option
+                    key={value}
+                    value={value}
+                    className="w-full list-none"
+                  >
+                    {label}
+                  </Option>
+                ))}
+              </Select>
+            </div>
           </div>
         </div>
         <Tabs value={activeTab} className="mb-8">
