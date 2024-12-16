@@ -31,6 +31,7 @@ import { PiBook } from "react-icons/pi";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/firebase";
 import BackButton from "@/components/admin/BackButton";
+import DocumentCard from "@/components/service-provider/DocumentCard";
 
 const ServiceProviderDetailsPage = () => {
   const { id } = useParams();
@@ -155,6 +156,7 @@ const ServiceProviderDetailsPage = () => {
       </div>
     );
   }
+  console.log({ serviceProvider });
   return (
     <div className="p-6 w-full mx-auto">
       <div className="flex justify-between items-center py-6">
@@ -252,6 +254,10 @@ const ServiceProviderDetailsPage = () => {
             <ListItemSuffix>{serviceProvider?.email}</ListItemSuffix>
           </ListItem>
           <ListItem>
+            Profession
+            <ListItemSuffix>{serviceProvider?.profession}</ListItemSuffix>
+          </ListItem>
+          <ListItem>
             Gender
             <ListItemSuffix>{serviceProvider?.gender}</ListItemSuffix>
           </ListItem>
@@ -270,60 +276,39 @@ const ServiceProviderDetailsPage = () => {
             </ListItemSuffix>
           </ListItem>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="cursor-pointer border shadow-none">
-              <CardHeader
-                floated={false}
-                className="relative h-48 shadow-none"
-                onClick={() =>
-                  serviceProvider?.id1?.image?.url &&
-                  handleOpen(serviceProvider.id1.image.url)
-                }
-              >
-                {serviceProvider?.id1?.image?.url ? (
-                  <Image
-                    width={500}
-                    alt="service provider Id-1"
-                    height={500}
-                    src={serviceProvider.id1.image.url}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  ""
-                )}
-              </CardHeader>
-              <CardBody>
-                <Typography variant="p" color="blue-gray">
-                  {serviceProvider?.id1?.name}
-                </Typography>
-              </CardBody>
-            </Card>
-            <Card className="cursor-pointer border shadow-none">
-              <CardHeader
-                floated={false}
-                className="relative h-48 shadow-none"
-                onClick={() =>
-                  serviceProvider?.id2?.image?.url &&
-                  handleOpen(serviceProvider.id2.image.url)
-                }
-              >
-                {serviceProvider?.id2?.image?.url ? (
-                  <Image
-                    width={500}
-                    alt="service provider Id-2"
-                    height={500}
-                    src={serviceProvider.id2.image.url}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  ""
-                )}
-              </CardHeader>
-              <CardBody>
-                <Typography variant="p" color="blue-gray">
-                  {serviceProvider?.id2?.name}{" "}
-                </Typography>
-              </CardBody>
-            </Card>
+            {/* Card for ID1 */}
+            <DocumentCard
+              documentInfo={serviceProvider?.id1?.image}
+              onImageClick={handleOpen}
+              cardTitle={serviceProvider?.id1?.name || "ID1"}
+            />
+
+            <DocumentCard
+              documentInfo={serviceProvider?.id2?.image}
+              onImageClick={handleOpen}
+              cardTitle={serviceProvider?.id2?.name || "ID2"}
+            />
+
+            <DocumentCard
+              documentInfo={serviceProvider?.cv}
+              onImageClick={handleOpen}
+              cardTitle="CV"
+            />
+
+            {serviceProvider?.profession === "physiotherapist" && (
+              <DocumentCard
+                documentInfo={serviceProvider?.degree?.image}
+                onImageClick={handleOpen}
+                cardTitle={serviceProvider?.degree?.name || "Degree"}
+              />
+            )}
+            {serviceProvider?.profession === "physiotherapist" && (
+              <DocumentCard
+                documentInfo={serviceProvider?.certificate}
+                onImageClick={handleOpen}
+                cardTitle="Certificate"
+              />
+            )}
           </div>
 
           <Dialog

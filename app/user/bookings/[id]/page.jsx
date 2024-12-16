@@ -52,6 +52,7 @@ const Page = () => {
           userId: user._id,
           userPhoneNumber: booking.phoneNumber,
           invoice: true,
+          remainingAmount: false,
         }
       );
       if (initiatePayment.data.success) {

@@ -15,9 +15,14 @@ const ServiceDetails = ({ booking }) => {
       0
     );
     const total = subtotal + 18; // Adding static convenience fee of ₹18
-
+    const paidAmount = booking.paymentStatus.paid_full
+      ? `${booking.paymentStatus.total_amount}`
+      : `${booking.paymentStatus.paid_amount}`;
+    const remainingAmount = booking.paymentStatus.paid_full
+      ? "Paid"
+      : `${booking.paymentStatus.remaining_amount}`;
     const serviceData = {
-      company: "Service Wallah",
+      company: process.env.NEXT_PUBLIC_COMPANY_NAME,
       gtin: "1234567890123",
       BookingId: booking.bookingId,
       recipientName: booking.fullname,
@@ -26,7 +31,7 @@ const ServiceDetails = ({ booking }) => {
       paymentInfo: {
         method: booking.paymentMethod,
         transactionId: booking.transactionId,
-        status: `${booking.paid ? "Paid" : "Unpaid"}`,
+        status: `${booking.paymentStatus.is_paid ? "Paid" : "Unpaid"}`,
       },
     };
 
@@ -93,6 +98,10 @@ const ServiceDetails = ({ booking }) => {
     doc.text(`Convenience Fee: ₹18.00`, 10, yOffset);
     yOffset += 10;
     doc.text(`Total: ₹${total.toFixed(2)}`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`Paid Amount: ₹${paidAmount}`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`Remaining Amount: ${remainingAmount}`, 10, yOffset);
 
     // Add payment info
     yOffset += 15;
@@ -155,7 +164,11 @@ const ServiceDetails = ({ booking }) => {
         ))}
       </div>
       {/* Pricing Info */}
-      <ShowPricing cartItems={booking.cartItems} />
+      <ShowPricing
+        cartItems={booking.cartItems}
+        paymentStatus={booking.paymentStatus}
+        booking={booking}
+      />
       {/* Payment Info */}
       {booking.transactionId == undefined ? (
         <div className="mt-6 bg-red-50 text-red-500 text-sm p-4 rounded-lg flex gap-2 items-center">
@@ -170,12 +183,12 @@ const ServiceDetails = ({ booking }) => {
             </h3>
             <span
               className={`px-4 py-2 rounded-full text-sm font-medium ${
-                booking.paid
+                booking.paymentStatus.is_paid
                   ? "bg-green-100 text-green-600"
                   : "bg-red-100 text-red-600"
               }`}
             >
-              {booking.paid ? "Paid" : "Not Paid"}
+              {booking.paymentStatus.is_paid ? "Paid" : "Not Paid"}
             </span>
           </div>
           <div className="flex flex-col sm:flex-row justify-between gap-4">

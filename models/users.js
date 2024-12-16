@@ -47,7 +47,49 @@ const userSchema = new Schema(
         },
       },
     },
-
+    degree: {
+      name: {
+        type: String,
+      },
+      image: {
+        url: {
+          type: String,
+          default: "",
+        },
+        name: {
+          type: String,
+          default: "",
+        },
+      },
+    },
+    cv: {
+      url: {
+        type: String,
+        default: "",
+      },
+      name: {
+        type: String,
+        default: "",
+      },
+    },
+    profession: {
+      type: String,
+      default: "",
+    },
+    certificate: {
+      url: {
+        type: String,
+        default: "",
+      },
+      name: {
+        type: String,
+        default: "",
+      },
+    },
+    enrollno: {
+      type: String,
+      default: "",
+    },
     email: {
       type: String,
       unique: true,

@@ -22,6 +22,10 @@ export default function Checkout() {
     date: "",
     time: "",
   });
+  const [paymentDetails, setPaymentDetails] = useState(null);
+  const handlePaymentMethodSelect = (details) => {
+    setPaymentDetails(details);
+  };
   const [location, setLocation] = useState(null);
 
   const cartItems = useLocalStorage("cart", []);
@@ -59,10 +63,10 @@ export default function Checkout() {
       toast.error("Please enter the patient's condition");
       return false;
     }
-    if (!location) {
-      toast.error("location is required!");
-      return false;
-    }
+    // if (!location) {
+    //   toast.error("location is required!");
+    //   return false;
+    // }
     return true;
   };
 
@@ -77,7 +81,7 @@ export default function Checkout() {
 
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
-
+    console.log({ paymentDetails });
     if (!validateForm()) {
       return;
     }
@@ -97,6 +101,16 @@ export default function Checkout() {
         location,
         cartItems: cartItems[0],
         user,
+        paymentStatus: {
+          is_paid: false,
+          paid_full: paymentDetails.method === "full",
+          total_amount: paymentDetails.totalAmount,
+          paid_amount: paymentDetails.paidAmount,
+          remaining_amount:
+            paymentDetails.method === "full"
+              ? 0
+              : paymentDetails.totalAmount - paymentDetails.paidAmount,
+        },
       };
 
       const response = await axios.post("/api/bookings", postData);
@@ -117,10 +131,11 @@ export default function Checkout() {
           `/api/payments/initiate-payment`,
           {
             bookingId: booking._id,
-            amount,
+            amount: paymentDetails.paidAmount.toFixed(2),
             userId: user._id,
             userPhoneNumber: booking.phoneNumber,
             invoice: false,
+            remainingAmount: false,
           }
         );
 
@@ -142,10 +157,9 @@ export default function Checkout() {
       }
     } catch (error) {
       console.log("Error in submitting order:", error);
-      toast.error(
-        error.response.data.message ||
-          "An error occurred while placing the order."
-      );
+      const errorMessage =
+        error.response?.data?.message || error.message || "An error occurred.";
+      toast.error(errorMessage);
     } finally {
       setRedirectingLoading(false);
     }
@@ -218,7 +232,10 @@ export default function Checkout() {
             </AnimatePresence>
           </div>
           <div className="lg:col-span-2">
-            <CheckoutSummary cartItems={cartItems[0]} />
+            <CheckoutSummary
+              cartItems={cartItems[0]}
+              onPaymentMethodSelect={handlePaymentMethodSelect}
+            />
           </div>
         </div>
       </div>

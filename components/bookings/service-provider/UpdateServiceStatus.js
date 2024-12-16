@@ -1,15 +1,26 @@
 import formatDate from "@/utils/formatDate";
 import sendSmsMessage from "@/utils/sendSmsMessage";
 import shortUrl from "@/utils/shortUrl";
-import { Button } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  Typography,
+} from "@material-tailwind/react";
+import { CreditCardIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
+  console.log({ selectedNewBooking });
   const [completeOtp, setCompleteOtp] = useState(["", "", "", ""]);
   const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleChangeCompleteOtp = (element, index) => {
     if (isNaN(element.value)) return;
@@ -38,25 +49,32 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
   }
 
   const handleGeneratingCompleteOtp = async () => {
-    const name = selectedNewBooking.fullname;
-    const mobile = selectedNewBooking.phoneNumber;
-    const otp = generateOTP();
+    if (!selectedNewBooking.paymentStatus.paid_full) {
+      setIsDialogOpen(true);
+    } else {
+      const name = selectedNewBooking.fullname;
+      const mobile = selectedNewBooking.phoneNumber;
+      const otp = generateOTP();
 
-    const message = `Hi ${name}, your service completion OTP is ${otp}. Please share this with your service provider only after you're satisfied with the work. Thank you! - GHOSTING WEBTECH PRIVATE LIMITED`;
+      const message = `Hi ${name}, your service completion OTP is ${otp}. Please share this with your service provider only after you're satisfied with the work. Thank you! - GHOSTING WEBTECH PRIVATE LIMITED`;
 
-    await sendSmsMessage(mobile, message, "1707172966680843543");
+      await sendSmsMessage(mobile, message, "1707172966680843543");
 
-    const updatedBooking = {
-      ...selectedNewBooking,
-      serviceCompletedOtp: otp,
-    };
-    setSelectedNewBooking(updatedBooking);
+      const updatedBooking = {
+        ...selectedNewBooking,
+        serviceCompletedOtp: otp,
+      };
+      setSelectedNewBooking(updatedBooking);
 
-    await axios.put(`/api/bookings/${selectedNewBooking._id}`, updatedBooking);
-    toast.success("OTP sent successfully!");
-    // Disable the OTP button and start the timer
-    setIsOtpButtonDisabled(true);
-    setTimer(30);
+      await axios.put(
+        `/api/bookings/${selectedNewBooking._id}`,
+        updatedBooking
+      );
+      toast.success("OTP sent successfully!");
+      // Disable the OTP button and start the timer
+      setIsOtpButtonDisabled(true);
+      setTimer(30);
+    }
   };
 
   useEffect(() => {
@@ -208,6 +226,57 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
           </Button>
         </div>
       )}
+      <Dialog
+        open={isDialogOpen}
+        handler={setIsDialogOpen}
+        size="xs"
+        className="max-w-[500px]"
+      >
+        <DialogHeader className="flex flex-col items-center space-y-2 pb-0">
+          <div className="bg-blue-50 rounded-full p-4 mb-2">
+            <CreditCardIcon className="h-12 w-12 text-blue-500" />
+          </div>
+          <Typography variant="h4" color="blue-gray" className="text-center">
+            Complete Payment
+          </Typography>
+        </DialogHeader>
+
+        <DialogBody className="text-center space-y-4">
+          <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded">
+            <Typography
+              variant="paragraph"
+              color="blue-gray"
+              className="font-medium"
+            >
+              {selectedNewBooking.fullname}
+            </Typography>
+            <Typography variant="small" color="gray" className="mt-1">
+              booking payment is pending.
+            </Typography>
+          </div>
+
+          <div className="bg-red-50 rounded-lg p-4">
+            <Typography variant="h5" color="red" className="font-bold">
+              Remaining Amount
+            </Typography>
+            <Typography variant="h4" color="red" className="font-bold mt-1">
+              ₹{" "}
+              {selectedNewBooking.paymentStatus.remaining_amount.toLocaleString()}
+            </Typography>
+          </div>
+        </DialogBody>
+
+        <DialogFooter className="flex justify-center pt-0">
+          <Button
+            variant="outlined"
+            color="gray"
+            onClick={() => setIsDialogOpen(false)}
+            className="flex items-center"
+          >
+            Ok
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };

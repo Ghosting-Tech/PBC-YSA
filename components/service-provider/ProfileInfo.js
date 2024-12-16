@@ -7,6 +7,7 @@ import {
   Dialog,
 } from "@material-tailwind/react";
 import Image from "next/image";
+import DocumentCard from "./DocumentCard";
 
 const ProfileInfo = ({ user }) => {
   const formatDate = (dateString) => {
@@ -20,6 +21,7 @@ const ProfileInfo = ({ user }) => {
     setSelectedImage(image);
     setOpen(true);
   };
+  console.log({ user });
 
   return (
     <div className="flex flex-col shadow-md gap-6 w-full h-full bg-white rounded-xl px-6 py-4">
@@ -31,6 +33,11 @@ const ProfileInfo = ({ user }) => {
       <div className="flex justify-between w-full">
         <div>Email</div>
         <div>{user?.email}</div>
+      </div>
+      <div className="bg-gray-300 h-px w-full"></div>
+      <div className="flex justify-between w-full">
+        <div>Profession</div>
+        <div>{user?.profession}</div>
       </div>
       <div className="bg-gray-300 h-px w-full"></div>
       <div className="flex justify-between w-full">
@@ -53,46 +60,39 @@ const ProfileInfo = ({ user }) => {
         <div>{formatDate(user?.createdAt)}</div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="cursor-pointer shadow-none border">
-          <CardHeader
-            floated={false}
-            className="relative h-48 shadow-none"
-            onClick={() => handleOpen(user?.id1?.image?.url)}
-          >
-            <Image
-              width={1000}
-              height={1000}
-              alt="profile"
-              src={user?.id1?.image?.url}
-              className="h-full w-full object-cover"
-            />
-          </CardHeader>
-          <CardBody>
-            <Typography variant="p" color="blue-gray">
-              {user?.id1?.name}
-            </Typography>
-          </CardBody>
-        </Card>
-        <Card className="cursor-pointer shadow-none border">
-          <CardHeader
-            floated={false}
-            className="relative h-48 shadow-none"
-            onClick={() => handleOpen(user?.id2?.image?.url)}
-          >
-            <Image
-              width={1000}
-              height={1000}
-              alt="service provider Id-2"
-              src={user?.id2?.image?.url}
-              className="h-full w-full object-cover"
-            />
-          </CardHeader>
-          <CardBody>
-            <Typography variant="p" color="blue-gray">
-              {user?.id2?.name}{" "}
-            </Typography>
-          </CardBody>
-        </Card>
+        {/* Card for ID1 */}
+        <DocumentCard
+          documentInfo={user?.id1?.image}
+          onImageClick={handleOpen}
+          cardTitle={user?.id1?.name || "ID1"}
+        />
+
+        <DocumentCard
+          documentInfo={user?.id2?.image}
+          onImageClick={handleOpen}
+          cardTitle={user?.id2?.name || "ID2"}
+        />
+
+        <DocumentCard
+          documentInfo={user?.cv}
+          onImageClick={handleOpen}
+          cardTitle="CV"
+        />
+
+        {user?.profession === "physiotherapist" && (
+          <DocumentCard
+            documentInfo={user?.degree?.image}
+            onImageClick={handleOpen}
+            cardTitle={user?.degree?.name || "Degree"}
+          />
+        )}
+        {user?.profession === "physiotherapist" && (
+          <DocumentCard
+            documentInfo={user?.certificate}
+            onImageClick={handleOpen}
+            cardTitle="Certificate"
+          />
+        )}
       </div>
       <Dialog
         size="xl"

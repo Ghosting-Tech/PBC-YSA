@@ -12,6 +12,7 @@ const PaymentStatusPage = () => {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("bookingId");
   const invoice = searchParams.get("invoice");
+  const remainingAmount = searchParams.get("remainingAmount");
   const { MTID } = useParams();
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const PaymentStatusPage = () => {
       }
       try {
         const response = await fetch(
-          `/api/payments/check-status/${MTID}?bookingId=${bookingId}&invoice=${invoice}`,
+          `/api/payments/check-status/${MTID}?bookingId=${bookingId}&invoice=${invoice}&remainingAmount=${remainingAmount}`,
           { cache: "no-store" }
         );
         const data = await response.json();

@@ -1,27 +1,12 @@
-"use client";
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
+export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
+  const [paymentMethod, setPaymentMethod] = useState("full");
 
-const slideIn = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
-};
-
-export function CheckoutSummary({ cartItems }) {
-  const [isClient, setIsClient] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+  // Calculate totals
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -29,35 +14,77 @@ export function CheckoutSummary({ cartItems }) {
   const convenienceFee = 18;
   const total = subtotal + convenienceFee;
 
-  if (!isClient) {
-    return null;
-  }
+  // Calculate half payment amount
+  const halfPaymentAmount = total / 2;
+
+  // Handle payment method change
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+
+    // Prepare payment details for parent component
+    const paymentDetails = {
+      method,
+      totalAmount: total,
+      paidAmount: method === "full" ? total : halfPaymentAmount,
+      convenienceFee,
+      subtotal,
+    };
+
+    // Notify parent component about payment method selection
+    onPaymentMethodSelect(paymentDetails);
+  };
+
+  // Trigger initial payment method selection on component mount
+  useEffect(() => {
+    handlePaymentMethodChange("full");
+  }, []);
 
   return (
     <motion.div
-      {...fadeInUp}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-xl shadow-lg"
     >
       <Typography variant="h4" color="blue-gray" className="mb-4">
         Order Summary
       </Typography>
+
+      {/* Payment Method Selection */}
+      <div className="flex justify-between mb-4">
+        <Button
+          variant={paymentMethod === "full" ? "filled" : "outlined"}
+          color="teal"
+          onClick={() => handlePaymentMethodChange("full")}
+          className="mr-2"
+        >
+          Full Payment
+        </Button>
+        <Button
+          variant={paymentMethod === "half" ? "filled" : "outlined"}
+          color="teal"
+          onClick={() => handlePaymentMethodChange("half")}
+        >
+          Half Payment
+        </Button>
+      </div>
+
       <div className="space-y-4">
         {cartItems.map((item, index) => (
           <motion.div
             key={item._id}
-            {...slideIn}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
             className="flex items-center"
           >
-            <div className="w-20 h-20 relative mr-4">
-              <Image
-                src={item?.icon?.url}
-                alt={item.name}
-                fill
-                className="object-cover rounded-lg"
-              />
-            </div>
+            <Image
+              src={item?.icon?.url}
+              alt={item.name}
+              width={80}
+              height={80}
+              className="w-20 h-20 object-cover rounded-lg mr-4"
+            />
             <div>
               <Typography variant="h6" color="blue-gray">
                 {item.name}
@@ -76,29 +103,45 @@ export function CheckoutSummary({ cartItems }) {
           </motion.div>
         ))}
       </div>
-      <div className="h-px w-full bg-gray-300 my-4" />
+
+      <div className="h-px w-full bg-gray-300 my-4"></div>
+
       <div className="space-y-2">
-        <PriceRow label="Subtotal" value={subtotal} />
-        <PriceRow label="Convenience Fee" value={convenienceFee} />
-        <PriceRow label="Total" value={total} isTotal />
+        <div className="flex justify-between">
+          <Typography variant="small" color="gray">
+            Subtotal
+          </Typography>
+          <Typography variant="small" color="blue-gray">
+            ₹{subtotal.toFixed(2)}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography variant="small" color="gray">
+            Convenience Fee
+          </Typography>
+          <Typography variant="small" color="blue-gray">
+            ₹{convenienceFee.toFixed(2)}
+          </Typography>
+        </div>
+        <div className="flex justify-between">
+          <Typography variant="h6" color="blue-gray">
+            Total
+          </Typography>
+          <Typography variant="h6" color="teal">
+            ₹{total.toFixed(2)}
+          </Typography>
+        </div>
+        {paymentMethod === "half" && (
+          <div className="flex justify-between mt-2">
+            <Typography variant="small" color="gray">
+              Half Payment Amount
+            </Typography>
+            <Typography variant="small" color="teal" className="font-bold">
+              ₹{halfPaymentAmount.toFixed(2)}
+            </Typography>
+          </div>
+        )}
       </div>
     </motion.div>
   );
 }
-
-const PriceRow = ({ label, value, isTotal = false }) => (
-  <div className="flex justify-between">
-    <Typography
-      variant={isTotal ? "h6" : "small"}
-      color={isTotal ? "blue-gray" : "gray"}
-    >
-      {label}
-    </Typography>
-    <Typography
-      variant={isTotal ? "h6" : "small"}
-      color={isTotal ? "teal" : "blue-gray"}
-    >
-      ₹{value.toFixed(2)}
-    </Typography>
-  </div>
-);
