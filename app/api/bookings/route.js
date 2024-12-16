@@ -80,9 +80,12 @@ export async function POST(request) {
     await connectMongoDB();
 
     // Parse the request body
-    const { formData, location, cartItems, user } = await request.json();
+    const { formData, location, cartItems, user, paymentStatus } =
+      await request.json();
     const otp = generateOTP();
-    const { lat, lng } = location;
+    // const { lat, lng } = location;
+    const lat = 25.5941;
+    const lng = 85.1376;
 
     // Fetch all service providers and filter based on proximity (within 15 km)
     const serviceProviders = await User.find({
@@ -153,6 +156,7 @@ export async function POST(request) {
     const bookingData = {
       ...formData,
       location,
+      paymentStatus,
       cartItems,
       availableServiceProviders,
       otp,

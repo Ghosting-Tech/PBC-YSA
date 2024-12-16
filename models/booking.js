@@ -13,10 +13,31 @@ const bookingSchema = new Schema(
       required: true,
       default: "Payment failed!",
     },
-    paid: {
-      type: Boolean,
-      required: true,
-      default: false,
+    paymentStatus: {
+      is_paid: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+      paid_full: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+      total_amount: {
+        type: Number,
+        required: true,
+      },
+      paid_amount: {
+        type: Number,
+        required: true,
+        default: 0, // Start with 0, increment as payments are made
+      },
+      remaining_amount: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
     },
     completed: {
       type: Boolean,

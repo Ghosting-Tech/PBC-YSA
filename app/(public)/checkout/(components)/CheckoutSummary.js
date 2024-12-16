@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
-export function CheckoutSummary({ cartItems }) {
+export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
+  const [paymentMethod, setPaymentMethod] = useState("full");
+
+  // Calculate totals
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   const convenienceFee = 18;
   const total = subtotal + convenienceFee;
+
+  // Calculate half payment amount
+  const halfPaymentAmount = total / 2;
+
+  // Handle payment method change
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+
+    // Prepare payment details for parent component
+    const paymentDetails = {
+      method,
+      totalAmount: total,
+      paidAmount: method === "full" ? total : halfPaymentAmount,
+      convenienceFee,
+      subtotal,
+    };
+
+    // Notify parent component about payment method selection
+    onPaymentMethodSelect(paymentDetails);
+  };
+
+  // Trigger initial payment method selection on component mount
+  useEffect(() => {
+    handlePaymentMethodChange("full");
+  }, []);
 
   return (
     <motion.div
@@ -21,6 +49,26 @@ export function CheckoutSummary({ cartItems }) {
       <Typography variant="h4" color="blue-gray" className="mb-4">
         Order Summary
       </Typography>
+
+      {/* Payment Method Selection */}
+      <div className="flex justify-between mb-4">
+        <Button
+          variant={paymentMethod === "full" ? "filled" : "outlined"}
+          color="teal"
+          onClick={() => handlePaymentMethodChange("full")}
+          className="mr-2"
+        >
+          Full Payment
+        </Button>
+        <Button
+          variant={paymentMethod === "half" ? "filled" : "outlined"}
+          color="teal"
+          onClick={() => handlePaymentMethodChange("half")}
+        >
+          Half Payment
+        </Button>
+      </div>
+
       <div className="space-y-4">
         {cartItems.map((item, index) => (
           <motion.div
@@ -55,7 +103,9 @@ export function CheckoutSummary({ cartItems }) {
           </motion.div>
         ))}
       </div>
+
       <div className="h-px w-full bg-gray-300 my-4"></div>
+
       <div className="space-y-2">
         <div className="flex justify-between">
           <Typography variant="small" color="gray">
@@ -81,6 +131,16 @@ export function CheckoutSummary({ cartItems }) {
             ₹{total.toFixed(2)}
           </Typography>
         </div>
+        {paymentMethod === "half" && (
+          <div className="flex justify-between mt-2">
+            <Typography variant="small" color="gray">
+              Half Payment Amount
+            </Typography>
+            <Typography variant="small" color="teal" className="font-bold">
+              ₹{halfPaymentAmount.toFixed(2)}
+            </Typography>
+          </div>
+        )}
       </div>
     </motion.div>
   );

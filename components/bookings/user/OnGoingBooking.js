@@ -56,6 +56,7 @@ const OnGoingBooking = ({
           userId: user._id,
           userPhoneNumber: booking.phoneNumber,
           invoice: false,
+          remainingAmount: false,
         }
       );
       if (initiatePayment.data.success) {

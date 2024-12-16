@@ -3,7 +3,14 @@ import { NextResponse } from "next/server";
 import sha256 from "sha256";
 
 export async function POST(req) {
-  const { amount, bookingId, userId, userPhoneNumber, invoice } = await req.json();
+  const {
+    amount,
+    bookingId,
+    userId,
+    userPhoneNumber,
+    invoice,
+    remainingAmount,
+  } = await req.json();
   const {
     PHONEPE_MERCHANT_ID,
     PHONEPE_BASE_URL,
@@ -13,13 +20,20 @@ export async function POST(req) {
   const payEndPoint = "/pg/v1/pay";
   const saltIndex = 1;
 
-  // console.log({ amount, bookingId, userId, userPhoneNumber });
-  // console.log({
-  //   PHONEPE_MERCHANT_ID,
-  //   PHONEPE_BASE_URL,
-  //   PHONEPE_REDIRECT_URL,
-  //   PHONEPE_SALT_KEY,
-  // });
+  console.log({
+    amount,
+    bookingId,
+    userId,
+    userPhoneNumber,
+    invoice,
+    remainingAmount,
+  });
+  console.log({
+    PHONEPE_MERCHANT_ID,
+    PHONEPE_BASE_URL,
+    PHONEPE_REDIRECT_URL,
+    PHONEPE_SALT_KEY,
+  });
 
   if (!amount)
     return NextResponse.json({ error: "Amount is required" }, { status: 400 });
@@ -50,8 +64,8 @@ export async function POST(req) {
     merchantTransactionId, // Unique transaction ID
     merchantUserId: userId,
     amount: amount * 100, // Convert to smallest currency unit
-    redirectUrl: `${PHONEPE_REDIRECT_URL}/status/${merchantTransactionId}?bookingId=${bookingId}&invoice=${invoice}`,
-    callbackUrl: `${PHONEPE_REDIRECT_URL}/status/${merchantTransactionId}?bookingId=${bookingId}&invoice=${invoice}`,
+    redirectUrl: `${PHONEPE_REDIRECT_URL}/status/${merchantTransactionId}?bookingId=${bookingId}&invoice=${invoice}&remainingAmount=${remainingAmount}`,
+    callbackUrl: `${PHONEPE_REDIRECT_URL}/status/${merchantTransactionId}?bookingId=${bookingId}&invoice=${invoice}&remainingAmount=${remainingAmount}`,
     redirectMode: "REDIRECT",
     mobileNumber: `${userPhoneNumber}`,
     paymentInstrument: {
@@ -81,9 +95,9 @@ export async function POST(req) {
       },
       data: { request: base64EncodedPayload },
     };
-
+    console.log({ options });
     const response = await axios.request(options);
-    // console.log(response.data)
+    console.log(response.data);
 
     return NextResponse.json(response.data, { status: 200 });
   } catch (error) {

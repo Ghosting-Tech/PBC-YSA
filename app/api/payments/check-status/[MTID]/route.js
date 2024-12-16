@@ -12,6 +12,8 @@ export async function GET(req, { params }) {
   const { searchParams } = new URL(req.url);
   const bookingId = searchParams.get("bookingId");
   const invoice = searchParams.get("invoice");
+  const isRemainingAmount = searchParams.get("remainingAmount");
+  console.log({ invoice, isRemainingAmount });
 
   if (!MTID)
     return NextResponse.json("Transaction is not found!", { status: 400 });
@@ -51,8 +53,36 @@ export async function GET(req, { params }) {
       if (!booking) {
         return NextResponse.json("Invalid booking id", { status: 500 });
       }
+      const remainingAmount = booking.paymentStatus?.remaining_amount;
+      const isFullPayment = remainingAmount === 0;
 
-      if (invoice === "true") {
+      if (isRemainingAmount === "true") {
+        if (booking.status === "Payment failed!") {
+          return NextResponse.json("Your first payment not paid yet", {
+            status: 500,
+          });
+        }
+
+        await Booking.findByIdAndUpdate(
+          bookingId,
+          {
+            $set: {
+              paymentStatus: {
+                is_paid: true,
+                paid_full: true,
+                total_amount: booking.paymentStatus.total_amount,
+                paid_amount: remainingAmount,
+                remaining_amount: remainingAmount,
+              },
+              transactionId: MTID,
+              paymentMethod: "Online",
+            },
+          },
+          { new: true }
+        );
+      }
+
+      if (invoice === "true" && isRemainingAmount === "false") {
         await Booking.findByIdAndUpdate(
           bookingId,
           {
@@ -113,12 +143,19 @@ export async function GET(req, { params }) {
             }),
           }
         );
-      } else {
+      }
+      if (invoice === "false" && isRemainingAmount === "false") {
         await Booking.findByIdAndUpdate(
           bookingId,
           {
             $set: {
-              paid: true,
+              paymentStatus: {
+                is_paid: true,
+                paid_full: isFullPayment,
+                total_amount: booking.paymentStatus.total_amount,
+                paid_amount: booking.paymentStatus.paid_amount,
+                remaining_amount: booking.paymentStatus.remaining_amount,
+              },
               transactionId: MTID,
               paymentMethod: "Online",
               status: "Request sended to service provider!",
@@ -126,13 +163,13 @@ export async function GET(req, { params }) {
           },
           { new: true }
         );
-
-        const amount = (
-          booking.cartItems.reduce(
-            (acc, product) => acc + product.price * product.quantity,
-            0
-          ) + 18
-        ).toFixed(2);
+        const paidAmount = booking.paymentStatus.paid_amount;
+        // const amount = (
+        //   booking.cartItems.reduce(
+        //     (acc, product) => acc + product.price * product.quantity,
+        //     0
+        //   ) + 18
+        // ).toFixed(2);
 
         const cleanUrl = await shortUrl(
           `${process.env.PRODUCTION_URL}/user/bookings/${booking._id}`
@@ -142,7 +179,7 @@ export async function GET(req, { params }) {
         const truncatedItemNames =
           itemNames.length > 30 ? `${itemNames.slice(0, 27)}...` : itemNames;
 
-        const message = `Hi ${booking.fullname} We've received your payment of ₹ ${amount} for your booking of ${truncatedItemNames}. Your booking is confirmed. Track your booking here: ${cleanUrl}. - GHOSTING WEBTECH PRIVATE LIMITED`;
+        const message = `Hi ${booking.fullname} We've received your payment of ₹ ${paidAmount} for your booking of ${truncatedItemNames}. Your booking is confirmed. Track your booking here: ${cleanUrl}. - GHOSTING WEBTECH PRIVATE LIMITED`;
 
         await fetch(`${process.env.PHONEPE_REDIRECT_URL}/api/send-sms`, {
           method: "POST",

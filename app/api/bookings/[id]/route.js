@@ -4,7 +4,7 @@ import shortUrl from "@/utils/shortUrl";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-  const { id } = params;
+  const { id } = await params;
   //   console.log(id);
   await connectMongoDB();
   const booking = await Booking.findById(id)
