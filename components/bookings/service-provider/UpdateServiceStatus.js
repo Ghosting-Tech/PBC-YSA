@@ -16,7 +16,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
-  console.log({ selectedNewBooking });
   const [completeOtp, setCompleteOtp] = useState(["", "", "", ""]);
   const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -49,6 +48,17 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
   }
 
   const handleGeneratingCompleteOtp = async () => {
+    if (selectedNewBooking.completed) {
+      toast.error("Service already completed!");
+      return;
+    }
+    if (
+      selectedNewBooking.invoices.invoiceAccepted &&
+      !selectedNewBooking.invoices.transactionId
+    ) {
+      toast.error("Invoice accepted but payment is not made!");
+      return;
+    }
     if (!selectedNewBooking.paymentStatus.paid_full) {
       setIsDialogOpen(true);
     } else {

@@ -61,7 +61,7 @@ export async function POST(request) {
       {
         acceptedByServiceProvider: true,
         assignedServiceProviders: serviceProvider,
-        status: "Service is not started",
+        status: `${serviceProvider.name} is assigned!`,
         availableServiceProviders: [serviceProvider],
       },
       { new: true }

@@ -20,6 +20,9 @@ const subServiceSchema = new Schema(
       type: String,
       required: true,
     },
+    cities: {
+      type: [String],
+    },
     serviceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Service",

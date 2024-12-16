@@ -46,61 +46,24 @@ const DutyToggle = () => {
     updateUserAvailability(newStatus);
   }, [isOnline, updateUserAvailability]);
 
-  // Motion variants for reusability
-  const containerVariants = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { opacity: 1, scale: 1 },
-  };
-
   useEffect(() => {
     setIsOnline(user?.available);
   }, [user]);
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="initial"
-      animate="animate"
-      transition={{ duration: 0.3 }}
-      className="fixed bottom-4 right-4 z-50 p-4 backdrop-blur-md bg-white/30 rounded-full shadow-lg border border-white/50 transition-all duration-300 hover:shadow-xl"
-    >
-      <div className="flex items-center space-x-4">
-        <motion.div
-          animate={{ rotate: isOnline ? 0 : 180 }}
-          transition={{ duration: 0.3 }}
-          className={`w-9 h-9 rounded-full flex items-center justify-center ${
-            isOnline ? "bg-green-400" : "bg-gray-400"
-          }`}
-        >
-          {isOnline ? (
-            <Tooltip content="Available for work" className="bg-green-400">
-              <BriefcaseIcon className="h-5 w-5 text-white" />
-            </Tooltip>
-          ) : (
-            <Tooltip content="Not available" className="bg-red-500">
-              <BeakerIcon className="h-5 w-5 text-white" />
-            </Tooltip>
-          )}
-        </motion.div>
-        <Switch
-          checked={isOnline}
-          onChange={handleToggle}
-          color="green"
-          label={
-            <span className="sr-only">
-              {isOnline ? "Available for work" : "Not available"}
-            </span>
-          }
-          className="h-full w-full"
-          containerProps={{
-            className: "w-12 h-7",
-          }}
-          circleProps={{
-            className: "before:hidden left-0.5 border-none w-5 h-5",
-          }}
-        />
-      </div>
-    </motion.div>
+    <Switch
+      checked={isOnline}
+      onChange={handleToggle}
+      color="green"
+      label={isOnline ? "Available for work" : "Not available"}
+      className="h-full w-full"
+      containerProps={{
+        className: "w-9 h-5",
+      }}
+      circleProps={{
+        className: "before:hidden left-0.5 border-none w-4 h-4",
+      }}
+    />
   );
 };
 

@@ -171,7 +171,11 @@ const ServicePage = () => {
               <h1 className="lg:block text-3xl hidden font-bold text-indigo-500 font-lato text-center">
                 Sub Services
               </h1>
-              <CreateSubService id={id} setService={setService} />
+              <CreateSubService
+                service={service}
+                id={id}
+                setService={setService}
+              />
             </div>
             <div className="h-px bg-gray-400 w-full"></div>
 

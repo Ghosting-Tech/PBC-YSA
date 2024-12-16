@@ -105,6 +105,10 @@ const bookingSchema = new Schema(
           default: false,
         },
         status: { type: String, default: "Not Accepted Yet!", required: true },
+        invoiceAccepted: {
+          type: Boolean,
+          default: false,
+        },
         items: [
           {
             description: String,

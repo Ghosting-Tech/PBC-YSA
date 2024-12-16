@@ -46,6 +46,7 @@ const UserInvoiceDialog = ({
       const postData = {
         ...booking,
         status: "Invoice Accepted!",
+        invoiceAccepted: true,
         invoices: {
           ...booking.invoices,
           status: "Invoice Accepted",
@@ -69,6 +70,10 @@ const UserInvoiceDialog = ({
       toast.error("Failed to accept the invoice!");
     }
   };
+
+  if (!booking?.invoices?.responded) {
+    return null;
+  }
   return (
     <Dialog
       open={invoiceDialogOpen}

@@ -172,16 +172,14 @@ const Page = () => {
 
   return (
     <div>
-      {booking?.invoices?._id && (
-        <UserInvoiceDialog
-          booking={booking}
-          handleInvoiceDialog={handleInvoiceDialog}
-          invoiceDialogOpen={invoiceDialogOpen}
-          setBooking={setBooking}
-          redirectingLoading={redirectingLoading}
-          handleInvoicePayment={handleInvoicePayment}
-        />
-      )}
+      <UserInvoiceDialog
+        booking={booking}
+        handleInvoiceDialog={handleInvoiceDialog}
+        invoiceDialogOpen={invoiceDialogOpen}
+        setBooking={setBooking}
+        redirectingLoading={redirectingLoading}
+        handleInvoicePayment={handleInvoicePayment}
+      />
 
       {loading ? (
         <div className="flex justify-center items-center h-full">
