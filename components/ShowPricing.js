@@ -16,18 +16,21 @@ import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { IoOpenOutline } from "react-icons/io5";
+import HalfPaymentStatus from "./bookings/user/HalfPaymentStatus";
 
 const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
   const router = useRouter();
 
   // Prevent negative or NaN values
-  const subtotal = Math.max(paymentStatus.total_amount - 18, 0);
+  const subtotal = Math.max(paymentStatus?.total_amount - 18, 0);
   const convenienceFee = 18;
-  const totalAmount = paymentStatus.total_amount;
-  const paidAmount = paymentStatus.paid_amount;
-  const remainingAmount = paymentStatus.remaining_amount;
+  const totalAmount = paymentStatus?.total_amount;
+  const paidAmount = paymentStatus?.paid_amount;
+  const remainingAmount = paymentStatus?.remaining_amount;
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -107,9 +110,11 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
             </span>
             {paymentStatus.paid_full && (
               <span
-                className={`px-2 py-1 rounded-full text-sm font-medium ${"bg-green-100 text-green-600"}`}
+                onClick={() => setIsOpen(true)}
+                className={`flex items-center gap-1 px-2 py-1 rounded-full text-sm font-medium ${"bg-green-100 text-green-600 cursor-pointer"}`}
               >
                 Paid
+                <IoOpenOutline />
               </span>
             )}
           </div>
@@ -193,6 +198,11 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
           </Button>
         </DialogFooter>
       </Dialog>
+      <HalfPaymentStatus
+        payment={booking}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </div>
   );
 };
