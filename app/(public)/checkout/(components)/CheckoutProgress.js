@@ -17,7 +17,7 @@ export function CheckoutProgress({ currentStep }) {
   ];
 
   return (
-    <div className="w-full pb-4">
+    <div className="w-full pb-4 hidden md:block">
       <Stepper
         activeStep={currentStep - 1}
         lineClassName="h-0.5 bg-gray-300"

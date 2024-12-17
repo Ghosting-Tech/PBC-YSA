@@ -175,8 +175,6 @@ const BookingDetail = ({ booking, setBooking }) => {
       );
       const response = res.data;
 
-      console.log(response);
-
       if (!response.success) {
         toast.error(response.message);
         if (response.acceptedByAnotherServiceProvider) {
@@ -301,7 +299,7 @@ const BookingDetail = ({ booking, setBooking }) => {
           </div>
         </div>
         <LocationDetails booking={booking} />
-        {booking?.acceptedByServiceProvider && (
+        {booking?.acceptedByServiceProvider && !booking?.canceledByCustomer && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
             {otpVerified ? (
               <div className="bg-white rounded-lg shadow-md w-full min-h-44 p-4 flex items-center flex-col justify-center">
@@ -378,11 +376,13 @@ const BookingDetail = ({ booking, setBooking }) => {
           </ol>
         </section>
       </div>
-      <BookingActions
-        booking={booking}
-        handleAcceptRequest={handleAcceptRequest}
-        handleRejectRequest={handleRejectRequest}
-      />
+      {!booking?.canceledByCustomer && (
+        <BookingActions
+          booking={booking}
+          handleAcceptRequest={handleAcceptRequest}
+          handleRejectRequest={handleRejectRequest}
+        />
+      )}
     </div>
   );
 };

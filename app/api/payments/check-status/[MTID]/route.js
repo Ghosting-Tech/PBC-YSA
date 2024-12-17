@@ -13,7 +13,6 @@ export async function GET(req, { params }) {
   const bookingId = searchParams.get("bookingId");
   const invoice = searchParams.get("invoice");
   const isRemainingAmount = searchParams.get("remainingAmount");
-  console.log({ invoice, isRemainingAmount });
 
   if (!MTID)
     return NextResponse.json("Transaction is not found!", { status: 400 });

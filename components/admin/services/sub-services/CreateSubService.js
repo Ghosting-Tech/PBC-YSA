@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { toast } from "sonner";
 
-const CreateSubService = ({ id, setService }) => {
+const CreateSubService = ({ id, setService, service }) => {
   const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -59,6 +59,7 @@ const CreateSubService = ({ id, setService }) => {
         ...serviceData,
         icon: iconObject,
         serviceId: id,
+        cities: service.cities,
       };
 
       const response = await fetch(

@@ -112,14 +112,16 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
       >
         <div className="flex justify-between gap-2 flex-col lg:flex-row items-center mb-4 p-6">
           <h1 className="text-2xl font-bold">All Invoices</h1>
-          <Button
-            onClick={handleCreateInvoiceDialog}
-            color="blue"
-            variant="outlined"
-            disabled={selectedBooking.completed}
-          >
-            Create New Invoice
-          </Button>
+          {!selectedBooking.invoices?.title && (
+            <Button
+              onClick={handleCreateInvoiceDialog}
+              color="blue"
+              variant="outlined"
+              disabled={selectedBooking.completed}
+            >
+              Create New Invoice
+            </Button>
+          )}
           <Dialog
             open={openCreateInvoiceDialog}
             handler={handleCreateInvoiceDialog}

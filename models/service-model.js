@@ -22,7 +22,8 @@ const serviceSchema = new Schema(
       default: [],
     },
     bookings: {
-      type: Array,
+      type: [Schema.Types.ObjectId],
+      ref: "Booking",
       default: [],
     },
     subServices: [

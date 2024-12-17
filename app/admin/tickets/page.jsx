@@ -33,13 +33,13 @@ const TicketListContent = () => {
   const searchTerm = searchParams.get("search") || "";
   const sortBy = searchParams.get("sortBy") || "newest";
   const sortByRole = searchParams.get("sortByRole") || "both";
+  const selectedCategory = searchParams.get("category") || "all";
 
   const fetchTicketsData = async () => {
-    console.log(sortByRole);
     try {
       setLoading(true);
       const response = await fetch(
-        `/api/admin/tickets?page=${page}&limit=${ITEMS_PER_PAGE}&search=${searchTerm}&sortBy=${sortBy}&status=${activeTab}&sortByRole=${sortByRole}`
+        `/api/admin/tickets?page=${page}&limit=${ITEMS_PER_PAGE}&search=${searchTerm}&sortBy=${sortBy}&status=${activeTab}&sortByRole=${sortByRole}&category=${selectedCategory}`
       );
       const data = await response.json();
       if (data.success) {
@@ -60,7 +60,7 @@ const TicketListContent = () => {
   useEffect(() => {
     fetchTicketsData();
     // eslint-disable-next-line
-  }, [page, searchTerm, sortBy, activeTab, sortByRole]);
+  }, [page, searchTerm, sortBy, activeTab, sortByRole, selectedCategory]);
 
   const handleViewDetails = (ticket) => {
     setSelectedTicket(ticket);
@@ -102,6 +102,9 @@ const TicketListContent = () => {
   const handleSortByRoleChange = (sort) => {
     updateQueryParams({ sortByRole: sort, page: 1 });
   };
+  const handleCategoryChange = (category) => {
+    updateQueryParams({ category: category, page: 1 });
+  };
 
   // if (loading) return <Loading />;
 
@@ -113,6 +116,8 @@ const TicketListContent = () => {
         forAdmin={false}
         setActiveTab={handleTabChange}
         activeTab={activeTab}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={handleCategoryChange}
         handleViewDetails={handleViewDetails}
         searchTerm={searchTerm}
         setSearchTerm={handleSearch}

@@ -27,6 +27,7 @@ import { setUser } from "@/redux/slice/userSlice";
 import Image from "next/image";
 import { TicketIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import DutyToggle from "@/components/service-provider/DutyToggle";
 
 const UserNavigation = ({ handleOpenLoginDialog }) => {
   const dispatch = useDispatch();
@@ -100,6 +101,7 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
                 mount: { y: 0 },
                 unmount: { y: 25 },
               }}
+              className="no-scrollbar"
             >
               <Link href={`/service-provider`} className="outline-none">
                 <MenuItem className="justify-center flex items-center gap-1">
@@ -127,6 +129,9 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
                 onClick={handleLogout}
               >
                 Logout <IoLogOut />
+              </MenuItem>
+              <MenuItem>
+                <DutyToggle />
               </MenuItem>
             </MenuList>
           ) : (

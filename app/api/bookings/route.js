@@ -186,7 +186,7 @@ export async function POST(request) {
     // Update services with the new booking in parallel
     const updateServicesPromises = cartItems.map((cartItem) =>
       Service.findByIdAndUpdate(cartItem.serviceId, {
-        $push: { bookings: { orderId: booking._id, subService: cartItem } },
+        $push: { bookings: booking._id },
       })
     );
 

@@ -4,7 +4,7 @@ import Sub from "@/models/subService";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { name, description, price, status, serviceId, icon } =
+  const { name, description, price, status, serviceId, icon, cities } =
     await request.json();
   await connectMongoDB();
 
@@ -31,6 +31,7 @@ export async function POST(request) {
     icon,
     status,
     serviceId,
+    cities,
   });
 
   const service = await Service.findById(serviceId);

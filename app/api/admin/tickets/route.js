@@ -10,6 +10,7 @@ export async function GET(request) {
   const sortBy = searchParams.get("sortBy") || "newest";
   const status = searchParams.get("status") || "all";
   const sortByRole = searchParams.get("sortByRole") || "both";
+  const category = searchParams.get("category") || "all";
 
   console.log(sortByRole);
 
@@ -20,6 +21,9 @@ export async function GET(request) {
       query.status = "resolved";
     } else if (status === "unresolved") {
       query.status = { $ne: "resolved" };
+    }
+    if (category !== "all") {
+      query.category = category;
     }
     if (sortByRole === "user") {
       query.from = "user";

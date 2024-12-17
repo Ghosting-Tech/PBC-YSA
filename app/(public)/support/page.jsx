@@ -29,6 +29,7 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
+import uploadImage from "@/utils/uploadImage";
 
 const contactMethods = [
   {
@@ -120,8 +121,11 @@ export default function SupportPage() {
   const [issueForm, setIssueForm] = useState({
     name: "",
     email: "",
+    category: "",
     issue: "",
   });
+
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -129,6 +133,7 @@ export default function SupportPage() {
       setIssueForm({
         name: user.name || "",
         email: user.email || "",
+        category: "refund",
         issue: "",
       });
     }
@@ -149,14 +154,25 @@ export default function SupportPage() {
     }
 
     try {
-      const ticket = { ...issueForm, from: userType, user: user._id };
-
+      let payload = {
+        ...issueForm,
+        from: userType,
+        user: user._id,
+      };
+      if (file) {
+        const fileData = await uploadImage(file, "support");
+        payload = {
+          ...payload,
+          file: fileData,
+        };
+      }
+      console.log(payload);
       const response = await fetch("/api/tickets", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(ticket),
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
 
@@ -166,6 +182,7 @@ export default function SupportPage() {
           name: "",
           email: "",
           issue: "",
+          category: "",
         });
         router.push("/my-tickets");
       } else {
@@ -222,10 +239,14 @@ export default function SupportPage() {
             {user?._id && (
               <Link
                 href={`/my-tickets`}
-                className="w-full md:w-auto no-underline"
+                className="w-full md:w-fit no-underline"
                 legacyBehavior
               >
-                <Button variant="outlined" color="blue-gray" fullWidth>
+                <Button
+                  variant="outlined"
+                  color="blue-gray"
+                  className="w-full md:w-fit"
+                >
                   My tickets
                 </Button>
               </Link>
@@ -316,6 +337,103 @@ export default function SupportPage() {
                   setIssueForm({ ...issueForm, email: e.target.value })
                 }
               />
+              {userType === "user" ? (
+                <div className="relative w-full">
+                  <select
+                    name="category"
+                    value={issueForm.category}
+                    onChange={(e) =>
+                      setIssueForm({ ...issueForm, category: e.target.value })
+                    }
+                    required
+                    className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  >
+                    <option value="refund">Refund</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg
+                      className="w-4 h-4 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative w-full">
+                  <select
+                    name="category"
+                    value={issueForm.category}
+                    onChange={(e) =>
+                      setIssueForm({ ...issueForm, category: e.target.value })
+                    }
+                    required
+                    className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  >
+                    <option value="payouts">Payouts</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg
+                      className="w-4 h-4 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="file"
+                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-blue-300 rounded-lg cursor-pointer bg-blue-50 hover:bg-blue-100 transition-colors duration-300"
+                >
+                  <svg
+                    className="w-8 h-8 text-blue-500 mb-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
+                  </svg>
+                  <span className="text-sm text-blue-600 font-medium">
+                    {file ? file.name : "Click here to upload"}
+                  </span>
+                  <span className="text-xs text-blue-400 mt-1">
+                    Maximum file size: 10MB
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  className="hidden"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                />
+              </div>
+
               <div className="h-56">
                 <ReactQuill
                   theme="snow"
@@ -329,6 +447,7 @@ export default function SupportPage() {
                   className="h-full"
                 />
               </div>
+
               <Button
                 type="submit"
                 size="lg"

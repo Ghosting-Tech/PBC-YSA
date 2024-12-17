@@ -105,7 +105,7 @@ export default function NavList() {
     const result = fuse.search(query);
 
     if (result.length === 0) {
-      setSearchError("No matching service found");
+      toast.error("No matching service found");
     }
     setSearchedData(result);
   }
