@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import User from "./users";
 import Counter from "./counter";
 
 const bookingSchema = new Schema(
@@ -88,7 +89,7 @@ const bookingSchema = new Schema(
     availableServiceProviders: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User", // Now "Sub" will be properly recognized
+        ref: "User",
       },
     ],
     invoices: {
@@ -134,6 +135,12 @@ const bookingSchema = new Schema(
     patientCondition: { type: String },
     prescription: { type: Object },
     user: { type: Schema.Types.ObjectId, ref: "User" },
+    access: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User", 
+      },
+    ],
   },
   {
     timestamps: true,

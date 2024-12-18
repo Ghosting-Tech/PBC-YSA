@@ -56,13 +56,13 @@ export function CheckoutConfirmation({
         </div>
         <div>
           <Typography variant="h6" color="blue-gray">
-            Patient's Condition
+            Patient&apos;s Condition
           </Typography>
           <Typography color="gray">{formData.patientCondition}</Typography>
         </div>
         <div>
           <Typography variant="h6" color="blue-gray">
-            Patient's prescription
+            Patient&apos;s prescription
           </Typography>
           {formData.prescription ? (
             <div className="flex flex-col gap-2">

@@ -33,7 +33,9 @@ export async function PUT(request, { params }) {
   await connectMongoDB();
   const updatedBooking = await Booking.findByIdAndUpdate(id, data, {
     new: true,
-  });
+  })
+    .populate("availableServiceProviders")
+    .populate("user");
 
   const mobile = updatedBooking.phoneNumber;
   const name = updatedBooking.fullname;

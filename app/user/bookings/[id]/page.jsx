@@ -113,7 +113,12 @@ const Page = () => {
     };
 
     const checkBetweenTimeAndDate = () => {
+      if (booking?.otpVerified) {
+        setDisableCancelBookingButton(true);
+        return;
+      }
       if (booking?.expired) {
+        setDisableCancelBookingButton(true);
         return;
       }
       const cancelValidationValueInMinutes = 120; // minutes

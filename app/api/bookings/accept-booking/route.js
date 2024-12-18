@@ -8,7 +8,6 @@ const handleSendNotification = async (token, link) => {
     console.error("No token available for notifications");
     return;
   }
-  console.log(token, link);
   const response = await fetch(
     `${process.env.PHONEPE_REDIRECT_URL}/api/send-notification`,
     {
@@ -62,7 +61,8 @@ export async function POST(request) {
         acceptedByServiceProvider: true,
         assignedServiceProviders: serviceProvider,
         status: `${serviceProvider.name} is assigned!`,
-        availableServiceProviders: [serviceProvider],
+        availableServiceProviders: [serviceProvider._id],
+        access: [serviceProvider._id],
       },
       { new: true }
     ).populate("user");

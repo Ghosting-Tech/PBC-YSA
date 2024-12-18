@@ -43,11 +43,9 @@ const BookingContainer = () => {
     <div className="p-6 bg-white shadow-md rounded-lg max-w-4xl mx-auto my-6">
       <BookingHeader booking={booking} />
 
-      <BookingDetails booking={booking} />
+      <BookingDetails forAdmin={true} booking={booking} setBooking={setBooking} />
 
       <CancelBooking booking={booking} />
-
-      <UserServiceProviderDetail setBooking={setBooking} booking={booking} />
 
       <ServiceDetails booking={booking} />
 
@@ -55,8 +53,11 @@ const BookingContainer = () => {
 
       <LocationDetails booking={booking} />
 
+      <UserServiceProviderDetail setBooking={setBooking} booking={booking} />
       <AvailableServiceProviders
         availableServiceProviders={booking.availableServiceProviders}
+        booking={booking}
+        setBooking={setBooking}
       />
     </div>
   );

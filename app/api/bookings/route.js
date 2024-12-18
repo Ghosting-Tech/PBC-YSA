@@ -132,13 +132,10 @@ export async function POST(request) {
 
     const availableServiceProviders = [];
 
-    console.log({ cartItems });
-
     for (const cartItem of cartItems) {
       for (const spId of nearestServiceProvidersArray) {
         // Await the service provider query and population
 
-        console.log({ cartItem });
         const sp = await User.findById(spId).populate("services");
 
         // Ensure services are populated and defined before iterating
@@ -159,6 +156,7 @@ export async function POST(request) {
       paymentStatus,
       cartItems,
       availableServiceProviders,
+      access: availableServiceProviders,
       otp,
       user: user._id,
       noServiceProviderAvailable: availableServiceProviders.length <= 0,

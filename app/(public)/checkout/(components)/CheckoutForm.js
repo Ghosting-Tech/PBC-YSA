@@ -110,6 +110,41 @@ export function CheckoutForm({
     setFormData((prev) => ({ ...prev, address: formattedAddress }));
   };
 
+  const validateForm = () => {
+    if (!formData.fullname || formData.fullname.length < 4) {
+      toast.error("Please enter a valid full name (at least 4 characters)");
+      return false;
+    }
+    if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return false;
+    }
+    if (!formData.address) {
+      toast.error("Please enter a valid address");
+      return false;
+    }
+    if (!formData.date) {
+      toast.error("Please select a delivery date");
+      return false;
+    }
+    if (!formData.time) {
+      toast.error("Please select a delivery time");
+      return false;
+    }
+    if (!formData.patientCondition) {
+      toast.error("Please enter the patient's condition");
+      return false;
+    }
+    return true;
+  };
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    return `${parseFloat(hours)}:${parseFloat(minutes) + 10}`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -123,6 +158,15 @@ export function CheckoutForm({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          if (!validateForm()) {
+            return;
+          }
+          if (formData.time <= getCurrentTime()) {
+            toast.warning(
+              "Kindly choose a time that is at least 10 minutes from now."
+            );
+            return;
+          }
           onNextStep();
         }}
         className="space-y-6"
@@ -211,8 +255,6 @@ export function CheckoutForm({
               name="time"
               value={formData.time}
               onChange={handleChange}
-              min="08:00"
-              max="20:00"
               required
             />
             <Typography variant="small" color="gray" className="mt-1">
@@ -221,7 +263,7 @@ export function CheckoutForm({
           </div>
           <div>
             <Typography variant="h6" color="blue-gray" className="mb-3">
-              Patient's Condition
+              Patient&apos;s Condition
             </Typography>
             <Textarea
               name="patientCondition"

@@ -1,13 +1,21 @@
 "use client";
+import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import React from "react";
+import RescheduleBooking from "./RescheduleBooking";
+import { Typography } from "@material-tailwind/react";
+import { Link } from "lucide-react";
+import { IoMdOpen } from "react-icons/io";
 
-const BookingDetails = ({ booking }) => {
+const BookingDetails = ({ booking, forAdmin = false, setBooking }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow mb-6">
-      <h3 className="text-xl font-bold text-gray-800 mb-4">
-        Booking Information
-      </h3>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-bold text-gray-800">Booking Information</h3>
+        {forAdmin && (
+          <RescheduleBooking booking={booking} setBooking={setBooking} />
+        )}
+      </div>
       <div className="flex justify-between mb-3">
         <div>
           <p className="text-sm text-gray-500">Booking Date</p>
@@ -18,7 +26,7 @@ const BookingDetails = ({ booking }) => {
           <p className="text-lg font-semibold text-gray-700">{booking.time}</p>
         </div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-3">
         <div>
           <p className="text-sm text-gray-500">Reaching OTP</p>
           <p className="text-lg font-semibold text-gray-700">{booking.otp}</p>
@@ -54,18 +62,60 @@ const BookingDetails = ({ booking }) => {
           </span>
         </div>
       )}
-      <div className="flex items-center mt-2">
+      <div>
+        <div className="text-lg font-semibold text-gray-700">
+          Patient&apos;s Condition
+        </div>
+        <p className="text-sm text-gray-500">{booking.patientCondition}</p>
+      </div>
+      <div className="flex items-center justify-between mt-2">
         <div>
-          <p className="text-sm text-gray-500 mb-1">
+          <p className="text-lg font-semibold text-gray-700 mb-1">
             Service Verification Image
           </p>
-          <Image
-            width={500}
-            height={500}
-            src={booking.verificationImage?.url || "https://placehold.co/400"}
-            alt={booking.otpVerified ? "Verified" : "Not Verified"}
-            className="w-32 h-32 rounded-lg object-cover"
-          />
+          {booking.verificationImage?.url ? (
+            <a
+              href={
+                booking.verificationImage?.url || "https://placehold.co/400"
+              }
+              className="no-underline"
+              target="_blank"
+            >
+              <Button
+                variant="outlined"
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                View Image
+                <IoMdOpen />
+              </Button>
+            </a>
+          ) : (
+            <p className="text-sm text-gray-500">No verification image</p>
+          )}
+        </div>
+        <div>
+          <p className="text-lg font-semibold text-gray-700 mb-1">
+            Prescription Image
+          </p>
+          {booking.prescription?.url ? (
+            <a
+              href={booking.prescription?.url || "https://placehold.co/400"}
+              target="_blank"
+              className="no-underline"
+            >
+              <Button
+                variant="outlined"
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                View Image
+                <IoMdOpen />
+              </Button>
+            </a>
+          ) : (
+            <p className="text-sm text-gray-500">No prescription image</p>
+          )}
         </div>
       </div>
     </div>

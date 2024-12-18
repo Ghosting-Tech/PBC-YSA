@@ -54,14 +54,18 @@ export async function POST(request) {
     await serviceProvider.save();
 
     // Update the booking's availableServiceProviders and save
-    booking.availableServiceProviders.push(serviceProvider);
+    booking.availableServiceProviders.push(serviceProviderId);
+    booking.access.push(serviceProviderId);
     await booking.save();
 
+    const updatedBooking = await Booking.findById(bookingId)
+      .populate("availableServiceProviders")
+      .populate("user");
     // Return updated bookings
     return NextResponse.json({
       success: true,
       message: `${serviceProvider.name} assigned successfully`,
-      booking
+      booking: updatedBooking,
     });
   } catch (error) {
     console.error("Error in POST /service-provider-booking:", error);

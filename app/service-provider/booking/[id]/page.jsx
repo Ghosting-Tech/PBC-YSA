@@ -41,10 +41,14 @@ const Page = () => {
 
   const [noLongerHaveAccess, setNoLongerHaveAccess] = useState(false);
   useEffect(() => {
-    if (booking && booking.assignedServiceProviders && user) {
-      if (booking.assignedServiceProviders._id == user._id) {
+    if (booking && user) {
+      if (booking.access?.includes(user._id)) {
         setNoLongerHaveAccess(false);
+      } else {
+        setNoLongerHaveAccess(true);
       }
+    } else {
+      setNoLongerHaveAccess(true);
     }
   }, [booking, user]);
 

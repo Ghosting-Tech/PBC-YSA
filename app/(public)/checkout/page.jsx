@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { setUser } from "@/redux/slice/userSlice";
+import uploadImage from "@/utils/uploadImage";
 
 export default function Checkout() {
   const [step, setStep] = useState(1);
@@ -21,6 +22,8 @@ export default function Checkout() {
     address: "",
     date: "",
     time: "",
+    patientCondition: "",
+    prescription: null,
   });
   const [paymentDetails, setPaymentDetails] = useState(null);
   const handlePaymentMethodSelect = (details) => {
@@ -38,38 +41,6 @@ export default function Checkout() {
     setStep((prevStep) => prevStep - 1);
   };
 
-  const validateForm = () => {
-    if (!formData.fullname || formData.fullname.length < 4) {
-      toast.error("Please enter a valid full name (at least 4 characters)");
-      return false;
-    }
-    if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
-      toast.error("Please enter a valid 10-digit phone number");
-      return false;
-    }
-    if (!formData.address) {
-      toast.error("Please enter a valid address");
-      return false;
-    }
-    if (!formData.date) {
-      toast.error("Please select a delivery date");
-      return false;
-    }
-    if (!formData.time) {
-      toast.error("Please select a delivery time");
-      return false;
-    }
-    if (!formData.patientCondition) {
-      toast.error("Please enter the patient's condition");
-      return false;
-    }
-    // if (!location) {
-    //   toast.error("location is required!");
-    //   return false;
-    // }
-    return true;
-  };
-
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state) => state.user.user);
@@ -81,10 +52,6 @@ export default function Checkout() {
 
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
-    console.log({ paymentDetails });
-    if (!validateForm()) {
-      return;
-    }
 
     if (redirectingButtonClicked > 2) {
       setDisableRedirectingButton(true);
@@ -95,9 +62,17 @@ export default function Checkout() {
     setRedirectingLoading(true);
     setRedirectingButtonClicked((prev) => prev + 1);
 
+    const prescription = await uploadImage(
+      formData.prescription,
+      "prescription"
+    );
+
     try {
       const postData = {
-        formData,
+        formData: {
+          ...formData,
+          prescription,
+        },
         location,
         cartItems: cartItems[0],
         user,
@@ -118,14 +93,6 @@ export default function Checkout() {
       if (response.status === 201) {
         const booking = response.data.booking;
         dispatch(setUser(response.data.updatedUser));
-
-        // Initiate payment separately after booking is created
-        const amount = (
-          booking.cartItems.reduce(
-            (acc, product) => acc + product.price * product.quantity,
-            0
-          ) + 18
-        ).toFixed(2);
 
         const paymentResponse = await axios.post(
           `/api/payments/initiate-payment`,
@@ -223,8 +190,8 @@ export default function Checkout() {
                       Thank you for your order!
                     </h2>
                     <p className="mt-4 text-lg text-gray-600">
-                      Your order has been placed successfully. We'll send you a
-                      confirmation email shortly.
+                      Your order has been placed successfully. We will send you
+                      a confirmation email shortly.
                     </p>
                   </div>
                 </motion.div>

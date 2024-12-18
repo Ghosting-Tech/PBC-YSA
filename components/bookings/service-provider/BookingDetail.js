@@ -33,6 +33,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/slice/userSlice";
 
 const BookingDetail = ({ booking, setBooking }) => {
   const user = useSelector((state) => state.user.user);
@@ -101,56 +103,25 @@ const BookingDetail = ({ booking, setBooking }) => {
     if (booking?.otpVerified !== true) {
       setOtpVerified(false);
     }
-    console.log(booking);
   }, [booking]);
+
+  const dispatch = useDispatch();
 
   const handleRejectRequest = async (id) => {
     try {
-      // Filter out the rejected booking from user's bookings
-      const filteredBookings = user.bookings?.filter(
-        (bookingId) => bookingId !== id
+      const payload = { bookingId: id, serviceProviderId: user._id };
+
+      const { data } = await axios.post(
+        `/api/bookings/reject-booking`,
+        payload
       );
-      const updateServiceProviderData = {
-        ...user,
-        bookings: filteredBookings,
-      };
-
-      // Update the user data to remove the rejected booking
-      const existingServiceProviderResponse = await axios.post(
-        `/api/users/update`,
-        updateServiceProviderData
-      );
-      // Get the current booking data
-      const selectedBookingResponse = await axios.get(`/api/bookings/${id}`);
-      const newBooking = selectedBookingResponse.data.booking;
-
-      // Filter out the current service provider from available service providers
-      const filteredAvailableServiceProviders =
-        newBooking.availableServiceProviders.filter(
-          (sp) => sp._id !== user._id
-        );
-
-      // Update booking data to remove the current service provider
-      const bookingData = {
-        ...newBooking,
-        availableServiceProviders: filteredAvailableServiceProviders,
-      };
-
-      // If there's no next service provider available
-      if (filteredAvailableServiceProviders.length === 0) {
-        const updateNoServiceProviderAvailableData = {
-          ...bookingData,
-          noServiceProviderAvailable: true,
-        };
-
-        // Mark booking as no service provider available
-        const updateBookingResponse = await axios.put(
-          `/api/bookings/${id}`,
-          updateNoServiceProviderAvailableData
-        );
-        router.push(`/service-provider/booking?page=1`);
+      if (!data.success) {
+        toast.error(data.message);
         return;
       }
+      setBooking(data.booking);
+      dispatch(setUser(data.user));
+      toast.success("Successfully rejected service!");
       router.push(`/service-provider/booking?page=1`);
     } catch (err) {
       console.log("Error occurred:", err);
@@ -165,14 +136,11 @@ const BookingDetail = ({ booking, setBooking }) => {
     );
 
     try {
-      const res = await axios.post(
-        `/api/bookings/eliminate-service-providers`,
-        {
-          eliminateServiceProviders,
-          bookingId: id,
-          serviceProvider: user,
-        }
-      );
+      const res = await axios.post(`/api/bookings/accept-booking`, {
+        eliminateServiceProviders,
+        bookingId: id,
+        serviceProvider: user,
+      });
       const response = res.data;
 
       if (!response.success) {
@@ -189,6 +157,7 @@ const BookingDetail = ({ booking, setBooking }) => {
       console.log(err);
     }
   };
+
   return (
     <div className="py-2">
       <div className="mx-8">

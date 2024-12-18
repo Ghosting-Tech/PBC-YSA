@@ -1,10 +1,8 @@
 import React from "react";
 import UserDetail from "./UserDetail";
-import AssignServiceProvider from "./AssignServiceProvider";
 
 const UserServiceProviderDetail = ({
   booking,
-  setBooking,
   forUser = false,
 }) => {
   return (
@@ -25,7 +23,6 @@ const UserServiceProviderDetail = ({
           />
         </div>
       )}
-      {forUser ? (
         <div className="bg-white p-6 rounded-lg shadow w-full h-full ">
           {booking.assignedServiceProviders ? (
             <>
@@ -43,8 +40,8 @@ const UserServiceProviderDetail = ({
               />
             </>
           ) : (
-            <div className="mb-4 py-5 flex flex-col gap-2 items-center justify-center">
-              <h3 className="text-md md:text-xl font-semibold text-gray-800">
+            <div className="mb-4 py-9 flex flex-col gap-2 items-center justify-center">
+              <h3 className="text-md md:text-xl font-semibold text-blue-800">
                 Assigned Service Provider
               </h3>
               <div className="text-sm text-gray-500">
@@ -53,31 +50,6 @@ const UserServiceProviderDetail = ({
             </div>
           )}
         </div>
-      ) : (
-        <div className="bg-white p-6 rounded-lg shadow w-full">
-          {booking.assignedServiceProviders ? (
-            <>
-              <h3 className="text-md md:text-xl font-semibold mb-4 text-gray-800">
-                Assigned Service Provider
-              </h3>
-              <UserDetail
-                name={booking.assignedServiceProviders.name}
-                profileImage={booking.assignedServiceProviders.image}
-                email={booking.assignedServiceProviders.email}
-                phoneNumber={booking.assignedServiceProviders.phoneNumber}
-                gender={booking.assignedServiceProviders.gender}
-                religion={booking.assignedServiceProviders.religion}
-                access={true}
-              />
-            </>
-          ) : (
-            <AssignServiceProvider
-              bookingId={booking._id}
-              setBooking={setBooking}
-            />
-          )}
-        </div>
-      )}
     </div>
   );
 };

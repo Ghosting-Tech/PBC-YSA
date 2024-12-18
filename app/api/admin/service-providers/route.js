@@ -13,6 +13,9 @@ export async function GET(request) {
   const limit = parseInt(searchParams.get("limit")) || 10;
   const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "both";
+  const gender = searchParams.get("gender") || "both";
+  const active = searchParams.get("active") || true;
+  const available = searchParams.get("available") || true;
 
   // Set up default pagination variables
   const skip = (page - 1) * limit; // Calculate how many items to skip for the current page
@@ -24,6 +27,16 @@ export async function GET(request) {
   if (status !== "both") {
     query.active = status === "active";
   }
+  if (active === "true") {
+    query.active = true;
+  }
+  if (gender !== "both") {
+    query.gender = gender;
+  }
+  if (available !== "both") {
+    query.available = available === "true" ;
+  }
+
 
   // Apply search filter
   if (search !== "") {
