@@ -1,14 +1,21 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 import BackButton from "../../BackButton";
+import { LeaveServiceDialog } from "./LeaveServiceDialog";
 
 const BookingHeader = ({ booking }) => {
+  const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
   const handleDownload = () => {
     window.print();
   };
 
   const user = useSelector((state) => state.user.user);
+
+  const handleLeave = () => {
+    console.log("Leave service request submitted");
+  };
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
@@ -19,6 +26,16 @@ const BookingHeader = ({ booking }) => {
         </h2>
       </div>
       <div className="flex items-center gap-2">
+        {user.role === "service-provider" && (
+          <Button
+            color="red"
+            size="sm"
+            className="rounded-full text-xs"
+            onClick={() => setIsLeaveDialogOpen(true)}
+          >
+            Abandon
+          </Button>
+        )}
         <div
           className={`text-xs px-4 py-2 rounded-full ${
             booking.status === "Request sended to service provider!"
@@ -41,6 +58,11 @@ const BookingHeader = ({ booking }) => {
           Print This page
         </Button>
       </div>
+      <LeaveServiceDialog
+        isOpen={isLeaveDialogOpen}
+        onClose={() => setIsLeaveDialogOpen(false)}
+        onLeave={handleLeave}
+      />
     </div>
   );
 };

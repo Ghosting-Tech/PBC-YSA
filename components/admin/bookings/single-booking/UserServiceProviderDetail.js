@@ -13,13 +13,13 @@ const UserServiceProviderDetail = ({
             Customer Details
           </h3>
           <UserDetail
-            name={booking.user.name}
-            profileImage={booking.user.image}
-            email={booking.user.email}
-            phoneNumber={booking.user.phoneNumber}
-            gender={booking.user.gender}
-            religion={booking.user.religion}
-            access={booking.acceptedByServiceProvider}
+            name={booking?.user?.name}
+            profileImage={booking?.user?.image}
+            email={booking?.user?.email}
+            phoneNumber={booking?.user?.phoneNumber}
+            gender={booking?.user?.gender}
+            religion={booking?.user?.religion}
+            access={booking?.acceptedByServiceProvider}
           />
         </div>
       )}
@@ -30,12 +30,12 @@ const UserServiceProviderDetail = ({
                 Assigned Service Provider
               </h3>
               <UserDetail
-                name={booking.assignedServiceProviders.name}
-                profileImage={booking.assignedServiceProviders.image}
-                email={booking.assignedServiceProviders.email}
-                phoneNumber={booking.assignedServiceProviders.phoneNumber}
-                gender={booking.assignedServiceProviders.gender}
-                religion={booking.assignedServiceProviders.religion}
+                name={booking?.assignedServiceProviders?.name}
+                profileImage={booking?.assignedServiceProviders?.image}
+                email={booking?.assignedServiceProviders?.email}
+                phoneNumber={booking?.assignedServiceProviders?.phoneNumber}
+                gender={booking?.assignedServiceProviders?.gender}
+                religion={booking?.assignedServiceProviders?.religion}
                 access={true}
               />
             </>
