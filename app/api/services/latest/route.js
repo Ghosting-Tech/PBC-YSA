@@ -12,8 +12,6 @@ export async function POST(request) {
     let data = await request.json();
     await connectMongoDB();
 
-    data = JSON.parse(data);
-
     const user = await isLoggedIn(request);
 
     // Define the base match query for services
