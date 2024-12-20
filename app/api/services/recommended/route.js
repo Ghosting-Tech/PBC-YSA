@@ -34,11 +34,11 @@ export async function POST(request) {
       },
       {
         $addFields: {
-          bookingsCount: { $size: "$bookings" }, // Calculate the length of the bookings array
+          reviewCount: { $size: "$reviews" }, // Calculate the length of the bookings array
         },
       },
       {
-        $sort: { bookingsCount: -1 }, // Sort by the calculated field
+        $sort: { reviewCount: -1 }, // Sort by the calculated field
       },
       {
         $limit: limit, // Apply the limit
@@ -57,14 +57,14 @@ export async function POST(request) {
       },
       {
         $project: {
-          bookingsCount: 0, // Remove the temporary field if not needed in the response
+          reviewCount: 0, // Remove the temporary field if not needed in the response
         },
       },
     ]);
 
     return NextResponse.json({ success: true, data: services }, { status: 200 });
   } catch (error) {
-    console.log("Error fetching top booked services:", error);
+    console.log("Error fetching services:", error);
     return NextResponse.json(
       { success: false, message: "An error occurred while fetching services." },
       { status: 500 }

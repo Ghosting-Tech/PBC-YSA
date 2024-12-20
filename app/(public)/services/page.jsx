@@ -65,13 +65,17 @@ const AllServices = () => {
       try {
         dispatch(setTopBookedServicesLoading(true));
         const response = await fetchServices(cityState);
-        const allServices = response.data;
-        if (message && allServices.length === 0) {
-          toast.warning(message);
+        if (response.data.success) {
+          const allServices = response.data.data;
+          if (message && allServices.length === 0) {
+            toast.warning(message);
+          }
+          dispatch(setTopBookedServices(allServices));
+          dispatch(setGeolocationDenied(false));
+          dispatch(setCityState(cityState));
+        } else {
+          toast.error(response.data.message);
         }
-        dispatch(setTopBookedServices(allServices));
-        dispatch(setGeolocationDenied(false));
-        dispatch(setCityState(cityState));
       } catch (error) {
         console.error("Error fetching top services:", error);
       } finally {

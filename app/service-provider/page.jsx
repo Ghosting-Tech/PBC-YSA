@@ -51,8 +51,12 @@ const ServiceProvider = () => {
       "/api/services/top-booked?limit=100",
       storedLocation
     );
+    if (data.success) {
+      dispatch(setTopBookedServices(data.data));
+    } else {
+      toast.error(data.message);
+    }
 
-    dispatch(setTopBookedServices(data));
     //eslint-disable-next-line
   }, []);
 

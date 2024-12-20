@@ -79,17 +79,21 @@ const ChangeCity = ({ handleLocationDialog }) => {
         try {
           dispatch(setTopBookedServicesLoading(true));
           const response = await fetchServices(cityState);
-          const allServices = response.data;
-          if (allServices.length === 0) {
-            toast.warning(
-              "No services found for the selected location. Please select a different location."
-            );
-            return;
+          if (response.success) {
+            const allServices = response.data.data;
+            if (allServices.length === 0) {
+              toast.warning(
+                "No services found for the selected location. Please select a different location."
+              );
+              return;
+            }
+            toast.success(`City changed successfully to ${city}`);
+            handleLocationDialog();
+            dispatch(setTopBookedServices(allServices));
+            dispatch(setGeolocationDenied(false));
+          } else {
+            toast.error(response.message);
           }
-          toast.success(`City changed successfully to ${city}`);
-          handleLocationDialog();
-          dispatch(setTopBookedServices(allServices));
-          dispatch(setGeolocationDenied(false));
         } catch (error) {
           console.error("Error fetching top services:", error);
           toast.error(error.message || "Something went wrong");

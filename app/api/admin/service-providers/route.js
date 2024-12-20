@@ -15,7 +15,7 @@ export async function GET(request) {
   const status = searchParams.get("status") || "both";
   const gender = searchParams.get("gender") || "both";
   const active = searchParams.get("active") || true;
-  const available = searchParams.get("available") || true;
+  const available = searchParams.get("available") || "both";
 
   // Set up default pagination variables
   const skip = (page - 1) * limit; // Calculate how many items to skip for the current page

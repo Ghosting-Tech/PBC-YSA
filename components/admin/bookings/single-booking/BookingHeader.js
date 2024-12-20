@@ -26,16 +26,17 @@ const BookingHeader = ({ booking }) => {
         </h2>
       </div>
       <div className="flex items-center gap-2">
-        {user.role === "service-provider" && (
-          <Button
-            color="red"
-            size="sm"
-            className="rounded-full text-xs"
-            onClick={() => setIsLeaveDialogOpen(true)}
-          >
-            Abandon
-          </Button>
-        )}
+        {user.role === "service-provider" &&
+          booking.acceptedByServiceProvider && (
+            <Button
+              color="red"
+              size="sm"
+              className="rounded-full text-xs"
+              onClick={() => setIsLeaveDialogOpen(true)}
+            >
+              Abandon
+            </Button>
+          )}
         <div
           className={`text-xs px-4 py-2 rounded-full ${
             booking.status === "Request sended to service provider!"

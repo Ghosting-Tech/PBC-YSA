@@ -60,15 +60,19 @@ export default function NavList() {
         },
       });
       const response = await fetchedData.json();
-      function getTopBookedServices(services, topN) {
-        return services
-          .sort((a, b) => b.bookings.length - a.bookings.length)
-          .slice(0, topN);
-      }
+      if (response.success) {
+        function getTopBookedServices(services, topN) {
+          return services
+            .sort((a, b) => b.bookings.length - a.bookings.length)
+            .slice(0, topN);
+        }
 
-      const topServices = getTopBookedServices(response, 6);
-      setAllServices(response);
-      setTopServices(topServices);
+        const topServices = getTopBookedServices(response.data, 6);
+        setAllServices(response.data);
+        setTopServices(topServices);
+      } else {
+        toast.error(response.message);
+      }
     } catch (err) {
       console.error(err);
     }

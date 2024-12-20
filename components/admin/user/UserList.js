@@ -65,7 +65,7 @@ const UserList = ({
               </div>
             )}
             <div className="flex flex-col gap-1">
-              <div>
+              <div className="flex gap-1">
                 <span
                   className={`border ${
                     user.active ? "bg-teal-100" : "bg-red-100"
@@ -74,6 +74,15 @@ const UserList = ({
                   }  px-2 py-1 rounded-full`}
                 >
                   {user.active ? "active" : "Inactive"}
+                </span>
+                <span
+                  className={`border-2 ${
+                    user.available ? "border-green-100" : "border-pink-100"
+                  }  text-xs ${
+                    user.available ? "text-green-700" : "text-pink-700"
+                  }  px-2 py-1 rounded-full`}
+                >
+                  {user.available ? "Available" : "Not Available"}
                 </span>
               </div>
               <div className="font-bold text-indigo-500 text-xl">
