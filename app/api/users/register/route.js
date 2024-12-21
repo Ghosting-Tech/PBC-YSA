@@ -23,18 +23,18 @@ export async function POST(request) {
       message: "Email is required",
     });
   }
-  if (!gender) {
-    return NextResponse.json({
-      success: false,
-      message: "Gender is required",
-    });
-  }
-  if (!religion) {
-    return NextResponse.json({
-      success: false,
-      message: "Religion is required",
-    });
-  }
+  // if (!gender) {
+  //   return NextResponse.json({
+  //     success: false,
+  //     message: "Gender is required",
+  //   });
+  // }
+  // if (!religion) {
+  //   return NextResponse.json({
+  //     success: false,
+  //     message: "Religion is required",
+  //   });
+  // }
   if (!password) {
     return NextResponse.json({
       success: false,
@@ -58,7 +58,7 @@ export async function POST(request) {
     });
   }
   await connectMongoDB();
-  const user = await User.create({
+  await User.create({
     name,
     email,
     phoneNumber,

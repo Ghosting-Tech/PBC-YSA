@@ -150,6 +150,16 @@ export async function POST(request) {
       }
     }
 
+    if (availableServiceProviders.length <= 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "No service providers found for the service",
+        },
+        { status: 303 }
+      );
+    }
+
     const bookingData = {
       ...formData,
       location,
@@ -282,6 +292,7 @@ export async function POST(request) {
       {
         success: false,
         message: "An error occurred while processing the booking",
+        error
       },
       { status: 500 }
     );
