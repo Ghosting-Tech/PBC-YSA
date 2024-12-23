@@ -13,10 +13,6 @@ const BookingHeader = ({ booking }) => {
 
   const user = useSelector((state) => state.user.user);
 
-  const handleLeave = () => {
-    console.log("Leave service request submitted");
-  };
-
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
       <div className="flex gap-3">
@@ -61,7 +57,6 @@ const BookingHeader = ({ booking }) => {
       <LeaveServiceDialog
         isOpen={isLeaveDialogOpen}
         setIsOpen={setIsLeaveDialogOpen}
-        onLeave={handleLeave}
         id={booking._id}
       />
     </div>

@@ -70,7 +70,6 @@ const NotificationTable = ({ initialNotifications = [] }) => {
 
   const getCategoryColor = (category) => {
     const colors = {
-      urgent: "red",
       important: "amber",
       info: "blue",
       default: "red",
