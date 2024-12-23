@@ -6,7 +6,7 @@ import PaginationBtn from "@/components/PaginationBtn";
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
 
-const getNotifications = async (page = 1, limit = 25) => {
+const getNotifications = async (page = 1, limit = 3) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/notification`,

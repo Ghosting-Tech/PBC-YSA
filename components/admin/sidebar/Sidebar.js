@@ -56,17 +56,16 @@ export default function Sidebar() {
     const getNotifications = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/notification`
+          `${process.env.NEXT_PUBLIC_API_URL}/admin/notification/countNotification`
         );
-
-        dispatch(setNotifications(response.data));
+        dispatch(setNotifications(response.data.notifications));
       } catch (error) {
         console.error("Error fetching notifications:", error);
         return []; // Return an empty array on error
       }
     };
     getNotifications();
-  }, [dispatch, setNotifications]);
+  }, [dispatch]);
 
   useEffect(() => {
     setIsCollapsed(isMobile);
