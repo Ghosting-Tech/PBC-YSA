@@ -12,6 +12,7 @@ import axios from "axios";
 import ServiceProviderLocation from "@/components/service-provider/ServiceProviderLocation";
 import { setTopBookedServices } from "@/redux/slice/topBookedServicesSlice";
 import { toast } from "sonner";
+import ApplyDress from "@/components/service-provider/ApplyDress";
 
 const ServiceProvider = () => {
   const reduxUser = useSelector((state) => state.user.user);
@@ -51,14 +52,14 @@ const ServiceProvider = () => {
       "/api/services/top-booked?limit=100",
       storedLocation
     );
+    if (data.success) {
+      dispatch(setTopBookedServices(data.data));
+    } else {
+      toast.error(data.message);
+    }
 
-    dispatch(setTopBookedServices(data));
     //eslint-disable-next-line
   }, []);
-
-  useEffect(() => {
-    console.log(topBookedServices);
-  }, [topBookedServices]);
 
   const fetchingServices = useCallback(async () => {
     if (updatedServices.length > 0) {
@@ -94,27 +95,25 @@ const ServiceProvider = () => {
           >
             <FaArrowLeft /> Profile
           </button>
+          <ApplyDress />
           <div className="flex flex-col justify-center gap-4">
             <div className="flex gap-4 items-center w-full">
-              {user?.image?.url ? (
-                <Badge
-                  content={<div className="h-3 w-h-3"></div>}
-                  overlap="circular"
-                  className={`border-2 border-white shadow-lg shadow-black/20 ${
-                    user?.available ? "bg-green-400" : "bg-red-400"
-                  }`}
-                >
-                  <Avatar
-                    src={user.image.url}
-                    alt="profile picture"
-                    className="w-32 h-32 object-cover"
-                  />
-                </Badge>
-              ) : (
-                <span className="bg-gray-700 h-32 w-32 font-junge text-white font-bold text-7xl flex justify-center items-center rounded-full">
-                  {user?.name && Array.from(user.name)[0].toUpperCase()}
-                </span>
-              )}
+              <Badge
+                content={<div className="h-3 w-h-3"></div>}
+                overlap="circular"
+                className={`border-2 border-white shadow-lg shadow-black/20 ${
+                  user?.available ? "bg-green-400" : "bg-red-400"
+                }`}
+              >
+                <Avatar
+                  src={
+                    user.image.url ||
+                    `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${user.name}`
+                  }
+                  alt="profile picture"
+                  className="w-32 h-32 object-cover"
+                />
+              </Badge>
               <div className="flex gap-1 flex-col justify-center">
                 <span className="text-6xl font-semibold text-gray-800">
                   Hey👋

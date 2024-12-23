@@ -90,6 +90,9 @@ export default function Checkout() {
 
       const response = await axios.post("/api/bookings", postData);
 
+      console.log("response", response);
+      console.log("response data", response.data);
+
       if (response.status === 201) {
         const booking = response.data.booking;
         dispatch(setUser(response.data.updatedUser));

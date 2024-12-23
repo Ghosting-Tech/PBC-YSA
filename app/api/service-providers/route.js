@@ -6,7 +6,6 @@ export async function GET() {
   try {
     await connectMongoDB();
 
-    // Query directly for service providers
     const serviceProviders = await User.find({ role: "service-provider" });
 
     return NextResponse.json(serviceProviders, { status: 200 });

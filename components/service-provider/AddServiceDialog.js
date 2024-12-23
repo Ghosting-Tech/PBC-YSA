@@ -59,51 +59,60 @@ const AddServiceDialog = ({
       <h2 className="text-center font-semibold text-gray-700 text-2xl pt-6">
         All Services
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4  min-h-52 overflow-auto no-scrollbar">
-        {allServices?.map((service, index) => (
-          <ListItem className="p-0 h-fit" key={index}>
-            <label
-              htmlFor={service._id}
-              className="flex w-full cursor-pointer items-center px-3 py-2"
-            >
-              <ListItemPrefix className="mr-3">
-                <Checkbox
-                  id={service._id}
-                  checked={selectedServices.includes(service._id)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedServices((prev) => [...prev, service._id]);
-                    } else {
-                      setSelectedServices((prev) =>
-                        prev.filter((id) => id !== service._id)
-                      );
-                    }
-                  }}
-                  value={service.name}
-                  ripple
-                  className="hover:before:opacity-0"
-                  containerProps={{
-                    className: "p-0",
-                  }}
-                />
-              </ListItemPrefix>
-              <Image
-                width={100}
-                height={100}
-                src={service.icon.url}
-                alt=""
-                className="w-10 aspect-square object-cover mr-2 rounded"
-              />
-              <Typography
-                color="blue-gray"
-                className="font-medium whitespace-nowrap"
+      {allServices.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4  min-h-52 overflow-auto no-scrollbar">
+          {allServices?.map((service, index) => (
+            <ListItem className="p-0 h-fit" key={index}>
+              <label
+                htmlFor={service._id}
+                className="flex w-full cursor-pointer items-center px-3 py-2"
               >
-                {service.name}
-              </Typography>
-            </label>
-          </ListItem>
-        ))}
-      </div>
+                <ListItemPrefix className="mr-3">
+                  <Checkbox
+                    id={service._id}
+                    checked={selectedServices.includes(service._id)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedServices((prev) => [...prev, service._id]);
+                      } else {
+                        setSelectedServices((prev) =>
+                          prev.filter((id) => id !== service._id)
+                        );
+                      }
+                    }}
+                    value={service.name}
+                    ripple
+                    className="hover:before:opacity-0"
+                    containerProps={{
+                      className: "p-0",
+                    }}
+                  />
+                </ListItemPrefix>
+                <Image
+                  width={100}
+                  height={100}
+                  src={service.icon.url}
+                  alt=""
+                  className="w-10 aspect-square object-cover mr-2 rounded"
+                />
+                <Typography
+                  color="blue-gray"
+                  className="font-medium whitespace-nowrap"
+                >
+                  {service.name}
+                </Typography>
+              </label>
+            </ListItem>
+          ))}
+        </div>
+      ) : (
+        <div className="w-full flex flex-col justify-center items-center min-h-52 h-full p-4">
+          <h1 className="text-2xl font-bold text-red-700">
+            No service found in the selected location
+          </h1>
+          <p>Recommended to change the location and try again</p>
+        </div>
+      )}
       <DialogFooter>
         <Button
           variant="text"

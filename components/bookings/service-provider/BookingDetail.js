@@ -130,15 +130,9 @@ const BookingDetail = ({ booking, setBooking }) => {
   };
 
   const handleAcceptRequest = async (id) => {
-    const eliminateServiceProviders = booking.availableServiceProviders.filter(
-      (serviceProvider) => {
-        return serviceProvider._id !== user._id;
-      }
-    );
 
     try {
       const res = await axios.post(`/api/bookings/accept-booking`, {
-        eliminateServiceProviders,
         bookingId: id,
         serviceProvider: user,
       });

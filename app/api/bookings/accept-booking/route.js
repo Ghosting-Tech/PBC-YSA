@@ -31,10 +31,15 @@ export async function POST(request) {
   try {
     await connectMongoDB(); // Ensure MongoDB connection is established
 
-    const { eliminateServiceProviders, bookingId, serviceProvider } =
-      await request.json();
+    const { bookingId, serviceProvider } = await request.json();
 
     const booking = await Booking.findById(bookingId);
+
+    const providersToEliminate = booking.availableServiceProviders.filter(
+      (sp) => {
+        return sp !== serviceProvider._id;
+      }
+    );
 
     if (!booking) {
       return NextResponse.json("Invalid booking ID", { status: 404 });
@@ -50,8 +55,8 @@ export async function POST(request) {
         { status: 200 }
       );
     }
-    if (eliminateServiceProviders.length > 0) {
-      eliminateServiceProviders.map(async (sp) => {
+    if (providersToEliminate.length > 0) {
+      providersToEliminate.map(async (sp) => {
         await User.findByIdAndUpdate(sp, { $pull: { bookings: bookingId } });
       });
     }

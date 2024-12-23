@@ -15,23 +15,14 @@ export async function POST(request) {
     };
     await connectMongoDB();
 
-    // data = JSON.parse(data);
-
-    console.log("new service", data);
-
-    // const user = await isLoggedIn(request);
-    const user = {
-      user: {
-        role: "user",
-      },
-    };
+    const user = await isLoggedIn(request);
 
     // Define the base match query for services
     let matchQuery = {};
     if (user?.user?.role !== "admin") {
       if (!data.city) {
         return NextResponse.json(
-          { error: "City is required for non-admin users." },
+          { success: false, message: "City is required for non-admin users." },
           { status: 400 }
         );
       }
@@ -48,11 +39,14 @@ export async function POST(request) {
       })
       .lean();
 
-    return NextResponse.json(services, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching services:", error);
     return NextResponse.json(
-      { error: "An error occurred while fetching services." },
+      { success: true, data: services },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("Error fetching services:", error);
+    return NextResponse.json(
+      { success: false, message: "An error occurred while fetching services." },
       { status: 500 }
     );
   }

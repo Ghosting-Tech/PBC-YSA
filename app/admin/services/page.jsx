@@ -175,8 +175,11 @@ const Services = () => {
         body: JSON.stringify({}),
       });
       const response = await fetchedData.json();
-      console.log("Admin services: ", response);
-      setAllServices(response);
+      if (response.success) {
+        setAllServices(response.data);
+      } else {
+        toast.error(response.message);
+      }
     } catch (err) {
       console.error(err);
     } finally {
