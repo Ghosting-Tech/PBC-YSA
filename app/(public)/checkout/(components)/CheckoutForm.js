@@ -144,6 +144,13 @@ export function CheckoutForm({
     const minutes = String(now.getMinutes()).padStart(2, "0");
     return `${parseFloat(hours)}:${parseFloat(minutes) + 10}`;
   };
+  const getCurrentDate = () => {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   return (
     <motion.div
@@ -161,11 +168,13 @@ export function CheckoutForm({
           if (!validateForm()) {
             return;
           }
-          if (formData.time <= getCurrentTime()) {
-            toast.warning(
-              "Kindly choose a time that is at least 10 minutes from now."
-            );
-            return;
+          if (formData.date === getCurrentDate()) {
+            if (formData.time <= getCurrentTime()) {
+              toast.warning(
+                "Kindly choose a time that is at least 10 minutes from now."
+              );
+              return;
+            }
           }
           onNextStep();
         }}
