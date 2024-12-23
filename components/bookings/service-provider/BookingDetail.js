@@ -125,6 +125,7 @@ const BookingDetail = ({ booking, setBooking }) => {
       router.push(`/service-provider/booking?page=1`);
     } catch (err) {
       console.log("Error occurred:", err);
+      toast.error("Failed to reject service!");
     }
   };
 
@@ -149,6 +150,7 @@ const BookingDetail = ({ booking, setBooking }) => {
       toast.success("Successfully accepted service!");
     } catch (err) {
       console.log(err);
+      toast.error("Failed to accept service!");
     }
   };
 

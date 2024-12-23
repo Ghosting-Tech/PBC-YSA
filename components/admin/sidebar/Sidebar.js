@@ -10,6 +10,7 @@ import {
   IconButton,
   Tooltip,
   Collapse,
+  badge,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
@@ -25,16 +26,22 @@ import {
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { QueueListIcon } from "@heroicons/react/24/solid";
+import { BellIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { setUser } from "@/redux/slice/userSlice";
+import { setNotifications } from "@/redux/slice/notificationSlice";
+import axios from "axios";
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
+  const unreadCount = useSelector((state) => state.notifications.unreadCount);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,6 +51,22 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/admin/notification`
+        );
+
+        dispatch(setNotifications(response.data));
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+        return []; // Return an empty array on error
+      }
+    };
+    getNotifications();
+  }, [dispatch, setNotifications]);
 
   useEffect(() => {
     setIsCollapsed(isMobile);
@@ -58,6 +81,12 @@ export default function Sidebar() {
 
   const sidebarItems = [
     { path: "/admin", icon: QueueListIcon, label: "Dashboard" },
+    {
+      path: "/admin/notifications",
+      icon: BellIcon,
+      label: "Notifications",
+      badge: unreadCount,
+    },
     { path: "/admin/services", icon: Cog6ToothIcon, label: "Services" },
     {
       path: "/admin/bookings?page=1",
@@ -76,35 +105,41 @@ export default function Sidebar() {
     { path: "/admin/customize", icon: CubeIcon, label: "Customization" },
   ];
 
-  const renderSidebarItem = ({ path, icon: Icon, label }) => {
+  const renderSidebarItem = ({ path, icon: Icon, label, badge }) => {
     const isActive = pathname === path;
     return (
       <Link href={path} key={path} className="no-underline">
         <ListItem
           className={`${sidebarItemWidth} ${
             isActive ? "bg-blue-gray-50 text-blue-500" : ""
-          }`}
+          } flex justify-between items-center`}
         >
-          <ListItemPrefix>
-            <Tooltip content={label} placement="right">
-              <Icon className={`h-5 w-5 ${isActive ? "text-blue-500" : ""}`} />
-            </Tooltip>
-          </ListItemPrefix>
-          <Collapse open={!isCollapsed}>
-            <Typography
-              color={isActive ? "blue" : "blue-gray"}
-              className="mr-auto font-normal"
-            >
-              {label}
-            </Typography>
-          </Collapse>
+          <div className="flex items-center">
+            <ListItemPrefix>
+              <Tooltip content={label} placement="right">
+                <Icon
+                  className={`h-5 w-5 ${isActive ? "text-blue-500" : ""}`}
+                />
+              </Tooltip>
+            </ListItemPrefix>
+            <Collapse open={!isCollapsed}>
+              <Typography
+                color={isActive ? "blue" : "blue-gray"}
+                className="mr-auto font-normal"
+              >
+                {label}
+              </Typography>
+            </Collapse>
+          </div>
+          {badge && (
+            <span className="ml-2 flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-bold">
+              {badge}
+            </span>
+          )}
         </ListItem>
       </Link>
     );
   };
-
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   const handleLogout = async () => {
     await fetch("/api/users/logout", {
@@ -117,9 +152,9 @@ export default function Sidebar() {
 
   return (
     <Card
-      className={`min-h-screen max-h-full p-4 transition-all duration-500 rounded-none shadow-none ease-in-out ${sidebarWidth}`}
+      className={`min-h-screen max-h-full px-4 transition-all duration-500 rounded-none shadow-none ease-in-out ${sidebarWidth}`}
     >
-      <div className="mb-2 flex items-center justify-between p-4 w-full relative">
+      <div className=" flex items-center justify-between px-4 pt-3 w-full relative">
         <Collapse open={!isCollapsed} className="overflow-hidden">
           <Link href="/admin" className="flex items-center">
             <div className="text-2xl font-racing">YSA</div>

@@ -23,7 +23,6 @@ const Page = () => {
           toast.error(`Error fetching booking!`);
         }
         const data = await response.json();
-        console.log(data);
         if (!data.success) {
           toast.error(data.message);
           return;

@@ -19,183 +19,233 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { toast } from "sonner";
+import uploadImage from "@/utils/uploadImage";
 
-export function LeaveServiceDialog({ isOpen, onClose, onLeave }) {
+export function LeaveServiceDialog({ isOpen, setIsOpen, id }) {
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const from = "service-provider";
+  const category = "important";
+  const title = "Abandon Booking";
+  const url = `/admin/bookings/${id}`;
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (event) => {
-    const newFiles = Array.from(event.target.files);
-    const filteredFiles = newFiles.filter(
-      (file) =>
-        !uploadedFiles.some((existingFile) => existingFile.name === file.name)
-    );
-    setUploadedFiles([...uploadedFiles, ...filteredFiles]);
+    const file = event.target.files[0];
+    setUploadedFile(file);
   };
 
-  const removeFile = (fileToRemove) => {
-    setUploadedFiles(uploadedFiles.filter((file) => file !== fileToRemove));
+  const removeFile = () => {
+    setUploadedFile(null);
   };
 
-  const handleLeave = async () => {
+  const handleLeave = async (event) => {
+    event.preventDefault();
     if (reason.trim() === "") {
       toast.error("Please provide a reason for leaving");
       return;
     }
 
+    const filesData = uploadedFile
+      ? await uploadImage(uploadedFile, "notification")
+      : null;
+    const payload = {
+      description: reason,
+      from,
+      category,
+      title,
+      url,
+      image: { url: filesData?.url, name: filesData?.name },
+    };
+
     setIsSubmitting(true);
+
     try {
-      // Prepare form data for API submission
-      const formData = new FormData();
-      formData.append("reason", reason);
-      uploadedFiles.forEach((file) => {
-        formData.append("documents", file);
+      const res = await fetch("/api/admin/notification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
-      // Call your API to submit the leave reason and documents
-      await onLeave(formData);
-
-      // Reset state and close dialog
-      setReason("");
-      setUploadedFiles([]);
-      onClose();
+      const response = await res.json();
+      if (res.ok) {
+        setReason("");
+        setUploadedFile(null);
+        toast.success("Request sent successfully");
+        setShowConfirmation(true);
+        setIsOpen(false);
+      } else {
+        throw new Error(response.message || "Failed to submit request");
+      }
     } catch (error) {
       console.error("Error submitting leave service request:", error);
+      toast.error("Failed to submit request");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleConfirmationClose = () => {
+    setShowConfirmation(false);
+  };
+
   return (
-    <Dialog
-      open={isOpen}
-      handler={onClose}
-      size="md"
-      className="bg-white shadow-2xl rounded-lg h-[90vh] overflow-y-auto no-scrollbar"
-    >
-      <DialogHeader className="flex flex-col items-start p-4">
-        <Typography variant="h4" color="red" className="mb-2">
-          Abandon Booking
-        </Typography>
-      </DialogHeader>
+    <>
+      {/* Main Dialog */}
+      <Dialog
+        open={isOpen}
+        handler={() => setIsOpen(false)}
+        size="md"
+        className="bg-white shadow-2xl rounded-lg h-[90vh] overflow-y-auto no-scrollbar"
+      >
+        <DialogHeader className="flex flex-col items-start p-4">
+          <Typography variant="h4" color="red" className="mb-2">
+            Abandon Booking
+          </Typography>
+        </DialogHeader>
 
-      <DialogBody divider className="space-y-4">
-        {/* Warning Alert */}
-        <Alert
-          color="red"
-          variant="gradient"
-          icon={<XMarkIcon className="h-6 w-6" />}
-          className="mb-4"
-        >
-          <strong>Important Notice:</strong>
-          <br />
-          By leaving this service, you will lose the all access for current
-          booking
-        </Alert>
-
-        {/* Reason Textarea */}
-        <div className="mb-4">
-          <Textarea
-            variant="outlined"
-            label="Reason for Leaving"
+        <DialogBody divider className="space-y-4">
+          <Alert
             color="red"
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            placeholder="Please provide a detailed explanation for your departure"
-            rows={4}
-            className="w-full"
-          />
-        </div>
+            variant="gradient"
+            icon={<XMarkIcon className="h-6 w-6" />}
+            className="mb-4"
+          >
+            <strong>Important Notice:</strong>
+            <br />
+            By leaving this service, you will lose all access to the current
+            booking.
+          </Alert>
 
-        {/* Document Upload Section */}
-        <Card className="w-full">
-          <CardBody>
-            <div className="flex items-center justify-center mb-4">
-              <input
-                type="file"
-                multiple
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                className="hidden"
-                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-              />
-              <Button
-                variant="outlined"
-                color="blue-gray"
-                size="md"
-                className="flex items-center"
-                onClick={() => fileInputRef.current.click()}
-              >
-                <CloudArrowUpIcon className="h-5 w-5 mr-2" />
-                Upload Supporting Documents
-              </Button>
-            </div>
+          <div className="mb-4">
+            <Textarea
+              variant="outlined"
+              label="Reason for Leaving"
+              color="red"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              placeholder="Please provide a detailed explanation for your departure"
+              rows={4}
+              className="w-full"
+            />
+          </div>
 
-            {/* Uploaded Files List */}
-            {uploadedFiles.length > 0 ? (
-              <div className="space-y-2">
-                {uploadedFiles.map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between bg-gray-100 p-2 rounded"
-                  >
-                    <div className="flex items-center">
-                      <DocumentIcon className="h-6 w-6 mr-2 text-blue-gray-500" />
-                      <Typography variant="small" color="blue-gray">
-                        {file.name}
-                      </Typography>
-                    </div>
-                    <Button
-                      variant="text"
-                      color="red"
-                      size="sm"
-                      onClick={() => removeFile(file)}
-                    >
-                      <TrashIcon className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
+          <Card className="w-full">
+            <CardBody>
+              <div className="flex items-center justify-center mb-4">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  accept=".pdf,.doc,.jpg,.jpeg,.png"
+                />
+                <Button
+                  variant="outlined"
+                  color="blue-gray"
+                  size="md"
+                  className="flex items-center"
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  <CloudArrowUpIcon className="h-5 w-5 mr-2" />
+                  Upload Supporting Document
+                </Button>
               </div>
-            ) : (
-              <Typography variant="small" color="gray" className="text-center">
-                No documents uploaded. Optional supporting files can be added
-                here.
-              </Typography>
-            )}
-          </CardBody>
-        </Card>
-      </DialogBody>
 
-      <DialogFooter className="space-x-2 p-4">
-        <Button
-          variant="outlined"
-          color="blue-gray"
-          onClick={onClose}
-          disabled={isSubmitting}
-          className="flex items-center"
-        >
-          <XMarkIcon className="h-5 w-5 mr-2" />
-          Cancel
-        </Button>
-        <Button
-          variant="filled"
-          color="red"
-          onClick={handleLeave}
-          disabled={isSubmitting}
-          className="flex items-center"
-        >
-          {isSubmitting ? (
-            "Submitting..."
-          ) : (
-            <>
-              <CheckIcon className="h-5 w-5 mr-2" />
-              Confirm Departure
-            </>
-          )}
-        </Button>
-      </DialogFooter>
-    </Dialog>
+              {uploadedFile ? (
+                <div className="flex items-center justify-between bg-gray-100 p-2 rounded">
+                  <div className="flex items-center">
+                    <DocumentIcon className="h-6 w-6 mr-2 text-blue-gray-500" />
+                    <Typography variant="small" color="blue-gray">
+                      {uploadedFile.name}
+                    </Typography>
+                  </div>
+                  <Button
+                    variant="text"
+                    color="red"
+                    size="sm"
+                    onClick={removeFile}
+                  >
+                    <TrashIcon className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="text-center"
+                >
+                  No document uploaded. Optional supporting file can be added
+                  here.
+                </Typography>
+              )}
+            </CardBody>
+          </Card>
+        </DialogBody>
+
+        <DialogFooter className="space-x-2 p-4">
+          <Button
+            variant="outlined"
+            color="blue-gray"
+            onClick={() => setIsOpen(false)}
+            disabled={isSubmitting}
+            className="flex items-center"
+          >
+            <XMarkIcon className="h-5 w-5 mr-2" />
+            Cancel
+          </Button>
+          <Button
+            variant="filled"
+            color="red"
+            onClick={handleLeave}
+            disabled={isSubmitting}
+            className="flex items-center"
+          >
+            {isSubmitting ? (
+              "Submitting..."
+            ) : (
+              <>
+                <CheckIcon className="h-5 w-5 mr-2" />
+                Confirm Departure
+              </>
+            )}
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
+      {/* Confirmation Popup */}
+      <Dialog
+        open={showConfirmation}
+        handler={handleConfirmationClose}
+        size="sm"
+        className="bg-white shadow-lg rounded-lg"
+      >
+        <DialogHeader className="p-4">
+          <Typography variant="h5" color="green">
+            Request Sent
+          </Typography>
+        </DialogHeader>
+        <DialogBody className="p-4">
+          <Typography variant="body1" color="gray">
+            Your abandon-booking request has been sent to the admin. You will be
+            removed from the current booking.
+          </Typography>
+        </DialogBody>
+        <DialogFooter className="p-4">
+          <Button
+            variant="filled"
+            color="blue-gray"
+            onClick={handleConfirmationClose}
+          >
+            Close
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
   );
 }

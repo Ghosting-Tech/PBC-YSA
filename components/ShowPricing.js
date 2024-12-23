@@ -100,10 +100,11 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
         </div>
 
         {/* Remaining Amount */}
-        <div className="flex justify-between items-center pb-4">
-          <span className="text-lg font-bold text-gray-500">
-            Remaining Amount
-          </span>
+        { remainingAmount > 0 && (
+          <div className="flex justify-between items-center pb-4">
+            <span className="text-lg font-bold text-gray-500">
+              Remaining Amount
+            </span>
           <div className="flex gap-1">
             <span className="text-lg font-bold text-red-500">
               ₹{remainingAmount.toFixed(2)}
@@ -118,7 +119,7 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
               </span>
             )}
           </div>
-        </div>
+        </div>)}
 
         {/* Payment Button (Only show if remaining amount > 0) */}
         {!paymentStatus.paid_full && user.role === "user" && (

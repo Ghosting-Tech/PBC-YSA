@@ -13,10 +13,6 @@ const BookingHeader = ({ booking }) => {
 
   const user = useSelector((state) => state.user.user);
 
-  const handleLeave = () => {
-    console.log("Leave service request submitted");
-  };
-
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
       <div className="flex gap-3">
@@ -26,7 +22,8 @@ const BookingHeader = ({ booking }) => {
         </h2>
       </div>
       <div className="flex items-center gap-2">
-        {user.role === "service-provider" &&
+        {user?.role === "service-provider" &&
+          booking.completed === false &&
           booking.acceptedByServiceProvider && (
             <Button
               color="red"
@@ -34,7 +31,7 @@ const BookingHeader = ({ booking }) => {
               className="rounded-full text-xs"
               onClick={() => setIsLeaveDialogOpen(true)}
             >
-              Abandon
+              Abandon Request
             </Button>
           )}
         <div
@@ -51,7 +48,7 @@ const BookingHeader = ({ booking }) => {
           }`}
         >
           {booking.status == "Request sended to service provider!" &&
-          user.role !== "user"
+          user?.role !== "user"
             ? "New Booking request"
             : booking.status}
         </div>
@@ -61,8 +58,8 @@ const BookingHeader = ({ booking }) => {
       </div>
       <LeaveServiceDialog
         isOpen={isLeaveDialogOpen}
-        onClose={() => setIsLeaveDialogOpen(false)}
-        onLeave={handleLeave}
+        setIsOpen={setIsLeaveDialogOpen}
+        id={booking._id}
       />
     </div>
   );

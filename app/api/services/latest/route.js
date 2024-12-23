@@ -9,7 +9,10 @@ export async function POST(request) {
     const { searchParams } = new URL(request.url);
     const limit = Math.min(parseInt(searchParams.get("limit")) || 10, 100);
 
-    let data = await request.json();
+    // let data = await request.json();
+    let data = {
+      city: "Patna",
+    };
     await connectMongoDB();
 
     const user = await isLoggedIn(request);
@@ -36,7 +39,10 @@ export async function POST(request) {
       })
       .lean();
 
-    return NextResponse.json({ success: true, data: services }, { status: 200 });
+    return NextResponse.json(
+      { success: true, data: services },
+      { status: 200 }
+    );
   } catch (error) {
     console.log("Error fetching services:", error);
     return NextResponse.json(
