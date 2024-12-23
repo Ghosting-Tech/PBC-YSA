@@ -26,14 +26,14 @@ const BookingHeader = ({ booking }) => {
         </h2>
       </div>
       <div className="flex items-center gap-2">
-        {user.role === "service-provider" && (
+        {user?.role === "service-provider" && booking.completed === false && (
           <Button
             color="red"
             size="sm"
             className="rounded-full text-xs"
             onClick={() => setIsLeaveDialogOpen(true)}
           >
-            Abandon
+            Abandon Request
           </Button>
         )}
         <div
@@ -50,7 +50,7 @@ const BookingHeader = ({ booking }) => {
           }`}
         >
           {booking.status == "Request sended to service provider!" &&
-          user.role !== "user"
+          user?.role !== "user"
             ? "New Booking request"
             : booking.status}
         </div>
@@ -60,8 +60,9 @@ const BookingHeader = ({ booking }) => {
       </div>
       <LeaveServiceDialog
         isOpen={isLeaveDialogOpen}
-        onClose={() => setIsLeaveDialogOpen(false)}
+        setIsOpen={setIsLeaveDialogOpen}
         onLeave={handleLeave}
+        id={booking._id}
       />
     </div>
   );

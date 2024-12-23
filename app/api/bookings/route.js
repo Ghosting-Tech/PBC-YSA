@@ -83,9 +83,7 @@ export async function POST(request) {
     const { formData, location, cartItems, user, paymentStatus } =
       await request.json();
     const otp = generateOTP();
-    // const { lat, lng } = location;
-    const lat = 25.5941;
-    const lng = 85.1376;
+    const { lat, lng } = location;
 
     // Fetch all service providers and filter based on proximity (within 15 km)
     const serviceProviders = await User.find({

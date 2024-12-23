@@ -9,22 +9,11 @@ export async function POST(request) {
     const { searchParams } = new URL(request.url);
     const limit = Math.min(parseInt(searchParams.get("limit")) || 10, 100);
 
-    // let data = await request.json();
-    let data = {
-      city: "Patna",
-    };
+    const data = await request.json();
+
     await connectMongoDB();
 
-    // data = JSON.parse(data);
-
-    console.log("new service", data);
-
-    // const user = await isLoggedIn(request);
-    const user = {
-      user: {
-        role: "user",
-      },
-    };
+    const user = await isLoggedIn(request);
 
     // Define the base match query for services
     let matchQuery = {};
@@ -39,14 +28,39 @@ export async function POST(request) {
     }
 
     // Fetch the services with a standard `find` query
-    const services = await Service.find(matchQuery)
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .populate({
-        path: "subServices",
-        match: user?.user?.role !== "admin" ? { status: "active" } : {}, // Filters subservices only if user is not admin
-      })
-      .lean();
+    const services = await Service.aggregate([
+      {
+        $match: matchQuery, // Filter documents based on matchQuery
+      },
+      {
+        $addFields: {
+          reviewCount: { $size: "$reviews" }, // Calculate the length of the bookings array
+        },
+      },
+      {
+        $sort: { reviewCount: -1 }, // Sort by the calculated field
+      },
+      {
+        $limit: limit, // Apply the limit
+      },
+      {
+        $lookup: {
+          from: "subs", // The collection name for subServices
+          localField: "subServices",
+          foreignField: "_id",
+          as: "subServices",
+          pipeline:
+            user?.user?.role !== "admin"
+              ? [{ $match: { status: "active" } }]
+              : [],
+        },
+      },
+      {
+        $project: {
+          reviewCount: 0, // Remove the temporary field if not needed in the response
+        },
+      },
+    ]);
 
     return NextResponse.json(services, { status: 200 });
   } catch (error) {

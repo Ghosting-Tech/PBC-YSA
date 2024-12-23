@@ -37,10 +37,14 @@ export async function PUT(request, { params }) {
     .populate("availableServiceProviders")
     .populate("user");
 
-  const mobile = updatedBooking.phoneNumber;
-  const name = updatedBooking.fullname;
-  const bookingId = updatedBooking.bookingId;
-  const itemNames = updatedBooking.cartItems
+  if (!updatedBooking) {
+    return NextResponse.json({ error: "Booking not found " }, { status: 404 });
+  }
+
+  const mobile = updatedBooking?.phoneNumber;
+  const name = updatedBooking?.fullname;
+  const bookingId = updatedBooking?.bookingId;
+  const itemNames = updatedBooking?.cartItems
     .map((item) => item.name)
     .join(", ");
   const truncatedItemNames =
