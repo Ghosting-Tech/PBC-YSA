@@ -120,28 +120,47 @@ export async function DELETE(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
+    const { id } = params;
 
-    if (!data._id) {
+    if (!id) {
       return NextResponse.json(
-        { success: false, message: "Service ID not found" },
+        { success: false, message: "Service ID not provided" },
         { status: 400 }
       );
     }
 
-    // Connect to MongoDB if not already connected
+    if (!data || Object.keys(data).length === 0) {
+      return NextResponse.json(
+        { success: false, message: "No data provided for update" },
+        { status: 400 }
+      );
+    }
+
     await connectMongoDB();
 
-    // Update the service by ID
-    const updatedService = await Service.findByIdAndUpdate(data._id, data, {
-      new: true,
-    }).populate("subServices");
-
-    if (!updatedService) {
+    // Check if the service exists
+    const serviceExists = await Service.findById(id);
+    if (serviceExists === null) {
       return NextResponse.json(
         { success: false, message: "Service not found" },
         { status: 404 }
       );
     }
+
+    // Update the service
+    const updatedService = await Service.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true,
+    }).populate("subServices");
+
+    if (!updatedService) {
+      return NextResponse.json(
+        { success: false, message: "Failed to update the service" },
+        { status: 500 }
+      );
+    }
+
+    console.log("Updated Service:", updatedService);
 
     return NextResponse.json(
       {
@@ -152,13 +171,13 @@ export async function PUT(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("update service error", error);
-    // Handle unexpected errors
+    console.error("Error updating service:", error);
+
     return NextResponse.json(
       {
         success: false,
         message: "Failed to update the service",
-        error: error,
+        error: error.message || "An unknown error occurred",
       },
       { status: 500 }
     );
