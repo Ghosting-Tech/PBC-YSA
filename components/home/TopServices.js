@@ -93,7 +93,8 @@ const TopServices = ({ topServices }) => {
       animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}
       style={{
-        backgroundImage: "url(/image/shape-3-2.png)",
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=2091&auto=format&fit=crop)",
         backgroundRepeat: "no-repeat",
       }}
       className="py-12"
@@ -101,7 +102,7 @@ const TopServices = ({ topServices }) => {
       <motion.div variants={itemVariants} className="text-center mb-12">
         <Typography
           variant="h1"
-          color="blue-gray"
+          color="white"
           className="mb-4 font-julius font-bold"
         >
           For All Your Needs we provide

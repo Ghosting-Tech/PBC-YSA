@@ -410,3 +410,19 @@ td:not(:last-child) {
 th:not(:last-child) {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0f1c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2236;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3446;
+}

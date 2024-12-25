@@ -153,7 +153,7 @@ export default function EnhancedNav() {
 
   return (
     <motion.div
-      className="mx-auto max-w-full px-8 rounded-none shadow-none border-none bg-transparent z-50"
+      className="mx-auto max-w-full px-8 rounded-none shadow-none border-none bg-[#243052] opacity-100"
       initial="hidden"
       animate="visible"
       variants={navVariants}

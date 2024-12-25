@@ -1,14 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardHeader, Button } from "@material-tailwind/react";
-import { MapPinIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
+import { MapPinIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  Select,
+  Option,
+  Button,
+  Card,
+  Typography,
+} from "@material-tailwind/react";
 import TopServices from "./TopServices";
+import ServiceCard from "./ServiceCard";
 import locationData from "@/assets/location.json";
 import { useSelector } from "react-redux";
-import ServiceCard from "./ServiceCard";
 
 export default function ServiceContainer({
   selectedState,
@@ -58,15 +63,13 @@ export default function ServiceContainer({
     },
   };
 
-  const selectVariants = {
-    hover: {
-      scale: 1.02,
-      boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.1)",
-    },
-  };
-
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen bg-gradient-to-b from-blue-gray-900 to-blue-gray-800 text-white"
+    >
       {!geolocationDenied && topServices?.length !== 0 ? (
         forAllService ? (
           <motion.div
@@ -96,88 +99,63 @@ export default function ServiceContainer({
           variants={itemVariants}
           className="flex justify-center items-center min-h-[60vh]"
         >
-          <Card className="w-11/12 md:w-3/5 shadow-lg mt-8 p-6 pt-0 mx-auto">
-            <CardHeader
-              variant="gradient"
-              color="blue"
-              className="mb-4 grid h-28 place-items-center"
-            >
-              <motion.div
-                className="text-7xl font-cookie"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                Select City
-              </motion.div>
-            </CardHeader>
+          <Card className="w-11/12 md:w-3/5 mt-8 p-8 mx-auto bg-opacity-80 bg-white shadow-lg border border-blue-gray-700">
             <motion.div
-              className="flex gap-4 flex-col md:flex-row"
+              className="text-4xl md:text-5xl font-bold text-center mb-8"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Typography variant="h2" color="blue-gray">
+                Select Your Location
+              </Typography>
+            </motion.div>
+            <motion.div
+              className="flex gap-6 flex-col md:flex-row"
               variants={containerVariants}
             >
-              <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 w-full sm:w-4/6">
+              <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full">
                 <motion.div className="relative w-full" variants={itemVariants}>
-                  <motion.select
-                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full md:w-64"
-                    name="state"
+                  <Select
+                    label="Select State"
                     value={selectedState}
-                    onChange={(e) => setSelectedState(e.target.value)}
+                    onChange={(value) => setSelectedState(value)}
                     required
-                    variants={selectVariants}
+                    color="blue"
                   >
-                    <option value="" disabled>
-                      Select State
-                    </option>
                     {Object.keys(locationData).map((state) => (
-                      <option key={state} value={state}>
+                      <Option key={state} value={state}>
                         {state}
-                      </option>
+                      </Option>
                     ))}
-                  </motion.select>
-                  <motion.div
-                    className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                    animate={{ rotate: selectedState ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </motion.div>
+                  </Select>
                 </motion.div>
 
                 <motion.div className="relative w-full" variants={itemVariants}>
-                  <motion.select
-                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full md:w-64"
-                    name="city"
+                  <Select
+                    label="Select City"
                     value={selectedCity}
-                    onChange={(e) => setSelectedCity(e.target.value)}
+                    onChange={(value) => setSelectedCity(value)}
                     required
-                    variants={selectVariants}
+                    disabled={!selectedState}
+                    color="blue"
                   >
-                    <option value="" disabled>
-                      Select City
-                    </option>
                     {cities.map((city) => (
-                      <option key={city} value={city}>
+                      <Option key={city} value={city}>
                         {city}
-                      </option>
+                      </Option>
                     ))}
-                  </motion.select>
-                  <motion.div
-                    className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                    animate={{ rotate: selectedCity ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </motion.div>
+                  </Select>
                 </motion.div>
               </div>
 
               <Button
-                variant="gradient"
-                fullWidth
-                size="md"
                 onClick={handleLocationChange}
                 disabled={!selectedState || !selectedCity}
-                className="flex items-center justify-center gap-2"
+                variant="gradient"
+                color="blue"
+                size="lg"
+                className="flex items-center gap-2 justify-center"
               >
                 <MapPinIcon className="h-5 w-5" />
                 Confirm Location

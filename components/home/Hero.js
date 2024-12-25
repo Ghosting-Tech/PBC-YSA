@@ -1,307 +1,162 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { Button } from "@material-tailwind/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  Button,
-  Typography,
-  Card,
-  CardBody,
-  Carousel,
-  IconButton,
-} from "@material-tailwind/react";
-import { RxDoubleArrowRight } from "react-icons/rx";
-import { BsPersonFillAdd } from "react-icons/bs";
-import { FaStar, FaUsers } from "react-icons/fa";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+  HeartIcon,
+  ShieldCheckIcon,
+  UserGroupIcon,
+  StethoscopeIcon,
+} from "@heroicons/react/24/solid";
+import { useRef } from "react";
 import Link from "next/link";
+import { LuStethoscope } from "react-icons/lu";
 
-const Hero = () => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+export default function Hero() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
   });
 
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
-
-  const buttonVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 10,
-      },
-    },
-  };
-
-  const carouselVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
-
-  const images = [
-    "/home/hero/ac-repairing.jpg",
-    "/home/hero/nursing.jpg",
-    "/home/hero/cleaning.jpg",
-    "/home/hero/carpenter.jpg",
-  ];
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <motion.div
-      ref={ref}
-      className="overflow-hidden relative"
-      variants={containerVariants}
-      initial="hidden"
-      animate={controls}
-    >
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          <motion.div className="lg:w-1/2" variants={itemVariants}>
-            <motion.div variants={textVariants}>
-              <Typography
-                variant="small"
-                color="blue"
-                className="mb-2 font-semibold uppercase tracking-wider"
-              >
-                Your One-Stop Solution
-              </Typography>
-              <Typography
-                variant="h1"
-                color="blue-gray"
-                className="mb-4 font-bold"
-              >
-                Elevate Your Lifestyle with
-                <motion.span
-                  className="text-blue-500 font-cookie font-medium text-7xl inline-block"
-                  animate={{
-                    y: [0, -10, 0],
-                    transition: {
-                      y: {
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut",
-                      },
-                    },
-                  }}
-                >
-                  Expert Services
-                </motion.span>
-              </Typography>
-              <Typography
-                variant="lead"
-                className="mb-8 leading-2 text-gray-600"
-              >
-                Connect with skilled professionals for all your needs. From home
-                maintenance to personal care, we&apos;ve got you covered.
-              </Typography>
-            </motion.div>
-            <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full">
-              <motion.div variants={buttonVariants}>
-                <Link href="/services" className="no-underline">
-                  <Button
-                    size="lg"
-                    color="blue"
-                    variant="gradient"
-                    ripple
-                    className="flex items-center justify-center gap-2 w-full hover:scale-105"
-                  >
-                    <span>Explore Services</span>
-                    <RxDoubleArrowRight size={18} />
-                  </Button>
-                </Link>
-              </motion.div>
-              <motion.div variants={buttonVariants}>
-                <Link href="/become-service-provider" className="no-underline">
-                  <Button
-                    size="lg"
-                    color="blue"
-                    variant="outlined"
-                    ripple
-                    className="flex items-center justify-center gap-2 w-full hover:scale-105 transition-all duration-300"
-                  >
-                    <span>Become a Provider</span>
-                    <BsPersonFillAdd size={18} />
-                  </Button>
-                </Link>
-              </motion.div>
-            </div>
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-              variants={itemVariants}
-            >
-              <Card className="bg-white shadow-none">
-                <CardBody className="flex items-center gap-4">
-                  <motion.div className="bg-blue-50 p-3 rounded-full">
-                    <FaUsers className="text-blue-500 w-6 h-6" />
-                  </motion.div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      200,000+
-                    </Typography>
-                    <Typography
-                      variant="small"
-                      color="gray"
-                      className="font-normal"
-                    >
-                      Satisfied Customers
-                    </Typography>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card className="bg-white shadow-none">
-                <CardBody className="flex items-center gap-4">
-                  <div className="bg-yellow-50 p-3 rounded-full">
-                    <FaStar className="text-yellow-700 w-6 h-6" />
-                  </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      4.8 / 5
-                    </Typography>
-                    <Typography
-                      variant="small"
-                      color="gray"
-                      className="font-normal"
-                    >
-                      Average Rating
-                    </Typography>
-                  </div>
-                </CardBody>
-              </Card>
-            </motion.div>
-          </motion.div>
-          <motion.div className="lg:w-1/2" variants={carouselVariants}>
-            <div className="relative">
-              <Carousel
-                className="rounded-xl"
-                autoplay={true}
-                loop={true}
-                prevArrow={({ handlePrev }) => (
-                  <IconButton
-                    variant="text"
-                    color="white"
-                    size="lg"
-                    onClick={handlePrev}
-                    className="!absolute top-2/4 left-4 -translate-y-2/4 z-20 bg-white/10 hover:bg-white/30 transition-all duration-300"
-                  >
-                    <ArrowLeftIcon strokeWidth={2} className="w-5 h-5" />
-                  </IconButton>
-                )}
-                nextArrow={({ handleNext }) => (
-                  <IconButton
-                    variant="text"
-                    color="white"
-                    size="lg"
-                    onClick={handleNext}
-                    className="!absolute top-2/4 right-4 -translate-y-2/4 z-20 bg-white/10 hover:bg-white/30 transition-all duration-300"
-                  >
-                    <ArrowRightIcon strokeWidth={2} className="w-5 h-5" />
-                  </IconButton>
-                )}
-                navigation={({ setActiveIndex, activeIndex, length }) => (
-                  <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-                    {new Array(length).fill("").map((_, i) => (
-                      <span
-                        key={i}
-                        className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                          activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
-                        }`}
-                        onClick={() => setActiveIndex(i)}
-                      />
-                    ))}
-                  </div>
-                )}
-              >
-                {images.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image}
-                    alt={`Service ${index + 1}`}
-                    width={1000}
-                    height={600}
-                    className="h-[450px] lg:h-[650px] w-full object-cover"
-                  />
-                ))}
-              </Carousel>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-xl"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              />
-              <motion.div
-                className="absolute bottom-8 left-8 right-8"
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                <Typography variant="h3" color="white" className="mb-2">
-                  Quality Service at Your Fingertips
-                </Typography>
-                <Typography variant="small" color="white">
-                  Book trusted professionals for any job, anytime.
-                </Typography>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+    <div ref={containerRef} className="relative min-h-[150vh]">
+      {/* Hero Content */}
+      <div className="sticky top-0 h-full overflow-hidden py-10">
+        <motion.div className="h-full">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=2091&auto=format&fit=crop"
+              alt="Modern healthcare facility"
+              className="w-full h-full object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/80 to-transparent" />
+          </div>
 
-export default Hero;
+          {/* Content */}
+          <div className="relative h-full">
+            <div className="container mx-auto px-4 h-full flex items-center">
+              <div className="max-w-2xl space-y-6 text-center sm:text-left">
+                {/* Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mx-auto sm:mx-0"
+                >
+                  <LuStethoscope className="w-5 h-5" />
+                  <span className="text-sm font-medium">
+                    Modern Healthcare Solutions
+                  </span>
+                </motion.div>
+
+                {/* Main Heading */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="space-y-4"
+                >
+                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white">
+                    The Future of{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
+                      Healthcare
+                    </span>
+                  </h1>
+                  <p className="text-lg sm:text-xl text-gray-400 max-w-xl mx-auto sm:mx-0">
+                    Experience revolutionary healthcare with cutting-edge
+                    technology and compassionate care. Your well-being is our
+                    priority.
+                  </p>
+                </motion.div>
+
+                {/* CTA Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start"
+                >
+                  <Link
+                    href="/become-service-provider"
+                    className="no-underline"
+                  >
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-blue-500 to-teal-500 text-white w-full sm:w-auto"
+                    >
+                      Become a Provider
+                    </Button>
+                  </Link>
+                  <Link href="/services" className="no-underline">
+                    <Button
+                      size="lg"
+                      variant="outlined"
+                      className="text-gray-300 border-gray-600 hover:bg-gray-800 w-full sm:w-auto"
+                    >
+                      Explore Services
+                    </Button>
+                  </Link>
+                </motion.div>
+
+                {/* Stats */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-8"
+                >
+                  {[
+                    {
+                      icon: <UserGroupIcon className="w-6 h-6" />,
+                      label: "10k+",
+                      sublabel: "Patients",
+                    },
+                    {
+                      icon: <HeartIcon className="w-6 h-6" />,
+                      label: "24/7",
+                      sublabel: "Care",
+                    },
+                    {
+                      icon: <ShieldCheckIcon className="w-6 h-6" />,
+                      label: "100%",
+                      sublabel: "Secure",
+                    },
+                    {
+                      icon: <LuStethoscope className="w-6 h-6" />,
+                      label: "100+",
+                      sublabel: "Providers",
+                    },
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                      className="relative group"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-xl blur-lg group-hover:blur-2xl transition-all duration-300" />
+                      <div className="relative p-4 rounded-xl border border-gray-700 bg-gray-900/50">
+                        <div className="text-blue-400 mb-2">{stat.icon}</div>
+                        <div className="text-2xl font-bold text-white">
+                          {stat.label}
+                        </div>
+                        <div className="text-sm text-gray-400">
+                          {stat.sublabel}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
