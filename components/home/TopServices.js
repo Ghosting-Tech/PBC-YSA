@@ -12,10 +12,12 @@ import ServiceCard from "./ServiceCard";
 const NextArrow = ({ onClick }) => {
   return (
     <motion.div
-      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 right-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
+      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 right-4 bg-white text-blue-500 rounded-full p-3 cursor-pointer z-10 shadow-lg"
       onClick={onClick}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <MdChevronRight className="w-6 h-6" />
+      <MdChevronRight className="w-8 h-8" />
     </motion.div>
   );
 };
@@ -23,10 +25,12 @@ const NextArrow = ({ onClick }) => {
 const PrevArrow = ({ onClick }) => {
   return (
     <motion.div
-      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 left-2 bg-gray-700 text-white rounded-full p-2 cursor-pointer z-10"
+      className="absolute hover:scale-110 transition-all duration-300 top-1/2 transform -translate-y-1/2 left-4 bg-white text-blue-500 rounded-full p-3 cursor-pointer z-10 shadow-lg"
       onClick={onClick}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <MdChevronLeft className="w-6 h-6" />
+      <MdChevronLeft className="w-8 h-8" />
     </motion.div>
   );
 };
@@ -74,14 +78,14 @@ const TopServices = ({ topServices }) => {
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 10,
+        damping: 12,
       },
     },
   };
@@ -92,27 +96,28 @@ const TopServices = ({ topServices }) => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}
-      style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=2091&auto=format&fit=crop)",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="py-12"
+      className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200 overflow-hidden"
     >
-      <motion.div variants={itemVariants} className="text-center mb-12">
+      <motion.div variants={itemVariants} className="text-center mb-16">
         <Typography
           variant="h1"
-          color="white"
-          className="mb-4 font-julius font-bold"
+          color="blue-gray"
+          className="mb-4 font-sans text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
         >
-          For All Your Needs we provide
+          For All Your Needs
         </Typography>
-        <motion.span
-          className="text-blue-500 font-cookie font-medium text-7xl inline-block"
+        <motion.div
+          className="text-blue-600 font-serif text-5xl md:text-6xl lg:text-7xl font-medium inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600"
           animate={{
             y: [0, -10, 0],
+            scale: [1, 1.05, 1],
             transition: {
               y: {
+                repeat: Infinity,
+                duration: 2,
+                ease: "easeInOut",
+              },
+              scale: {
                 repeat: Infinity,
                 duration: 2,
                 ease: "easeInOut",
@@ -120,25 +125,25 @@ const TopServices = ({ topServices }) => {
             },
           }}
         >
-          Best Services
-        </motion.span>
+          We Provide the Best Services
+        </motion.div>
       </motion.div>
 
       <motion.div
         variants={itemVariants}
-        className="relative container mx-auto px-4 md:px-0 gap-2 items-center w-full"
+        className="relative container mx-auto px-4 md:px-8 gap-2 items-center w-full"
       >
         {topServices?.length <= 3 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence>
               {topServices.map((service) => (
                 <motion.div
                   key={service._id}
                   className="px-2 hover:scale-105 transition-all duration-300"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, scale: 0.9, rotateY: -30 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, rotateY: 30 }}
+                  transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
                 >
                   <ServiceCard service={service} />
                 </motion.div>
@@ -150,7 +155,8 @@ const TopServices = ({ topServices }) => {
             {topServices?.map((service) => (
               <motion.div
                 key={service._id}
-                className="px-2 hover:scale-105 transition-all duration-300"
+                className="px-4 py-2"
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
                 <ServiceCard service={service} />

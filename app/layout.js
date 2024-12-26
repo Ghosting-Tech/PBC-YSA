@@ -15,8 +15,8 @@ const racingSansOne = Racing_Sans_One({
 });
 
 export const metadata = {
-  title: "Yourserviceapp",
-  description: "Find the best service at Yourserviceapp",
+  title: "Trustotry",
+  description: "Find the best service at Trustotry",
   icons: {
     icon: "/favicon.ico",
   },

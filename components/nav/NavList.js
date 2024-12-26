@@ -1,16 +1,14 @@
 "use client";
+
 import {
   Button,
   List,
   Dialog,
   DialogBody,
   IconButton,
-  Typography,
 } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
-import { FaSearch } from "react-icons/fa";
-import { FaCartShopping, FaLocationDot } from "react-icons/fa6";
-import { IoMdOpen } from "react-icons/io";
+import { Search, ShoppingCart, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Fuse from "fuse.js";
@@ -22,7 +20,6 @@ import { toast } from "sonner";
 
 export default function NavList() {
   const [open2, setOpen2] = useState(false);
-
   const handleOpen2 = () => setOpen2(!open2);
 
   const [topServices, setTopServices] = useState([]);
@@ -46,7 +43,7 @@ export default function NavList() {
   const gettingServices = async () => {
     try {
       if (!city) {
-        toast.error("Please select a location for continue!");
+        toast.error("Please select a location to continue!");
       }
       if (topBookedServices.services.length > 0) {
         console.log("All services already fetched");
@@ -88,7 +85,6 @@ export default function NavList() {
     threshold: 0.3,
   };
 
-  // Flatten the data array to include both services and their sub-services
   const flattenedData = allServices.flatMap((service) => [
     service,
     ...service.subServices.map((subService) => ({
@@ -99,7 +95,7 @@ export default function NavList() {
   ]);
 
   const fuse = new Fuse(flattenedData, fuseOptions);
-  function handleSerch(query) {
+  function handleSearch(query) {
     if (!query) {
       setSearchError("");
       setSearchedData([]);
@@ -115,21 +111,19 @@ export default function NavList() {
   }
 
   const [openLocationDialog, setOpenLocationDialog] = useState(false);
-
   const handleLocationDialog = () => setOpenLocationDialog(!openLocationDialog);
 
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 md:gap-4">
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 md:gap-4 md:mr-4">
       <ServicesList />
-      <div className="flex gap-2 justify-evenly">
+      <div className="flex gap-4 justify-evenly">
         <Button
-          variant="gradient"
-          className="flex gap-1 w-full md:w-fit justify-center"
-          color="white"
+          variant="outlined"
+          className="flex items-center gap-2 w-full md:w-fit justify-center text-blue-500 border-blue-500"
           onClick={handleLocationDialog}
         >
-          <FaLocationDot size={18} color="#F44336" />
-          {city}
+          <MapPin size={18} color="red" />
+          <span className="truncate max-w-[100px]">{city}</span>
         </Button>
 
         <LocationDialog
@@ -139,16 +133,18 @@ export default function NavList() {
 
         <IconButton
           onClick={handleOpen2}
-          variant="gradient"
-          color="white"
-          className="w-full md:w-36"
+          variant="outlined"
+          className="w-full md:w-12 h-12 border-blue-500 text-blue-500"
         >
-          <FaSearch size={18} />
+          <Search size={18} />
         </IconButton>
 
         <Link href={"/cart"} className="no-underline">
-          <IconButton variant="gradient" color="white">
-            <FaCartShopping size={20} />
+          <IconButton
+            variant="outlined"
+            className="w-12 h-12 border-blue-500 text-blue-500"
+          >
+            <ShoppingCart size={20} />
           </IconButton>
         </Link>
         <Dialog
@@ -160,109 +156,49 @@ export default function NavList() {
             unmount: { scale: 0.9, y: -100 },
           }}
         >
-          <DialogBody className="p-10 min-h-[90vh] bg-gray-100 rounded-xl">
-            <div className="flex gap-3 mb-4 md:mb-10 justify-center items-center">
-              <h1 className="text-2xl md:text-4xl font-julius uppercase">
-                Search For Service
+          <DialogBody className="p-6 md:p-10 min-h-[90vh] bg-gray-50 rounded-xl">
+            <div className="flex flex-col gap-3 mb-6 md:mb-10 items-center">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
+                Search For Services
               </h1>
-              <h2 className="text-3xl md:text-5xl font-cookie text-blue-500">
-                You like
-              </h2>
+              <p className="text-lg md:text-xl text-blue-500">
+                Find the perfect service for you
+              </p>
             </div>
             <Input
               label="Search a Service"
               color="blue"
-              onChange={(e) => handleSerch(e.target.value)}
-              icon={<FaSearch className="cursor-pointer text-blue-500" />}
+              onChange={(e) => handleSearch(e.target.value)}
+              icon={<Search className="cursor-pointer text-blue-500" />}
             />
             <div>
-              <div className="flex gap-2 items-center my-4">
-                <h2 className="whitespace-nowrap text-gray-500 text-xs">
-                  Most Booked Services You may like
+              <div className="flex gap-2 items-center my-6">
+                <h2 className="whitespace-nowrap text-gray-600 text-sm font-medium">
+                  Most Booked Services
                 </h2>
                 <div className="h-px bg-gray-300 w-full"></div>
               </div>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-3  overflow-auto no-scrollbar">
+              <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-auto max-h-[60vh]">
                 {searchError ? (
-                  <div>{searchError}</div>
+                  <div className="col-span-full text-center text-red-500">
+                    {searchError}
+                  </div>
                 ) : searchedData.length <= 0 ? (
-                  topServices.map((service, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="bg-white rounded-lg py-4 px-4"
-                      >
-                        <div className="flex flex-col items-center gap-2">
-                          <Image
-                            width={100}
-                            height={100}
-                            src={service.icon.url}
-                            alt={service.name}
-                            className="w-10 h-10 md:w-16 md:h-16 rounded-md"
-                          />
-                          <div className="flex flex-col items-center gap-1 w-full">
-                            <h2 className="text-gray-700 font-julius font-semibold text-center">
-                              {service.name}
-                            </h2>
-                            {/* <p className="text-gray-500">{service.name}</p> */}
-                            <Link href={`/services/${service._id}`}>
-                              <Button
-                                variant="gradient"
-                                color="blue"
-                                className="rounded w-full flex items-center gap-1"
-                                size="sm"
-                                onClick={handleOpen2}
-                              >
-                                View <IoMdOpen />
-                              </Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
+                  topServices.map((service, index) => (
+                    <ServiceCard
+                      key={index}
+                      service={service}
+                      handleOpen2={handleOpen2}
+                    />
+                  ))
                 ) : (
-                  searchedData.map((service, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="bg-white rounded-lg py-4 px-4 h-fit"
-                      >
-                        <div className="flex flex-col items-center gap-2">
-                          <Image
-                            width={100}
-                            height={100}
-                            src={service.item.icon.url}
-                            alt={service.item.name}
-                            className="w-10 h-10 md:w-16 md:h-16 rounded-md"
-                          />
-                          <div className="flex flex-col items-center gap-1 w-full">
-                            <h2 className="text-gray-700 font-julius font-semibold text-center">
-                              {service.item.name}
-                            </h2>
-                            {/* <p className="text-gray-500">{service.item.name}</p> */}
-                            <Link
-                              href={`/services/${
-                                service.item.parentServiceId
-                                  ? service.item.parentServiceId
-                                  : service.item._id
-                              }`}
-                            >
-                              <Button
-                                variant="gradient"
-                                color="blue"
-                                className="rounded w-full flex items-center gap-1"
-                                size="sm"
-                                onClick={handleOpen2}
-                              >
-                                View <IoMdOpen />
-                              </Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
+                  searchedData.map((result, index) => (
+                    <ServiceCard
+                      key={index}
+                      service={result.item}
+                      handleOpen2={handleOpen2}
+                    />
+                  ))
                 )}
               </div>
             </div>
@@ -270,5 +206,37 @@ export default function NavList() {
         </Dialog>
       </div>
     </List>
+  );
+}
+
+function ServiceCard({ service, handleOpen2 }) {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-4 transition-all hover:shadow-lg">
+      <div className="flex flex-col items-center gap-3">
+        <Image
+          width={64}
+          height={64}
+          src={service.icon.url}
+          alt={service.name}
+          className="rounded-md object-cover"
+        />
+        <div className="flex flex-col items-center gap-2 w-full">
+          <h2 className="text-gray-800 font-semibold text-center text-sm md:text-base">
+            {service.name}
+          </h2>
+          <Link href={`/services/${service.parentServiceId || service._id}`}>
+            <Button
+              variant="gradient"
+              color="blue"
+              className="rounded w-full flex items-center justify-center gap-1 text-xs md:text-sm"
+              size="sm"
+              onClick={handleOpen2}
+            >
+              View Details
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

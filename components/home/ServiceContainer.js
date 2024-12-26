@@ -68,7 +68,7 @@ export default function ServiceContainer({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-gradient-to-b from-blue-gray-900 to-blue-gray-800 text-white"
+      className="min-h-screen bg-transparent text-white"
     >
       {!geolocationDenied && topServices?.length !== 0 ? (
         forAllService ? (

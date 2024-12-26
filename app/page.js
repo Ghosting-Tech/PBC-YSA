@@ -21,6 +21,7 @@ import ServiceContainer from "@/components/home/ServiceContainer";
 import HowToBook from "@/components/home/HowToBook";
 import Footer from "@/components/Footer";
 import Nav from "@/components/nav/Nav";
+import EnhancedNav from "@/components/nav/Nav";
 const fetchTopServices = async (cityState) => {
   try {
     const response = await axios.post(
@@ -151,7 +152,7 @@ export default function Home() {
   return (
     <main>
       <>
-        <Nav />
+        <EnhancedNav />
         <Hero />
         <ServiceContainer
           selectedState={selectedState}

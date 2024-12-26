@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconButton } from "@material-tailwind/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Menu, X } from "lucide-react";
 import { toast } from "sonner";
 
 import Logo from "../Logo";
@@ -16,7 +16,7 @@ import NavList from "./NavList";
 import Profile from "./user-profile/Profile";
 import UserNavigation from "./user-profile/UserNavigation";
 
-const MotionIconButton = motion.create(IconButton);
+const MotionIconButton = motion(IconButton);
 
 export default function EnhancedNav() {
   const [openNav, setOpenNav] = useState(false);
@@ -79,24 +79,22 @@ export default function EnhancedNav() {
   }, [user, token, dispatch]);
 
   const navVariants = {
-    hidden: { opacity: 0, y: -100 },
+    hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 50,
-        damping: 20,
+        stiffness: 100,
+        damping: 15,
         mass: 1,
-        duration: 1.5,
-        staggerChildren: 0.2,
-        delayChildren: 0.5,
+        duration: 0.5,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: -50 },
+    hidden: { opacity: 0, y: -10 },
     visible: {
       opacity: 1,
       y: 0,
@@ -104,125 +102,124 @@ export default function EnhancedNav() {
         type: "spring",
         stiffness: 100,
         damping: 10,
-        duration: 1,
+        duration: 0.3,
       },
     },
   };
 
   const logoVariants = {
-    hidden: { opacity: 0, scale: 0.5, rotate: -180 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
-      rotate: 0,
       transition: {
         type: "spring",
         stiffness: 200,
         damping: 20,
-        duration: 1.5,
+        duration: 0.5,
       },
     },
   };
 
   const menuIconVariants = {
-    open: { rotate: 180, scale: 1.2 },
+    open: { rotate: 180, scale: 1.1 },
     closed: { rotate: 0, scale: 1 },
   };
 
   const mobileMenuVariants = {
-    hidden: { opacity: 0, height: 0, skew: 20 },
+    hidden: { opacity: 0, height: 0 },
     visible: {
       opacity: 1,
       height: "auto",
-      skew: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.04, 0.62, 0.23, 0.98],
+        duration: 0.3,
+        ease: "easeInOut",
       },
     },
     exit: {
       opacity: 0,
       height: 0,
-      skew: -20,
       transition: {
-        duration: 0.6,
-        ease: [0.04, 0.62, 0.23, 0.98],
+        duration: 0.3,
+        ease: "easeInOut",
       },
     },
   };
 
   return (
-    <motion.div
-      className="mx-auto max-w-full px-8 rounded-none shadow-none border-none bg-[#243052] opacity-100"
+    <motion.nav
+      className="sticky top-0 z-50 bg-white shadow-md py-3"
       initial="hidden"
       animate="visible"
       variants={navVariants}
     >
-      <div className="flex items-center justify-between text-blue-gray-900 bg-transparent">
-        <motion.div variants={logoVariants}>
-          <Link href="/" className="cursor-pointer">
-            <Logo />
-          </Link>
-        </motion.div>
-        <motion.div
-          className="hidden gap-2 lg:flex lg:items-center lg:justify-end w-full"
-          variants={itemVariants}
-        >
-          <NavList />
-          <Profile
-            openLoginDialog={openLoginDialog}
-            handleOpenLoginDialog={handleOpenLoginDialog}
-            setOpenLoginDialog={setOpenLoginDialog}
-          />
-        </motion.div>
-        <motion.div
-          className="flex items-center justify-end gap-1"
-          variants={itemVariants}
-        >
-          <MotionIconButton
-            variant="text"
-            color="blue-gray"
-            className="lg:hidden"
-            onClick={() => setOpenNav(!openNav)}
-            animate={openNav ? "open" : "closed"}
-            variants={menuIconVariants}
-            transition={{ duration: 0.6 }}
-          >
-            <AnimatePresence mode="wait">
-              {openNav ? (
-                <motion.div
-                  key="close"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="open"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </MotionIconButton>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <motion.div variants={logoVariants}>
+            <Link href="/" className="flex items-center">
+              <Logo />
+            </Link>
+          </motion.div>
           <motion.div
-            className="flex w-fit items-center gap-2 lg:hidden"
+            className="hidden lg:flex lg:items-center lg:justify-end w-full"
             variants={itemVariants}
           >
-            <UserNavigation
-              userLoading={userLoading}
-              user={user}
+            <NavList />
+            <Profile
+              openLoginDialog={openLoginDialog}
               handleOpenLoginDialog={handleOpenLoginDialog}
+              setOpenLoginDialog={setOpenLoginDialog}
             />
           </motion.div>
-        </motion.div>
+          <motion.div
+            className="flex items-center lg:hidden"
+            variants={itemVariants}
+          >
+            <MotionIconButton
+              variant="text"
+              color="blue-gray"
+              className="ml-auto"
+              onClick={() => setOpenNav(!openNav)}
+              animate={openNav ? "open" : "closed"}
+              variants={menuIconVariants}
+              transition={{ duration: 0.3 }}
+            >
+              <AnimatePresence mode="wait">
+                {openNav ? (
+                  <motion.div
+                    key="close"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="open"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="h-6 w-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </MotionIconButton>
+            <motion.div
+              className="flex items-center ml-4"
+              variants={itemVariants}
+            >
+              <UserNavigation
+                userLoading={userLoading}
+                user={user}
+                handleOpenLoginDialog={handleOpenLoginDialog}
+              />
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
       <AnimatePresence>
         {openNav && (
@@ -231,11 +228,14 @@ export default function EnhancedNav() {
             initial="hidden"
             animate="visible"
             exit="exit"
+            className="lg:hidden"
           >
-            <NavList />
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <NavList />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </motion.nav>
   );
 }
