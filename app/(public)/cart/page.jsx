@@ -92,7 +92,7 @@ const Cart = () => {
                   <div>Please Choose a Service First</div>
                   <Link href={"/services"} legacyBehavior>
                     <Button
-                      color="blue"
+                      color="purple"
                       variant="gradient"
                       className="rounded whitespace-nowrap"
                     >
@@ -125,7 +125,7 @@ const Cart = () => {
                   <div className="flex w-full lg:w-max flex-col lg:flex-row gap-4 mt-4 lg:mt-0">
                     <ButtonGroup
                       variant="gradient"
-                      color="light-blue"
+                      color="light-purple"
                       size="sm"
                     >
                       <Button onClick={() => handleQuantityChange(index, -1)}>

@@ -218,7 +218,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
             <Button
               size="sm"
               variant="text"
-              color="blue-gray"
+              color="purple-gray"
               className="underline"
               onClick={handleGeneratingCompleteOtp}
               disabled={isOtpButtonDisabled}
@@ -228,7 +228,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
           </div>
 
           <Button
-            color="blue"
+            color="purple"
             variant="gradient"
             onClick={handleUpdateServiceStatusByServiceProvider}
           >
@@ -243,10 +243,10 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
         className="max-w-[500px]"
       >
         <DialogHeader className="flex flex-col items-center space-y-2 pb-0">
-          <div className="bg-blue-50 rounded-full p-4 mb-2">
-            <CreditCardIcon className="h-12 w-12 text-blue-500" />
+          <div className="bg-purple-50 rounded-full p-4 mb-2">
+            <CreditCardIcon className="h-12 w-12 text-purple-500" />
           </div>
-          <Typography variant="h4" color="blue-gray" className="text-center">
+          <Typography variant="h4" color="purple-gray" className="text-center">
             Complete Payment
           </Typography>
         </DialogHeader>
@@ -255,7 +255,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
           <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded">
             <Typography
               variant="paragraph"
-              color="blue-gray"
+              color="purple-gray"
               className="font-medium"
             >
               {selectedNewBooking.fullname}

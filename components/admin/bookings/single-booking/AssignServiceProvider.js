@@ -36,9 +36,11 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
       const data = await response.json();
       if (data.success) {
         const filteredServiceProviders = data.users.filter(
-          (sp) => !booking.availableServiceProviders.some(
-            (availableServiceProvider) => availableServiceProvider._id === sp._id
-          )
+          (sp) =>
+            !booking.availableServiceProviders.some(
+              (availableServiceProvider) =>
+                availableServiceProvider._id === sp._id
+            )
         );
         setServiceProviders(filteredServiceProviders);
       }
@@ -47,7 +49,12 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
     } finally {
       setLoading(false);
     }
-  }, [filterByStatus, searchQuery, filterByGender, booking.availableServiceProviders]);
+  }, [
+    filterByStatus,
+    searchQuery,
+    filterByGender,
+    booking.availableServiceProviders,
+  ]);
 
   useEffect(() => {
     fetchingServiceProviders();
@@ -79,7 +86,7 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
       <Button
         size="sm"
         variant="gradient"
-        color="blue"
+        color="purple"
         className="flex gap-2 items-center justify-center"
         onClick={handleOpenDialog}
       >
@@ -125,9 +132,15 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
                     color="indigo"
                     onChange={(value) => setFilterByStatus(value)}
                   >
-                    <Option className="list-none" value={true}>Available</Option>
-                    <Option className="list-none" value={false}>Not Available</Option>
-                    <Option className="list-none" value="both">Both</Option>
+                    <Option className="list-none" value={true}>
+                      Available
+                    </Option>
+                    <Option className="list-none" value={false}>
+                      Not Available
+                    </Option>
+                    <Option className="list-none" value="both">
+                      Both
+                    </Option>
                   </Select>
                 </div>
                 <div className="w-full bg-white">
@@ -136,11 +149,16 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
                     value={filterByGender}
                     color="indigo"
                     onChange={(value) => setFilterByGender(value)}
-                    
                   >
-                    <Option className="list-none" value="male">Male</Option>
-                    <Option className="list-none" value="female">Female</Option>
-                    <Option className="list-none" value="both">Both</Option>
+                    <Option className="list-none" value="male">
+                      Male
+                    </Option>
+                    <Option className="list-none" value="female">
+                      Female
+                    </Option>
+                    <Option className="list-none" value="both">
+                      Both
+                    </Option>
                   </Select>
                 </div>
               </div>
@@ -174,7 +192,9 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
                             className={`border w-fit ${
                               provider.available ? "bg-teal-100" : "bg-red-100"
                             }  text-xs ${
-                              provider.available ? "text-teal-700" : "text-red-700"
+                              provider.available
+                                ? "text-teal-700"
+                                : "text-red-700"
                             }  px-2 py-1 rounded-full text-xs`}
                           >
                             {provider.available ? "Available" : "Not Available"}
@@ -186,7 +206,7 @@ const AssignServiceProvider = ({ bookingId, setBooking, booking }) => {
                     <Button
                       size="sm"
                       variant="gradient"
-                      color="blue"
+                      color="purple"
                       onClick={() => handleAssigning(provider._id)}
                     >
                       Assign

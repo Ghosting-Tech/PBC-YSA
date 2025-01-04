@@ -56,7 +56,7 @@ const Booking = () => {
         </div>
       ) : bookings.length > 0 ? (
         <div className="px-10 flex flex-col gap-4">
-          <h2 className="text-3xl text-blue-500 font-semibold text-center">
+          <h2 className="text-3xl text-purple-500 font-semibold text-center">
             Your Bookings!
           </h2>
           <div className="h-px bg-gray-300 w-full my-4"></div>
@@ -86,7 +86,11 @@ const Booking = () => {
               Your location is only valid within a 15km radius.
             </li>
             <Link href={`/service-provider`}>
-              <Button variant="gradient" color="blue" className="mt-6 rounded">
+              <Button
+                variant="gradient"
+                color="purple"
+                className="mt-6 rounded"
+              >
                 Go to profile
               </Button>
             </Link>

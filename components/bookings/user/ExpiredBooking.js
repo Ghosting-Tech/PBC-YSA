@@ -32,7 +32,7 @@ const ExpiredBooking = ({ booking }) => {
         <Link href="/support" passHref className="no-underline">
           <Button
             variant="outlined"
-            color="blue"
+            color="purple"
             className="flex items-center justify-center gap-2 w-full sm:w-auto"
           >
             <FaHeadset className="text-lg" />

@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} ${racingSansOne.variable} bg-gray-100`}
+        className={`${poppins.className} ${racingSansOne.variable} bg-[#FFFFFF]`}
       >
         <Toaster position="bottom-right" richColors />
         <ReduxProvider>{children}</ReduxProvider>

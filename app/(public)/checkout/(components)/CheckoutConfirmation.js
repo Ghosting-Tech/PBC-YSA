@@ -18,30 +18,30 @@ export function CheckoutConfirmation({
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-xl shadow-lg"
     >
-      <Typography variant="h4" color="blue" className="mb-4">
+      <Typography variant="h4" color="purple" className="mb-4">
         Confirm Your Order
       </Typography>
       <div className="space-y-4">
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Full Name
           </Typography>
           <Typography color="gray">{formData.fullname}</Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Phone Number
           </Typography>
           <Typography color="gray">{formData.phoneNumber}</Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Delivery Address
           </Typography>
           <Typography color="gray">{formData.address}</Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Delivery Date
           </Typography>
           <Typography color="gray">
@@ -49,19 +49,19 @@ export function CheckoutConfirmation({
           </Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Delivery Time
           </Typography>
           <Typography color="gray">{formData.time}</Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Patient&apos;s Condition
           </Typography>
           <Typography color="gray">{formData.patientCondition}</Typography>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Patient&apos;s prescription
           </Typography>
           {formData.prescription ? (

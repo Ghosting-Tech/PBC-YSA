@@ -28,6 +28,8 @@ import Review from "@/components/services/review/Review";
 import Loading from "@/components/Loading";
 import SubServiceCard from "@/components/admin/services/SubServiceCard";
 import { toast } from "sonner";
+import RecommendedServices from "@/components/home/RecommendedServices";
+import { useSelector } from "react-redux";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -81,6 +83,10 @@ const sliderSettings = {
 
 const Service = () => {
   const { id } = useParams();
+  const recommendedBookedServices = useSelector(
+    (state) => state.recommendedServices
+  );
+  console.log({ recommendedBookedServices });
 
   const [service, setService] = useState({});
 
@@ -150,6 +156,13 @@ const Service = () => {
     console.log({ cartItems });
   }, [cartItems]);
 
+  if (loading) {
+    return (
+      <div className="grid place-items-center min-h-screen absolute w-full bg-white transition-all duration-700 top-0 z-50">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <>
       <div
@@ -174,10 +187,14 @@ const Service = () => {
           placement="right"
         >
           <div className="mb-6 flex items-center justify-between">
-            <Typography variant="h5" color="blue-gray">
+            <Typography variant="h5" color="purple-gray">
               Cart Services
             </Typography>
-            <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+            <IconButton
+              variant="text"
+              color="purple-gray"
+              onClick={closeDrawer}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -270,92 +287,6 @@ const Service = () => {
         </Drawer>
         <div className="px-4 md:px-20 my-6 flex flex-col gap-6">
           <div className="flex flex-col lg:flex-row gap-6 w-full">
-            <div className="w-full lg:w-2/3 p-4 flex flex-col justify-center gap-6 rounded-lg">
-              <div className="flex items-center gap-2">
-                {service.icon?.url ? (
-                  <Image
-                    width={100}
-                    height={100}
-                    src={service.icon.url}
-                    alt="Service Icon"
-                    className="w-24 h-24 object-cover rounded-lg"
-                  />
-                ) : (
-                  <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span>Icon</span>{" "}
-                    {/* Placeholder if no icon is available */}
-                  </div>
-                )}
-
-                <div className="flex flex-col gap-2 justify-center">
-                  <h2 className="lg:text-4xl md:text-5xl sm:text-5xl  text-4xl leading-tight text-gray-700 font-bold  ">
-                    {service.name}
-                  </h2>
-                  <div className="flex items-center">
-                    <div className="flex items-center">
-                      <div className="flex">
-                        {Array.from({ length: 5 }, (e, index) => {
-                          let stars = rating;
-                          return (
-                            <span key={index} className="text-[#FFB800]">
-                              {stars >= index + 1 ? (
-                                <IoIosStar size={15} />
-                              ) : stars >= index + 0.5 ? (
-                                <IoIosStarHalf size={15} />
-                              ) : (
-                                <IoIosStarOutline size={15} />
-                              )}
-                            </span>
-                          );
-                        })}
-                      </div>
-                      <span className="ml-1">{rating}</span>
-                    </div>
-                    <span className="ml-2 text-gray-700">
-                      | {service?.reviews?.length} reviews
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600  overflow-y-auto no-scrollbar  max-h-24 max-w-[450px]">
-                {service.description}
-              </p>
-              <div className="flex gap-2 items-center  ">
-                <div className="whitespace-nowrap text-sm">
-                  Reviews & Bookings
-                </div>
-                <div className="h-px bg-gray-300 w-full"></div>
-              </div>
-              <div className="flex items-start gap-6 ">
-                <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
-                  <Image
-                    width={100}
-                    height={100}
-                    // Replace with actual path
-                    src="/icons/cargo.png"
-                    alt="Bookings Icon"
-                    className="w-20 object-cover"
-                  />
-                  <span className="text-gray-600 text-xl">
-                    {service?.bookings?.length} Bookings
-                  </span>
-                </div>
-                <div className="flex flex-col w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-all">
-                  <Image
-                    width={100}
-                    height={100}
-                    // Replace with actual path
-                    src="/icons/star.png"
-                    alt="Star Icon"
-                    className="w-20 object-cover"
-                  />
-                  <span className="text-gray-600 text-xl">
-                    {rating} | {service?.reviews?.length} reviews
-                  </span>
-                </div>
-              </div>
-            </div>
-
             <Carousel
               className="rounded-md w-full max-h-auto overflow-hidden"
               loop
@@ -419,9 +350,84 @@ const Service = () => {
                 />
               ))}
             </Carousel>
+            <div className="w-full lg:w-2/3 px-4 flex flex-col gap-3 rounded-lg">
+              <div>
+                <div className="flex flex-col justify-center">
+                  <h2 className="lg:text-4xl md:text-5xl sm:text-5xl  text-4xl leading-tight text-[#6E4BB2] font-bold  ">
+                    {service.name}
+                  </h2>
+                  <div className="flex items-center">
+                    <div className="flex items-center">
+                      <div className="flex">
+                        {Array.from({ length: 5 }, (e, index) => {
+                          let stars = rating;
+                          return (
+                            <span key={index} className="text-[#FFB800]">
+                              {stars >= index + 1 ? (
+                                <IoIosStar size={15} />
+                              ) : stars >= index + 0.5 ? (
+                                <IoIosStarHalf size={15} />
+                              ) : (
+                                <IoIosStarOutline size={15} />
+                              )}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <span className="ml-1">{rating}</span>
+                    </div>
+                    <span className="ml-2 text-gray-700">
+                      | {service?.reviews?.length} reviews
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600  overflow-y-auto no-scrollbar  max-h-24 max-w-[450px] font-poppins">
+                {service.description}
+              </p>
+              <div className="flex items-start gap-6 ">
+                <div className="flex w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg px-4 py-2 cursor-pointer hover:scale-105 transition-all">
+                  <Image
+                    width={100}
+                    height={100}
+                    // Replace with actual path
+                    src="/icons/cargo.png"
+                    alt="Bookings Icon"
+                    className="w-10 object-cover"
+                  />
+                  <span className="text-gray-600 md:text-xl ">
+                    {service?.bookings?.length} Bookings
+                  </span>
+                </div>
+                <div className="flex w-full items-center gap-2 bg-white h-fit  shadow-lg rounded-lg px-4 py-2 cursor-pointer hover:scale-105 transition-all">
+                  <Image
+                    width={100}
+                    height={100}
+                    // Replace with actual path
+                    src="/icons/star.png"
+                    alt="Star Icon"
+                    className="w-10 object-cover"
+                  />
+                  <span className="text-gray-600 md:text-xl">
+                    {rating} | {service?.reviews?.length} reviews
+                  </span>
+                </div>
+              </div>
+              {service.images?.map((image, index) => (
+                <Image
+                  key={index}
+                  width={1000}
+                  height={1000}
+                  src={image.url}
+                  alt={`Service image ${index + 1}`}
+                  className="service-image w-44 h-[135px] rounded-lg"
+                />
+              ))}
+              <div className="flex gap-2"></div>
+            </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center py-4 px-4">
-            <h1 className="font-julius lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-gray-700 font-bold">
+            <h1 className="font-julius lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-[#6E4BB2] font-bold">
               {service.name}
             </h1>
           </div>
@@ -460,7 +466,7 @@ const Service = () => {
                         <div className="mb-1 flex flex-col justify-start gap-2">
                           <Typography
                             variant="h6"
-                            color="blue-gray"
+                            color="purple-gray"
                             className="font-medium"
                           >
                             {subService.name}
@@ -504,6 +510,9 @@ const Service = () => {
             )}
           </div>
         </div>
+        {/* <RecommendedServices
+          recommendedServices={recommendedBookedServices.services}
+        /> */}
         <Review
           service={service}
           serviceId={id}

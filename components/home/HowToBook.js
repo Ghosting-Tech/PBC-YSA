@@ -61,11 +61,11 @@ const HowToBook = () => {
         <motion.div className="text-center mb-12" variants={itemVariants}>
           <Typography
             variant="h2"
-            color="blue-gray"
+            color="purple-gray"
             className="mb-2 flex items-center justify-center"
           >
-            <WiStars className="text-orange-500 text-4xl mr-2" />
-            How to book a service?
+            <WiStars className="text-orange-500 text-2xl md:text-4xl mr-2" />
+            <span className="text-[#6E4BB2]">How to book a service?</span>
             <WiStars className="text-orange-500 text-4xl ml-2" />
           </Typography>
           <motion.div

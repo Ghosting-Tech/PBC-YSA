@@ -131,7 +131,7 @@ const ServiceDetails = ({ booking }) => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-gray-800">Service Details</h3>
-        <Button color="blue" size="sm" onClick={handleDownloadPdf}>
+        <Button color="purple" size="sm" onClick={handleDownloadPdf}>
           Download
         </Button>
       </div>

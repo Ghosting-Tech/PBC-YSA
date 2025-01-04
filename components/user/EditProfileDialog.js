@@ -28,7 +28,7 @@ import Image from "next/image";
 import { RxCross1, RxCross2 } from "react-icons/rx";
 
 const genderOptions = [
-  { value: "male", label: "Male", icon: FaMars, color: "blue" },
+  { value: "male", label: "Male", icon: FaMars, color: "purple" },
   { value: "female", label: "Female", icon: FaVenus, color: "pink" },
   { value: "other", label: "Other", icon: FaTransgender, color: "purple" },
   {
@@ -42,7 +42,7 @@ const genderOptions = [
 const GenderSelection = ({ value, onChange }) => {
   return (
     <div className="space-y-4">
-      <Typography variant="h6" color="blue-gray" className="mb-2">
+      <Typography variant="h6" color="purple-gray" className="mb-2">
         Gender
       </Typography>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -137,7 +137,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
         className="bg-white rounded-xl shadow-xl"
       >
         <DialogHeader className="border-b pb-4 flex items-center justify-between">
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h4" color="purple-gray">
             Edit Profile
           </Typography>
           <IconButton variant="text" onClick={handleOpen}>
@@ -155,11 +155,11 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                 alt="Profile"
                 width={150}
                 height={150}
-                className="rounded-full w-28 aspect-square object-cover border-4 border-blue-500"
+                className="rounded-full w-28 aspect-square object-cover border-4 border-purple-500"
               />
               <label
                 htmlFor="profile-image"
-                className="absolute bottom-2 right-2 cursor-pointer bg-blue-500 p-2 rounded-full shadow-md text-white hover:bg-blue-600 transition-colors"
+                className="absolute bottom-2 right-2 cursor-pointer bg-purple-500 p-2 rounded-full shadow-md text-white hover:bg-purple-600 transition-colors"
               >
                 <FaCamera size={20} />
               </label>
@@ -219,7 +219,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       onChange={(e) =>
                         setUpdateUser({ ...updateUser, name: e.target.value })
                       }
-                      className="border-b border-gray-300 focus:border-blue-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
                     />
                   </div>
                   <GenderSelection
@@ -235,7 +235,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       onChange={(e) =>
                         setUpdateUser({ ...updateUser, city: e.target.value })
                       }
-                      className="border-b border-gray-300 focus:border-blue-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -249,7 +249,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       value={updateUser?.email}
                       onChange={handleEmailChange}
                       error={!!emailError}
-                      className="border-b border-gray-300 focus:border-blue-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
                     />
                     {emailError && (
                       <Typography color="red" className="mt-1 text-xs">
@@ -268,7 +268,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                           phoneNumber: e.target.value,
                         })
                       }
-                      className="border-b border-gray-300 focus:border-blue-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -287,9 +287,9 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
           </Button>
           <Button
             variant="gradient"
-            color="blue"
+            color="purple"
             onClick={handleUpdate}
-            className="bg-blue-500 hover:bg-blue-600 transition-colors"
+            className="bg-purple-500 hover:bg-purple-600 transition-colors"
           >
             Update Profile
           </Button>

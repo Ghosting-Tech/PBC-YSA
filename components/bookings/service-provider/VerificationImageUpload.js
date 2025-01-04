@@ -109,7 +109,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
     <div className="w-full max-w-full">
       <div
         className={`relative border-2 border-dashed rounded-lg p-6 ${
-          dragActive ? "border-blue-400 bg-blue-50" : "border-gray-300"
+          dragActive ? "border-purple-400 bg-purple-50" : "border-gray-300"
         } transition-all duration-300 ease-in-out`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -149,7 +149,7 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
             className={`px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-white font-medium ${
               booking.completed || uploading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
+                : "bg-purple-500 hover:bg-purple-600"
             }`}
             onClick={onButtonClick}
             disabled={booking.completed || uploading}
@@ -167,16 +167,16 @@ const VerificationImageUpload = ({ booking, setBooking }) => {
             >
               <div className="w-3/4">
                 <div className="mb-2 flex justify-between items-center">
-                  <span className="text-sm font-medium text-blue-600">
+                  <span className="text-sm font-medium text-purple-600">
                     Uploading...
                   </span>
-                  <span className="text-sm font-medium text-blue-600">
+                  <span className="text-sm font-medium text-purple-600">
                     {uploadProgress}%
                   </span>
                 </div>
-                <div className="h-2 bg-blue-200 rounded-full">
+                <div className="h-2 bg-purple-200 rounded-full">
                   <motion.div
-                    className="h-full bg-blue-600 rounded-full"
+                    className="h-full bg-purple-600 rounded-full"
                     initial={{ width: "0%" }}
                     animate={{ width: `${uploadProgress}%` }}
                     transition={{ duration: 0.5 }}

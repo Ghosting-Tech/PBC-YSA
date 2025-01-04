@@ -23,7 +23,7 @@ const TestimonialCard = ({ name, img, cust, desc, rating }) => {
             objectFit: "cover"
           }} />
       </motion.div>
-      <Typography variant="h5" color="blue-gray" className="mb-2">
+      <Typography variant="h5" color="purple-gray" className="mb-2">
         {name}
       </Typography>
       <Typography variant="small" color="gray" className="mb-4">

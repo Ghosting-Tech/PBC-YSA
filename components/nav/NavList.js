@@ -119,7 +119,7 @@ export default function NavList() {
       <div className="flex gap-4 justify-evenly">
         <Button
           variant="outlined"
-          className="flex items-center gap-2 w-full md:w-fit justify-center text-blue-500 border-blue-500"
+          className="flex items-center gap-2 w-full md:w-fit justify-center text-purple-500 border-purple-500"
           onClick={handleLocationDialog}
         >
           <MapPin size={18} color="red" />
@@ -134,7 +134,7 @@ export default function NavList() {
         <IconButton
           onClick={handleOpen2}
           variant="outlined"
-          className="w-full md:w-12 h-12 border-blue-500 text-blue-500"
+          className="w-full md:w-12 h-12 border-purple-500 text-purple-500"
         >
           <Search size={18} />
         </IconButton>
@@ -142,7 +142,7 @@ export default function NavList() {
         <Link href={"/cart"} className="no-underline">
           <IconButton
             variant="outlined"
-            className="w-12 h-12 border-blue-500 text-blue-500"
+            className="w-12 h-12 border-purple-500 text-purple-500"
           >
             <ShoppingCart size={20} />
           </IconButton>
@@ -161,15 +161,15 @@ export default function NavList() {
               <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
                 Search For Services
               </h1>
-              <p className="text-lg md:text-xl text-blue-500">
+              <p className="text-lg md:text-xl text-purple-500">
                 Find the perfect service for you
               </p>
             </div>
             <Input
               label="Search a Service"
-              color="blue"
+              color="purple"
               onChange={(e) => handleSearch(e.target.value)}
-              icon={<Search className="cursor-pointer text-blue-500" />}
+              icon={<Search className="cursor-pointer text-purple-500" />}
             />
             <div>
               <div className="flex gap-2 items-center my-6">
@@ -227,7 +227,7 @@ function ServiceCard({ service, handleOpen2 }) {
           <Link href={`/services/${service.parentServiceId || service._id}`}>
             <Button
               variant="gradient"
-              color="blue"
+              color="purple"
               className="rounded w-full flex items-center justify-center gap-1 text-xs md:text-sm"
               size="sm"
               onClick={handleOpen2}

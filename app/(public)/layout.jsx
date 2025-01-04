@@ -1,13 +1,13 @@
 import React from "react";
-import Nav from "@/components/nav/Nav";
-import Footer from "@/components/Footer";
+import MainNav from "@/components/nav/MainNav";
+import NewFooter from "@/components/home/NewFooter";
 
 const layout = ({ children }) => {
   return (
     <div>
-      <Nav />
+      <MainNav />
       {children}
-      <Footer />
+      <NewFooter />
     </div>
   );
 };

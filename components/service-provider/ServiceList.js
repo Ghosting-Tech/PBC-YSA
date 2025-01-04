@@ -56,7 +56,7 @@ const ServicesList = ({
           <Button
             onClick={handleOpen2}
             variant="gradient"
-            color="blue"
+            color="purple"
             size="sm"
             className="mt-3 md:mt-0 flex justify-center items-center whitespace-nowrap gap-1 text-sm px-5 py-3"
           >

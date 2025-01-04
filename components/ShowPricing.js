@@ -86,7 +86,7 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
         {/* Total */}
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-lg font-bold">Total</span>
-          <span className="text-lg font-bold text-blue-600">
+          <span className="text-lg font-bold text-purple-600">
             ₹{totalAmount.toFixed(2)}
           </span>
         </div>
@@ -100,26 +100,27 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
         </div>
 
         {/* Remaining Amount */}
-        { remainingAmount > 0 && (
+        {remainingAmount > 0 && (
           <div className="flex justify-between items-center pb-4">
             <span className="text-lg font-bold text-gray-500">
               Remaining Amount
             </span>
-          <div className="flex gap-1">
-            <span className="text-lg font-bold text-red-500">
-              ₹{remainingAmount.toFixed(2)}
-            </span>
-            {paymentStatus.paid_full && (
-              <span
-                onClick={() => setIsOpen(true)}
-                className={`flex items-center gap-1 px-2 py-1 rounded-full text-sm font-medium ${"bg-green-100 text-green-600 cursor-pointer"}`}
-              >
-                Paid
-                <IoOpenOutline />
+            <div className="flex gap-1">
+              <span className="text-lg font-bold text-red-500">
+                ₹{remainingAmount.toFixed(2)}
               </span>
-            )}
+              {paymentStatus.paid_full && (
+                <span
+                  onClick={() => setIsOpen(true)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-sm font-medium ${"bg-green-100 text-green-600 cursor-pointer"}`}
+                >
+                  Paid
+                  <IoOpenOutline />
+                </span>
+              )}
+            </div>
           </div>
-        </div>)}
+        )}
 
         {/* Payment Button (Only show if remaining amount > 0) */}
         {!paymentStatus.paid_full && user.role === "user" && (
@@ -149,7 +150,7 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
           <div className="bg-green-50 rounded-full p-4 mb-2">
             <CreditCardIcon className="h-12 w-12 text-green-500" />
           </div>
-          <Typography variant="h4" color="blue-gray" className="text-center">
+          <Typography variant="h4" color="purple-gray" className="text-center">
             Confirm Payment
           </Typography>
         </DialogHeader>
@@ -158,7 +159,7 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
           <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded">
             <Typography
               variant="paragraph"
-              color="blue-gray"
+              color="purple-gray"
               className="font-medium"
             >
               Payment Confirmation

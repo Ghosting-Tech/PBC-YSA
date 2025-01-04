@@ -130,7 +130,6 @@ const BookingDetail = ({ booking, setBooking }) => {
   };
 
   const handleAcceptRequest = async (id) => {
-
     try {
       const res = await axios.post(`/api/bookings/accept-booking`, {
         bookingId: id,
@@ -178,10 +177,10 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <div className="flex items-center">
                     <CalendarIcon className="h-6 w-6 mr-3 text-teal-500" />
                     <div>
-                      <Typography variant="small" color="blue-gray">
+                      <Typography variant="small" color="purple-gray">
                         Booking Date
                       </Typography>
-                      <Typography variant="h6" color="blue-gray">
+                      <Typography variant="h6" color="purple-gray">
                         {booking.date}
                       </Typography>
                     </div>
@@ -189,10 +188,10 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <div className="flex items-center">
                     <ClockIcon className="h-6 w-6 mr-3 text-teal-500" />
                     <div>
-                      <Typography variant="small" color="blue-gray">
+                      <Typography variant="small" color="purple-gray">
                         Booking Time
                       </Typography>
-                      <Typography variant="h6" color="blue-gray">
+                      <Typography variant="h6" color="purple-gray">
                         {booking.time}
                       </Typography>
                     </div>
@@ -200,12 +199,12 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <div className="flex items-start">
                     <UserIcon className="h-6 w-6 mr-3 text-teal-500 mt-1" />
                     <div>
-                      <Typography variant="small" color="blue-gray">
+                      <Typography variant="small" color="purple-gray">
                         Patient Condition
                       </Typography>
                       <Typography
                         variant="paragraph"
-                        color="blue-gray"
+                        color="purple-gray"
                         className="mt-1"
                       >
                         {booking.patientCondition}
@@ -215,7 +214,7 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <div className="flex items-start">
                     <DocumentIcon className="h-6 w-6 mr-3 text-teal-500 mt-1" />
                     <div className="flex-grow">
-                      <Typography variant="small" color="blue-gray">
+                      <Typography variant="small" color="purple-gray">
                         Patient Prescription
                       </Typography>
                       {booking.prescription?.url ? (
@@ -298,7 +297,7 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <button
                     variant="gradient"
                     color="teal"
-                    className="rounded px-4 py-2 flex items-center gap-1 bg-blue-500 text-white hover:shadow-lg hover:shadow-blue-100 transition-all font-semibold"
+                    className="rounded px-4 py-2 flex items-center gap-1 bg-purple-500 text-white hover:shadow-lg hover:shadow-purple-100 transition-all font-semibold"
                     onClick={handleVerifyOtp}
                   >
                     Verify <FaCheckCircle />

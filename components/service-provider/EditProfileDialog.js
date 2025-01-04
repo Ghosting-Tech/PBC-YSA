@@ -200,7 +200,7 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
           <div className="flex gap-2">
             <div className="relative w-full">
               <select
-                className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full"
+                className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-150 ease-in-out w-full"
                 name="state"
                 value={selectedState}
                 onChange={(e) => {
@@ -229,7 +229,7 @@ const EditProfileDialog = ({ open, handleOpen, user, setUser }) => {
             </div>
             <div className="relative w-full">
               <select
-                className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full"
+                className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-150 ease-in-out w-full"
                 name="city"
                 value={updateUser.city || ""}
                 onChange={(e) => {

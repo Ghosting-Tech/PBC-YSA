@@ -52,7 +52,7 @@ const BookingHeader = ({ booking }) => {
             ? "New Booking request"
             : booking.status}
         </div>
-        <Button color="blue" size="sm" onClick={handleDownload}>
+        <Button color="purple" size="sm" onClick={handleDownload}>
           Print This page
         </Button>
       </div>

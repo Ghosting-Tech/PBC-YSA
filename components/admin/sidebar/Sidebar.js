@@ -110,20 +110,20 @@ export default function Sidebar() {
       <Link href={path} key={path} className="no-underline">
         <ListItem
           className={`${sidebarItemWidth} ${
-            isActive ? "bg-blue-gray-50 text-blue-500" : ""
+            isActive ? "bg-purple-gray-50 text-purple-500" : ""
           } flex justify-between items-center`}
         >
           <div className="flex items-center">
             <ListItemPrefix>
               <Tooltip content={label} placement="right">
                 <Icon
-                  className={`h-5 w-5 ${isActive ? "text-blue-500" : ""}`}
+                  className={`h-5 w-5 ${isActive ? "text-purple-500" : ""}`}
                 />
               </Tooltip>
             </ListItemPrefix>
             <Collapse open={!isCollapsed}>
               <Typography
-                color={isActive ? "blue" : "blue-gray"}
+                color={isActive ? "purple" : "purple-gray"}
                 className="mr-auto font-normal"
               >
                 {label}
@@ -159,7 +159,7 @@ export default function Sidebar() {
             <div className="text-2xl font-racing">YSA</div>
           </Link>
         </Collapse>
-        <IconButton variant="text" color="blue-gray" onClick={toggleCollapse}>
+        <IconButton variant="text" color="purple-gray" onClick={toggleCollapse}>
           {isCollapsed ? (
             <ChevronRightIcon strokeWidth={2.5} className="h-5 w-5" />
           ) : (

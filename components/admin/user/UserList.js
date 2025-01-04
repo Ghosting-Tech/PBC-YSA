@@ -77,12 +77,12 @@ const UserList = ({
                 </span>
                 {serviceProvider && (
                   <span
-                  className={`border-2 ${
-                    user.available ? "border-green-100" : "border-pink-100"
-                  }  text-xs ${
-                    user.available ? "text-green-700" : "text-pink-700"
-                  }  px-2 py-1 rounded-full`}
-                >
+                    className={`border-2 ${
+                      user.available ? "border-green-100" : "border-pink-100"
+                    }  text-xs ${
+                      user.available ? "text-green-700" : "text-pink-700"
+                    }  px-2 py-1 rounded-full`}
+                  >
                     {user.available ? "Available" : "Not Available"}
                   </span>
                 )}
@@ -259,7 +259,7 @@ const UserList = ({
                     </Button>
                     <Button
                       variant="gradient"
-                      color="blue"
+                      color="purple"
                       size="sm"
                       onClick={() => userDeactivating(user)}
                       className="flex items-center gap-1 rounded"

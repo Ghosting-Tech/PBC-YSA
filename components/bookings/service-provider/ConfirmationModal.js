@@ -37,7 +37,7 @@ const ConfirmationModal = ({
           <DialogFooter>
             <Button
               variant="text"
-              color="blue-gray"
+              color="purple-gray"
               onClick={onClose}
               className="mr-1"
             >

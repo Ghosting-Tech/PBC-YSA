@@ -194,12 +194,12 @@ const Services = () => {
     <>
       <div>
         <div className="px-10 md:px-4 flex flex-col gap-2 sm:flex-row justify-between items-center py-4 w-full">
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h4" color="purple-gray">
             All Services
           </Typography>
           <Button
             onClick={handleOpen}
-            color="blue"
+            color="purple"
             variant="gradient"
             className="flex items-center gap-2"
           >
@@ -325,7 +325,7 @@ const Services = () => {
                           cities: [...serviceData.cities, selectedCity],
                         });
                       }}
-                      color="blue"
+                      color="purple"
                       className="flex items-center justify-center gap-2 w-[21.5rem]"
                     >
                       <PlusIcon className="w-6 h-6" /> Add City
@@ -428,7 +428,7 @@ const Services = () => {
         {loading ? (
           <div className="flex justify-center items-center mt-64">
             <AiOutlineLoading
-              className="animate-spin text-blue-500"
+              className="animate-spin text-purple-500"
               size={50}
             />
           </div>

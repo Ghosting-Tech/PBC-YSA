@@ -80,11 +80,11 @@ const Page = () => {
               </Typography>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/service-provider/booking" legacyBehavior>
-                  <Button size="lg" color="light-blue" ripple>
+                  <Button size="lg" color="light-purple" ripple>
                     Return to bookings
                   </Button>
                 </Link>
-                <Button size="lg" color="blue-gray" variant="outlined" ripple>
+                <Button size="lg" color="purple-gray" variant="outlined" ripple>
                   <Link href="/support">Contact Support</Link>
                 </Button>
               </div>

@@ -46,7 +46,7 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mx-auto sm:mx-0"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 mx-auto sm:mx-0"
                 >
                   <LuStethoscope className="w-5 h-5" />
                   <span className="text-sm font-medium">
@@ -63,7 +63,7 @@ export default function Hero() {
                 >
                   <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white">
                     The Future of{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
                       Healthcare
                     </span>
                   </h1>
@@ -87,7 +87,7 @@ export default function Hero() {
                   >
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-blue-500 to-teal-500 text-white w-full sm:w-auto"
+                      className="bg-gradient-to-r from-purple-500 to-teal-500 text-white w-full sm:w-auto"
                     >
                       Become a Provider
                     </Button>
@@ -139,9 +139,9 @@ export default function Hero() {
                       transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                       className="relative group"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-xl blur-lg group-hover:blur-2xl transition-all duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-teal-500/10 rounded-xl blur-lg group-hover:blur-2xl transition-all duration-300" />
                       <div className="relative p-4 rounded-xl border border-gray-700 bg-gray-900/50">
-                        <div className="text-blue-400 mb-2">{stat.icon}</div>
+                        <div className="text-purple-400 mb-2">{stat.icon}</div>
                         <div className="text-2xl font-bold text-white">
                           {stat.label}
                         </div>

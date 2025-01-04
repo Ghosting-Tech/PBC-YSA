@@ -4,7 +4,7 @@ import { Card, CardBody, Typography } from "@material-tailwind/react";
 
 const HowToBookCard = ({ title, description, imageUrl }) => {
   return (
-    (<div
+    <div
       className="cursor-pointer hover:scale-105 transition-all duration-300"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
@@ -20,16 +20,17 @@ const HowToBookCard = ({ title, description, imageUrl }) => {
               fill
               sizes="100vw"
               style={{
-                objectFit: "contain"
-              }} />
+                objectFit: "contain",
+              }}
+            />
           </div>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
+          <Typography variant="h5" color="purple-gray" className="mb-2">
             {title}
           </Typography>
           <Typography className="mb-4 text-gray-700">{description}</Typography>
         </CardBody>
       </Card>
-    </div>)
+    </div>
   );
 };
 

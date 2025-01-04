@@ -102,7 +102,7 @@ const InvoiceDetail = ({ booking }) => {
                   {booking.invoices.status}
                 </div>
               )}
-              <Button color="blue" size="sm" onClick={generatePDF}>
+              <Button color="purple" size="sm" onClick={generatePDF}>
                 Download invoice
               </Button>
             </div>

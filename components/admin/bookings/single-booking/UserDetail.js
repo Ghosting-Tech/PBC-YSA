@@ -32,10 +32,10 @@ const UserDetail = ({
               profileImage?.url ||
               `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${name}`
             }
-            className="border border-blue-500 ring-4 ring-blue-500/40"
+            className="border border-purple-500 ring-4 ring-purple-500/40"
           />
           <div>
-            <Typography variant="h5" color="blue-gray" className="mb-1">
+            <Typography variant="h5" color="purple-gray" className="mb-1">
               {name}
             </Typography>
             <div className="flex items-center gap-2">
@@ -45,7 +45,7 @@ const UserDetail = ({
                 className="font-normal opacity-75"
               >
                 <span className="flex items-center gap-1">
-                  <FaVenusMars className="text-blue-500" />
+                  <FaVenusMars className="text-purple-500" />
                   {gender}
                 </span>
               </Typography>
@@ -55,7 +55,7 @@ const UserDetail = ({
                 className="font-normal opacity-75"
               >
                 <span className="flex items-center gap-1">
-                  <FaPray className="text-blue-500" />
+                  <FaPray className="text-purple-500" />
                   {religion}
                 </span>
               </Typography>
@@ -72,7 +72,7 @@ const UserDetail = ({
               >
                 <Button
                   variant="outlined"
-                  color="blue"
+                  color="purple"
                   size="sm"
                   className="flex items-center gap-2"
                 >

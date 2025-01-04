@@ -5,16 +5,10 @@ import { FaUserPlus } from "react-icons/fa";
 
 const CallToAction = () => {
   return (
-    <div className="w-full pt-4">
+    <div className="w-full pt-4 px-4">
       <div className="flex flex-col items-center justify-center gap-6 mx-auto max-w-3xl">
         <Link href={"/services"} className="no-underline w-full">
-          <Button
-            variant="gradient"
-            color="blue"
-            className="mt-4"
-            fullWidth
-            size="lg"
-          >
+          <Button className="mt-4 bg-[#6E4BB2]" fullWidth size="lg">
             Book a Service »
           </Button>
         </Link>
@@ -26,7 +20,7 @@ const CallToAction = () => {
         <Link href={"/become-service-provider"} className="no-underline w-full">
           <Button
             variant="outlined"
-            color="blue"
+            color="purple"
             className="flex items-center justify-center gap-1"
             fullWidth
             size="lg"

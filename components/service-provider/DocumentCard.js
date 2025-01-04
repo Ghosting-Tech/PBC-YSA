@@ -48,7 +48,7 @@ const DocumentCard = ({ documentInfo, onImageClick, cardTitle }) => {
         )}
       </CardHeader>
       <CardBody className="flex justify-between items-center">
-        <Typography variant="p" color="blue-gray">
+        <Typography variant="p" color="purple-gray">
           {cardTitle}
         </Typography>
         {isPdfDocument && (
@@ -56,7 +56,7 @@ const DocumentCard = ({ documentInfo, onImageClick, cardTitle }) => {
             href={documentInfo?.url}
             download
             target="_blank"
-            className="text-blue-500 hover:text-blue-700 flex items-center"
+            className="text-purple-500 hover:text-purple-700 flex items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

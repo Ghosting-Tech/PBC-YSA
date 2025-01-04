@@ -68,12 +68,12 @@ export default function ServiceContainer({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-transparent text-white"
+      className="mt-10 min-h-screen bg-transparent text-white"
     >
       {!geolocationDenied && topServices?.length !== 0 ? (
         forAllService ? (
           <motion.div
-            className="container mx-auto lg:p-6 p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8"
+            className="container mx-auto lg:p-6 p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-2 gap-8 mb-8"
             variants={containerVariants}
           >
             <AnimatePresence>
@@ -99,14 +99,14 @@ export default function ServiceContainer({
           variants={itemVariants}
           className="flex justify-center items-center min-h-[60vh]"
         >
-          <Card className="w-11/12 md:w-3/5 mt-8 p-8 mx-auto bg-opacity-80 bg-white shadow-lg border border-blue-gray-700">
+          <Card className="w-11/12 md:w-3/5 mt-8 p-8 mx-auto bg-opacity-80 bg-white shadow-lg border border-purple-gray-700">
             <motion.div
               className="text-4xl md:text-5xl font-bold text-center mb-8"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <Typography variant="h2" color="blue-gray">
+              <Typography variant="h2" color="purple-gray">
                 Select Your Location
               </Typography>
             </motion.div>
@@ -121,7 +121,7 @@ export default function ServiceContainer({
                     value={selectedState}
                     onChange={(value) => setSelectedState(value)}
                     required
-                    color="blue"
+                    color="purple"
                   >
                     {Object.keys(locationData).map((state) => (
                       <Option key={state} value={state}>
@@ -138,7 +138,7 @@ export default function ServiceContainer({
                     onChange={(value) => setSelectedCity(value)}
                     required
                     disabled={!selectedState}
-                    color="blue"
+                    color="purple"
                   >
                     {cities.map((city) => (
                       <Option key={city} value={city}>
@@ -153,7 +153,7 @@ export default function ServiceContainer({
                 onClick={handleLocationChange}
                 disabled={!selectedState || !selectedCity}
                 variant="gradient"
-                color="blue"
+                color="purple"
                 size="lg"
                 className="flex items-center gap-2 justify-center"
               >

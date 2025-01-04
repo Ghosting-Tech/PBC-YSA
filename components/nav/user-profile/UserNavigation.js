@@ -54,7 +54,7 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
             variant="circular"
             size="md"
             alt="Profile"
-            color="blue-gray"
+            color="purple-gray"
             className=" p-0.5 cursor-progress"
             src={"/profile.svg"}
           />
@@ -152,9 +152,8 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
         </Menu>
       ) : (
         <Button
-          variant="gradient"
           size="md"
-          className="h-full"
+          className="h-full bg-purple-700 hover:bg-purple-800"
           onClick={handleOpenLoginDialog}
         >
           Login

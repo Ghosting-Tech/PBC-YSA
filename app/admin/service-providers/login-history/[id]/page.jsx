@@ -53,7 +53,7 @@ const Page = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full mb-10">
       <div className="w-4/5 flex flex-col gap-6 items-center">
-        <h1 className="text-3xl font-semibold text-blue-800">
+        <h1 className="text-3xl font-semibold text-purple-800">
           Login & Logout History
         </h1>
         <div className="flex gap-4 w-full">

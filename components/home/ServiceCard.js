@@ -20,6 +20,7 @@ const ServiceCard = ({ service }) => {
       return prev.concat(service?.reviews?.map((review) => review.rating));
     });
   }, [service]);
+
   useEffect(() => {
     const countRatings = ratingArray.reduce((acc, rating) => {
       acc[rating] = (acc[rating] || 0) + 1;
@@ -44,88 +45,40 @@ const ServiceCard = ({ service }) => {
   }, [ratingArray]);
 
   return (
-    <div className="max-w-sm mx-auto bg-white p-6 mb-4 shadow-md rounded-xl overflow-hidden h-96 flex flex-col justify-between">
-      <div>
-        <div className="flex items-center mb-4">
-          <Image
-            width={100}
-            height={100}
-            src={service?.icon?.url}
-            alt={service?.name}
-            className="w-16 h-16 rounded mr-4 object-cover drop-shadow-lg"
-          />
-          <div className="flex flex-col justify-center">
-            <h2 className="text-xl font-semibold text-gray-800">
-              {service?.name}
-            </h2>
-            <div className="flex items-center mb-4">
-              <div className="flex items-center">
-                <div className="flex">
-                  {Array.from({ length: 5 }, (e, index) => {
-                    let stars = isNaN(rating) ? 0 : rating;
-                    return (
-                      <span key={index} className="text-[#FFB800]">
-                        {stars >= index + 1 ? (
-                          <IoIosStar size={15} />
-                        ) : stars >= index + 0.5 ? (
-                          <IoIosStarHalf size={15} />
-                        ) : (
-                          <IoIosStarOutline size={15} />
-                        )}
-                      </span>
-                    );
-                  })}
-                </div>
-                <span className="ml-1">{rating}</span>
-              </div>
-              <span className="ml-2 text-gray-700">
-                | {service?.reviews?.length} reviews
-              </span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex gap-2 items-center my-2">
-            <div className="whitespace-nowrap text-sm">{service?.name}</div>
-            <div className="h-px bg-gray-300 w-full"></div>
-          </div>
-          <div className="flex flex-col   max-h-44 overflow-auto no-scrollbar gap-4">
-            {service?.subServices?.map((sub, i) => {
-              return (
-                <Link
-                  href={`/services/${service?._id}`}
-                  key={i}
-                  className="no-underline"
-                >
-                  <div className="flex items-center gap-4   bg-gray-100 p-3 rounded-md">
-                    <Image
-                      width={100}
-                      height={100}
-                      src={sub.icon?.url}
-                      alt={sub.name}
-                      className="w-16 h-16 rounded mr-4 drop-shadow-lg object-cover"
-                    />
-                    <span className="text-gray-800 font-medium">
-                      {sub.name}
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+    <div className="max-w-sm mx-auto bg-white rounded-xl overflow-hidden">
+      {/* Image Section */}
+      <div className="w-full h-48 relative">
+        <Image
+          src={service?.icon?.url}
+          alt={service?.name}
+          fill
+          className="object-cover"
+        />
+        <div className="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded-lg flex items-center gap-1">
+          <IoIosStar className="text-[#FFB800]" size={16} />
+          <span className="text-sm text-gray-800 font-medium">{rating}</span>
+          <span className="text-sm text-gray-800">Stars</span>
         </div>
       </div>
-      <Link href={`/services/${service?._id}`} className="no-underline">
-        <Button
-          variant="gradient"
-          color="gray"
-          fullWidth
-          className="flex items-center gap-1 justify-center"
-        >
-          View
-          <IoMdOpen />
-        </Button>
-      </Link>
+
+      {/* Content Section */}
+      <div className="p-4">
+        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+          {service?.name}
+        </h2>
+        <p className="text-gray-600 text-sm mb-4">
+          Access expert {service?.name.toLowerCase()} for personalized recovery
+          plans.
+        </p>
+        <Link href={`/services/${service?._id}`} className="no-underline">
+          <Button
+            fullWidth
+            className="bg-[#6E4BB2] hover:bg-purple-700 text-white py-3 rounded-lg font-medium"
+          >
+            BOOK SERVICE
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

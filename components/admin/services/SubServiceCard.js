@@ -141,13 +141,13 @@ export default function SubServiceCard({
   };
 
   return (
-    (<motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        key={index}
-        className="group hover:scale-110 transition-all relative bg-white dark:bg-gray-800 rounded-2xl w-72 shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
-      >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      key={index}
+      className="group hover:scale-110 transition-all relative bg-white dark:bg-gray-800 rounded-2xl w-72 shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
+    >
       <div className="relative h-48 overflow-hidden bg-white">
         <Image
           src={subService.icon.url}
@@ -156,8 +156,9 @@ export default function SubServiceCard({
           fill
           sizes="100vw"
           style={{
-            objectFit: "cover"
-          }} />
+            objectFit: "cover",
+          }}
+        />
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -184,7 +185,7 @@ export default function SubServiceCard({
             </span>
           )}
         </div>
-        <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
           ₹{subService.price}
         </div>
         {forAdmin ? (
@@ -201,7 +202,7 @@ export default function SubServiceCard({
             <Button
               onClick={handleViewDialog}
               variant="gradient"
-              color="blue"
+              color="purple"
               className="flex-1 flex items-center justify-center gap-2"
             >
               <IoMdOpen className="h-4 w-4" />
@@ -214,7 +215,7 @@ export default function SubServiceCard({
               onClick={handleViewDialog}
               variant="text"
               fullWidth
-              color="blue"
+              color="purple"
               className="flex-1 flex items-center justify-center gap-2"
             >
               <IoMdOpen className="h-4 w-4" />
@@ -234,7 +235,7 @@ export default function SubServiceCard({
               <Button
                 size="sm"
                 variant="gradient"
-                color="blue"
+                color="purple"
                 className="flex gap-2 items-center justify-center"
                 onClick={() => handleAddingCart(subService)}
               >
@@ -258,12 +259,12 @@ export default function SubServiceCard({
             className="bg-white dark:bg-gray-800"
           >
             <DialogHeader className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
-              <h3 className="text-2xl font-bold text-blue-600 dark:text-gray-100">
+              <h3 className="text-2xl font-bold text-purple-600 dark:text-gray-100">
                 Sub Service Details
               </h3>
               <Button
                 variant="text"
-                color="blue-gray"
+                color="purple-gray"
                 onClick={handleViewDialog}
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
@@ -281,12 +282,13 @@ export default function SubServiceCard({
                       fill
                       sizes="100vw"
                       style={{
-                        objectFit: "cover"
-                      }} />
+                        objectFit: "cover",
+                      }}
+                    />
                   </div>
                   {forAdmin && (
                     <div className="mt-4 flex justify-center">
-                      <label className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full cursor-pointer hover:bg-blue-100 transition-colors flex items-center gap-2">
+                      <label className="px-4 py-2 bg-purple-50 text-purple-700 rounded-full cursor-pointer hover:bg-purple-100 transition-colors flex items-center gap-2">
                         <TiArrowRepeat size={20} />
                         Replace Icon
                         <input
@@ -316,7 +318,7 @@ export default function SubServiceCard({
                       {subService.status}
                     </span>
                   </div>
-                  <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                     ₹{subService.price}
                   </p>
                   <p className="text-gray-600 dark:text-gray-300 text-md leading-relaxed">
@@ -328,7 +330,7 @@ export default function SubServiceCard({
                         <Button
                           size="sm"
                           variant="outlined"
-                          color="blue"
+                          color="purple"
                           className="flex gap-2 items-center justify-center"
                         >
                           <span>Next</span>
@@ -339,7 +341,7 @@ export default function SubServiceCard({
                       <Button
                         size="sm"
                         variant="gradient"
-                        color="blue"
+                        color="purple"
                         className="flex gap-2 items-center justify-center"
                         onClick={() => handleAddingCart(subService)}
                       >
@@ -361,7 +363,7 @@ export default function SubServiceCard({
                         </Button>
                         <Button
                           variant="gradient"
-                          color="blue"
+                          color="purple"
                           onClick={handleEditDialog}
                           className="flex items-center gap-2"
                         >
@@ -394,7 +396,7 @@ export default function SubServiceCard({
               </h3>
               <Button
                 variant="text"
-                color="blue-gray"
+                color="purple-gray"
                 onClick={handleEditDialog}
               >
                 <RxCross2 size={24} />
@@ -456,6 +458,6 @@ export default function SubServiceCard({
           </Dialog>
         )}
       </AnimatePresence>
-    </motion.div>)
+    </motion.div>
   );
 }

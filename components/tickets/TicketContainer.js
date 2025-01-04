@@ -69,7 +69,7 @@ const TicketContainer = ({ tickets, handleViewDetails, handleRefresh }) => {
   return (
     <Card className="w-full max-w-[68rem] mx-auto">
       <CardHeader
-        color="blue"
+        color="purple"
         className="relative h-24 flex justify-center items-center"
       >
         <Typography variant="h3" color="white">
@@ -84,7 +84,7 @@ const TicketContainer = ({ tickets, handleViewDetails, handleRefresh }) => {
               <div className="flex items-center justify-between my-2 px-2">
                 <Typography
                   variant="h5"
-                  color="blue"
+                  color="purple"
                   className="hidden md:block"
                 >
                   Filter by Category
@@ -107,7 +107,7 @@ const TicketContainer = ({ tickets, handleViewDetails, handleRefresh }) => {
                       ))}
                     </Select>
                   </div>
-                  <IconButton variant="outlined" color="blue">
+                  <IconButton variant="outlined" color="purple">
                     <RefreshCwIcon
                       className="h-6 w-6"
                       onClick={handleRefresh}
@@ -141,8 +141,8 @@ const TicketContainer = ({ tickets, handleViewDetails, handleRefresh }) => {
                       renderTickets(filteredTickets)
                     ) : (
                       <div className="text-center py-12">
-                        <TicketIcon className="mx-auto h-16 w-16 text-blue-gray-300" />
-                        <Typography color="blue-gray" className="mt-4">
+                        <TicketIcon className="mx-auto h-16 w-16 text-purple-gray-300" />
+                        <Typography color="purple-gray" className="mt-4">
                           No tickets found
                         </Typography>
                       </div>

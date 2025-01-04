@@ -18,7 +18,7 @@ const TermsCondition = ({ isOpen, onClose, onAccept }) => {
       className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg"
     >
       <DialogHeader className="flex items-center gap-3 border-b pb-2">
-        <FaRegFileAlt className="text-blue-500" size={28} />
+        <FaRegFileAlt className="text-purple-500" size={28} />
         <h3 className="text-lg font-semibold text-gray-800">
           Terms and Conditions
         </h3>
@@ -105,9 +105,9 @@ const TermsCondition = ({ isOpen, onClose, onAccept }) => {
             Decline
           </Button>
           <Button
-            color="blue"
+            color="purple"
             onClick={onAccept}
-            className="bg-blue-500 text-white hover:bg-blue-600"
+            className="bg-purple-500 text-white hover:bg-purple-600"
           >
             Accept
           </Button>

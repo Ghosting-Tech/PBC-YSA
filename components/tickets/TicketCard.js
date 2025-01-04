@@ -13,19 +13,19 @@ import { FireIcon, TagIcon } from "@heroicons/react/24/solid";
 const TicketCard = ({ ticket, onViewDetails }) => (
   <Card
     key={ticket._id}
-    className="mb-4 overflow-hidden shadow-none border-2 border-blue-500"
+    className="mb-4 overflow-hidden shadow-none border-2 border-purple-500"
   >
     <CardBody className="p-4 md:p-6">
       <div className="flex justify-between items-start">
         <div className="mb-2">
-          <div className="flex items-center gap-1 bg-gradient-to-br from-blue-700 to-blue-500 text-white px-2 rounded-md w-fit mb-1">
+          <div className="flex items-center gap-1 bg-gradient-to-br from-purple-700 to-purple-500 text-white px-2 rounded-md w-fit mb-1">
             <Typography variant="h6" className="capitalize">
               {ticket.category}
             </Typography>
           </div>
           <div className="flex items-center gap-1">
             <UserIcon className="h-4 w-4" />
-            <Typography variant="h6" color="blue-gray" className="mb-1">
+            <Typography variant="h6" color="purple-gray" className="mb-1">
               {ticket.name}
             </Typography>
           </div>
@@ -46,7 +46,7 @@ const TicketCard = ({ ticket, onViewDetails }) => (
         </div>
         <Button
           size="sm"
-          color="blue"
+          color="purple"
           className="w-full md:w-auto"
           variant="gradient"
           onClick={() => onViewDetails(ticket)}

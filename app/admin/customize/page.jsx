@@ -161,7 +161,7 @@ export default function MediaUploadWithHeadings() {
   return (
     <div className="w-full mx-auto p-6">
       <Card className="bg-white p-6 rounded-lg shadow-md">
-        <Typography variant="h4" color="blue" className="mb-4 mx-auto">
+        <Typography variant="h4" color="purple" className="mb-4 mx-auto">
           Customize Content
         </Typography>
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -175,7 +175,7 @@ export default function MediaUploadWithHeadings() {
                 name={`heading${num}`}
                 value={formData[`heading${num}`]}
                 onChange={handleInputChange}
-                color="blue"
+                color="purple"
               />
             ))}
           </div>
@@ -285,7 +285,7 @@ export default function MediaUploadWithHeadings() {
           <Button
             type="submit"
             className="w-full"
-            color="blue"
+            color="purple"
             disabled={isProcessing} // Disable the button during processing
           >
             {isProcessing ? "Processing..." : "Submit"}

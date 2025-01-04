@@ -5,7 +5,7 @@ import { Textarea, Button, Rating } from "@material-tailwind/react";
 export default function GiveReview({ handleReviewSubmit, review, setReview }) {
   return (
     <div className="px-8 py-6 bg-white rounded-md w-full md:w-1/2 mx-auto">
-      <h3 className="text-2xl text-blue-gray-500 font-semibold mb-4 text-center">
+      <h3 className="text-2xl text-purple-gray-500 font-semibold mb-4 text-center">
         Rate and Review
       </h3>
       <form onSubmit={handleReviewSubmit} className="space-y-4">
@@ -22,7 +22,7 @@ export default function GiveReview({ handleReviewSubmit, review, setReview }) {
         </div>
         <Textarea
           label="Message"
-          color="blue-gray"
+          color="purple-gray"
           value={review.review}
           onChange={(e) =>
             setReview((prev) => ({ ...prev, review: e.target.value }))
@@ -31,7 +31,7 @@ export default function GiveReview({ handleReviewSubmit, review, setReview }) {
           rows="5"
         />
         <div className="flex justify-end">
-          <Button type="submit" color="blue">
+          <Button type="submit" color="purple">
             Submit Review
           </Button>
         </div>

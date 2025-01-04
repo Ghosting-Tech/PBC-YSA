@@ -48,7 +48,7 @@ const BookAgain = ({ booking }) => {
         }`}
       >
         <Button
-          color="blue"
+          color="purple"
           size="lg"
           className={`rounded-full shadow-lg transition-all duration-300 flex items-center gap-2 ${
             isHovered ? "scale-110" : "scale-100"

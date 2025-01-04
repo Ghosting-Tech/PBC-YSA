@@ -180,7 +180,7 @@ const OnGoingBooking = ({
               <div className="flex gap-2">
                 <Button
                   variant="gradient"
-                  color="blue"
+                  color="purple"
                   className="rounded"
                   onClick={handleInvoiceDialog}
                 >

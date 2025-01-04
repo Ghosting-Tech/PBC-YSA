@@ -81,7 +81,7 @@ export default function PaymentTimelineDialog({ paymentData, open, onClose }) {
                     src={paymentData?.service_provider?.image?.url}
                     size="sm"
                   />
-                  <Typography variant="h4" color="blue-gray" className="ml-4">
+                  <Typography variant="h4" color="purple-gray" className="ml-4">
                     {paymentData?.service_provider?.name || "Service Provider"}
                   </Typography>
                 </div>
@@ -92,7 +92,7 @@ export default function PaymentTimelineDialog({ paymentData, open, onClose }) {
                       <TimelineIcon className="bg-red-500">
                         <FaMoneyBillAlt className="h-4 w-4" />
                       </TimelineIcon>
-                      <Typography variant="h6" color="blue-gray">
+                      <Typography variant="h6" color="purple-gray">
                         {user?.role === "admin"
                           ? "Payment Not Sent"
                           : "Payment Not Received"}
@@ -130,7 +130,7 @@ export default function PaymentTimelineDialog({ paymentData, open, onClose }) {
                             <FaMoneyBillAlt className="h-4 w-4" />
                           )}
                         </TimelineIcon>
-                        <Typography variant="h6" color="blue-gray">
+                        <Typography variant="h6" color="purple-gray">
                           {user?.role === "admin"
                             ? status.paid
                               ? "Payment Sent"

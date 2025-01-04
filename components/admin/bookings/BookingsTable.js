@@ -7,21 +7,21 @@ export default function BookingsTable({ bookings }) {
   return (
     <div className="overflow-x-auto p-4 shadow-lg bg-white rounded-lg">
       <div className="min-w-full text-left text-sm">
-        <div className="bg-blue-50 hidden md:flex rounded-lg">
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+        <div className="bg-purple-50 hidden md:flex rounded-lg">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Booking ID
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-2/6">Booked By</div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-2/6">Booked By</div>
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Created Date
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Status
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Total Amount
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Action
           </div>
         </div>
@@ -102,7 +102,7 @@ export default function BookingsTable({ bookings }) {
             <div className="p-4 w-full md:w-1/6 flex items-center justify-between md:justify-center">
               <span className="font-semibold md:hidden">Action: </span>
               <Link href={`/admin/bookings/${booking._id}`}>
-                <IconButton variant="text" color="blue-gray">
+                <IconButton variant="text" color="purple-gray">
                   <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                 </IconButton>
               </Link>

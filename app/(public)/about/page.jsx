@@ -10,7 +10,7 @@ const About = () => {
       <div className="min-h-screen container mx-auto px-4 py-8 flex flex-col items-center justify-center bg-gray-100">
         <div className="max-w-full w-full bg-white shadow-md rounded-lg p-8 flex flex-col md:flex-row">
           <div className="md:w-1/2 md:pr-8">
-            <h1 className="font-cookie text-blue-500 text-4xl sm:text-5xl md:text-6xl lg:text-6xl">
+            <h1 className="font-cookie text-purple-500 text-4xl sm:text-5xl md:text-6xl lg:text-6xl">
               About Us
             </h1>
             <h2 className="font-julius text-gray-700 text-3xl sm:text-3xl md:text-4xl lg:text-3xl mb-4">

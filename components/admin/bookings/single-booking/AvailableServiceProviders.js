@@ -76,12 +76,12 @@ const AvailableServiceProviders = ({
                         sp.image?.url ||
                         `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${sp.name}`
                       }
-                      className="border border-blue-500 ring-4 ring-blue-500/40"
+                      className="border border-purple-500 ring-4 ring-purple-500/40"
                     />
                     <div>
                       <Typography
                         variant="h5"
-                        color="blue-gray"
+                        color="purple-gray"
                         className="mb-1"
                       >
                         {sp.name}
@@ -93,7 +93,7 @@ const AvailableServiceProviders = ({
                           className="font-normal opacity-75"
                         >
                           <span className="flex items-center gap-1">
-                            <FaVenusMars className="text-blue-500" />
+                            <FaVenusMars className="text-purple-500" />
                             {sp.gender}
                           </span>
                         </Typography>
@@ -123,12 +123,12 @@ const AvailableServiceProviders = ({
         >
           <div className="bg-white p-6 rounded-lg max-w-lg w-full mx-4">
             <div className="flex items-center justify-between">
-              <Typography variant="h5" color="blue-gray">
+              <Typography variant="h5" color="purple-gray">
                 Confirm Termination
               </Typography>
               <Button
                 variant="text"
-                color="blue-gray"
+                color="purple-gray"
                 onClick={() => setProviderToTerminate(null)}
                 className="p-2"
               >
@@ -171,7 +171,7 @@ const AvailableServiceProviders = ({
             <div className="flex items-center justify-end gap-2">
               <Button
                 variant="outlined"
-                color="blue-gray"
+                color="purple-gray"
                 onClick={() => setProviderToTerminate(null)}
               >
                 Cancel

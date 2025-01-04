@@ -1,243 +1,145 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
+import Image from "next/image";
+import { Dialog } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import { MdChevronRight, MdPlayArrow } from "react-icons/md";
+import { motion } from "framer-motion";
 
 const VideoCarousel = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const chunkArray = (array, chunkSize) => {
-    const result = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      result.push(array.slice(i, i + chunkSize));
-    }
-    return result;
-  };
-
-  const videos = [
-    "/video/nur-video1.mp4",
-    "/video/nur-video2.mp4",
-    "/video/nur-video3.mp4",
+  const gridItems = [
+    {
+      id: 1,
+      image: "/video/video-1.mp4",
+      title: "Ambulance Service",
+      video: "/video/video-1.mp4",
+      className: "hidden md:block col-span-1 row-span-1",
+    },
+    {
+      id: 2,
+      image: "/video/video-2.mp4",
+      title: "Home Nursing Service",
+      video: "/video/video-2.mp4",
+      className: "col-span-2 row-span-1",
+    },
+    {
+      id: 3,
+      image: "/video/video-3.mp4",
+      title: "Doctor On Call",
+      video: "/video/video-3.mp4",
+      className: "col-span-1 row-span-1",
+    },
+    {
+      id: 4,
+      image: "/video/video-4.mp4",
+      title: "Baby Sitting",
+      video: "/video/video-4.mp4",
+      className: "col-span-1 row-span-1",
+    },
+    {
+      id: 5,
+      image: "/video/video-5.mp4",
+      title: "Doctor Consultation",
+      video: "/video/video-5.mp4",
+      className: "col-span-2 row-span-1",
+    },
+    {
+      id: 6,
+      image: "/video/nur-video1.mp4",
+      title: "Professional Care",
+      video: "/video/nur-video1.mp4",
+      className: "hidden md:block col-span-1 row-span-1",
+    },
   ];
 
-  const videoChunks =
-    videos && videos.length > 0 ? chunkArray(videos, isMobile ? 1 : 3) : [];
-
-  const renderArrowPrev = (onClickHandler, hasPrev, label) =>
-    hasPrev && (
-      <motion.button
-        type="button"
-        onClick={onClickHandler}
-        title={label}
-        className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-800 bg-white/30 rounded-full hover:bg-white/50 z-10 focus:outline-none"
-        transition={{ duration: 0.2 }}
-      >
-        <MdChevronLeft className="w-8 h-8" />
-      </motion.button>
-    );
-
-  const renderArrowNext = (onClickHandler, hasNext, label) =>
-    hasNext && (
-      <motion.button
-        type="button"
-        onClick={onClickHandler}
-        title={label}
-        className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-800 bg-white/30 rounded-full hover:bg-white/50 z-10 focus:outline-none"
-        transition={{ duration: 0.2 }}
-      >
-        <MdChevronRight className="w-8 h-8" />
-      </motion.button>
-    );
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const titleVariants = {
-    hidden: { y: -50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.5,
-      },
-    },
-  };
-
-  const videoGroupVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const videoVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (custom) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.8,
-        delay: custom * 0.2,
-      },
-    }),
-  };
-
   return (
-    <motion.div
-      ref={ref}
-      className="mx-auto container relative overflow-hidden"
-      variants={containerVariants}
-      initial="hidden"
-      animate={controls}
-    >
-      <div className="w-full flex flex-col justify-center items-center py-8 px-4">
-        <motion.h1
-          className="font-julius lg:text-4xl md:text-3xl sm:text-2xl text-2xl text-center text-gray-800 mb-2"
-          variants={titleVariants}
-        >
-          COMPLETE THE TASK WITH
-        </motion.h1>
-        <motion.h2
-          className="font-cookie font-medium lg:text-5xl md:text-5xl sm:text-4xl text-3xl text-center text-blue-600"
-          animate={{
-            y: [0, -10, 0],
-            transition: {
-              y: {
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut",
-              },
-            },
-          }}
-        >
-          Experienced Professionals
-        </motion.h2>
-      </div>
-      <Carousel
-        showThumbs={false}
-        showStatus={false}
-        infiniteLoop
-        useKeyboardArrows
-        autoPlay
-        interval={5000}
-        transitionTime={300}
-        renderArrowPrev={renderArrowPrev}
-        renderArrowNext={renderArrowNext}
-        onChange={(index) => setCurrentSlide(index)}
-        className="pb-8"
-      >
-        {videoChunks.map((chunk, index) => (
-          <motion.div
-            key={index}
-            className="video-group flex justify-center gap-4 px-4"
-            variants={videoGroupVariants}
+    <div className="container mx-auto px-4 pb-12 ">
+      <div className="flex justify-center items-center mb-10">
+        <div>
+          <motion.h2
+            className="text-2xl md:text-4xl font-['Arial'] text-[#6E4BB2] mb-4"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {chunk.map((video, idx) => (
-              <motion.div
-                key={idx}
-                className="video-wrapper flex-1"
-                variants={videoVariants}
-                custom={idx}
+            COMPLETE THE TASK WITH
+          </motion.h2>
+          <motion.p
+            className="text-purple-700 text-3xl md:text-5xl font-cookie  flex items-center justify-center"
+            animate={{
+              y: [0, -10, 0],
+              transition: {
+                y: {
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut",
+                },
+              },
+            }}
+          >
+            Experienced Professionals
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {gridItems.map((item) => (
+          <motion.div
+            key={item.id}
+            className={`relative group overflow-hidden h-80 rounded-2xl ${item.className}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: item.id * 0.1 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <video
+              src={item.video}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              muted
+              loop
+              autoPlay
+            />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <h3 className="text-white font-semibold text-lg mb-2">
+                {item.title}
+              </h3>
+              <Button
+                variant="filled"
+                size="sm"
+                className="w-fit bg-white text-purple-500 flex items-center gap-2"
+                onClick={() => setSelectedVideo(item.video)}
               >
-                <video
-                  loop
-                  muted
-                  autoPlay
-                  className="video shadow-md border border-gray-200 rounded-lg"
-                >
-                  <source src={video} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </motion.div>
-            ))}
+                <MdPlayArrow className="w-5 h-5" />
+                Watch Video
+              </Button>
+            </div>
           </motion.div>
         ))}
-      </Carousel>
-      <style jsx>{`
-        .carousel-container {
-          max-width: 1000px;
-          margin: 2rem auto;
-          padding: 20px;
-          position: relative;
-        }
-        .video {
-          width: 100%;
-          height: auto;
-          border-radius: 10px;
-        }
-        @media (max-width: 768px) {
-          .video-group {
-            flex-direction: column;
-          }
-          .video-wrapper {
-            margin-bottom: 1rem;
-          }
-        }
-        .carousel-container :global(.carousel .control-arrow) {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-        .carousel-container :global(.carousel .control-prev) {
-          left: -30px;
-        }
-        .carousel-container :global(.carousel .control-next) {
-          right: -30px;
-        }
-        .carousel-container :global(.carousel .control-dots) {
-          bottom: 0;
-        }
-      `}</style>
-    </motion.div>
+      </div>
+
+      <Dialog
+        open={!!selectedVideo}
+        handler={() => setSelectedVideo(null)}
+        size="xl"
+      >
+        <div className="p-4">
+          {selectedVideo && (
+            <video
+              controls
+              autoPlay
+              className="w-full aspect-video rounded-lg"
+              src={selectedVideo}
+            >
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+      </Dialog>
+    </div>
   );
 };
 

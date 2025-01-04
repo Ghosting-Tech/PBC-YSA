@@ -97,7 +97,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
       <div className="text-center text-xl text-gray-700">
         Create an invoice!
       </div>
-      <Button color="blue" variant="gradient" onClick={handleInvoiceDialog}>
+      <Button color="purple" variant="gradient" onClick={handleInvoiceDialog}>
         Invoices
       </Button>
       <Dialog
@@ -115,7 +115,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
           {!selectedBooking.invoices?.title && (
             <Button
               onClick={handleCreateInvoiceDialog}
-              color="blue"
+              color="purple"
               variant="outlined"
               disabled={selectedBooking.completed}
             >
@@ -134,12 +134,12 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
           >
             <div className="w-full">
               <div className="mb-4 flex items-center justify-between">
-                <div className="text-lg sm:text-xl font-medium text-blue-gray-500">
+                <div className="text-lg sm:text-xl font-medium text-purple-gray-500">
                   Create invoice
                 </div>
                 <IconButton
                   variant="text"
-                  color="blue-gray"
+                  color="purple-gray"
                   onClick={handleCreateInvoiceDialog}
                   className="p-2"
                 >
@@ -172,7 +172,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
                     })
                   }
                   fullWidth
-                  color="blue"
+                  color="purple"
                 />
                 <Input
                   label="Description"
@@ -185,7 +185,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
                     })
                   }
                   fullWidth
-                  color="blue"
+                  color="purple"
                 />
               </div>
               <div className="flex flex-col sm:flex-row mb-4 gap-4">
@@ -201,7 +201,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
                       })
                     }
                     fullWidth
-                    color="blue"
+                    color="purple"
                   />
                 </div>
                 <div className="w-full sm:w-1/3">
@@ -216,13 +216,13 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
                       })
                     }
                     fullWidth
-                    color="blue"
+                    color="purple"
                   />
                 </div>
                 <div className="w-full sm:w-1/3">
                   <Button
                     onClick={handleAddItem}
-                    color="blue"
+                    color="purple"
                     variant="gradient"
                     className="rounded w-full"
                   >
@@ -312,7 +312,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
             </div>
             <div className="w-full sm:bg-white rounded-lg border overflow-auto">
               {/* Header */}
-              <div className="text-white bg-blue-500 flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
+              <div className="text-white bg-purple-500 flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
                 <div className="p-3 text-left font-semibold flex justify-center md:w-1/4">
                   Description
                 </div>

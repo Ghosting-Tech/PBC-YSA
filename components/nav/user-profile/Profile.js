@@ -453,7 +453,7 @@ const Profile = ({
                       fullWidth
                       size="md"
                       variant="outlined"
-                      color="blue-gray"
+                      color="purple-gray"
                       onClick={handleOpenForgotPassword}
                     >
                       Forgot Password?
@@ -466,7 +466,7 @@ const Profile = ({
                       open={openForgotPassword}
                     >
                       <div className="flex justify-between items-center mb-4">
-                        <h1 className="text-md text-center flex gap-1 items-center text-blue-800">
+                        <h1 className="text-md text-center flex gap-1 items-center text-purple-800">
                           Forgot password
                           <AiFillQuestionCircle size={20} />
                         </h1>
@@ -514,7 +514,7 @@ const Profile = ({
                             onClick={handleThrowingOtp}
                             variant="gradient"
                             disabled={otpSended}
-                            color="blue"
+                            color="purple"
                             className="flex gap-2 items-center justify-center"
                             fullWidth
                           >
@@ -534,7 +534,7 @@ const Profile = ({
                             type="password"
                             maxLength={25}
                             required
-                            color="blue"
+                            color="purple"
                             onChange={(e) => setUpdatedPassword(e.target.value)}
                           />
                           <Input
@@ -543,7 +543,7 @@ const Profile = ({
                             type="password"
                             maxLength={25}
                             required
-                            color="blue"
+                            color="purple"
                             error={updatedPasswordError}
                             onChange={(e) => {
                               if (e.target.value !== updatedPassword) {
@@ -557,7 +557,7 @@ const Profile = ({
                             onClick={handleUpdatePassword}
                             variant="gradient"
                             disabled={updatedPasswordError}
-                            color="blue"
+                            color="purple"
                             className="flex gap-2 items-center justify-center"
                             fullWidth
                           >
@@ -572,7 +572,7 @@ const Profile = ({
                       size="md"
                       type="submit"
                       variant="gradient"
-                      color="blue"
+                      color="purple"
                       className="flex gap-1 items-center justify-center"
                     >
                       Login <RiLoginCircleFill size={20} />
@@ -714,7 +714,7 @@ const Profile = ({
                     variant="gradient"
                     fullWidth
                     size="lg"
-                    color="blue"
+                    color="purple"
                     className="flex gap-1 items-center justify-center"
                   >
                     Verify Number <IoShieldCheckmark size={20} />
@@ -736,14 +736,14 @@ const Profile = ({
         }}
       >
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">
+          <h2 className="text-2xl font-bold mb-4 text-center text-purple-500">
             Verify Number
           </h2>
           <form onSubmit={handleRegister} className="flex flex-col gap-4">
             <Input
               label="Enter OTP"
               maxLength={4}
-              color="blue"
+              color="purple"
               value={otp}
               size="lg"
               minLength={4}
@@ -759,14 +759,14 @@ const Profile = ({
             <div className="flex gap-4 items-center">
               <Button
                 variant="text"
-                color="blue-gray"
+                color="purple-gray"
                 className="underline w-full"
                 onClick={sendingRegisterOtp}
                 disabled={isOtpButtonDisabled}
               >
                 {isOtpButtonDisabled ? `Resend OTP in ${timer} s` : "Send OTP"}
               </Button>
-              <Button type="submit" variant="gradient" color="blue" fullWidth>
+              <Button type="submit" variant="gradient" color="purple" fullWidth>
                 Verify OTP
               </Button>
             </div>

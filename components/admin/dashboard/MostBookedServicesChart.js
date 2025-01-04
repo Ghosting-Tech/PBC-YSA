@@ -52,7 +52,7 @@ const MostBookedServicesChart = ({ data, loading }) => {
     return (
       <Card className="w-full max-w-[800px] bg-white rounded-xl shadow-md">
         <div className="flex flex-col items-center justify-center h-[500px]">
-          <LoaderCircle className="h-12 w-12 text-blue-500/80 animate-spin" />
+          <LoaderCircle className="h-12 w-12 text-purple-500/80 animate-spin" />
           <p className="mt-4 text-gray-600 font-medium">
             Loading chart data...
           </p>
@@ -74,7 +74,7 @@ const MostBookedServicesChart = ({ data, loading }) => {
               <Cog6ToothIcon className="h-6 w-6" />
             </div>
             <div>
-              <Typography variant="h5" color="blue-gray">
+              <Typography variant="h5" color="purple-gray">
                 Most Booked Services
               </Typography>
               <Typography
@@ -89,7 +89,7 @@ const MostBookedServicesChart = ({ data, loading }) => {
           <Button
             size="sm"
             variant="outlined"
-            color="blue-gray"
+            color="purple-gray"
             className="flex items-center gap-3"
             onClick={toggleSortOrder}
           >

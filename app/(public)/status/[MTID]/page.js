@@ -50,7 +50,7 @@ const PaymentStatusPage = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-48">
-        <AiOutlineLoading className="animate-spin text-blue-500" size={50} />
+        <AiOutlineLoading className="animate-spin text-purple-500" size={50} />
       </div>
     );
   }

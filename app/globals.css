@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.backdrop-blur {
+  backdrop-filter: blur(8.1px);
+}
+
 @layer base {
   /* Headings */
   h1 {
@@ -106,7 +110,7 @@
   list-style: none;
   width: 20px;
   height: 20px;
-  background: linear-gradient(-45deg, royalblue, slateblue);
+  background: linear-gradient(-45deg, royalpurple, slatepurple);
   /* background-size: 400% 400%; */
   animation: gradient 15s ease infinite;
   animation: animate 25s linear infinite;
@@ -315,7 +319,7 @@
 .circleshome li {
   position: absolute;
   width: 40px;
-  height: 40px; /* Blue and Violet Gradient */
+  height: 40px; /* purple and Violet Gradient */
   animation: rotate 5s linear infinite;
 }
 .circleshome .shape2 {
@@ -415,14 +419,27 @@ th:not(:last-child) {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0f1c;
+  background: #6e4bb2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a2236;
+  background: rgb(185, 3, 185);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3446;
+  background: rgb(243, 3, 243);
+}
+@keyframes bounce-x {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1s infinite;
 }

@@ -390,7 +390,7 @@ const CreateServiceProvider = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Spinner color="blue" size="lg" />
+        <Spinner color="purple" size="lg" />
       </div>
     );
   }
@@ -436,7 +436,7 @@ const CreateServiceProvider = () => {
               <Button
                 variant="gradient"
                 className="rounded-md"
-                color="blue"
+                color="purple"
                 onClick={() => window.location.reload()}
               >
                 <span>Understood</span>
@@ -461,7 +461,7 @@ const CreateServiceProvider = () => {
               Wait For admin to approve Your account
             </p>
             <div className="w-full flex justify-center my-4">
-              <Button variant="gradient" className="rounded-md" color="blue">
+              <Button variant="gradient" className="rounded-md" color="purple">
                 <button
                   onClick={() => {
                     window.location.href = "/";
@@ -477,7 +477,7 @@ const CreateServiceProvider = () => {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <Card className="w-full max-w-4xl">
           <CardBody className="flex flex-col gap-8">
-            <Typography variant="h3" color="blue" className="text-center">
+            <Typography variant="h3" color="purple" className="text-center">
               Become a Service Provider
             </Typography>
             <form className="space-y-8">
@@ -525,7 +525,7 @@ const CreateServiceProvider = () => {
                 {/* state and city section */}
                 <div className="relative w-full">
                   <select
-                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full"
+                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-150 ease-in-out w-full"
                     name="state"
                     value={selectedState}
                     onChange={(e) => {
@@ -550,7 +550,7 @@ const CreateServiceProvider = () => {
 
                 <div className="relative w-full">
                   <select
-                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full"
+                    className="appearance-none bg-white border border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-150 ease-in-out w-full"
                     name="city"
                     value={inputData.city}
                     onChange={(e) => {
@@ -594,7 +594,7 @@ const CreateServiceProvider = () => {
                     <span className="text-red-400 ml-1">*</span>
                   </label>
                   <input
-                    className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                    className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 "
                     type="file"
                     id="icon"
                     accept=".jpeg, .jpg, .png, .pdf,"
@@ -610,7 +610,7 @@ const CreateServiceProvider = () => {
 
               {/* Identification Documents */}
               <div className="space-y-6">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+                <Typography variant="h6" color="purple-gray" className="mb-3">
                   Identification Documents
                 </Typography>
                 {/* first id proof section  */}
@@ -642,7 +642,7 @@ const CreateServiceProvider = () => {
                       <span className="text-red-400 ml-1">*</span>
                     </label>
                     <input
-                      className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                      className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 "
                       type="file"
                       id="icon"
                       accept=".jpeg, .jpg, .png, .pdf,"
@@ -691,7 +691,7 @@ const CreateServiceProvider = () => {
                       <span className="text-red-400 ml-1">*</span>
                     </label>
                     <input
-                      className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                      className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 "
                       type="file"
                       id="icon"
                       onChange={handleid2Upload}
@@ -705,7 +705,11 @@ const CreateServiceProvider = () => {
                 <div>
                   {/* degree section  */}
                   <div className="space-y-6 mb-5">
-                    <Typography variant="h6" color="blue-gray" className="mb-3">
+                    <Typography
+                      variant="h6"
+                      color="purple-gray"
+                      className="mb-3"
+                    >
                       Degree
                     </Typography>
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -732,7 +736,7 @@ const CreateServiceProvider = () => {
                           <span className="text-red-400 ml-1">*</span>
                         </label>
                         <input
-                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 "
                           type="file"
                           id="icon"
                           accept=".jpeg, .jpg, .png, .pdf,"
@@ -743,7 +747,11 @@ const CreateServiceProvider = () => {
                   </div>
                   {/* certificate section */}
                   <div className="space-y-6">
-                    <Typography variant="h6" color="blue-gray" className="mb-3">
+                    <Typography
+                      variant="h6"
+                      color="purple-gray"
+                      className="mb-3"
+                    >
                       The Indian Association of Physiotherapists (IAP)
                     </Typography>
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -771,7 +779,7 @@ const CreateServiceProvider = () => {
                           <span className="text-red-400 ml-1">*</span>
                         </label>
                         <input
-                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 "
                           type="file"
                           id="icon"
                           accept=".jpeg, .jpg, .png, .pdf,"
@@ -789,7 +797,7 @@ const CreateServiceProvider = () => {
               )}
 
               <div className="space-y-2">
-                <Typography variant="h6" color="blue-gray" className="mb-3">
+                <Typography variant="h6" color="purple-gray" className="mb-3">
                   Security
                 </Typography>
                 <div className="relative w-full">
@@ -829,7 +837,7 @@ const CreateServiceProvider = () => {
                   <span className="text-red-400 ml-1">*</span>
                 </h6>
                 <input
-                  className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
                   type="file"
                   onChange={(e) =>
                     setInputData({
@@ -846,7 +854,7 @@ const CreateServiceProvider = () => {
                 fullWidth
                 size="lg"
                 variant="gradient"
-                color="blue"
+                color="purple"
                 onClick={handleVerifyMobileNumber}
               >
                 Verify Mobile Number

@@ -22,7 +22,7 @@ const PopularCities = ({ onCitySelect }) => {
 
   return (
     <div>
-      <Typography variant="h6" color="blue-gray" className="mb-2">
+      <Typography variant="h6" color="purple-gray" className="mb-2">
         Popular Cities
       </Typography>
       <div className="flex flex-wrap gap-2">

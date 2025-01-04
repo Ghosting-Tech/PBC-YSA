@@ -68,8 +68,8 @@ const BlogCard = ({
             <div className="flex justify-between items-center mb-3">
               <Typography
                 variant="small"
-                color="blue"
-                className="font-semibold px-2 py-1 bg-blue-50 rounded-md"
+                color="purple"
+                className="font-semibold px-2 py-1 bg-purple-50 rounded-md"
               >
                 {blog.type}
               </Typography>
@@ -82,7 +82,7 @@ const BlogCard = ({
                   <span className="hidden group-hover:flex gap-2">
                     <FaRegEdit
                       size={20}
-                      className="cursor-pointer text-blue-gray-500 hover:text-blue-500 transition-colors"
+                      className="cursor-pointer text-purple-gray-500 hover:text-purple-500 transition-colors"
                       onClick={() => {
                         setOpenEditDialog(true);
                         setSelectedBlog(blog);
@@ -90,7 +90,7 @@ const BlogCard = ({
                     />
                     <MdOutlineDelete
                       size={22}
-                      className="cursor-pointer text-blue-gray-500 hover:text-red-500 transition-colors"
+                      className="cursor-pointer text-purple-gray-500 hover:text-red-500 transition-colors"
                       onClick={() => {
                         setOpenDeleteDialog(true);
                         setDeleteBlog(blog);
@@ -104,7 +104,7 @@ const BlogCard = ({
             </div>
             <Typography
               variant="h5"
-              color="blue-gray"
+              color="purple-gray"
               className="mb-2 line-clamp-2"
             >
               {blog.title}

@@ -127,7 +127,7 @@ const ServiceProvider = () => {
               <Button
                 onClick={handleOpen}
                 variant="gradient"
-                color="blue"
+                color="purple"
                 className="mt-3 md:mt-0 whitespace-nowrap flex justify-center"
               >
                 Edit Profile

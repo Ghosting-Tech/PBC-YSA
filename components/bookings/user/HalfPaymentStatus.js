@@ -68,7 +68,7 @@ const HalfPaymentStatus = ({ payment, isOpen, setIsOpen }) => {
 
                 {/* Transaction ID */}
                 <div className="flex items-center gap-3">
-                  <ReceiptText className="text-blue-600" />
+                  <ReceiptText className="text-purple-600" />
                   <div>
                     <p className="font-semibold">Transaction ID</p>
                     <p className="text-gray-600">

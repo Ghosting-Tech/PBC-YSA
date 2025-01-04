@@ -25,10 +25,10 @@ const UserHeader = ({ user, onEditClick }) => {
             `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${user?.name}`
           }
           alt={user?.name}
-          className="border-4 border-blue-500 p-0.5"
+          className="border-4 border-purple-500 p-0.5"
         />
         <div className="flex flex-col gap-2">
-          <div className="text-5xl text-blue-gray-700 font-bold">
+          <div className="text-5xl text-purple-gray-700 font-bold">
             {user?.name}
           </div>
           <UserStats user={user} />
@@ -38,7 +38,7 @@ const UserHeader = ({ user, onEditClick }) => {
         <Button
           onClick={onEditClick}
           className="flex items-center gap-2"
-          color="blue"
+          color="purple"
           size="lg"
         >
           <FaEdit className="h-5 w-5" /> Edit Profile

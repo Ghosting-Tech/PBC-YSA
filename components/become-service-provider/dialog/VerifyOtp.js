@@ -234,7 +234,7 @@ const VerifyOtp = ({
       }}
     >
       <div className="bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">
+        <h2 className="text-2xl font-bold mb-4 text-center text-purple-500">
           Verify OTP
         </h2>
         <form
@@ -244,7 +244,7 @@ const VerifyOtp = ({
           <Input
             label="Enter OTP"
             maxLength={4}
-            color="blue"
+            color="purple"
             value={otp}
             size="lg"
             minLength={4}
@@ -262,7 +262,7 @@ const VerifyOtp = ({
           <div className="flex gap-4 items-center">
             <Button
               variant="text"
-              color="blue-gray"
+              color="purple-gray"
               className="underline w-full"
               onClick={SendingOtp}
               disabled={isOtpButtonDisabled}
@@ -271,7 +271,7 @@ const VerifyOtp = ({
             </Button>
             <Button
               type="submit"
-              color="blue"
+              color="purple"
               fullWidth
               className="flex justify-center"
               loading={uploadingLoading}

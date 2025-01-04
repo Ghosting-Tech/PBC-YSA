@@ -76,10 +76,17 @@ export default function Blogs() {
         className="container mx-auto px-4"
       >
         <motion.div variants={itemVariants} className="text-center mb-12">
-          <Typography variant="h2" color="blue" className="mb-4">
+          <Typography
+            variant="h2"
+            className="mb-4 text-[#6E4BB2] font-['Arial']"
+          >
             Latest Blogs
           </Typography>
-          <Typography variant="lead" color="gray" className="max-w-2xl mx-auto">
+          <Typography
+            variant="lead"
+            color="gray"
+            className="max-w-2xl mx-auto font-poppins"
+          >
             That&apos;s the main thing people are controlled by! Thoughts -
             their perception of themselves!
           </Typography>
@@ -100,7 +107,7 @@ export default function Blogs() {
           <Link href="/blogs" className="no-underline">
             <Button
               variant="outlined"
-              color="blue"
+              color="purple"
               size="lg"
               className="flex items-center gap-2 group"
             >

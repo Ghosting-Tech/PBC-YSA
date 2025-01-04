@@ -96,7 +96,7 @@ const AddServiceDialog = ({
                   className="w-10 aspect-square object-cover mr-2 rounded"
                 />
                 <Typography
-                  color="blue-gray"
+                  color="purple-gray"
                   className="font-medium whitespace-nowrap"
                 >
                   {service.name}

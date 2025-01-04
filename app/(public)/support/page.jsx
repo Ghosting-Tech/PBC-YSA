@@ -100,7 +100,7 @@ const FAQSection = ({ items, openAccordion, handleOpen }) => (
     {items.map((faq, index) => (
       <Accordion key={index} open={openAccordion === index + 1}>
         <AccordionHeader
-          className="text-md font-semibold text-blue-600 hover:text-blue-800"
+          className="text-md font-semibold text-purple-600 hover:text-purple-800"
           onClick={() => handleOpen(index + 1)}
         >
           {faq.question}
@@ -233,7 +233,7 @@ export default function SupportPage() {
       <Card className="w-full">
         <CardBody className="p-8">
           <div className="flex justify-between flex-col md:flex-row items-center mb-8">
-            <Typography variant="h3" color="blue" className="text-center">
+            <Typography variant="h3" color="purple" className="text-center">
               How can we help you today?
             </Typography>
             {user?._id && (
@@ -244,7 +244,7 @@ export default function SupportPage() {
               >
                 <Button
                   variant="outlined"
-                  color="blue-gray"
+                  color="purple-gray"
                   className="w-full md:w-fit"
                 >
                   My tickets
@@ -285,12 +285,12 @@ export default function SupportPage() {
                   className="no-underline"
                   legacyBehavior
                 >
-                  <Card className="border-2 border-blue-300 shadow-md shadow-blue-50">
+                  <Card className="border-2 border-purple-300 shadow-md shadow-purple-50">
                     <CardBody className="flex flex-col items-center p-4">
                       {method.icon}
                       <Typography
                         variant="h6"
-                        color="blue-gray"
+                        color="purple-gray"
                         className="mt-2"
                       >
                         {method.title}
@@ -306,7 +306,7 @@ export default function SupportPage() {
           </motion.div>
 
           <motion.div variants={fadeIn}>
-            <Typography variant="h4" color="blue-gray" className="mb-2">
+            <Typography variant="h4" color="purple-gray" className="mb-2">
               Frequently Asked Questions
             </Typography>
             <FAQSection
@@ -317,7 +317,7 @@ export default function SupportPage() {
           </motion.div>
 
           <motion.div className="mt-12" variants={fadeIn}>
-            <Typography variant="h4" color="blue-gray" className="mb-4">
+            <Typography variant="h4" color="purple-gray" className="mb-4">
               Still need help?
             </Typography>
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -402,10 +402,10 @@ export default function SupportPage() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="file"
-                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-blue-300 rounded-lg cursor-pointer bg-blue-50 hover:bg-blue-100 transition-colors duration-300"
+                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-purple-300 rounded-lg cursor-pointer bg-purple-50 hover:bg-purple-100 transition-colors duration-300"
                 >
                   <svg
-                    className="w-8 h-8 text-blue-500 mb-2"
+                    className="w-8 h-8 text-purple-500 mb-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -417,10 +417,10 @@ export default function SupportPage() {
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                     />
                   </svg>
-                  <span className="text-sm text-blue-600 font-medium">
+                  <span className="text-sm text-purple-600 font-medium">
                     {file ? file.name : "Click here to upload"}
                   </span>
-                  <span className="text-xs text-blue-400 mt-1">
+                  <span className="text-xs text-purple-400 mt-1">
                     Maximum file size: 10MB
                   </span>
                 </label>
@@ -451,7 +451,7 @@ export default function SupportPage() {
               <Button
                 type="submit"
                 size="lg"
-                color="blue"
+                color="purple"
                 className="mt-10 flex items-center justify-center"
                 fullWidth
                 loading={loading}

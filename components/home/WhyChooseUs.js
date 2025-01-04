@@ -46,8 +46,10 @@ export default function WhyChooseUs() {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-3xl text-gray-600">Why Choose Us</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-2xl md:text-4xl text-[#6E4BB2] font-['Arial']">
+          Why Choose Us
+        </h1>
+        <p className="text-gray-600 max-w-2xl mx-auto font-poppins">
           We provide comprehensive healthcare solutions with a focus on quality,
           accessibility, and patient comfort.
         </p>
@@ -61,7 +63,7 @@ export default function WhyChooseUs() {
           >
             <CardBody className="p-6">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-xl bg-teal-100 text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
+                <div className="p-3 rounded-xl bg-purple-200 text-purple-700 group-hover:bg-purple-700 group-hover:text-white transition-colors duration-300">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold">{feature.title}</h3>

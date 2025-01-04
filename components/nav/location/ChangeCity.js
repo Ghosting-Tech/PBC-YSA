@@ -126,7 +126,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
     >
       <Card className="w-full max-w-full p-4">
         <CardHeader
-          color="blue"
+          color="purple"
           className="relative h-28 flex items-center justify-center"
         >
           <Typography
@@ -140,7 +140,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
         <CardBody className="flex flex-col gap-4">
           <div className="flex items-center gap-2 text-red-500">
             <MapPinIcon className="h-5 w-5" />
-            <Typography color="blue-gray">
+            <Typography color="purple-gray">
               Current City: {currentCity}
             </Typography>
           </div>
@@ -148,7 +148,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
               <option value="">Select State</option>
               {Object.keys(locationData).map((state) => (
@@ -167,7 +167,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               disabled={!selectedState}
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500"
+              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500"
             >
               <option value="">Select City</option>
               {cities.map((city) => (

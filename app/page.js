@@ -13,6 +13,14 @@ import {
   setTopBookedServices,
   setTopBookedServicesLoading,
 } from "@/redux/slice/topBookedServicesSlice";
+import {
+  setLatestBookedServices,
+  setLatestBookedServicesLoading,
+} from "@/redux/slice/LatestBookedServicesSlice";
+import {
+  setRecommendedBookedServices,
+  setRecommendedBookedServicesLoading,
+} from "@/redux/slice/RecommendedBookedServicesSlice";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import Hero from "@/components/home/Hero";
 import VideoCarousel from "@/components/home/VideoCarousel";
@@ -22,6 +30,12 @@ import HowToBook from "@/components/home/HowToBook";
 import Footer from "@/components/Footer";
 import Nav from "@/components/nav/Nav";
 import EnhancedNav from "@/components/nav/Nav";
+import MainNav from "@/components/nav/MainNav";
+import HeroSection from "@/components/home/NewHero";
+import LatestServices from "@/components/home/LatestServices";
+import RecommendedServices from "@/components/home/RecommendedServices";
+import NewFooter from "@/components/home/NewFooter";
+import AvailableCities from "@/components/home/AvailableCities";
 const fetchTopServices = async (cityState) => {
   try {
     const response = await axios.post(
@@ -31,6 +45,30 @@ const fetchTopServices = async (cityState) => {
     return response;
   } catch (error) {
     console.error("Error fetching top services:", error);
+    return [];
+  }
+};
+const fetchLatestServices = async (cityState) => {
+  try {
+    const response = await axios.post(
+      "/api/services/latest?limit=100",
+      cityState
+    );
+    return response;
+  } catch (error) {
+    console.error("Error fetching Latest services:", error);
+    return [];
+  }
+};
+const fetchRecommendedServices = async (cityState) => {
+  try {
+    const response = await axios.post(
+      "/api/services/recommended?limit=100",
+      cityState
+    );
+    return response;
+  } catch (error) {
+    console.error("Error fetching Recommended services:", error);
     return [];
   }
 };
@@ -61,6 +99,8 @@ const getAddress = async ({ lat, lng }) => {
 export default function Home() {
   const [selectedState, setSelectedState] = useState("Bihar");
   const [selectedCity, setCity] = useState("patna");
+  const [latestServices, setLatestServices] = useState([]);
+  const [recommendedServices, setRecommendedServices] = useState([]);
 
   const setSelectedCity = useCallback((city) => {
     setCity(city);
@@ -68,6 +108,10 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const topBookedServices = useSelector((state) => state.topServices);
+  const latestBookedServices = useSelector((state) => state.latestServices);
+  const recommendedBookedServices = useSelector(
+    (state) => state.recommendedServices
+  );
 
   const getTopServices = useCallback(
     async (cityState, message) => {
@@ -94,6 +138,60 @@ export default function Home() {
     },
     [dispatch]
   );
+  const getLatestServices = useCallback(
+    async (cityState, message) => {
+      try {
+        dispatch(setLatestBookedServicesLoading(true));
+        const response = await fetchLatestServices(cityState);
+        console.log({ latestResponse: response.data.data });
+        setLatestServices(response.data.data);
+        if (response.data.success) {
+          const allServices = response.data.data;
+          dispatch(setLatestBookedServicesLoading(false));
+          if (message && allServices.length === 0) {
+            toast.warning(message);
+          }
+          dispatch(setLatestBookedServices(allServices));
+          dispatch(setGeolocationDenied(false));
+          dispatch(setCityState(cityState));
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching top services:", error);
+      } finally {
+        dispatch(setLatestBookedServicesLoading(false));
+      }
+    },
+    [dispatch]
+  );
+  const getRecommendedServices = useCallback(
+    async (cityState, message) => {
+      try {
+        dispatch(setRecommendedBookedServicesLoading(true));
+        const response = await fetchRecommendedServices(cityState);
+        console.log({ recommendedResponse: response.data.data });
+        setRecommendedServices(response.data.data);
+        if (response.data.success) {
+          const allServices = response.data.data;
+          dispatch(setRecommendedBookedServicesLoading(false));
+          if (message && allServices.length === 0) {
+            toast.warning(message);
+          }
+          dispatch(setRecommendedBookedServices(allServices));
+          dispatch(setGeolocationDenied(false));
+          dispatch(setCityState(cityState));
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching Recommended services:", error);
+      } finally {
+        dispatch(setRecommendedBookedServicesLoading(false));
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const getUserLocation = () => {
@@ -101,6 +199,8 @@ export default function Home() {
         console.log("Geolocation not supported");
 
         dispatch(setTopBookedServicesLoading(false));
+        dispatch(setLatestBookedServicesLoading(false));
+        dispatch(setRecommendedBookedServicesLoading(false));
         return;
       }
 
@@ -118,12 +218,16 @@ export default function Home() {
           } catch (error) {
             console.log("Error getting address:", error);
             dispatch(setTopBookedServicesLoading(false));
+            dispatch(setLatestBookedServicesLoading(false));
+            dispatch(setRecommendedBookedServicesLoading(false));
           }
         },
         (error) => {
           console.log("Error getting location:", error.message);
           dispatch(setGeolocationDenied(true));
           dispatch(setTopBookedServicesLoading(false));
+          dispatch(setLatestBookedServicesLoading(false));
+          dispatch(setRecommendedBookedServicesLoading(false));
         }
       );
     };
@@ -131,11 +235,19 @@ export default function Home() {
     const storedLocation = localStorage.getItem("cityState");
     if (storedLocation && topBookedServices.services.length === 0) {
       getTopServices(JSON.parse(storedLocation));
+      getLatestServices(JSON.parse(storedLocation));
+      getRecommendedServices(JSON.parse(storedLocation));
     } else {
       getUserLocation();
     }
     //eslint-disable-next-line
-  }, [dispatch, getTopServices, setSelectedCity]);
+  }, [
+    dispatch,
+    getTopServices,
+    getLatestServices,
+    getRecommendedServices,
+    setSelectedCity,
+  ]);
 
   const handleLocationChange = () => {
     if (selectedState && selectedCity) {
@@ -146,14 +258,26 @@ export default function Home() {
         cityState,
         "No services found for the selected location. Please select a different location."
       );
+      getLatestServices(
+        cityState,
+        "No services found for the selected location. Please select a different location."
+      );
+      getRecommendedServices(
+        cityState,
+        "No services found for the selected location. Please select a different location."
+      );
     }
   };
+  console.log({ latest: latestBookedServices.services });
+  console.log({ recommended: recommendedBookedServices.services });
 
   return (
     <main>
       <>
-        <EnhancedNav />
-        <Hero />
+        {/* <EnhancedNav /> */}
+        {/* <MainNav /> */}
+        {/* <Hero /> */}
+        <HeroSection />
         <ServiceContainer
           selectedState={selectedState}
           setSelectedState={setSelectedState}
@@ -163,12 +287,20 @@ export default function Home() {
           forAllService={false}
         />
         <VideoCarousel />
+        {latestServices.length > 0 && (
+          <LatestServices latestServices={latestServices} />
+        )}
         <WhyChooseUs />
         <HowToBook />
         <CallToAction />
         <Testimonial />
         <Blogs />
-        <Footer />
+        <AvailableCities />
+        {recommendedServices.length > 0 && (
+          <RecommendedServices recommendedServices={recommendedServices} />
+        )}
+        <NewFooter />
+        {/* <Footer /> */}
       </>
     </main>
   );

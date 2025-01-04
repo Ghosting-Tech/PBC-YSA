@@ -28,12 +28,12 @@ const TableHeading = ({
           <Link href={`/admin/service-providers/details/${searchId}`}>
             <IoArrowBackOutline size={25} />
           </Link>
-          <h1 className="text-2xl font-bold text-blue-gray-500 text-center md:text-left">
+          <h1 className="text-2xl font-bold text-purple-gray-500 text-center md:text-left">
             All Bookings
           </h1>
         </div>
       ) : (
-        <h1 className="text-2xl font-bold text-blue-gray-500 text-center md:text-left">
+        <h1 className="text-2xl font-bold text-purple-gray-500 text-center md:text-left">
           All Bookings
         </h1>
       )}
@@ -58,7 +58,7 @@ const TableHeading = ({
           </Select>
           <IconButton
             variant="text"
-            color="blue-gray"
+            color="purple-gray"
             onClick={() => {
               fetchBookings();
               toast.success("Bookings Updated!");

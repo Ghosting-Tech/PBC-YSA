@@ -177,7 +177,7 @@ export default function EnhancedNav() {
           >
             <MotionIconButton
               variant="text"
-              color="blue-gray"
+              color="purple-gray"
               className="ml-auto"
               onClick={() => setOpenNav(!openNav)}
               animate={openNav ? "open" : "closed"}

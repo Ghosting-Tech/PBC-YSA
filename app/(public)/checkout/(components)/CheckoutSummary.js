@@ -46,7 +46,7 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-xl shadow-lg"
     >
-      <Typography variant="h4" color="blue-gray" className="mb-4">
+      <Typography variant="h4" color="purple-gray" className="mb-4">
         Order Summary
       </Typography>
 
@@ -86,7 +86,7 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
               className="w-20 h-20 object-cover rounded-lg mr-4"
             />
             <div>
-              <Typography variant="h6" color="blue-gray">
+              <Typography variant="h6" color="purple-gray">
                 {item.name}
               </Typography>
               <Typography variant="small" color="gray">
@@ -111,7 +111,7 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
           <Typography variant="small" color="gray">
             Subtotal
           </Typography>
-          <Typography variant="small" color="blue-gray">
+          <Typography variant="small" color="purple-gray">
             ₹{subtotal.toFixed(2)}
           </Typography>
         </div>
@@ -119,12 +119,12 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
           <Typography variant="small" color="gray">
             Convenience Fee
           </Typography>
-          <Typography variant="small" color="blue-gray">
+          <Typography variant="small" color="purple-gray">
             ₹{convenienceFee.toFixed(2)}
           </Typography>
         </div>
         <div className="flex justify-between">
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color="purple-gray">
             Total
           </Typography>
           <Typography variant="h6" color="teal">

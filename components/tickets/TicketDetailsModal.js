@@ -74,7 +74,7 @@ const TicketDetailsModal = ({
             </div>
             <div className="flex items-center gap-1">
               <UserIcon className="h-5 w-5" />
-              <Typography variant="h6" color="blue-gray" className="mb-1">
+              <Typography variant="h6" color="purple-gray" className="mb-1">
                 {ticket.name}
               </Typography>
             </div>
@@ -89,7 +89,7 @@ const TicketDetailsModal = ({
             <TicketStatusChip status={ticket.status} />
           </div>
         </div>
-        <Typography variant="h6" color="blue-gray" className="mb-2">
+        <Typography variant="h6" color="purple-gray" className="mb-2">
           Issue Description
         </Typography>
         <Typography variant="paragraph" color="gray" className="mb-4">
@@ -101,7 +101,7 @@ const TicketDetailsModal = ({
           </Typography>
           {ticket?.file?.url ? (
             <Link href={ticket?.file?.url} target="_blank">
-              <Button color="blue" variant="text" size="sm" className="w-fit">
+              <Button color="purple" variant="text" size="sm" className="w-fit">
                 View
               </Button>
             </Link>

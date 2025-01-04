@@ -37,7 +37,7 @@ const NotificationDialog = ({ notification, open, onClose }) => {
           <Typography className="font-semibold w-1/4">Link:</Typography>
           <Link
             href={notification.link}
-            className="w-3/4 !text-blue-500 underline"
+            className="w-3/4 !text-purple-500 underline"
           >
             {notification.link}
           </Link>
@@ -56,7 +56,7 @@ const NotificationDialog = ({ notification, open, onClose }) => {
                 href={notification.image.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="!text-blue-500 underline"
+                className="!text-purple-500 underline"
               >
                 {notification.image.name ||
                   notification.image.url.split("/").pop()}
@@ -66,7 +66,11 @@ const NotificationDialog = ({ notification, open, onClose }) => {
         )}
       </DialogBody>
       <DialogFooter>
-        <Button onClick={() => onClose(false)} color="blue" className="ml-auto">
+        <Button
+          onClick={() => onClose(false)}
+          color="purple"
+          className="ml-auto"
+        >
           Close
         </Button>
       </DialogFooter>

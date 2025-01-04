@@ -157,7 +157,7 @@ const UserCompletedBooking = ({
                   );
                 })}
               </div>
-              <h4 className="text-blue-500 font-semibold text-xl mt-4">
+              <h4 className="text-purple-500 font-semibold text-xl mt-4">
                 Your Information
               </h4>
               <div className="h-px bg-gray-300 w-full mt-2 mb-1"></div>
@@ -234,7 +234,7 @@ const UserCompletedBooking = ({
                     </div>
                     <button
                       onClick={handleServiceProviderDetailDialog}
-                      className="flex items-center justify-center rounded-full bg-blue-100 w-10 h-10"
+                      className="flex items-center justify-center rounded-full bg-purple-100 w-10 h-10"
                     >
                       <IoMdOpen size={15} />
                     </button>
@@ -250,13 +250,13 @@ const UserCompletedBooking = ({
                     }}
                   >
                     <div className="mb-2 flex items-center justify-between">
-                      <div className="text-xl font-semibold text-blue-gray-500">
+                      <div className="text-xl font-semibold text-purple-gray-500">
                         Service provider detail
                       </div>
 
                       <IconButton
                         variant="text"
-                        color="blue-gray"
+                        color="purple-gray"
                         onClick={handleServiceProviderDetailDialog}
                       >
                         <svg
@@ -275,7 +275,7 @@ const UserCompletedBooking = ({
                         </svg>
                       </IconButton>
                     </div>
-                    <div className="mb-4 flex flex-col   border-b border-blue-gray-50 pb-4">
+                    <div className="mb-4 flex flex-col   border-b border-purple-gray-50 pb-4">
                       <div className="flex items-center gap-3">
                         <div>
                           <div className="w-12 h-12 text-xl text-black rounded-full flex justify-center items-center font-junge bg-gray-400">
@@ -290,7 +290,7 @@ const UserCompletedBooking = ({
                         <div>
                           <Typography
                             variant="h5"
-                            color="blue"
+                            color="purple"
                             className="font-semibold"
                           >
                             {
@@ -329,7 +329,7 @@ const UserCompletedBooking = ({
                       </div>
                       <div className="flex items-center gap-3">
                         <PiGenderIntersexFill
-                          className="text-blue-500"
+                          className="text-purple-500"
                           size={23}
                         />
                         Gender:{" "}
@@ -452,7 +452,7 @@ const UserCompletedBooking = ({
             <section className="flex justify-end items-center">
               <Button
                 variant="gradient"
-                color="blue"
+                color="purple"
                 className="rounded"
                 onClick={handleOpenUserBookingCompletedDialog}
               >

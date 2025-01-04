@@ -116,7 +116,7 @@ const ServiceProviderLocation = ({ serviceProvider, role }) => {
             )}
             {role != "admin" && (
               <Button
-                color="blue"
+                color="purple"
                 variant="gradient"
                 onClick={handleAddLocation}
                 className="flex gap-1 items-center justify-center text-sm whitespace-nowrap"

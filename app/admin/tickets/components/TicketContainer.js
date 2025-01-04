@@ -27,7 +27,7 @@ import { LuLoader } from "react-icons/lu";
 
 const Loading = () => (
   <div className="flex justify-center items-center min-h-72">
-    <LuLoader className="w-12 h-12 animate-spin text-blue-500" />
+    <LuLoader className="w-12 h-12 animate-spin text-purple-500" />
   </div>
 );
 
@@ -71,7 +71,7 @@ const TicketContainer = ({
   return (
     <Card className="mt-6">
       <CardHeader
-        color="blue"
+        color="purple"
         className="relative h-20 flex justify-center items-center"
       >
         <Typography variant="h3" color="white">
@@ -83,14 +83,14 @@ const TicketContainer = ({
           <div className="flex items-center gap-4">
             <Button
               size="sm"
-              color="blue"
+              color="purple"
               variant="text"
               className="flex items-center gap-2"
               onClick={fetchTickets}
             >
               <ArrowPathIcon className="h-4 w-4" /> Refresh
             </Button>
-            <Typography variant="h6" color="blue-gray">
+            <Typography variant="h6" color="purple-gray">
               {totalTickets} Tickets
             </Typography>
           </div>
@@ -114,7 +114,7 @@ const TicketContainer = ({
                 <div className="flex flex-col gap-2">
                   <Button
                     size="sm"
-                    color={sortByRole === "both" ? "blue" : "gray"}
+                    color={sortByRole === "both" ? "purple" : "gray"}
                     variant={sortByRole === "both" ? "gradient" : "text"}
                     onClick={() => setSortByRole("both")}
                     fullWidth
@@ -123,7 +123,7 @@ const TicketContainer = ({
                   </Button>
                   <Button
                     size="sm"
-                    color={sortByRole === "user" ? "blue" : "gray"}
+                    color={sortByRole === "user" ? "purple" : "gray"}
                     variant={sortByRole === "user" ? "gradient" : "text"}
                     onClick={() => setSortByRole("user")}
                     fullWidth
@@ -132,7 +132,7 @@ const TicketContainer = ({
                   </Button>
                   <Button
                     size="sm"
-                    color={sortByRole === "provider" ? "blue" : "gray"}
+                    color={sortByRole === "provider" ? "purple" : "gray"}
                     variant={sortByRole === "provider" ? "gradient" : "text"}
                     onClick={() => setSortByRole("provider")}
                     fullWidth
@@ -153,7 +153,7 @@ const TicketContainer = ({
                 <div className="flex flex-col gap-2">
                   <Button
                     size="sm"
-                    color={sortBy === "newest" ? "blue" : "gray"}
+                    color={sortBy === "newest" ? "purple" : "gray"}
                     variant={sortBy === "newest" ? "filled" : "text"}
                     onClick={() => setSortBy("newest")}
                     fullWidth
@@ -162,7 +162,7 @@ const TicketContainer = ({
                   </Button>
                   <Button
                     size="sm"
-                    color={sortBy === "oldest" ? "blue" : "gray"}
+                    color={sortBy === "oldest" ? "purple" : "gray"}
                     variant={sortBy === "oldest" ? "filled" : "text"}
                     onClick={() => setSortBy("oldest")}
                     fullWidth
@@ -171,7 +171,7 @@ const TicketContainer = ({
                   </Button>
                   <Button
                     size="sm"
-                    color={sortBy === "nameAsc" ? "blue" : "gray"}
+                    color={sortBy === "nameAsc" ? "purple" : "gray"}
                     variant={sortBy === "nameAsc" ? "filled" : "text"}
                     onClick={() => setSortBy("nameAsc")}
                     fullWidth
@@ -180,7 +180,7 @@ const TicketContainer = ({
                   </Button>
                   <Button
                     size="sm"
-                    color={sortBy === "nameDesc" ? "blue" : "gray"}
+                    color={sortBy === "nameDesc" ? "purple" : "gray"}
                     variant={sortBy === "nameDesc" ? "filled" : "text"}
                     onClick={() => setSortBy("nameDesc")}
                     fullWidth

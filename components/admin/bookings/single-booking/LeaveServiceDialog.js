@@ -147,7 +147,7 @@ export function LeaveServiceDialog({ isOpen, setIsOpen, id }) {
                 />
                 <Button
                   variant="outlined"
-                  color="blue-gray"
+                  color="purple-gray"
                   size="md"
                   className="flex items-center"
                   onClick={() => fileInputRef.current.click()}
@@ -160,8 +160,8 @@ export function LeaveServiceDialog({ isOpen, setIsOpen, id }) {
               {uploadedFile ? (
                 <div className="flex items-center justify-between bg-gray-100 p-2 rounded">
                   <div className="flex items-center">
-                    <DocumentIcon className="h-6 w-6 mr-2 text-blue-gray-500" />
-                    <Typography variant="small" color="blue-gray">
+                    <DocumentIcon className="h-6 w-6 mr-2 text-purple-gray-500" />
+                    <Typography variant="small" color="purple-gray">
                       {uploadedFile.name}
                     </Typography>
                   </div>
@@ -191,7 +191,7 @@ export function LeaveServiceDialog({ isOpen, setIsOpen, id }) {
         <DialogFooter className="space-x-2 p-4">
           <Button
             variant="outlined"
-            color="blue-gray"
+            color="purple-gray"
             onClick={() => setIsOpen(false)}
             disabled={isSubmitting}
             className="flex items-center"
@@ -239,7 +239,7 @@ export function LeaveServiceDialog({ isOpen, setIsOpen, id }) {
         <DialogFooter className="p-4">
           <Button
             variant="filled"
-            color="blue-gray"
+            color="purple-gray"
             onClick={handleConfirmationClose}
           >
             Close

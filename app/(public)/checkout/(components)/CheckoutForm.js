@@ -159,7 +159,7 @@ export function CheckoutForm({
       transition={{ duration: 0.5 }}
       className="bg-white p-8 rounded-xl shadow-lg"
     >
-      <Typography variant="h4" color="blue-gray" className="mb-6">
+      <Typography variant="h4" color="purple-gray" className="mb-6">
         Delivery Details
       </Typography>
       <form
@@ -218,7 +218,7 @@ export function CheckoutForm({
           </StandaloneSearchBox>
         </LoadScript>
         <div>
-          <Typography variant="h6" color="blue-gray" className="mb-3">
+          <Typography variant="h6" color="purple-gray" className="mb-3">
             Delivery Date
           </Typography>
           <List className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -244,8 +244,8 @@ export function CheckoutForm({
                     />
                   </ListItemPrefix>
                   <Typography
-                    color="blue-gray"
-                    className="font-medium text-blue-gray-400"
+                    color="purple-gray"
+                    className="font-medium text-purple-gray-400"
                   >
                     {date}
                   </Typography>
@@ -256,7 +256,7 @@ export function CheckoutForm({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
+            <Typography variant="h6" color="purple-gray" className="mb-3">
               Delivery Time
             </Typography>
             <Input
@@ -271,7 +271,7 @@ export function CheckoutForm({
             </Typography>
           </div>
           <div>
-            <Typography variant="h6" color="blue-gray" className="mb-3">
+            <Typography variant="h6" color="purple-gray" className="mb-3">
               Patient&apos;s Condition
             </Typography>
             <Textarea
@@ -284,7 +284,7 @@ export function CheckoutForm({
           </div>
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray" className="mb-3">
+          <Typography variant="h6" color="purple-gray" className="mb-3">
             Upload Prescription
           </Typography>
           <div className="relative">

@@ -93,10 +93,10 @@ export default function PaymentDialog({
           size="sm"
           className="bg-white rounded-xl shadow-xl"
         >
-          <DialogHeader className="border-b border-blue-gray-100 px-6 py-4">
+          <DialogHeader className="border-b border-purple-gray-100 px-6 py-4">
             <Typography
               variant="h5"
-              color="blue-gray"
+              color="purple-gray"
               className="flex items-center gap-2"
             >
               {actionType === "Paid" ? (
@@ -117,7 +117,7 @@ export default function PaymentDialog({
               <div className="space-y-4">
                 <Typography
                   variant="paragraph"
-                  color="blue-gray"
+                  color="purple-gray"
                   className="mb-2"
                 >
                   Upload the payment screenshot
@@ -125,8 +125,8 @@ export default function PaymentDialog({
                 <div
                   className={`relative border-2 border-dashed rounded-lg p-6 transition-colors ${
                     dragActive
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-blue-gray-200"
+                      ? "border-purple-500 bg-purple-50"
+                      : "border-purple-gray-200"
                   }`}
                   onDragEnter={handleDrag}
                   onDragLeave={handleDrag}
@@ -141,8 +141,12 @@ export default function PaymentDialog({
                     disabled={uploading}
                   />
                   <div className="text-center">
-                    <FiUploadCloud className="mx-auto h-12 w-12 text-blue-gray-300" />
-                    <Typography variant="h6" color="blue-gray" className="mt-2">
+                    <FiUploadCloud className="mx-auto h-12 w-12 text-purple-gray-300" />
+                    <Typography
+                      variant="h6"
+                      color="purple-gray"
+                      className="mt-2"
+                    >
                       {file ? file.name : "Drop files here or click to upload"}
                     </Typography>
                     <Typography variant="small" color="gray" className="mt-1">
@@ -155,7 +159,7 @@ export default function PaymentDialog({
               <div className="space-y-4">
                 <Typography
                   variant="paragraph"
-                  color="blue-gray"
+                  color="purple-gray"
                   className="mb-2"
                 >
                   Enter the reason for status change
@@ -163,14 +167,14 @@ export default function PaymentDialog({
                 <Input
                   label="Reason"
                   value={reason}
-                  color="blue"
+                  color="purple"
                   onChange={(e) => setReason(e.target.value)}
                   required
                 />
               </div>
             )}
           </DialogBody>
-          <DialogFooter className="border-t border-blue-gray-100 px-6 py-4">
+          <DialogFooter className="border-t border-purple-gray-100 px-6 py-4">
             <div className="flex items-center justify-end gap-3">
               <Button
                 variant="text"
@@ -183,7 +187,7 @@ export default function PaymentDialog({
               </Button>
               <Button
                 variant="filled"
-                color="blue"
+                color="purple"
                 onClick={handleSubmit}
                 disabled={
                   uploading ||

@@ -54,12 +54,12 @@ export default function ServicesList() {
       <MenuItem className="flex items-center justify-between gap-0 rounded-lg">
         <Typography
           variant="h6"
-          color="blue-gray"
+          color="purple-gray"
           className="flex items-center text-gray-700 text-sm font-semibold"
         >
           {title}
         </Typography>
-        <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+        <div className="flex items-center justify-center rounded-lg !bg-purple-gray-50 p-2 ">
           {" "}
           {React.createElement(icon, {
             strokeWidth: 2,
@@ -89,7 +89,7 @@ export default function ServicesList() {
               Go to
               <ChevronDownIcon
                 strokeWidth={3.5}
-                className={`hidden h-3 w-3 transition-transform lg:block text-blue-500  ${
+                className={`hidden h-3 w-3 transition-transform lg:block text-purple-500  ${
                   isMenuOpen ? "rotate-180" : ""
                 }`}
               />

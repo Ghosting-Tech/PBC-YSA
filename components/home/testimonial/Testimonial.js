@@ -110,14 +110,14 @@ export default function Testimonial() {
       animate={inView ? "visible" : "hidden"}
       variants={containerVariants}
     >
-      <motion.div variants={itemVariants} className="text-center mb-12">
-        <Typography variant="h2" color="blue" className="mb-4">
+      <motion.div variants={itemVariants} className="text-center mb-12 mt-5">
+        <Typography variant="h2" className="mb-4 text-[#6E4BB2] font-['Arial']">
           Our Clients
         </Typography>
         <Typography
           variant="lead"
-          color="blue-gray"
-          className="max-w-3xl mx-auto"
+          color="purple-gray"
+          className="max-w-3xl mx-auto font-poppins"
         >
           That&apos;s the main thing people are controlled by! Thoughts - their
           perception of themselves!
@@ -146,7 +146,7 @@ export default function Testimonial() {
         <div className="absolute top-1/2 transform -translate-y-1/2 left-0 right-0 flex justify-between">
           <IconButton
             variant="text"
-            color="blue-gray"
+            color="purple"
             size="lg"
             onClick={prevSlide}
             className="rounded-full"
@@ -155,7 +155,7 @@ export default function Testimonial() {
           </IconButton>
           <IconButton
             variant="text"
-            color="blue-gray"
+            color="purple"
             size="lg"
             onClick={nextSlide}
             className="rounded-full"
@@ -170,7 +170,7 @@ export default function Testimonial() {
           <motion.div
             key={index}
             className={`w-3 h-3 rounded-full mx-1 cursor-pointer ${
-              index === currentIndex ? "bg-blue-500" : "bg-blue-200"
+              index === currentIndex ? "bg-purple-500" : "bg-purple-200"
             }`}
             onClick={() => setCurrentIndex(index)}
           />

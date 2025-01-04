@@ -103,9 +103,9 @@ const DashboardCard = ({ data }) => {
       id: 6,
       label: "Active Users",
       value: formatLargeNumber(data.activeUsers),
-      color: "text-blue-500",
+      color: "text-purple-500",
       icon: UserIcon,
-      graph: <MiniGraph data={[20, 30, 25, 35]} color="text-blue-500" />,
+      graph: <MiniGraph data={[20, 30, 25, 35]} color="text-purple-500" />,
     },
     {
       id: 7,

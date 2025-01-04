@@ -38,7 +38,7 @@ const UserInfo = ({ user }) => {
     >
       <Card className="overflow-hidden">
         <CardBody>
-          <Typography variant="h5" color="blue-gray" className="mb-4">
+          <Typography variant="h5" color="purple-gray" className="mb-4">
             User Information
           </Typography>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -50,13 +50,13 @@ const UserInfo = ({ user }) => {
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="flex items-center gap-3"
               >
-                <div className="rounded-full bg-blue-50 p-2">
-                  <item.icon className="h-5 w-5 text-blue-500" />
+                <div className="rounded-full bg-purple-50 p-2">
+                  <item.icon className="h-5 w-5 text-purple-500" />
                 </div>
                 <div>
                   <Typography
                     variant="small"
-                    color="blue-gray"
+                    color="purple-gray"
                     className="font-medium"
                   >
                     {item.label}

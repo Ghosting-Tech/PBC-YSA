@@ -71,7 +71,7 @@ const NotificationTable = ({ initialNotifications = [] }) => {
   const getCategoryColor = (category) => {
     const colors = {
       important: "amber",
-      info: "blue",
+      info: "purple",
       default: "red",
     };
     return colors[category.toLowerCase()] || colors.default;
@@ -111,7 +111,7 @@ const NotificationTable = ({ initialNotifications = [] }) => {
     <div className="space-y-6 mx-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <Typography variant="h5" className="font-bold text-blue-500">
+          <Typography variant="h5" className="font-bold text-purple-500">
             Notifications
           </Typography>
           {/* <Chip
@@ -254,24 +254,24 @@ const NotificationTable = ({ initialNotifications = [] }) => {
                     >
                       <td className={classes}>
                         <Checkbox
-                          color="blue"
+                          color="purple"
                           checked={notification.isRead}
                           onChange={() => handleMarkAsRead(notification._id)}
                           className="h-4 w-4"
                         />
                       </td>
                       <td className={classes}>
-                        <Typography variant="small" color="blue-gray">
+                        <Typography variant="small" color="purple-gray">
                           {index + 1}.
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography variant="small" color="blue-gray">
+                        <Typography variant="small" color="purple-gray">
                           {notification.title}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography variant="small" color="blue-gray">
+                        <Typography variant="small" color="purple-gray">
                           {notification.from}
                         </Typography>
                       </td>
@@ -284,16 +284,16 @@ const NotificationTable = ({ initialNotifications = [] }) => {
                         />
                       </td>
                       <td className={classes}>
-                        <Typography variant="small" color="blue-gray">
+                        <Typography variant="small" color="purple-gray">
                           {formatDate(notification.createdAt)}
                         </Typography>
                       </td>
                       <td className={classes}>
                         <div className="flex items-center gap-2">
-                          <Tooltip content="View Details" color="blue">
+                          <Tooltip content="View Details" color="purple">
                             <IconButton
                               variant="text"
-                              color="blue-gray"
+                              color="purple-gray"
                               onClick={() =>
                                 setSelectedNotification(notification)
                               }
@@ -301,9 +301,9 @@ const NotificationTable = ({ initialNotifications = [] }) => {
                               <EyeIcon className="h-4 w-4" />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip content="Booking Page" color="blue">
+                          <Tooltip content="Booking Page" color="purple">
                             <Link href={notification.link}>
-                              <IconButton variant="text" color="blue-gray">
+                              <IconButton variant="text" color="purple-gray">
                                 <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                               </IconButton>
                             </Link>

@@ -34,7 +34,7 @@ const HorizontalBarChart = ({ data }) => {
           "#67e8f9", // cyan
           "rgba(75, 192, 192, 0.5)", // green
           "#a5b4fc", // indigo
-          "rgba(30, 144, 255, 0.5)", // light blue
+          "rgba(30, 144, 255, 0.5)", // light purple
           "#d8b4fe", // purple
           "rgba(0, 128, 128, 0.5)", // teal
         ],
@@ -44,7 +44,7 @@ const HorizontalBarChart = ({ data }) => {
           "#0e7490", // cyan
           "rgba(75, 192, 192, 1)", // green
           "#4338ca", // indigo
-          "rgba(30, 144, 255, 1)", // light blue
+          "rgba(30, 144, 255, 1)", // light purple
           "#7e22ce", // purple
           "rgba(0, 128, 128, 1)", // teal
         ],

@@ -44,7 +44,7 @@ const CurrentLocationButton = ({ onLocationSet }) => {
   return (
     <Button
       variant="outlined"
-      color="blue"
+      color="purple"
       className="flex items-center justify-center gap-2"
       onClick={handleGetCurrentLocation}
     >

@@ -41,26 +41,26 @@ export default function PaymentTable({
   return (
     <div className="overflow-x-auto p-4 shadow-lg bg-white rounded-lg">
       <div className="min-w-full text-left text-sm">
-        <div className="bg-blue-50 hidden md:flex rounded-lg">
-          <div className="p-4 font-semibold text-blue-700 w-1/5">
+        <div className="bg-purple-50 hidden md:flex rounded-lg">
+          <div className="p-4 font-semibold text-purple-700 w-1/5">
             Service Provider
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Date
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Status
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Total Amount
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Pay Amount
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Pay History
           </div>
-          <div className="p-4 font-semibold text-blue-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
             Action
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function PaymentTable({
               <span className="font-semibold md:hidden">Pay History: </span>
               <Button
                 variant="outlined"
-                color="blue"
+                color="purple"
                 size="sm"
                 onClick={() => handleView(payment)}
               >
@@ -140,7 +140,7 @@ export default function PaymentTable({
                   <Button
                     className="w-20"
                     variant="gradient"
-                    color="blue"
+                    color="purple"
                     size="sm"
                     onClick={() =>
                       handleOpenDialog(
@@ -154,13 +154,13 @@ export default function PaymentTable({
                 )}
                 {serviceProvider ? (
                   <Link href={`/service-provider/booking/${payment.booking}`}>
-                    <IconButton variant="text" color="blue-gray">
+                    <IconButton variant="text" color="purple-gray">
                       <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                     </IconButton>
                   </Link>
                 ) : (
                   <Link href={`/admin/bookings/${payment.booking}`}>
-                    <IconButton variant="text" color="blue-gray">
+                    <IconButton variant="text" color="purple-gray">
                       <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                     </IconButton>
                   </Link>
