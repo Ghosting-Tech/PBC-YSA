@@ -8,7 +8,6 @@ export async function GET(request) {
 
     // Fetch all unread notifications
     const notifications = await Notification.find({ isRead: false });
-    console.log({ notifications });
 
     // Return data
     return NextResponse.json({

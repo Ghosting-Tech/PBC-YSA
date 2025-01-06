@@ -11,6 +11,7 @@ import {
 import { useRef } from "react";
 import Link from "next/link";
 import { LuStethoscope } from "react-icons/lu";
+import Image from "next/image";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -29,9 +30,11 @@ export default function Hero() {
         <motion.div className="h-full">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=2091&auto=format&fit=crop"
               alt="Modern healthcare facility"
+              width={1000}
+              height={1000}
               className="w-full h-full object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/80 to-transparent" />

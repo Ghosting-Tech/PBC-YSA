@@ -64,7 +64,7 @@ const HeroSection = () => {
           </h1>
           <p className="text-lg text-gray-600 mb-8 font-poppins">
             From ambulance support to professional nursing and physiotherapy
-            services, we've got you covered 24/7.
+            services, we&apos;ve got you covered 24/7.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/services">

@@ -238,6 +238,7 @@ const NewFooter = () => {
                   },
                 ].map((item, index) => (
                   <motion.div
+                    key={index}
                     variants={itemVariants}
                     className={`${item.color} hover:${item.hoverColor} cursor-pointer`}
                   >
