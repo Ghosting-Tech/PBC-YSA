@@ -413,14 +413,14 @@ const Service = () => {
                   </span>
                 </div>
               </div>
-              {service.images?.map((image, index) => (
+              {service.images?.slice(0, 3).map((image, index) => (
                 <Image
                   key={index}
                   width={1000}
                   height={1000}
                   src={image.url}
                   alt={`Service image ${index + 1}`}
-                  className="service-image w-44 h-[135px] rounded-lg"
+                  className="service-image w-36 h-[135px] rounded-lg"
                 />
               ))}
               <div className="flex gap-2"></div>
