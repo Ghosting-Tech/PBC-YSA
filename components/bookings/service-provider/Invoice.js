@@ -312,7 +312,7 @@ const Invoice = ({ selectedBooking, setSelectedBooking }) => {
             </div>
             <div className="w-full sm:bg-white rounded-lg border overflow-auto">
               {/* Header */}
-              <div className="text-white bg-purple-500 flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
+              <div className="text-white bg-[var(--color)] flex flex-col w-full sm:flex-row sm:rounded-none mb-2">
                 <div className="p-3 text-left font-semibold flex justify-center md:w-1/4">
                   Description
                 </div>

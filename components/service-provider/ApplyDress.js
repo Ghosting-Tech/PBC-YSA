@@ -7,9 +7,7 @@ import { Button } from "@material-tailwind/react";
 const ApplyDress = () => {
   return (
     <div className="mb-4 relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 p-6 flex flex-col md:flex-row items-center justify-between">
-        <div className="absolute opacity-50">
-            
-        </div>
+      <div className="absolute opacity-50"></div>
       <div className="flex-1">
         <h2 className="text-2xl font-bold text-white mb-1">
           Get a Dress Today!
@@ -19,7 +17,7 @@ const ApplyDress = () => {
         </p>
         <Button
           size="sm"
-          className="bg-white text-purple-500 hover:bg-white/90 font-medium"
+          className="bg-white text-[var(--color)]  hover:bg-white/90 font-medium"
         >
           Apply Now
         </Button>

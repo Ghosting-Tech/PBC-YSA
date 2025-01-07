@@ -234,7 +234,7 @@ const VerifyOtp = ({
       }}
     >
       <div className="bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-bold mb-4 text-center text-purple-500">
+        <h2 className="text-2xl font-bold mb-4 text-center text-[var(--color)] ">
           Verify OTP
         </h2>
         <form

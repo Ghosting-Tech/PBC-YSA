@@ -110,14 +110,16 @@ export default function Sidebar() {
       <Link href={path} key={path} className="no-underline">
         <ListItem
           className={`${sidebarItemWidth} ${
-            isActive ? "bg-purple-gray-50 text-purple-500" : ""
+            isActive ? "bg-[var(--color)] gray-50 text-[var(--color)] " : ""
           } flex justify-between items-center`}
         >
           <div className="flex items-center">
             <ListItemPrefix>
               <Tooltip content={label} placement="right">
                 <Icon
-                  className={`h-5 w-5 ${isActive ? "text-purple-500" : ""}`}
+                  className={`h-5 w-5 ${
+                    isActive ? "text-[var(--color)] " : ""
+                  }`}
                 />
               </Tooltip>
             </ListItemPrefix>

@@ -9,6 +9,11 @@
   backdrop-filter: blur(8.1px);
 }
 
+:root {
+  --color: #6e4bb2;
+  --hover: #5d3f96;
+}
+
 @layer base {
   /* Headings */
   h1 {

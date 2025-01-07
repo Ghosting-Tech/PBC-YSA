@@ -75,17 +75,17 @@ const Footer = () => {
             </Typography>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <FaEnvelope className="text-purple-500" />
+                <FaEnvelope className="text-[var(--color)] " />
                 <Typography variant="small">
                   support@yourserviceapp.in
                 </Typography>
               </div>
               <div className="flex items-center gap-3">
-                <FaPhoneAlt className="text-purple-500" />
+                <FaPhoneAlt className="text-[var(--color)] " />
                 <Typography variant="small">+91 9470017395</Typography>
               </div>
               <div className="flex items-center gap-3">
-                <FaMapMarkerAlt className="text-purple-500" />
+                <FaMapMarkerAlt className="text-[var(--color)] " />
                 <Typography variant="small">
                   123 Service St, City, Country
                 </Typography>
@@ -96,7 +96,7 @@ const Footer = () => {
           <motion.div variants={itemVariants}>
             <Typography
               variant="h6"
-              className="mb-4 text-purple-500 font-semibold"
+              className="mb-4 text-[var(--color)]  font-semibold"
             >
               Important Links
             </Typography>
@@ -133,7 +133,7 @@ const Footer = () => {
                 >
                   <Link
                     href={item.link}
-                    className="hover:text-purple-500 transition-colors"
+                    className="hover:text-[var(--color)]  transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -145,7 +145,7 @@ const Footer = () => {
           <motion.div variants={itemVariants}>
             <Typography
               variant="h6"
-              className="mb-4 text-purple-500 font-semibold"
+              className="mb-4 text-[var(--color)]  font-semibold"
             >
               Our Services
             </Typography>
@@ -158,7 +158,7 @@ const Footer = () => {
                   >
                     <Link
                       href={`/services/${item?._id}`}
-                      className="hover:text-purple-500 transition-colors"
+                      className="hover:text-[var(--color)]  transition-colors"
                     >
                       {item.name}
                     </Link>
@@ -196,7 +196,7 @@ const Footer = () => {
               },
               {
                 icon: FaLinkedinIn,
-                color: "bg-purple-700",
+                color: "bg-[var(--color)]",
                 link: "https://linkedin.com",
               },
               {
@@ -237,7 +237,9 @@ const Footer = () => {
               alt="Ghosting Tech"
               className="mr-2"
             />
-            <span className="text-purple-500 font-semibold">Ghosting Tech</span>
+            <span className="text-[var(--color)]  font-semibold">
+              Ghosting Tech
+            </span>
           </Link>
         </motion.div>
       </div>

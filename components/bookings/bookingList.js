@@ -95,7 +95,7 @@ const BookingList = ({ bookings, forUser }) => {
             {forUser ? (
               <Link
                 href={`/user/bookings/${service._id}`}
-                className="px-4 py-2 bg-purple-500 no-underline text-white text-sm font-medium transition-all hover:bg-purple-600 flex items-center gap-2 justify-center"
+                className="px-4 py-2 bg-[var(--color)] no-underline text-white text-sm font-medium transition-all hover:bg-[var(--hover)] flex items-center gap-2 justify-center"
               >
                 View
                 <IoMdOpen />
@@ -103,7 +103,7 @@ const BookingList = ({ bookings, forUser }) => {
             ) : (
               <Link
                 href={`/service-provider/booking/${service._id}`}
-                className="px-4 py-2 bg-purple-500 no-underline text-white text-sm font-medium transition-all hover:bg-purple-600 flex items-center gap-2 justify-center"
+                className="px-4 py-2 bg-[var(--color)] no-underline text-white text-sm font-medium transition-all hover:bg-[var(--hover)] flex items-center gap-2 justify-center"
               >
                 View
                 <IoMdOpen />

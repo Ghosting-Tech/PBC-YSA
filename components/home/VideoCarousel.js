@@ -68,7 +68,7 @@ const VideoCarousel = () => {
             COMPLETE THE TASK WITH
           </motion.h2>
           <motion.p
-            className="text-purple-700 text-3xl md:text-5xl font-cookie  flex items-center justify-center"
+            className="text-[var(--color)] text-3xl md:text-5xl font-cookie  flex items-center justify-center"
             animate={{
               y: [0, -10, 0],
               transition: {
@@ -110,7 +110,7 @@ const VideoCarousel = () => {
               <Button
                 variant="filled"
                 size="sm"
-                className="w-fit bg-white text-purple-500 flex items-center gap-2"
+                className="w-fit bg-white text-[var(--color)]  flex items-center gap-2"
                 onClick={() => setSelectedVideo(item.video)}
               >
                 <MdPlayArrow className="w-5 h-5" />

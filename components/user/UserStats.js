@@ -31,8 +31,8 @@ const UserStats = ({ user }) => {
             transition={{ duration: 0.3, delay: index * 0.1 }}
             className="text-center"
           >
-            <div className="rounded-full flex gap-1 items-center bg-purple-50 px-3 py-1">
-              <stat.icon className="h-6 w-6 text-purple-500" />
+            <div className="rounded-full flex gap-1 items-center bg-[var(--color)] px-3 py-1">
+              <stat.icon className="h-6 w-6 text-[var(--color)] " />
 
               <Typography variant="paragraph" color="purple-gray">
                 {stat.value}

@@ -56,7 +56,7 @@ const DocumentCard = ({ documentInfo, onImageClick, cardTitle }) => {
             href={documentInfo?.url}
             download
             target="_blank"
-            className="text-purple-500 hover:text-purple-700 flex items-center"
+            className="text-[var(--color)]  hover:text-[var(--hover)] flex items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

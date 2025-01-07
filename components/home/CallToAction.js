@@ -20,7 +20,7 @@ const CallToAction = () => {
         <Link href={"/become-service-provider"} className="no-underline w-full">
           <Button
             variant="outlined"
-            color="purple"
+            style={{ color: "#6e4bb2", borderColor: "#6e4bb2" }}
             className="flex items-center justify-center gap-1"
             fullWidth
             size="lg"

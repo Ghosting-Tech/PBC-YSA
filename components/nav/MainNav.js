@@ -20,6 +20,8 @@ import Image from "next/image";
 import Profile from "./user-profile/Profile";
 import UserNavigation from "./user-profile/UserNavigation";
 import { usePathname } from "next/navigation";
+import { setUser, setUserLoading } from "@/redux/slice/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function MainNav() {
   // State management
@@ -33,6 +35,7 @@ export default function MainNav() {
   const [openNav, setOpenNav] = useState(false);
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
   const pathname = usePathname();
+  const dispatch = useDispatch();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -65,6 +68,33 @@ export default function MainNav() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  useEffect(() => {
+    const gettingUser = async () => {
+      try {
+        const response = await fetch(`/api/users/check-authorization`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (data.message === "Unauthorized") {
+          return;
+        }
+        if (!data.success) {
+          return toast.error(data.message);
+        }
+        dispatch(setUser(data.user));
+      } catch (err) {
+        console.log(err);
+        toast.error("Error fetching user");
+      } finally {
+        dispatch(setUserLoading(false));
+      }
+    };
+    gettingUser();
+  }, [dispatch]);
 
   const gettingServices = async () => {
     try {
@@ -157,7 +187,7 @@ export default function MainNav() {
         {/* Navigation Links - Hidden on Mobile */}
         <div className="hidden lg:flex px-[35px] rounded-[26px] items-center gap-6">
           {navItems.map((item) => (
-            <motion.div key={item.name} className="hover:text-purple-600">
+            <motion.div key={item.name} className="hover:text-[var(--hover)] ">
               <Link
                 key={item.name}
                 href={item.path}
@@ -196,13 +226,13 @@ export default function MainNav() {
           <div className="hidden lg:flex items-center gap-4">
             <IconButton
               onClick={handleSearchDialog}
-              className="p-2.5 bg-[#6e4bb2] rounded-[60px] text-white hover:bg-[#5d3f96]"
+              className="p-2.5 bg-[var(--color)] rounded-[60px] text-white hover:bg-[var(--hover)]"
             >
               <Search size={20} />
             </IconButton>
 
             <Link href="/cart">
-              <IconButton className="p-2.5 bg-[#6e4bb2] rounded-[60px] text-white hover:bg-[#5d3f96]">
+              <IconButton className="p-2.5 bg-[var(--color)] rounded-[60px] text-white hover:bg-[var(--hover)]">
                 <ShoppingCart size={20} />
               </IconButton>
             </Link>
@@ -297,7 +327,7 @@ export default function MainNav() {
             <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
               Search For Services
             </h1>
-            <p className="text-lg md:text-xl text-purple-500">
+            <p className="text-lg md:text-xl text-[var(--color)] ">
               Find the perfect service for you
             </p>
           </div>
@@ -305,7 +335,7 @@ export default function MainNav() {
             label="Search a Service"
             color="purple"
             onChange={(e) => handleSearch(e.target.value)}
-            icon={<Search className="cursor-pointer text-purple-500" />}
+            icon={<Search className="cursor-pointer text-[var(--color)] " />}
           />
           <div>
             <div className="flex gap-2 items-center my-6">

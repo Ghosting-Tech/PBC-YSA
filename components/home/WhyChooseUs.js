@@ -63,7 +63,7 @@ export default function WhyChooseUs() {
           >
             <CardBody className="p-6">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-xl bg-purple-200 text-purple-700 group-hover:bg-purple-700 group-hover:text-white transition-colors duration-300">
+                <div className="p-3 rounded-xl bg-purple-200 text-[var(--color)] group-hover:bg-[var(--hover)] group-hover:text-white transition-colors duration-300">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold">{feature.title}</h3>

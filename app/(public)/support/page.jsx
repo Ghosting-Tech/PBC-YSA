@@ -100,7 +100,7 @@ const FAQSection = ({ items, openAccordion, handleOpen }) => (
     {items.map((faq, index) => (
       <Accordion key={index} open={openAccordion === index + 1}>
         <AccordionHeader
-          className="text-md font-semibold text-purple-600 hover:text-purple-800"
+          className="text-md font-semibold text-[var(--color)]  hover:text-[var(--hover)] "
           onClick={() => handleOpen(index + 1)}
         >
           {faq.question}
@@ -402,10 +402,10 @@ export default function SupportPage() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="file"
-                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-purple-300 rounded-lg cursor-pointer bg-purple-50 hover:bg-purple-100 transition-colors duration-300"
+                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-purple-300 rounded-lg cursor-pointer bg-[var(--color)] hover:bg-[var(--hover)] transition-colors duration-300"
                 >
                   <svg
-                    className="w-8 h-8 text-purple-500 mb-2"
+                    className="w-8 h-8 text-[var(--color)]  mb-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -417,10 +417,10 @@ export default function SupportPage() {
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                     />
                   </svg>
-                  <span className="text-sm text-purple-600 font-medium">
+                  <span className="text-sm text-[var(--color)]  font-medium">
                     {file ? file.name : "Click here to upload"}
                   </span>
-                  <span className="text-xs text-purple-400 mt-1">
+                  <span className="text-xs text-[var(--color)]  mt-1">
                     Maximum file size: 10MB
                   </span>
                 </label>

@@ -74,7 +74,7 @@ const BookingChart = ({ bookingData, bookingCount, loading }) => {
     return (
       <Card className="w-full max-w-[800px] bg-white rounded-xl shadow-md">
         <div className="flex flex-col items-center justify-center h-[500px]">
-          <LoaderCircle className="h-12 w-12 text-purple-500/80 animate-spin" />
+          <LoaderCircle className="h-12 w-12 text-[var(--color)] /80 animate-spin" />
           <p className="mt-4 text-gray-600 font-medium">
             Loading chart data...
           </p>
@@ -92,7 +92,7 @@ const BookingChart = ({ bookingData, bookingCount, loading }) => {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="bg-purple-50 text-purple-500 rounded-full p-3 hidden md:block">
+            <div className="bg-[var(--color)] text-[var(--color)]  rounded-full p-3 hidden md:block">
               <CalendarDateRangeIcon className="h-6 w-6" />
             </div>
             <div>

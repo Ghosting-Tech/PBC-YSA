@@ -45,7 +45,7 @@ const UserDetail = ({
                 className="font-normal opacity-75"
               >
                 <span className="flex items-center gap-1">
-                  <FaVenusMars className="text-purple-500" />
+                  <FaVenusMars className="text-[var(--color)] " />
                   {gender}
                 </span>
               </Typography>
@@ -55,7 +55,7 @@ const UserDetail = ({
                 className="font-normal opacity-75"
               >
                 <span className="flex items-center gap-1">
-                  <FaPray className="text-purple-500" />
+                  <FaPray className="text-[var(--color)] " />
                   {religion}
                 </span>
               </Typography>

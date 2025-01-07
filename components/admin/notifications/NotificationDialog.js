@@ -37,7 +37,7 @@ const NotificationDialog = ({ notification, open, onClose }) => {
           <Typography className="font-semibold w-1/4">Link:</Typography>
           <Link
             href={notification.link}
-            className="w-3/4 !text-purple-500 underline"
+            className="w-3/4 !text-[var(--color)]  underline"
           >
             {notification.link}
           </Link>
@@ -56,7 +56,7 @@ const NotificationDialog = ({ notification, open, onClose }) => {
                 href={notification.image.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="!text-purple-500 underline"
+                className="!text-[var(--color)]  underline"
               >
                 {notification.image.name ||
                   notification.image.url.split("/").pop()}

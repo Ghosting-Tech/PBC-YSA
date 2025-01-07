@@ -157,7 +157,7 @@ const UserCompletedBooking = ({
                   );
                 })}
               </div>
-              <h4 className="text-purple-500 font-semibold text-xl mt-4">
+              <h4 className="text-[var(--color)]  font-semibold text-xl mt-4">
                 Your Information
               </h4>
               <div className="h-px bg-gray-300 w-full mt-2 mb-1"></div>
@@ -234,7 +234,7 @@ const UserCompletedBooking = ({
                     </div>
                     <button
                       onClick={handleServiceProviderDetailDialog}
-                      className="flex items-center justify-center rounded-full bg-purple-100 w-10 h-10"
+                      className="flex items-center justify-center rounded-full bg-[var(--color)] w-10 h-10"
                     >
                       <IoMdOpen size={15} />
                     </button>
@@ -329,7 +329,7 @@ const UserCompletedBooking = ({
                       </div>
                       <div className="flex items-center gap-3">
                         <PiGenderIntersexFill
-                          className="text-purple-500"
+                          className="text-[var(--color)] "
                           size={23}
                         />
                         Gender:{" "}

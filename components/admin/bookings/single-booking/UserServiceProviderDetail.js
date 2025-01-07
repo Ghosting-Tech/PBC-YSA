@@ -41,7 +41,7 @@ const UserServiceProviderDetail = ({
             </>
           ) : (
             <div className="mb-4 py-9 flex flex-col gap-2 items-center justify-center">
-              <h3 className="text-md md:text-xl font-semibold text-purple-800">
+              <h3 className="text-md md:text-xl font-semibold text-[var(--color)] ">
                 Assigned Service Provider
               </h3>
               <div className="text-sm text-gray-500">

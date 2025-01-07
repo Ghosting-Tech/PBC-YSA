@@ -428,7 +428,7 @@ const Services = () => {
         {loading ? (
           <div className="flex justify-center items-center mt-64">
             <AiOutlineLoading
-              className="animate-spin text-purple-500"
+              className="animate-spin text-[var(--color)] "
               size={50}
             />
           </div>

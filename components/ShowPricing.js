@@ -86,7 +86,7 @@ const ShowPricing = ({ cartItems, paymentStatus, booking }) => {
         {/* Total */}
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-lg font-bold">Total</span>
-          <span className="text-lg font-bold text-purple-600">
+          <span className="text-lg font-bold text-[var(--color)] ">
             ₹{totalAmount.toFixed(2)}
           </span>
         </div>

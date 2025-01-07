@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 const Loading = () => (
   <div className="flex justify-center items-center h-screen">
-    <LuLoader className="w-12 h-12 animate-spin text-purple-500" />
+    <LuLoader className="w-12 h-12 animate-spin text-[var(--color)] " />
   </div>
 );
 

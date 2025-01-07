@@ -50,7 +50,7 @@ const BookingPage = () => {
         <Loading />
       ) : bookings.length > 0 ? (
         <div className="px-10 flex flex-col gap-4">
-          <h2 className="text-3xl text-purple-500 font-semibold text-center">
+          <h2 className="text-3xl text-[var(--color)]  font-semibold text-center">
             Your Bookings!
           </h2>
           <div className="h-px bg-gray-300 w-full my-4"></div>

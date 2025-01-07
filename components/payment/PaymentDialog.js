@@ -125,7 +125,7 @@ export default function PaymentDialog({
                 <div
                   className={`relative border-2 border-dashed rounded-lg p-6 transition-colors ${
                     dragActive
-                      ? "border-purple-500 bg-purple-50"
+                      ? "border-purple-500 bg-[var(--color)]"
                       : "border-purple-gray-200"
                   }`}
                   onDragEnter={handleDrag}

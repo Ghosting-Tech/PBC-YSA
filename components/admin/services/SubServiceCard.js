@@ -159,17 +159,19 @@ export default function SubServiceCard({
             objectFit: "cover",
           }}
         />
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className={`absolute top-4 left-4 px-2 py-1 rounded-full text-xs font-medium ${
-            subService.status === "active"
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {subService.status}
-        </motion.div>
+        {forAdmin && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className={`absolute top-4 left-4 px-2 py-1 rounded-full text-xs font-medium ${
+              subService.status === "active"
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {subService.status}
+          </motion.div>
+        )}
       </div>
       <div className="p-6 space-y-1">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 truncate">
@@ -185,7 +187,7 @@ export default function SubServiceCard({
             </span>
           )}
         </div>
-        <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+        <div className="text-2xl font-bold text-[var(--color)]  dark:text-[var(--color)] ">
           ₹{subService.price}
         </div>
         {forAdmin ? (
@@ -259,7 +261,7 @@ export default function SubServiceCard({
             className="bg-white dark:bg-gray-800"
           >
             <DialogHeader className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
-              <h3 className="text-2xl font-bold text-purple-600 dark:text-gray-100">
+              <h3 className="text-2xl font-bold text-[var(--color)]  dark:text-gray-100">
                 Sub Service Details
               </h3>
               <Button
@@ -288,7 +290,7 @@ export default function SubServiceCard({
                   </div>
                   {forAdmin && (
                     <div className="mt-4 flex justify-center">
-                      <label className="px-4 py-2 bg-purple-50 text-purple-700 rounded-full cursor-pointer hover:bg-purple-100 transition-colors flex items-center gap-2">
+                      <label className="px-4 py-2 bg-[var(--color)] text-[var(--color)] rounded-full cursor-pointer hover:bg-[var(--hover)] transition-colors flex items-center gap-2">
                         <TiArrowRepeat size={20} />
                         Replace Icon
                         <input
@@ -318,7 +320,7 @@ export default function SubServiceCard({
                       {subService.status}
                     </span>
                   </div>
-                  <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+                  <p className="text-3xl font-bold text-[var(--color)]  dark:text-[var(--color)] ">
                     ₹{subService.price}
                   </p>
                   <p className="text-gray-600 dark:text-gray-300 text-md leading-relaxed">

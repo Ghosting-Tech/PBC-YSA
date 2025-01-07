@@ -170,7 +170,7 @@ export default function Testimonial() {
           <motion.div
             key={index}
             className={`w-3 h-3 rounded-full mx-1 cursor-pointer ${
-              index === currentIndex ? "bg-purple-500" : "bg-purple-200"
+              index === currentIndex ? "bg-[var(--color)]" : "bg-[var(--color)]"
             }`}
             onClick={() => setCurrentIndex(index)}
           />

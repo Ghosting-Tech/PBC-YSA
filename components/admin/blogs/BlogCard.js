@@ -69,7 +69,7 @@ const BlogCard = ({
               <Typography
                 variant="small"
                 color="purple"
-                className="font-semibold px-2 py-1 bg-purple-50 rounded-md"
+                className="font-semibold px-2 py-1 bg-[var(--color)] rounded-md"
               >
                 {blog.type}
               </Typography>
@@ -82,7 +82,7 @@ const BlogCard = ({
                   <span className="hidden group-hover:flex gap-2">
                     <FaRegEdit
                       size={20}
-                      className="cursor-pointer text-purple-gray-500 hover:text-purple-500 transition-colors"
+                      className="cursor-pointer text-[var(--color)] hover:text-[var(--hover)] transition-colors"
                       onClick={() => {
                         setOpenEditDialog(true);
                         setSelectedBlog(blog);

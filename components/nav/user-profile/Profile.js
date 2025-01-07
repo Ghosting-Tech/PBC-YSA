@@ -466,7 +466,7 @@ const Profile = ({
                       open={openForgotPassword}
                     >
                       <div className="flex justify-between items-center mb-4">
-                        <h1 className="text-md text-center flex gap-1 items-center text-purple-800">
+                        <h1 className="text-md text-center flex gap-1 items-center text-[var(--color)] ">
                           Forgot password
                           <AiFillQuestionCircle size={20} />
                         </h1>
@@ -736,7 +736,7 @@ const Profile = ({
         }}
       >
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-4 text-center text-purple-500">
+          <h2 className="text-2xl font-bold mb-4 text-center text-[var(--color)] ">
             Verify Number
           </h2>
           <form onSubmit={handleRegister} className="flex flex-col gap-4">

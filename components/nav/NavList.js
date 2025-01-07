@@ -119,7 +119,7 @@ export default function NavList() {
       <div className="flex gap-4 justify-evenly">
         <Button
           variant="outlined"
-          className="flex items-center gap-2 w-full md:w-fit justify-center text-purple-500 border-purple-500"
+          className="flex items-center gap-2 w-full md:w-fit justify-center text-[var(--color)]  border-purple-500"
           onClick={handleLocationDialog}
         >
           <MapPin size={18} color="red" />
@@ -134,7 +134,7 @@ export default function NavList() {
         <IconButton
           onClick={handleOpen2}
           variant="outlined"
-          className="w-full md:w-12 h-12 border-purple-500 text-purple-500"
+          className="w-full md:w-12 h-12 border-purple-500 text-[var(--color)] "
         >
           <Search size={18} />
         </IconButton>
@@ -142,7 +142,7 @@ export default function NavList() {
         <Link href={"/cart"} className="no-underline">
           <IconButton
             variant="outlined"
-            className="w-12 h-12 border-purple-500 text-purple-500"
+            className="w-12 h-12 border-purple-500 text-[var(--color)] "
           >
             <ShoppingCart size={20} />
           </IconButton>
@@ -161,7 +161,7 @@ export default function NavList() {
               <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
                 Search For Services
               </h1>
-              <p className="text-lg md:text-xl text-purple-500">
+              <p className="text-lg md:text-xl text-[var(--color)] ">
                 Find the perfect service for you
               </p>
             </div>
@@ -169,7 +169,7 @@ export default function NavList() {
               label="Search a Service"
               color="purple"
               onChange={(e) => handleSearch(e.target.value)}
-              icon={<Search className="cursor-pointer text-purple-500" />}
+              icon={<Search className="cursor-pointer text-[var(--color)] " />}
             />
             <div>
               <div className="flex gap-2 items-center my-6">

@@ -28,7 +28,7 @@ export function CheckoutProgress({ currentStep }) {
             key={step.label}
             className={`h-8 w-8 cursor-pointer ${
               index < currentStep
-                ? "bg-purple-500 text-white"
+                ? "bg-[var(--color)] text-white"
                 : "bg-gray-200 text-gray-700"
             } rounded-full grid place-items-center relative`}
           >
@@ -55,7 +55,7 @@ export function CheckoutProgress({ currentStep }) {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <span className="absolute inset-0 inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-20"></span>
+                <span className="absolute inset-0 inline-flex h-full w-full animate-ping rounded-full bg-[var(--color)] opacity-20"></span>
               </motion.div>
             )}
           </Step>

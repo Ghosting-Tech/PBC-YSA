@@ -52,7 +52,7 @@ const MostBookedServicesChart = ({ data, loading }) => {
     return (
       <Card className="w-full max-w-[800px] bg-white rounded-xl shadow-md">
         <div className="flex flex-col items-center justify-center h-[500px]">
-          <LoaderCircle className="h-12 w-12 text-purple-500/80 animate-spin" />
+          <LoaderCircle className="h-12 w-12 text-[var(--color)] /80 animate-spin" />
           <p className="mt-4 text-gray-600 font-medium">
             Loading chart data...
           </p>

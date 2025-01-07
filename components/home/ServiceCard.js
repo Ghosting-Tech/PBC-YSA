@@ -45,7 +45,7 @@ const ServiceCard = ({ service }) => {
   }, [ratingArray]);
 
   return (
-    <div className="max-w-sm mx-auto bg-white rounded-xl overflow-hidden">
+    <div className="max-w-sm mx-auto bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200 hover:scale-105">
       {/* Image Section */}
       <div className="w-full h-48 relative">
         <Image
@@ -73,7 +73,7 @@ const ServiceCard = ({ service }) => {
         <Link href={`/services/${service?._id}`} className="no-underline">
           <Button
             fullWidth
-            className="bg-[#6E4BB2] hover:bg-purple-700 text-white py-3 rounded-lg font-medium"
+            className="bg-[#6E4BB2] hover:bg-[var(--hover)]-700 text-white py-3 rounded-lg font-medium"
           >
             BOOK SERVICE
           </Button>

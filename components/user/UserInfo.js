@@ -50,8 +50,8 @@ const UserInfo = ({ user }) => {
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="flex items-center gap-3"
               >
-                <div className="rounded-full bg-purple-50 p-2">
-                  <item.icon className="h-5 w-5 text-purple-500" />
+                <div className="rounded-full bg-[var(--color)] p-2">
+                  <item.icon className="h-5 w-5 text-[var(--color)] " />
                 </div>
                 <div>
                   <Typography

@@ -297,7 +297,7 @@ const BookingDetail = ({ booking, setBooking }) => {
                   <button
                     variant="gradient"
                     color="teal"
-                    className="rounded px-4 py-2 flex items-center gap-1 bg-purple-500 text-white hover:shadow-lg hover:shadow-purple-100 transition-all font-semibold"
+                    className="rounded px-4 py-2 flex items-center gap-1 bg-[var(--color)] text-white hover:shadow-lg hover:shadow-purple-100 transition-all font-semibold"
                     onClick={handleVerifyOtp}
                   >
                     Verify <FaCheckCircle />

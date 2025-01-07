@@ -159,7 +159,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
               />
               <label
                 htmlFor="profile-image"
-                className="absolute bottom-2 right-2 cursor-pointer bg-purple-500 p-2 rounded-full shadow-md text-white hover:bg-purple-600 transition-colors"
+                className="absolute bottom-2 right-2 cursor-pointer bg-[var(--color)] p-2 rounded-full shadow-md text-white hover:bg-[var(--hover)] transition-colors"
               >
                 <FaCamera size={20} />
               </label>
@@ -289,7 +289,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
             variant="gradient"
             color="purple"
             onClick={handleUpdate}
-            className="bg-purple-500 hover:bg-purple-600 transition-colors"
+            className="bg-[var(--color)] hover:bg-[var(--hover)] transition-colors"
           >
             Update Profile
           </Button>

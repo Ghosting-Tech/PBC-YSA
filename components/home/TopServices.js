@@ -115,7 +115,7 @@ const TopServices = ({ topServices }) => {
             </Typography>
           </div>
           <Link href="/services" className="no-underline">
-            <Button className="px-4 py-2 text-sm bg-[#6E4BB2] text-white hover:bg-purple-700 rounded-full flex items-center gap-2 font-poppins">
+            <Button className="px-4 py-2 text-sm bg-[#6E4BB2] text-white hover:bg-[var(--hover)] rounded-full flex items-center gap-2 font-poppins">
               VIEW ALL
               <MdKeyboardArrowRight className="w-5 h-5" />
             </Button>

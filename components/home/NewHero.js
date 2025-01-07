@@ -59,10 +59,10 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="px-5 lg:pl-20 lg:pr-2 pt-20 flex flex-col gap-8">
         <div className="max-w-2xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-['Arial'] text-purple-700 mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-['Arial'] text-[var(--color)] mb-4">
             Healthcare at your Doorstep
           </h1>
-          <p className="text-lg text-gray-600 mb-8 font-poppins">
+          <p className="text-lg text-black md:text-gray-600 mb-8 font-poppins">
             From ambulance support to professional nursing and physiotherapy
             services, we&apos;ve got you covered 24/7.
           </p>
@@ -70,14 +70,18 @@ const HeroSection = () => {
             <Link href="/services">
               <Button
                 variant="default"
-                className="px-6 py-3 bg-purple-700 text-white font-semibold rounded-md 
-                hover:bg-purple-800 transition-colors"
+                className="px-6 py-3 bg-[var(--color)] text-white font-semibold rounded-md 
+                hover:bg-[var(--hover)] transition-colors"
               >
                 EXPLORE SERVICES
               </Button>
             </Link>
             <Link href="/become-service-provider">
-              <Button variant="outlined" color="purple" className="px-6 py-3 ">
+              <Button
+                variant="outlined"
+                style={{ color: "#6e4bb2", borderColor: "#6e4bb2" }}
+                className="px-6 py-3"
+              >
                 BECOME A PROVIDER
               </Button>
             </Link>

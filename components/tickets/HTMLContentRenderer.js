@@ -25,7 +25,7 @@ const HTMLContentRenderer = ({ content, limit }) => {
       s, strike { @apply line-through text-gray-500; }
       
       /* Links */
-      a { @apply text-purple-600 hover:text-purple-800 underline; }
+      a { @apply text-[var(--color)]  hover:text-[var(--hover)]  underline; }
       
       /* Lists */
       ul { @apply list-disc list-inside mb-4 space-y-1 text-gray-700; }
@@ -74,7 +74,7 @@ const HTMLContentRenderer = ({ content, limit }) => {
         prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
         prose-p:mb-4 prose-p:text-gray-700
         prose-strong:font-bold prose-strong:text-gray-900
-        prose-a:text-purple-600 prose-a:hover:text-purple-800
+        prose-a:text-[var(--color)]  prose-a:hover:text-[var(--hover)] 
         prose-ul:list-disc prose-ul:list-inside
         prose-ol:list-decimal prose-ol:list-inside
         prose-li:mb-1

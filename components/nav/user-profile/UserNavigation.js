@@ -153,7 +153,7 @@ const UserNavigation = ({ handleOpenLoginDialog }) => {
       ) : (
         <Button
           size="md"
-          className="h-full bg-purple-700 hover:bg-purple-800"
+          className="h-full bg-[var(--color)] hover:bg-[var(--hover)] text-white"
           onClick={handleOpenLoginDialog}
         >
           Login

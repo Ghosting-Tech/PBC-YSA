@@ -1,4 +1,4 @@
-const Logo = ({ color = "text-purple-600", size = "w-40" }) => {
+const Logo = ({ color = "text-[var(--color)] ", size = "w-40" }) => {
   return (
     <div className="cursor-pointer">
       <svg

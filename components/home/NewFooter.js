@@ -54,7 +54,7 @@ const NewFooter = () => {
       variants={containerVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      className="relative min-h-screen bg-white "
+      className="relative bg-white"
     >
       {/* DNA Background Image */}
       <div className="absolute w-full h-full bottom-0">
@@ -67,20 +67,19 @@ const NewFooter = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto pt-12 pb-5 relative z-10">
+      <div className="container mx-auto pt-12 relative z-10">
         {/* Ready to Get Started Section */}
         <motion.div variants={itemVariants} className="max-w-2xl mb-24">
           <Typography
             variant="h1"
-            className="text-purple-600 text-5xl font-bold mb-6 text-center md:text-left "
+            className="text-[var(--color)]  text-5xl font-bold mb-6 text-center md:text-left "
           >
             Ready to Get Started?
           </Typography>
           <Link href="/services" className="no-underline">
             <Button
-              color="purple"
               size="lg"
-              className="rounded-full px-8 mx-auto md:mx-0 flex justify-center items-center md:justify-start"
+              className="rounded-full px-8 mx-auto md:mx-0 flex justify-center items-center md:justify-start bg-[var(--color)] hover:bg-[var(--hover)] text-white"
             >
               Explore Services
             </Button>
@@ -111,7 +110,7 @@ const NewFooter = () => {
             <motion.div variants={itemVariants}>
               <Typography
                 variant="h6"
-                className="text-purple-600 mb-4 font-semibold"
+                className="text-[var(--color)]  mb-4 font-semibold"
               >
                 Our Services
               </Typography>
@@ -120,7 +119,7 @@ const NewFooter = () => {
                   topBookedServices?.slice(0, 8).map((item, index) => (
                     <motion.li
                       key={index}
-                      className="cursor-pointer hover:translate-x-5 transition-all duration-300 text-[#6E4BB2] hover:text-purple-600"
+                      className="cursor-pointer hover:translate-x-5 transition-all duration-300 text-[#6E4BB2] hover:text-[var(--hover)] "
                     >
                       <Link
                         href={`/services/${item?._id}`}
@@ -142,7 +141,7 @@ const NewFooter = () => {
             <motion.div variants={itemVariants}>
               <Typography
                 variant="h6"
-                className="text-purple-600 mb-4 font-semibold"
+                className="text-[var(--color)]  mb-4 font-semibold"
               >
                 For You
               </Typography>
@@ -171,7 +170,7 @@ const NewFooter = () => {
                 ].map((item, index) => (
                   <motion.li
                     key={index}
-                    className="cursor-pointer hover:translate-x-5 transition-all duration-300 text-[#6E4BB2] hover:text-purple-600"
+                    className="cursor-pointer hover:translate-x-5 transition-all duration-300 text-[#6E4BB2] hover:text-[var(--hover)] "
                   >
                     <Link href={item.link} className="transition-colors">
                       {item.name}
@@ -185,7 +184,7 @@ const NewFooter = () => {
             <motion.div variants={itemVariants}>
               <Typography
                 variant="h6"
-                className="text-purple-600 mb-4 font-semibold"
+                className="text-[var(--color)]  mb-4 font-semibold"
               >
                 Get in Touch
               </Typography>
@@ -197,7 +196,7 @@ const NewFooter = () => {
                   </Typography>
                 </div>
                 <div className="flex items-center gap-3">
-                  <FaPhoneAlt className="text-purple-600" />
+                  <FaPhoneAlt className="text-[var(--color)] " />
                   <Typography variant="small" className="text-gray-700">
                     +91 9470017395
                   </Typography>
@@ -216,25 +215,25 @@ const NewFooter = () => {
                     icon: FaLinkedinIn,
                     link: "https://linkedin.com",
                     color: "text-[#6E4BB2]",
-                    hoverColor: "text-purple-700",
+                    hoverColor: "text-[var(--color)]",
                   },
                   {
                     icon: FaFacebookF,
                     link: "https://facebook.com",
-                    color: "text-purple-600",
-                    hoverColor: "text-purple-700",
+                    color: "text-[var(--color)] ",
+                    hoverColor: "text-[var(--color)]",
                   },
                   {
                     icon: FaInstagram,
                     link: "https://instagram.com",
                     color: "text-pink-600",
-                    hoverColor: "text-purple-700",
+                    hoverColor: "text-[var(--color)]",
                   },
                   {
                     icon: FaWhatsapp,
                     link: "https://whatsapp.com",
                     color: "text-green-600",
-                    hoverColor: "text-purple-700",
+                    hoverColor: "text-[var(--color)]",
                   },
                 ].map((item, index) => (
                   <motion.div
@@ -286,7 +285,7 @@ const NewFooter = () => {
                 alt="Ghosting Tech"
                 className="mr-2"
               />
-              <span className="text-purple-600 font-semibold">
+              <span className="text-[var(--color)]  font-semibold">
                 Ghosting Tech
               </span>
             </Link>

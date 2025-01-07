@@ -68,7 +68,7 @@ const HalfPaymentStatus = ({ payment, isOpen, setIsOpen }) => {
 
                 {/* Transaction ID */}
                 <div className="flex items-center gap-3">
-                  <ReceiptText className="text-purple-600" />
+                  <ReceiptText className="text-[var(--color)] " />
                   <div>
                     <p className="font-semibold">Transaction ID</p>
                     <p className="text-gray-600">
@@ -79,7 +79,7 @@ const HalfPaymentStatus = ({ payment, isOpen, setIsOpen }) => {
 
                 {/* Payment Time */}
                 <div className="flex items-center gap-3">
-                  <Clock className="text-purple-600" />
+                  <Clock className="text-[var(--color)] " />
                   <div>
                     <p className="font-semibold">Payment Time</p>
                     <p className="text-gray-600">

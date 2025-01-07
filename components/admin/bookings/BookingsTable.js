@@ -7,21 +7,23 @@ export default function BookingsTable({ bookings }) {
   return (
     <div className="overflow-x-auto p-4 shadow-lg bg-white rounded-lg">
       <div className="min-w-full text-left text-sm">
-        <div className="bg-purple-50 hidden md:flex rounded-lg">
-          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
+        <div className="bg-[var(--color)] hidden md:flex rounded-lg">
+          <div className="p-4 font-semibold text-[var(--color)] w-1/6 text-center">
             Booking ID
           </div>
-          <div className="p-4 font-semibold text-purple-700 w-2/6">Booked By</div>
-          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-[var(--color)] w-2/6">
+            Booked By
+          </div>
+          <div className="p-4 font-semibold text-[var(--color)] w-1/6 text-center">
             Created Date
           </div>
-          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-[var(--color)] w-1/6 text-center">
             Status
           </div>
-          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-[var(--color)] w-1/6 text-center">
             Total Amount
           </div>
-          <div className="p-4 font-semibold text-purple-700 w-1/6 text-center">
+          <div className="p-4 font-semibold text-[var(--color)] w-1/6 text-center">
             Action
           </div>
         </div>

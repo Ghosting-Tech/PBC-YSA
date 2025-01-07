@@ -69,7 +69,7 @@ const page = () => {
             href="http://demo.yourserviceapp.in"
             rel="external nofollow noopener"
             target="_blank"
-            className="text-purple-500 hover:underline"
+            className="text-[var(--color)]  hover:underline"
           >
             demo.yourserviceapp.in
           </a>

@@ -111,7 +111,7 @@ const NotificationTable = ({ initialNotifications = [] }) => {
     <div className="space-y-6 mx-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <Typography variant="h5" className="font-bold text-purple-500">
+          <Typography variant="h5" className="font-bold text-[var(--color)] ">
             Notifications
           </Typography>
           {/* <Chip

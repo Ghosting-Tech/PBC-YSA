@@ -93,7 +93,7 @@ const AvailableServiceProviders = ({
                           className="font-normal opacity-75"
                         >
                           <span className="flex items-center gap-1">
-                            <FaVenusMars className="text-purple-500" />
+                            <FaVenusMars className="text-[var(--color)] " />
                             {sp.gender}
                           </span>
                         </Typography>
