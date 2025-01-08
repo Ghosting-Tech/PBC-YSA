@@ -18,7 +18,7 @@ export function CheckoutConfirmation({
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-xl shadow-lg"
     >
-      <Typography variant="h4" color="purple" className="mb-4">
+      <Typography variant="h4" className="mb-4 text-[var(--color)]">
         Confirm Your Order
       </Typography>
       <div className="space-y-4">
@@ -89,9 +89,7 @@ export function CheckoutConfirmation({
           <ArrowLeftIcon className="h-4 w-4" /> Back
         </Button>
         <Button
-          color="green"
-          variant="gradient"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-[var(--color)] hover:bg-[var(--hover)] text-white"
           disabled={disableRedirectingButton}
           loading={redirectingLoading}
           onClick={onSubmit}

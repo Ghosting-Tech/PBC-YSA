@@ -108,6 +108,7 @@ export async function POST(request) {
     serviceProviders.forEach((sp) => {
       sp.locations.forEach((s) => {
         const distance = getDistance(lat, lng, s.lat, s.lng);
+        console.log({ distance });
         if (distance <= 25 && !uniqueServiceProviders.has(sp._id.toString())) {
           uniqueServiceProviders.add(sp._id.toString());
         }
@@ -290,7 +291,7 @@ export async function POST(request) {
       {
         success: false,
         message: "An error occurred while processing the booking",
-        error
+        error,
       },
       { status: 500 }
     );

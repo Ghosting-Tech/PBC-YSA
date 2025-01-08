@@ -96,7 +96,7 @@ const ServiceProviderLocation = ({ serviceProvider, role }) => {
               <MdLocationOn color="red" size={25} /> Your available locations
             </h2>
             <p className="text-gray-500 text-sm">
-              Your location is only valid within the radius of 15km
+              Your location is only valid within the radius of 25km
             </p>
           </div>
           <div className="flex gap-2 flex-col md:flex-row w-full md:w-fit">

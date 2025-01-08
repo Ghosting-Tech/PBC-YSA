@@ -31,7 +31,10 @@ export default function GiveReview({ handleReviewSubmit, review, setReview }) {
           rows="5"
         />
         <div className="flex justify-end">
-          <Button type="submit" color="purple">
+          <Button
+            type="submit"
+            className="bg-[var(--color)] hover:bg-[var(--hover)] text-white"
+          >
             Submit Review
           </Button>
         </div>

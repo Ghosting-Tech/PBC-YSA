@@ -163,9 +163,11 @@ export default function MainNav() {
     const result = fuse.search(query);
 
     if (result.length === 0) {
+      setSearchedData([]);
       toast.error("No matching service found");
+    } else {
+      setSearchedData(result);
     }
-    setSearchedData(result);
   }
 
   return (
@@ -333,7 +335,6 @@ export default function MainNav() {
           </div>
           <Input
             label="Search a Service"
-            color="purple"
             onChange={(e) => handleSearch(e.target.value)}
             icon={<Search className="cursor-pointer text-[var(--color)] " />}
           />

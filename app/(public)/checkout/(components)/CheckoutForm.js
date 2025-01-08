@@ -83,7 +83,7 @@ export function CheckoutForm({
 
   const onPlacesChanged = () => {
     const places = searchBoxRef.current.getPlaces();
-    if (places.length === 0) return;
+    if (places?.length === 0) return;
 
     const place = places[0];
     const newLocation = {
@@ -240,7 +240,7 @@ export function CheckoutForm({
                       value={date}
                       onChange={handleChange}
                       checked={formData.date === date}
-                      color="teal"
+                      color="purple"
                     />
                   </ListItemPrefix>
                   <Typography
@@ -296,7 +296,7 @@ export function CheckoutForm({
               className="hidden"
             />
             <Button
-              color="teal"
+              color="purple"
               variant="outlined"
               className="w-full h-32 flex flex-col items-center justify-center border-dashed"
               onClick={() => fileInputRef.current.click()}
@@ -320,14 +320,17 @@ export function CheckoutForm({
                     onClose={() =>
                       setFormData((prev) => ({ ...prev, prescription: null }))
                     }
-                    className="bg-teal-100 text-teal-700"
+                    className="bg-purple-100 text-[var(--color)]"
                   />
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         </div>
-        <Button type="submit" color="teal" ripple className="w-full">
+        <Button
+          type="submit"
+          className="w-full bg-[var(--color)] hover:bg-[var(--hover)] text-white"
+        >
           Continue to Confirmation
         </Button>
       </form>

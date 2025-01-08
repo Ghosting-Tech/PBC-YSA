@@ -12,7 +12,7 @@ const page = () => {
         Service.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Interpretation and Definitions
       </h2>
       <h3 className="text-2xl font-semibold text-gray-700 mt-4">
@@ -81,7 +81,7 @@ const page = () => {
         </li>
       </ul>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Acknowledgment
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -115,7 +115,7 @@ const page = () => {
         before using Our Service.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Links to Other Websites
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -136,7 +136,9 @@ const page = () => {
         policies of any third-party web sites or services that You visit.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">Termination</h2>
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
+        Termination
+      </h2>
       <p className="text-gray-700 leading-relaxed">
         We may terminate or suspend Your access immediately, without prior
         notice or liability, for any reason whatsoever, including without
@@ -146,7 +148,7 @@ const page = () => {
         Upon termination, Your right to use the Service will cease immediately.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Limitation of Liability
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -177,7 +179,7 @@ const page = () => {
         permitted by law.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; Disclaimer
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -220,7 +222,7 @@ const page = () => {
         applicable law.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Governing Law
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -230,7 +232,7 @@ const page = () => {
         international laws.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Disputes Resolution
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -238,7 +240,7 @@ const page = () => {
         try to resolve the dispute informally by contacting the Company.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         For European Union (EU) Users
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -247,7 +249,7 @@ const page = () => {
         resident.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         United States Legal Compliance
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -258,7 +260,7 @@ const page = () => {
         States government list of prohibited or restricted parties.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Severability and Waiver
       </h2>
       <h3 className="text-2xl font-semibold text-gray-700 mt-4">
@@ -280,7 +282,7 @@ const page = () => {
         waiver of any subsequent breach.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Translation Interpretation
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -289,7 +291,7 @@ const page = () => {
         text shall prevail in the case of a dispute.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
         Changes to These Terms and Conditions
       </h2>
       <p className="text-gray-700 leading-relaxed">
@@ -306,7 +308,9 @@ const page = () => {
         website and the Service.
       </p>
 
-      <h2 className="text-3xl font-semibold text-teal-500 mt-6">Contact Us</h2>
+      <h2 className="text-3xl font-semibold text-[var(--color)] mt-6">
+        Contact Us
+      </h2>
       <p className="text-gray-700 leading-relaxed">
         If you have any questions about these Terms and Conditions, You can
         contact us:

@@ -18,7 +18,7 @@ export const metadata = {
   title: "Trustotry",
   description: "Find the best service at Trustotry",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/trustotry-fav.svg",
   },
 };
 

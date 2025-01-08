@@ -42,8 +42,9 @@ export function CheckoutProgress({ currentStep }) {
             <div className="absolute -bottom-8 w-max text-center">
               <Typography
                 variant="small"
-                color={index < currentStep ? "purple" : "gray"}
-                className="font-bold"
+                className={`font-bold ${
+                  index < currentStep ? "text-[var(--color)]" : "text-gray-700"
+                }`}
               >
                 {step.label}
               </Typography>

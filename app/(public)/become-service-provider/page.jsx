@@ -454,7 +454,7 @@ const CreateServiceProvider = () => {
                 <RxCross2 size={25} />
               </button> */}
             </div>
-            <h1 className="text-2xl font-bold text-teal-500 font-lato text-center">
+            <h1 className="text-2xl font-bold text-[var(--color)] font-lato text-center">
               You Registered Successfully
             </h1>
             <p className="text-center">
@@ -477,7 +477,10 @@ const CreateServiceProvider = () => {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <Card className="w-full max-w-4xl">
           <CardBody className="flex flex-col gap-8">
-            <Typography variant="h3" color="purple" className="text-center">
+            <Typography
+              variant="h3"
+              className="text-center text-[var(--color)]"
+            >
               Become a Service Provider
             </Typography>
             <form className="space-y-8">
@@ -853,8 +856,7 @@ const CreateServiceProvider = () => {
                 // loading={uploadingLoading}
                 fullWidth
                 size="lg"
-                variant="gradient"
-                color="purple"
+                className="bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                 onClick={handleVerifyMobileNumber}
               >
                 Verify Mobile Number

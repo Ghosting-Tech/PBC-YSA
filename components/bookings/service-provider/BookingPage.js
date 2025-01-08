@@ -83,14 +83,10 @@ const Booking = () => {
             </li>
             <li className="text-gray-600 flex items-center gap-2">
               <FaAngleDoubleRight className="text-indigo-500" />
-              Your location is only valid within a 15km radius.
+              Your location is only valid within a 25km radius.
             </li>
             <Link href={`/service-provider`}>
-              <Button
-                variant="gradient"
-                color="purple"
-                className="mt-6 rounded"
-              >
+              <Button className="mt-6 rounded bg-[var(--color)] hover:bg-[var(--hover)] text-white">
                 Go to profile
               </Button>
             </Link>

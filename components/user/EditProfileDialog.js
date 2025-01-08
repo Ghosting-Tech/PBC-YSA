@@ -155,7 +155,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                 alt="Profile"
                 width={150}
                 height={150}
-                className="rounded-full w-28 aspect-square object-cover border-4 border-purple-500"
+                className="rounded-full w-28 aspect-square object-cover border-4 border-[var(--color)]"
               />
               <label
                 htmlFor="profile-image"
@@ -219,7 +219,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       onChange={(e) =>
                         setUpdateUser({ ...updateUser, name: e.target.value })
                       }
-                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-[var(--color)] transition-colors"
                     />
                   </div>
                   <GenderSelection
@@ -235,7 +235,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       onChange={(e) =>
                         setUpdateUser({ ...updateUser, city: e.target.value })
                       }
-                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-[var(--color)] transition-colors"
                     />
                   </div>
                 </div>
@@ -249,7 +249,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                       value={updateUser?.email}
                       onChange={handleEmailChange}
                       error={!!emailError}
-                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-[var(--color)] transition-colors"
                     />
                     {emailError && (
                       <Typography color="red" className="mt-1 text-xs">
@@ -268,7 +268,7 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
                           phoneNumber: e.target.value,
                         })
                       }
-                      className="border-b border-gray-300 focus:border-purple-500 transition-colors"
+                      className="border-b border-gray-300 focus:border-[var(--color)] transition-colors"
                     />
                   </div>
                 </div>
@@ -286,10 +286,8 @@ const EditProfileDialog = ({ open, handleOpen, user, onUpdate }) => {
             Cancel
           </Button>
           <Button
-            variant="gradient"
-            color="purple"
             onClick={handleUpdate}
-            className="bg-[var(--color)] hover:bg-[var(--hover)] transition-colors"
+            className="bg-[var(--color)] hover:bg-[var(--hover)] transition-colors text-white"
           >
             Update Profile
           </Button>

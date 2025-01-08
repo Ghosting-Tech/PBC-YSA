@@ -429,7 +429,7 @@ const Service = () => {
             </div>
           </div>
           <div className="w-full flex flex-col justify-center items-center py-4 px-4">
-            <h1 className="font-julius lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-[#6E4BB2] font-bold">
+            <h1 className="font-poppins lg:text-5xl md:text-4xl sm:text-3xl text-3xl text-center text-[#6E4BB2] font-bold uppercase">
               {service.name}
             </h1>
           </div>
@@ -474,7 +474,7 @@ const Service = () => {
                             {subService.name}
                           </Typography>
                         </div>
-                        <div className="text-2xl font-bold text-teal-500">
+                        <div className="text-2xl font-bold text-[var(--color)]">
                           ₹{subService.price}
                         </div>
                       </CardBody>
@@ -495,9 +495,7 @@ const Service = () => {
                           <Button
                             size="lg"
                             fullWidth
-                            variant="gradient"
-                            color="indigo"
-                            className="flex gap-2 items-center justify-center"
+                            className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                             onClick={() => handleAddingCart(subService)}
                           >
                             <span>Add to cart</span>

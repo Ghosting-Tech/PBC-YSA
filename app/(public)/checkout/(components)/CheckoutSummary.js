@@ -94,8 +94,7 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
               </Typography>
               <Typography
                 variant="small"
-                color="teal"
-                className="font-semibold"
+                className="font-semibold text-[var(--color)]"
               >
                 ₹{(item.price * item.quantity).toFixed(2)}
               </Typography>
@@ -127,7 +126,7 @@ export function CheckoutSummary({ cartItems, onPaymentMethodSelect }) {
           <Typography variant="h6" color="purple-gray">
             Total
           </Typography>
-          <Typography variant="h6" color="teal">
+          <Typography variant="h6" className="text-[var(--color)]">
             ₹{total.toFixed(2)}
           </Typography>
         </div>

@@ -512,10 +512,8 @@ const Profile = ({
                           />
                           <Button
                             onClick={handleThrowingOtp}
-                            variant="gradient"
                             disabled={otpSended}
-                            color="purple"
-                            className="flex gap-2 items-center justify-center"
+                            className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                             fullWidth
                           >
                             Send OTP <IoSendSharp />
@@ -555,10 +553,8 @@ const Profile = ({
                           />
                           <Button
                             onClick={handleUpdatePassword}
-                            variant="gradient"
                             disabled={updatedPasswordError}
-                            color="purple"
-                            className="flex gap-2 items-center justify-center"
+                            className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                             fullWidth
                           >
                             Update Password
@@ -571,9 +567,7 @@ const Profile = ({
                       fullWidth
                       size="md"
                       type="submit"
-                      variant="gradient"
-                      color="purple"
-                      className="flex gap-1 items-center justify-center"
+                      className="flex gap-1 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                     >
                       Login <RiLoginCircleFill size={20} />
                     </Button>
@@ -711,11 +705,9 @@ const Profile = ({
 
                   <Button
                     onClick={sendingRegisterOtp}
-                    variant="gradient"
                     fullWidth
                     size="lg"
-                    color="purple"
-                    className="flex gap-1 items-center justify-center"
+                    className="flex gap-1 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                   >
                     Verify Number <IoShieldCheckmark size={20} />
                   </Button>
@@ -766,7 +758,11 @@ const Profile = ({
               >
                 {isOtpButtonDisabled ? `Resend OTP in ${timer} s` : "Send OTP"}
               </Button>
-              <Button type="submit" variant="gradient" color="purple" fullWidth>
+              <Button
+                type="submit"
+                fullWidth
+                className="bg-[var(--color)] hover:bg-[var(--hover)] text-white"
+              >
                 Verify OTP
               </Button>
             </div>

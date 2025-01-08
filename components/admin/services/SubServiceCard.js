@@ -203,9 +203,7 @@ export default function SubServiceCard({
             </Button>
             <Button
               onClick={handleViewDialog}
-              variant="gradient"
-              color="purple"
-              className="flex-1 flex items-center justify-center gap-2"
+              className="flex-1 flex items-center justify-center gap-2 bg-[var(--color)] hover:bg-[var(--hover)] text-white"
             >
               <IoMdOpen className="h-4 w-4" />
               View
@@ -236,9 +234,7 @@ export default function SubServiceCard({
             ) : (
               <Button
                 size="sm"
-                variant="gradient"
-                color="purple"
-                className="flex gap-2 items-center justify-center"
+                className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                 onClick={() => handleAddingCart(subService)}
               >
                 <span>Select service</span>

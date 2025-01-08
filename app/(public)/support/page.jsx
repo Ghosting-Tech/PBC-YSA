@@ -233,7 +233,10 @@ export default function SupportPage() {
       <Card className="w-full">
         <CardBody className="p-8">
           <div className="flex justify-between flex-col md:flex-row items-center mb-8">
-            <Typography variant="h3" color="purple" className="text-center">
+            <Typography
+              variant="h3"
+              className="text-center text-[var(--color)] "
+            >
               How can we help you today?
             </Typography>
             {user?._id && (
@@ -285,7 +288,7 @@ export default function SupportPage() {
                   className="no-underline"
                   legacyBehavior
                 >
-                  <Card className="border-2 border-purple-300 shadow-md shadow-purple-50">
+                  <Card className="border-2 border-[var(--color)] shadow-md shadow-purple-50">
                     <CardBody className="flex flex-col items-center p-4">
                       {method.icon}
                       <Typography
@@ -402,7 +405,7 @@ export default function SupportPage() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="file"
-                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-purple-300 rounded-lg cursor-pointer bg-[var(--color)] hover:bg-[var(--hover)] transition-colors duration-300"
+                  className="flex flex-col items-center w-full p-6 text-center border-2 border-dashed border-[var(--color)] rounded-lg cursor-pointer transition-colors duration-300"
                 >
                   <svg
                     className="w-8 h-8 text-[var(--color)]  mb-2"
@@ -451,8 +454,7 @@ export default function SupportPage() {
               <Button
                 type="submit"
                 size="lg"
-                color="purple"
-                className="mt-10 flex items-center justify-center"
+                className="mt-10 flex items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
                 fullWidth
                 loading={loading}
               >

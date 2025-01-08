@@ -274,9 +274,6 @@ export default function Home() {
   return (
     <main>
       <>
-        {/* <EnhancedNav /> */}
-        {/* <MainNav /> */}
-        {/* <Hero /> */}
         <HeroSection />
         <ServiceContainer
           selectedState={selectedState}
@@ -300,7 +297,6 @@ export default function Home() {
           <RecommendedServices recommendedServices={recommendedServices} />
         )}
         <NewFooter />
-        {/* <Footer /> */}
       </>
     </main>
   );

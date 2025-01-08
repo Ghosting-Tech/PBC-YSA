@@ -152,10 +152,8 @@ export default function ServiceContainer({
               <Button
                 onClick={handleLocationChange}
                 disabled={!selectedState || !selectedCity}
-                variant="gradient"
-                color="purple"
                 size="lg"
-                className="flex items-center gap-2 justify-center"
+                className="flex items-center gap-2 justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
               >
                 <MapPinIcon className="h-5 w-5" />
                 Confirm Location
