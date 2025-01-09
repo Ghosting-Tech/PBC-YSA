@@ -112,7 +112,9 @@ export default function MainNav() {
           "Content-Type": "application/json",
         },
       });
+      console.log({ fetchedData });
       const response = await fetchedData.json();
+      console.log({ response });
       if (response.success) {
         function getTopBookedServices(services, topN) {
           return services
@@ -133,15 +135,14 @@ export default function MainNav() {
 
   useEffect(() => {
     gettingServices();
-    //eslint-disable-next-line
-  }, []);
+  }, [city]);
 
   const fuseOptions = {
     keys: ["name", "subServices.name"],
     includeScore: true,
     threshold: 0.3,
   };
-
+  console.log({ allServices });
   const flattenedData = allServices.flatMap((service) => [
     service,
     ...service.subServices.map((subService) => ({
@@ -159,13 +160,16 @@ export default function MainNav() {
       setSearchedData([]);
       return;
     }
+    console.log({ query });
 
     const result = fuse.search(query);
+    console.log({ result });
 
     if (result.length === 0) {
+      setSearchError("No matching service found");
       setSearchedData([]);
-      toast.error("No matching service found");
     } else {
+      setSearchError("");
       setSearchedData(result);
     }
   }
@@ -395,7 +399,7 @@ function ServiceCard({ service, handleOpen2 }) {
             <Button
               variant="gradient"
               color="purple"
-              className="rounded w-full flex items-center justify-center gap-1 text-xs md:text-sm"
+              className="rounded w-full flex items-center justify-center gap-1 text-xs md:text-sm no-underline"
               size="sm"
               onClick={handleOpen2}
             >

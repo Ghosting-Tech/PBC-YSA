@@ -286,7 +286,7 @@ export default function SubServiceCard({
                   </div>
                   {forAdmin && (
                     <div className="mt-4 flex justify-center">
-                      <label className="px-4 py-2 bg-[var(--color)] text-[var(--color)] rounded-full cursor-pointer hover:bg-[var(--hover)] transition-colors flex items-center gap-2">
+                      <label className="px-4 py-2 bg-[var(--color)] text-white rounded-full cursor-pointer hover:bg-[var(--hover)] transition-colors flex items-center gap-2">
                         <TiArrowRepeat size={20} />
                         Replace Icon
                         <input

@@ -110,7 +110,7 @@ export default function Sidebar() {
       <Link href={path} key={path} className="no-underline">
         <ListItem
           className={`${sidebarItemWidth} ${
-            isActive ? "bg-[var(--color)] gray-50 text-[var(--color)] " : ""
+            isActive ? "bg-gray-50 text-[var(--color)] " : ""
           } flex justify-between items-center`}
         >
           <div className="flex items-center">
@@ -158,7 +158,7 @@ export default function Sidebar() {
       <div className=" flex items-center justify-between px-4 pt-3 w-full relative">
         <Collapse open={!isCollapsed} className="overflow-hidden">
           <Link href="/admin" className="flex items-center">
-            <div className="text-2xl font-racing">YSA</div>
+            <div className="text-2xl font-racing">TTC</div>
           </Link>
         </Collapse>
         <IconButton variant="text" color="purple-gray" onClick={toggleCollapse}>

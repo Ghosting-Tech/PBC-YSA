@@ -71,7 +71,7 @@ const UserInvoiceDialog = ({
     }
   };
 
-  if (!booking?.invoices?.responded) {
+  if (!booking?.invoices?.title) {
     return null;
   }
   return (

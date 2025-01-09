@@ -92,7 +92,7 @@ const BookingChart = ({ bookingData, bookingCount, loading }) => {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="bg-[var(--color)] text-[var(--color)]  rounded-full p-3 hidden md:block">
+            <div className="bg-[var(--color)] text-white  rounded-full p-3 hidden md:block">
               <CalendarDateRangeIcon className="h-6 w-6" />
             </div>
             <div>
