@@ -54,7 +54,7 @@ const ReviewCard = ({ name, review, rating, image }) => (
 
 export default function Review({ service, id, rating, setRating, setService }) {
   const user = useSelector((state) => state.user.user);
-
+  console.log({id});
   const [review, setReview] = useState({
     name: "",
     image: {

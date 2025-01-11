@@ -31,30 +31,63 @@ export async function POST(request) {
   try {
     await connectMongoDB(); // Ensure MongoDB connection is established
 
-    const { bookingId, serviceProvider } = await request.json();
+    const { bookingId, providerId } = await request.json();
+
+    if (!bookingId || !providerId) {
+      return NextResponse.json(
+        { success: false, message: "Invalid booking ID or service provider" },
+        { status: 400 }
+      );
+    }
+    const serviceProvider = await User.findById(providerId);
+
+    if (!serviceProvider) {
+      return NextResponse.json(
+        { success: false, message: "Invalid service provider" },
+        { status: 404 }
+      );
+    }
 
     const booking = await Booking.findById(bookingId);
 
-    const providersToEliminate = booking.availableServiceProviders.filter(
-      (sp) => {
-        return sp !== serviceProvider._id;
-      }
-    );
-
     if (!booking) {
-      return NextResponse.json("Invalid booking ID", { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Invalid booking ID" },
+        { status: 404 }
+      );
     }
 
-    if (booking.acceptedByServiceProvider) {
+    if (
+      booking?.assignedServiceProviders?._id &&
+      booking?.assignedServiceProviders?._id.toString() ===
+        serviceProvider._id.toString()
+    ) {
       return NextResponse.json(
         {
           success: false,
-          message: "Service has been accepted by another service provider!",
+          message: "Booking already assigned to you!",
+        },
+        { status: 200 }
+      );
+    }
+
+    if (booking.acceptedByServiceProvider == true) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Booking already accepted!",
           acceptedByAnotherServiceProvider: true,
         },
         { status: 200 }
       );
     }
+
+    const providersToEliminate = booking.availableServiceProviders.filter(
+      (sp) => {
+        return sp.toString() !== serviceProvider._id.toString();
+      }
+    );
+
     if (providersToEliminate.length > 0) {
       providersToEliminate.map(async (sp) => {
         await User.findByIdAndUpdate(sp, { $pull: { bookings: bookingId } });
@@ -72,9 +105,7 @@ export async function POST(request) {
       { new: true }
     ).populate("user");
 
-    const user = await User.findOne({
-      phoneNumber: booking.phoneNumber,
-    });
+    const user = await User.findById(booking.user);
     if (user) {
       handleSendNotification(
         user.notificationToken,
@@ -93,7 +124,7 @@ export async function POST(request) {
   } catch (error) {
     console.log("Error updating bookings:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to update bookings" },
+      { success: false, message: "Failed to update bookings", error },
       { status: 500 }
     );
   }

@@ -258,23 +258,41 @@ const Profile = ({
   const [forgotPasswordOtpVerified, setForgotPasswordOtpVerified] =
     useState(false);
 
-  const handleThrowingOtp = async () => {
-    if (forgetPasswordNumber.length != 10) return;
-    const otp = generateOTP();
-    setForgotPasswordGeneratedOtp(otp);
+    const [forgotPasswordOtpButtonDisabled, setForgotPasswordOtpButtonDisabled] = useState(false);
+const [forgotPasswordTimer, setForgotPasswordTimer] = useState(0);
+    useEffect(() => {
+      if (forgotPasswordTimer > 0) {
+        const countdown = setInterval(() => {
+          setForgotPasswordTimer((prev) => prev - 1);
+        }, 1000);
+    
+        return () => clearInterval(countdown);
+      } else if (forgotPasswordTimer === 0) {
+        setForgotPasswordOtpButtonDisabled(false);
+      }
+    }, [forgotPasswordTimer]);
 
-    const { data } = await axios.post(`/api/send-sms`, {
-      number: forgetPasswordNumber,
-      message: `Dear user, Your OTP for forget password phone number verification is ${otp}. Please enter this OTP to complete the process. Regards, Ghosting Webtech Pvt Ltd`,
-      templateid: "1707173020034820738",
-    });
-
-    if (!data.success) {
-      toast.error("Failed to send verification OTP.");
-      return;
-    }
-    setOtpSended(true);
-  };
+    const handleThrowingOtp = async () => {
+      if (forgetPasswordNumber.length != 10) return;
+      const otp = generateOTP();
+      setForgotPasswordGeneratedOtp(otp);
+    
+      const { data } = await axios.post(`/api/send-sms`, {
+        number: forgetPasswordNumber,
+        message: `Dear user, Your OTP for forget password phone number verification is ${otp}. Please enter this OTP to complete the process. Regards, Ghosting Webtech Pvt Ltd`,
+        templateid: "1707173020034820738",
+      });
+    
+      if (!data.success) {
+        toast.error("Failed to send verification OTP.");
+        return;
+      }
+      setOtpSended(true);
+      
+      // Add these lines
+      setForgotPasswordOtpButtonDisabled(true);
+      setForgotPasswordTimer(30);
+    };
   const [updatedPassword, setUpdatedPassword] = useState("");
   const [updatedPasswordError, setUpdatedPasswordError] = useState(false);
   const verifyingOtp = async (otp) => {
@@ -510,14 +528,17 @@ const Profile = ({
                             maxLength={4}
                             onChange={(e) => verifyingOtp(e.target.value)}
                           />
-                          <Button
-                            onClick={handleThrowingOtp}
-                            disabled={otpSended}
-                            className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
-                            fullWidth
-                          >
-                            Send OTP <IoSendSharp />
-                          </Button>
+                        <Button
+      onClick={handleThrowingOtp}
+      disabled={forgotPasswordOtpButtonDisabled}
+      className="flex gap-2 items-center justify-center bg-[var(--color)] hover:bg-[var(--hover)] text-white"
+      fullWidth
+    >
+      {forgotPasswordOtpButtonDisabled 
+        ? `Resend OTP in ${forgotPasswordTimer}s` 
+        : otpSended ? "Resend OTP" : "Send OTP"} 
+      <IoSendSharp />
+    </Button>
                         </div>
                         <div
                           className={`flex flex-col items-center gap-2 transition-all duration-500 w-full absolute ${
@@ -627,7 +648,7 @@ const Profile = ({
                       }}
                     />
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex flex-col md:flex-row gap-4  md:gap-1 ">
                     <Select
                       label="Select Gender"
                       value={registerData.gender}

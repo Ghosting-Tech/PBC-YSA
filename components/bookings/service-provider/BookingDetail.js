@@ -133,7 +133,7 @@ const BookingDetail = ({ booking, setBooking }) => {
     try {
       const res = await axios.post(`/api/bookings/accept-booking`, {
         bookingId: id,
-        serviceProvider: user,
+        providerId: user._id,
       });
       const response = res.data;
 

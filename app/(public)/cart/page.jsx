@@ -1,4 +1,5 @@
 "use client";
+import Profile from "@/components/nav/user-profile/Profile";
 import { Button, ButtonGroup } from "@material-tailwind/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { VscDebugContinue } from "react-icons/vsc";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const Cart = () => {
   const router = useRouter();
@@ -58,6 +60,24 @@ const Cart = () => {
 
       return updatedProducts;
     });
+  };
+  const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const handleOpenLoginDialog = () => setOpenLoginDialog(!openLoginDialog);
+  const handleCheckoutClick = () => {
+    console.log("check");
+    if(user?.role === "admin"){
+      toast.error("Admin cannot checkout");
+      return;
+    }
+    if(user?.role === "service-provider"){
+      toast.error("Service Provider cannot checkout");
+      return;
+    }
+    if (user?.role !== "user") {
+      setOpenLoginDialog(true);
+      return
+    }
+    router.push('/checkout');
   };
 
   return (
@@ -186,48 +206,27 @@ const Cart = () => {
               </span>
             </div>
             {products.length === 0 ? (
-              <Button
-                variant="gradient"
-                color="black"
-                className="w-full flex items-center justify-center gap-1"
-                size="lg"
-                disabled
-              >
-                Add minimum 1 item to continue <VscDebugContinue />
-              </Button>
-            ) : Object.keys(user).length === 0 ? (
-              <Button
-                variant="gradient"
-                color="black"
-                className="w-full flex items-center justify-center gap-1"
-                size="lg"
-                disabled
-              >
-                Login first to continue <VscDebugContinue />
-              </Button>
-            ) : user.role !== "user" ? (
-              <Button
-                variant="gradient"
-                color="black"
-                className="w-full flex items-center justify-center gap-1"
-                size="lg"
-                disabled
-              >
-                Only user can book a service <VscDebugContinue />
-              </Button>
-            ) : (
-              <Link href="/checkout" className="no-underline" legacyBehavior>
-                <Button
-                  variant="gradient"
-                  color="black"
-                  className="w-full flex items-center justify-center gap-1 mt-3"
-                  size="lg"
-                >
-                  Continue <VscDebugContinue />
-                </Button>
-              </Link>
-            )}
-
+      <Button
+        variant="gradient"
+        color="black"
+        className="w-full flex items-center justify-center gap-1"
+        size="lg"
+        disabled
+      >
+        Add minimum 1 item to continue <VscDebugContinue />
+      </Button>
+    ) : (
+      <Button
+        variant="gradient"
+        color="black"
+        className="w-full flex items-center justify-center gap-1 mt-3 uppercase"
+        size="lg"
+        disabled={user?.role === "admin" || user?.role === "service-provider"}
+        onClick={handleCheckoutClick}
+      >
+        {user?.role === "admin" || user?.role === "service-provider" ? "Only users can book a service" : "Checkout"} <VscDebugContinue />
+      </Button>
+    )}
             <div className="text-sm text-gray-500">
               <p className="text-base">About Service Providers</p>
               <p>
@@ -241,6 +240,13 @@ const Cart = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className=" hidden">
+      <Profile 
+      openLoginDialog={openLoginDialog}
+      setOpenLoginDialog={setOpenLoginDialog}
+      handleOpenLoginDialog={handleOpenLoginDialog}
+      />
       </div>
     </div>
   );

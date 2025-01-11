@@ -515,7 +515,7 @@ const Service = () => {
         /> */}
         <Review
           service={service}
-          serviceId={id}
+          id={id}
           rating={rating}
           setRating={setRating}
           setService={setService}

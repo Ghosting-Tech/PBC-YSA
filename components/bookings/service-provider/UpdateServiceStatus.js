@@ -52,13 +52,17 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
       toast.error("Service already completed!");
       return;
     }
+   
+  if(selectedNewBooking.invoices){
     if (
       selectedNewBooking.invoices.invoiceAccepted &&
       !selectedNewBooking.invoices.transactionId
     ) {
       toast.error("Invoice accepted but payment is not made!");
       return;
+      }
     }
+
     if (!selectedNewBooking.paymentStatus.paid_full) {
       setIsDialogOpen(true);
     } else {

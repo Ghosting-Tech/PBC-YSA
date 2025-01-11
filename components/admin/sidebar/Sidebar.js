@@ -101,7 +101,7 @@ export default function Sidebar() {
     { path: "/admin/payments", icon: CurrencyRupeeIcon, label: "Payments" },
     { path: "/admin/blogs", icon: BookOpenIcon, label: "Blogs" },
     { path: "/admin/tickets", icon: TicketIcon, label: "Tickets" },
-    { path: "/admin/customize", icon: CubeIcon, label: "Customization" },
+    // { path: "/admin/customize", icon: CubeIcon, label: "Customization" },
   ];
 
   const renderSidebarItem = ({ path, icon: Icon, label, badge }) => {

@@ -25,6 +25,8 @@ const Booking = () => {
       const response = await axios.get(
         `/api/bookings?page=${page}&limit=${limit}`
       );
+
+      console.log({providerBooking:response.data});
       const res = response.data;
 
       if (!res.success) {

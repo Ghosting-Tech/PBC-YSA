@@ -131,10 +131,10 @@ export function CheckoutForm({
       toast.error("Please select a delivery time");
       return false;
     }
-    if (!formData.patientCondition) {
-      toast.error("Please enter the patient's condition");
-      return false;
-    }
+    // if (!formData.patientCondition) {
+    //   toast.error("Please enter the patient's condition");
+    //   return false;
+    // }
     return true;
   };
 
@@ -278,7 +278,6 @@ export function CheckoutForm({
               name="patientCondition"
               value={formData.patientCondition}
               onChange={handleChange}
-              required
               label="Briefly describe the patient's condition"
             />
           </div>
@@ -316,8 +315,9 @@ export function CheckoutForm({
                   className="absolute bottom-2 left-2"
                 >
                   <Chip
-                    value={formData.prescription.name}
-                    onClose={() =>
+value={formData.prescription.name.length > 15 
+  ? `${formData.prescription.name.slice(0, 15)}...` 
+  : formData.prescription.name}                    onClose={() =>
                       setFormData((prev) => ({ ...prev, prescription: null }))
                     }
                     className="bg-purple-100 text-[var(--color)]"
