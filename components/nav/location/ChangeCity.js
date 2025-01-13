@@ -233,7 +233,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
         </DialogHeader>
         <DialogBody divider className="grid place-items-center gap-4">
           <Typography className="text-center text-gray-700">
-            We're sorry, but our services are not yet available in{" "}
+            We&apos;re sorry, but our services are not yet available in{" "}
             <span className="font-bold">{noServiceLocation.city}</span>, {noServiceLocation.state}.
           </Typography>
           <Typography className="text-center text-gray-600">
@@ -246,7 +246,7 @@ const ChangeCity = ({ handleLocationDialog }) => {
             color="purple"
             onClick={() => setShowNoServiceDialog(false)}
           >
-            OK, I'll select another city
+            OK, I&apos;ll select another city
           </Button>
         </DialogFooter>
       </Dialog>
