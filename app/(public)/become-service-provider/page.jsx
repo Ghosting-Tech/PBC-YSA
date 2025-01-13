@@ -488,6 +488,7 @@ const CreateServiceProvider = () => {
                 <Input
                   label="Full Name"
                   color="indigo"
+                  required
                   value={inputData.name}
                   maxLength={25}
                   onChange={(e) =>
