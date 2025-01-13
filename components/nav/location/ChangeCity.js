@@ -10,6 +10,10 @@ import {
   CardFooter,
   Typography,
   Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
 } from "@material-tailwind/react";
 import {
   MapPinIcon,
@@ -36,10 +40,10 @@ const fetchServices = async (cityState) => {
       "/api/services/top-booked?limit=100",
       cityState
     );
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching top services:", error);
-    return [];
+    throw error;
   }
 };
 
@@ -48,15 +52,22 @@ const ChangeCity = ({ handleLocationDialog }) => {
   const [selectedState, setSelectedState] = useState("Bihar");
   const [selectedCity, setSelectedCity] = useState("Patna");
   const [currentCity, setCurrentCity] = useState("Patna");
+  const [previousLocation, setPreviousLocation] = useState({ state: "Bihar", city: "Patna" });
+  const [showNoServiceDialog, setShowNoServiceDialog] = useState(false);
+  const [noServiceLocation, setNoServiceLocation] = useState({ city: "", state: "" });
   const dispatch = useDispatch();
 
   useEffect(() => {
     const storedCityState = JSON.parse(
       localStorage.getItem("cityState") || "{}"
     );
-    setCurrentCity(storedCityState.city || "Patna");
-    setSelectedState(storedCityState.state || "");
-    setSelectedCity(storedCityState.city || "");
+    const defaultState = storedCityState.state || "Bihar";
+    const defaultCity = storedCityState.city || "Patna";
+    
+    setCurrentCity(defaultCity);
+    setSelectedState(defaultState);
+    setSelectedCity(defaultCity);
+    setPreviousLocation({ state: defaultState, city: defaultCity });
   }, []);
 
   useEffect(() => {
@@ -73,36 +84,41 @@ const ChangeCity = ({ handleLocationDialog }) => {
       const state = cityState.state || selectedState;
       const city = cityState.city || selectedCity;
       if (state && city) {
+        setPreviousLocation({ state: selectedState, city: selectedCity });
+        
         const cityState = { state, city };
-        dispatch(setCityState(cityState));
-        localStorage.setItem("cityState", JSON.stringify(cityState));
         try {
           dispatch(setTopBookedServicesLoading(true));
           const response = await fetchServices(cityState);
-          if (response.success) {
-            const allServices = response.data.data;
-            if (allServices.length === 0) {
-              toast.warning(
-                "No services found for the selected location. Please select a different location."
-              );
+          
+          if (response?.data && Array.isArray(response.data)) {
+            if (response.data.length === 0) {
+              setNoServiceLocation({ city, state });
+              setShowNoServiceDialog(true);
+              // Revert to previous location
+              setSelectedState(previousLocation.state);
+              setSelectedCity(previousLocation.city);
               return;
             }
+            // Only update Redux and localStorage if services are found
+            dispatch(setCityState(cityState));
+            localStorage.setItem("cityState", JSON.stringify(cityState));
             toast.success(`City changed successfully to ${city}`);
             handleLocationDialog();
-            dispatch(setTopBookedServices(allServices));
+            dispatch(setTopBookedServices(response.data));
             dispatch(setGeolocationDenied(false));
           } else {
-            toast.error(response.message);
+            toast.error("Unable to fetch services for this location");
           }
         } catch (error) {
           console.error("Error fetching top services:", error);
-          toast.error(error.message || "Something went wrong");
+          toast.error(error?.response?.data?.message || "Failed to fetch services for this location");
         } finally {
           dispatch(setTopBookedServicesLoading(false));
         }
       }
     },
-    [selectedState, selectedCity, dispatch, handleLocationDialog]
+    [selectedState, selectedCity, previousLocation, dispatch, handleLocationDialog]
   );
 
   const containerVariants = {
@@ -118,91 +134,123 @@ const ChangeCity = ({ handleLocationDialog }) => {
   };
 
   return (
-    <motion.div
-      className="flex justify-center items-center w-full"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <Card className="w-full max-w-full p-4">
-        <CardHeader
-          color="purple"
-          className="relative h-28 flex items-center justify-center"
-        >
-          <Typography
-            variant="h3"
-            color="white"
-            className="font-cookie text-4xl"
+    <>
+      <motion.div
+        className="flex justify-center items-center w-full"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Card className="w-full max-w-full p-4">
+          <CardHeader
+            color="purple"
+            className="relative h-28 flex items-center justify-center"
           >
-            Select Your City
-          </Typography>
-        </CardHeader>
-        <CardBody className="flex flex-col gap-4">
-          <div className="flex items-center gap-2 text-red-500">
-            <MapPinIcon className="h-5 w-5" />
-            <Typography color="purple-gray">
-              Current City: {currentCity}
+            <Typography
+              variant="h3"
+              color="white"
+              className="font-cookie text-4xl"
+            >
+              Select Your City
             </Typography>
-          </div>
-          <div className="relative">
-            <select
-              value={selectedState}
-              onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            >
-              <option value="">Select State</option>
-              {Object.keys(locationData).map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 flex gap-1 items-center px-2 pointer-events-none">
-              <GlobeAsiaAustraliaIcon className="h-5 w-5 text-gray-400" />
-              State
+          </CardHeader>
+          <CardBody className="flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-red-500">
+              <MapPinIcon className="h-5 w-5" />
+              <Typography color="purple-gray">
+                Current City: {currentCity}
+              </Typography>
             </div>
-          </div>
-          <div className="relative">
-            <select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              disabled={!selectedState}
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500"
-            >
-              <option value="">Select City</option>
-              {cities.map((city) => (
-                <option key={city} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 flex gap-1 items-center px-2 pointer-events-none">
-              <BuildingOffice2Icon className="h-5 w-5 text-gray-400" />
-              City
+            <div className="relative">
+              <select
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+                className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="">Select State</option>
+                {Object.keys(locationData).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 flex gap-1 items-center px-2 pointer-events-none">
+                <GlobeAsiaAustraliaIcon className="h-5 w-5 text-gray-400" />
+                State
+              </div>
             </div>
-          </div>
-          <CurrentLocationButton onLocationSet={handleLocationChange} />
-          <PopularCities
-            onCitySelect={(city, state) => {
-              setSelectedState(state);
-              setSelectedCity(city);
-            }}
-          />
-        </CardBody>
-        <CardFooter className="pt-0">
+            <div className="relative">
+              <select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                disabled={!selectedState}
+                className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500"
+              >
+                <option value="">Select City</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 flex gap-1 items-center px-2 pointer-events-none">
+                <BuildingOffice2Icon className="h-5 w-5 text-gray-400" />
+                City
+              </div>
+            </div>
+            <CurrentLocationButton onLocationSet={handleLocationChange} />
+            <PopularCities
+              onCitySelect={(city, state) => {
+                setSelectedState(state);
+                setSelectedCity(city);
+              }}
+            />
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button
+              variant="gradient"
+              fullWidth
+              onClick={() => handleLocationChange({ state: selectedState, city: selectedCity })}
+              disabled={!selectedState || !selectedCity}
+              className="flex items-center justify-center gap-2"
+            >
+              <MapPinIcon className="h-5 w-5" />
+              Confirm Location
+            </Button>
+          </CardFooter>
+        </Card>
+      </motion.div>
+
+      {/* No Service Dialog */}
+      <Dialog 
+        open={showNoServiceDialog} 
+        handler={() => setShowNoServiceDialog(false)}
+        size="sm"
+      >
+        <DialogHeader className="flex items-center gap-2">
+          <MapPinIcon className="h-6 w-6 text-red-500" />
+          <Typography variant="h5">Service Not Available</Typography>
+        </DialogHeader>
+        <DialogBody divider className="grid place-items-center gap-4">
+          <Typography className="text-center text-gray-700">
+            We're sorry, but our services are not yet available in{" "}
+            <span className="font-bold">{noServiceLocation.city}</span>, {noServiceLocation.state}.
+          </Typography>
+          <Typography className="text-center text-gray-600">
+            We are working on expanding our services to more locations. Meanwhile, please select a different city.
+          </Typography>
+        </DialogBody>
+        <DialogFooter className="space-x-2">
           <Button
             variant="gradient"
-            fullWidth
-            onClick={handleLocationChange}
-            disabled={!selectedState || !selectedCity}
-            className="flex items-center justify-center gap-2"
+            color="purple"
+            onClick={() => setShowNoServiceDialog(false)}
           >
-            <MapPinIcon className="h-5 w-5" />
-            Confirm Location
+            OK, I'll select another city
           </Button>
-        </CardFooter>
-      </Card>
-    </motion.div>
+        </DialogFooter>
+      </Dialog>
+    </>
   );
 };
 

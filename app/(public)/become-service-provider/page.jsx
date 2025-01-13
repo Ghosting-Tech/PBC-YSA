@@ -498,6 +498,7 @@ const CreateServiceProvider = () => {
                 <Input
                   label="Phone Number"
                   color="indigo"
+                  required
                   value={inputData.phoneNumber}
                   minLength={10}
                   maxLength={10}
@@ -511,6 +512,7 @@ const CreateServiceProvider = () => {
                 <Input
                   label="Email"
                   color="indigo"
+                  required
                   type="email"
                   value={inputData.email}
                   onChange={(e) =>
@@ -601,6 +603,7 @@ const CreateServiceProvider = () => {
                     className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded  bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden  file:border-solid file:border-inherit file:bg-neutral-100 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-[var(--color)] hover:file:bg-purple-100 "
                     type="file"
                     id="icon"
+                    required
                     accept=".jpeg, .jpg, .png, .pdf,"
                     onChange={(e) =>
                       setInputData({

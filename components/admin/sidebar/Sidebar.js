@@ -34,6 +34,7 @@ import { toast } from "sonner";
 import { setUser } from "@/redux/slice/userSlice";
 import { setNotifications } from "@/redux/slice/notificationSlice";
 import axios from "axios";
+import Image from "next/image";
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -158,7 +159,7 @@ export default function Sidebar() {
       <div className=" flex items-center justify-between px-4 pt-3 w-full relative">
         <Collapse open={!isCollapsed} className="overflow-hidden">
           <Link href="/admin" className="flex items-center">
-            <div className="text-2xl font-racing">TTC</div>
+            <Image src={"/trustotry-fav.svg"} width={1000} height={1000} className=" h-10 w-10"/>
           </Link>
         </Collapse>
         <IconButton variant="text" color="purple-gray" onClick={toggleCollapse}>

@@ -18,6 +18,7 @@ import { toast } from "sonner";
 const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
   const [completeOtp, setCompleteOtp] = useState(["", "", "", ""]);
   const [isOtpButtonDisabled, setIsOtpButtonDisabled] = useState(false);
+  const [isOtpSent, setIsOtpSent] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -85,6 +86,7 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
         updatedBooking
       );
       toast.success("OTP sent successfully!");
+      setIsOtpSent(true);
       // Disable the OTP button and start the timer
       setIsOtpButtonDisabled(true);
       setTimer(30);
@@ -104,6 +106,16 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
   }, [timer]);
 
   const handleUpdateServiceStatusByServiceProvider = async () => {
+    if (!isOtpSent) {
+      toast.error("OTP is not sent!");
+      return;
+    }
+    if(selectedNewBooking.invoices){
+      if( !selectedNewBooking.invoices.transactionId){
+        toast.error("Invoice is not paid!");
+        return;
+      }
+    }
     try {
       if (completeOtp.join("") !== selectedNewBooking.serviceCompletedOtp) {
         toast.error("Invalid OTP!");
@@ -231,9 +243,11 @@ const UpdateServiceStatus = ({ selectedNewBooking, setSelectedNewBooking }) => {
             </Button>
           </div>
 
+         
           <Button
             color="purple"
             variant="gradient"
+            disabled={!isOtpSent}
             onClick={handleUpdateServiceStatusByServiceProvider}
           >
             Service Completed

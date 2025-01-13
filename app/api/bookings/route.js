@@ -108,9 +108,18 @@ export async function POST(request) {
     serviceProviders.forEach((sp) => {
       sp.locations.forEach((s) => {
         const distance = getDistance(lat, lng, s.lat, s.lng);
-        if (distance <= 25 && !uniqueServiceProviders.has(sp._id.toString())) {
-          uniqueServiceProviders.add(sp._id.toString());
+        if(sp.profession === "ambulance-driver")
+        {
+          if (distance <= 10 && !uniqueServiceProviders.has(sp._id.toString())) {
+            uniqueServiceProviders.add(sp._id.toString());
+          }
         }
+        else{
+          if (distance <= 25 && !uniqueServiceProviders.has(sp._id.toString())) {
+            uniqueServiceProviders.add(sp._id.toString());
+          }
+        }
+       
       });
     });
 

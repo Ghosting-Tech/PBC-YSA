@@ -61,11 +61,16 @@ export default function Checkout() {
 
     setRedirectingLoading(true);
     setRedirectingButtonClicked((prev) => prev + 1);
-
-    const prescription = await uploadImage(
+    
+    let prescription
+    if(formData.prescription){
+     prescription = await uploadImage(
       formData.prescription,
       "prescription"
     );
+  }else{
+     prescription = null
+  }
 
     try {
       const postData = {

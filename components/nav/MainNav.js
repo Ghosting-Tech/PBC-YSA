@@ -50,12 +50,12 @@ export default function MainNav() {
   const handleOpenLoginDialog = () => setOpenLoginDialog(!openLoginDialog);
 
   // Redux selectors
-  const topBookedServices = useSelector((state) => state.topServices);
   const user = useSelector((state) => state.user.user);
   const userLoading = useSelector((state) => state.user.userLoading);
+  const topBookedServices = useSelector((state) => state.topServices);
   const city =
-    useSelector((state) => state.location.cityState.city) ||
-    cityState?.city ||
+  useSelector((state) => state.location.cityState.city) ||
+  cityState?.city ||
     "Select Location";
 
   useEffect(() => {
@@ -112,7 +112,6 @@ export default function MainNav() {
           "Content-Type": "application/json",
         },
       });
-      console.log({ fetchedData });
       const response = await fetchedData.json();
       console.log({ response });
       if (response.success) {
@@ -142,7 +141,6 @@ export default function MainNav() {
     includeScore: true,
     threshold: 0.3,
   };
-  console.log({ allServices });
   const flattenedData = allServices.flatMap((service) => [
     service,
     ...service.subServices.map((subService) => ({
@@ -160,10 +158,8 @@ export default function MainNav() {
       setSearchedData([]);
       return;
     }
-    console.log({ query });
 
     const result = fuse.search(query);
-    console.log({ result });
 
     if (result.length === 0) {
       setSearchError("No matching service found");
